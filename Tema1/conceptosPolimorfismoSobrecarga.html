@@ -1,0 +1,424 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Conceptos de polimorfismo y sobrecarga</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+    <slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Polimorfismo y sobrecarga</h2>
+      <h2 data-config-subtitle>Conceptos de polimorfismo y sobrecarga</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+        <!-- Introducción -->
+                <slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+		<article>
+            <p>Los términos <i>polimorfismo</i> y <i>sobrecarga</i> 
+                se pueden ver como complementarios.</p>
+            <p>El <i>polimorfismo</i> es un concepto unificador mientras 
+                que la <i>sobrecarga</i> es un concepto seleccionador.</p>
+            <p>Ambos son extensamente utilizados en POO, pero mientras que 
+                el <i>polimorfismo</i> puede ayudar enormemente al construir 
+                software, la <i>sobrecarga</i> puede ser un elemento 
+                de distorsión. Veamos por qué.</p>
+                </article>
+        </slide>
+
+        
+        <!-- Contenidos -->
+                <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li>Sobrecarga.</li>
+                <li>Polimorfismo.</li>
+                <li>Cuando utilizarlos.</li>
+                <li>Resumen.</li>
+            </ol>
+                </article>
+        </slide>
+
+
+        <!-- Sobrecarga -->
+                <slide>
+        <hgroup>
+			<h2>Sobrecarga</h2>
+        </hgroup>
+		<article>
+            <p>Como ya sabemos, los métodos se distinguen por su <i>signatura</i> 
+                y la signatura está formada tanto por el nombre como por el número 
+                y tipo de los argumentos que recibe el método.</p>
+            <p>Supongamos que estamos definiendo un punto en tres dimensiones 
+                y escribimos la siguiente implementación.</p>
+                </article>
+        </slide>
+
+        
+        <!-- Sobrecarga -->
+                <slide>
+        <hgroup>
+			<h2>Sobrecarga</h2>
+        </hgroup>
+		<article>
+<pre class="prettyprint" data-lang="Java">
+public class Punto3D {
+    private int x;
+    private int y;
+    private int z;
+    public Punto3D() {
+        x = y = z = 0;
+    }
+    public Punto3D(int x) {
+        this.x = x;
+    }
+    public Punto3D(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public Punto3D(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}</pre>
+                </article>
+        </slide>
+
+
+        <!-- Sobrecarga -->
+                <slide>
+        <hgroup>
+			<h2>Sobrecarga</h2>
+        </hgroup>
+		<article>
+            <p>Tenemos el constructor sobrecargado cuatro veces,
+                es demasiado. Los constructores con uno y dos 
+                parámetros son ambiguos:</p>
+<pre class="prettyprint" data-lang="Java">
+new Punto3D(1); //¿Qué atributo estamos iniciando, x, y o z?
+new Punto3D(1, 1); //¿Qué atributo NO estamos iniciando?</pre>
+            <p>Demasiadas ambigüedades.</p>
+                </article>
+        </slide>
+
+        
+        <!-- Sobrecarga -->
+                <slide>
+        <hgroup>
+			<h2>Sobrecarga</h2>
+        </hgroup>
+		<article>
+            <p>Utilicemos la <i>sobrecarga</i> en su justa medida:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Punto3D {
+    private int x;
+    private int y;
+    private int z;
+    public Punto3D() {
+        x = y = z = 0;
+    }
+    public Punto3D(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}</pre>
+            <p>O pasamos todos los atributos a iniciar o ninguno.</p>
+                </article>
+        </slide>
+
+
+        <!-- Sobrecarga -->
+                <slide>
+        <hgroup>
+			<h2>Sobrecarga</h2>
+        </hgroup>
+		<article>
+            <p>Fíjate que Java <i>selecciona</i> el método al que se 
+                invoca según su signatura. La sobrecarga nos permite 
+                seleccionar el método adecuado.</p>
+            <p>No confundas la <i>sobrecarga</i> con la <i>sobrescritura</i>.</p>
+            <p><i>Sobrecargar</i> significa definir nuevos métodos.</p>
+            <p><i>Sobrescribir</i> significa <i>ocultar</i> un método 
+                con una nueva definición de ese mismo método.</p>
+            <p>La <i>sobrecarga</i> no implica herencia, la <i>sobrescritura</i> si.</p>
+                </article>
+        </slide>
+
+
+        <!-- Polimorfismo -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo</h2>
+        </hgroup>
+		<article>
+            <p>El <i>polimorfismo</i> está directamente relacionado con 
+                la herencia.</p>
+            <p>El <i>polimorfismo</i> nos permite que allá donde utilicemos un objeto de 
+                tipo padre también podremos utilizar cualquier instancia de 
+                sus hijos.</p>
+                </article>
+        </slide>
+
+
+        <!-- Polimorfismo -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo</h2>
+        </hgroup>
+		<article>
+            <p>¿Recuerdas este ejemplo del capítulo de Herencia?</p>
+            <p class="centrado"><img src='imagenes/extensionPunto2D.png' 
+                style='height: 200px'> </p>
+            <p>Si tenemos un método como:</p>
+<pre class="prettyprint" data-lang="Java">
+public void reciboUnPunto(Punto2D punto) {
+    ...
+}</pre>
+            <p>Lo podemos utilizar tanto con referencias de tipo <b>Punto2D</b>
+                como con referencias de tipo <b>Punto3D</b>.</p>
+                </article>
+        </slide>
+
+
+        <!-- Polimorfismo -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo</h2>
+        </hgroup>
+		<article>
+            <p>Ahora podemos hacer:</p>
+<pre class="prettyprint" data-lang="Java">
+reciboPunto(new Punto2D());
+reciboPunto(new Punto3D());</pre>
+            <p>Por otra parte recuerda el <i>Principio de sustitución de Liskov</i> 
+                que era la <i>L</i> de los principios <i>SOLID</i>. Este 
+                principio nos dice que nuestras aplicaciones se deben 
+                comportar igual si a un método le pasamos un objeto de clase 
+                padre como un objeto de cualquiera de sus hijos.</p>
+                </article>
+        </slide>
+
+        
+        <!-- Polimorfismo -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo</h2>
+        </hgroup>
+		<article>
+            <p>El <i>polimorfismo</i> también funciona con 
+                <b>interface</b>. ¿Te acuerdas del ejemplo de las recetas?:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Receta {
+    void preparaReceta();
+}
+...
+public class Paella implements Receta {
+...
+public class LubinaAlHorno implements Receta {
+...</pre>
+            <p>Dos clases que implementan el mismo <b>interface</b>.</p>
+            <p>Recuerda, los <b>interface</b> definen tipos de datos abstractos.</p>       
+                </article>
+        </slide>
+
+
+        <!-- Polimorfismo -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo</h2>
+        </hgroup>
+		<article>
+            <p>Si el tipo del objeto es correcto, podremos utilizar 
+                este método:</p> 
+<pre class="prettyprint" data-lang="Java">
+private void preparaReceta(Receta receta) {
+    receta.preparaReceta();
+}</pre>
+            <p>La <b>Paella</b> y la <b>LubinaAlHorno</b> son recetas:</p>
+<pre class="prettyprint" data-lang="Java">
+private void aCocinar() {
+    Receta receta = new Paella();
+    preparaReceta(receta);
+    receta = new LubinaAlHorno();
+    preparaReceta(receta);
+}</pre>
+                </article>
+        </slide>
+
+
+        <!-- Cuando utilizarlos -->
+                <slide>
+        <hgroup>
+			<h2>Cuando utilizarlos</h2>
+        </hgroup>
+		<article>
+            <p>Utiliza la <i>sobrecarga</i> con cuidado. Un método con 
+                múltiples signaturas puede despistar, ¿cuál debo 
+                utilizar?</p>
+            <p>Utiliza el <i>polimorfismo</i> a discreción, cuanto 
+                más, mejor.</p>
+            <p>Por otro lado, un concepto fuertemente relacionado con 
+                el polimorfismo es la <i>Vinculación dinámica</i>, la 
+                máquina virtual de Java encuentra el método a invocar 
+                basándose en el tipo del objeto que hay por debajo 
+                de una referencia.</p>
+                </article>
+        </slide>
+
+
+        <!-- Cuando utilizarlos -->
+                <slide>
+        <hgroup>
+			<h2>Cuando utilizarlos</h2>
+        </hgroup>
+		<article>
+            <p>Un ejemplo de mal uso de la <i>sobrecarga</i>:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Persona {
+    private String nombre;
+    private String apellidos;
+    private String direccion;
+    public void cambia(String nombre) {
+        this.nombre = nombre;
+    }
+    public void cambia(String nombre, String apellidos) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
+    public void cambia(String nombre, String apellidos, 
+                        String direccion) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+    }
+}</pre>
+                </article>
+        </slide>
+
+
+        <!-- Cuando utilizarlos -->
+                <slide>
+        <hgroup>
+			<h2>Cuando utilizarlos</h2>
+        </hgroup>
+		<article>
+            <p>¿Qué hacer?:</p>
+<pre class="prettyprint" data-lang="Java">public void cambia(Persona datos) {
+    nombre = datos.nombre;
+    apellidos = datos.apellidos;
+    direccion = datos.direccion;
+}</pre>
+            <p>Un único método.</p>
+            <p>La idea que hay detrás es: si un método recibe un gran número 
+                de parámetros, igual te está indicando que debes crear una 
+                nueva clase para representarlos.</p>
+                </article>
+        </slide>
+
+
+        <!-- Resumen -->
+        <slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+		<article>
+            <p>Los conceptos de <i>sobrecarga</i> y <i>polimorfismo</i> son 
+                fundamentales de POO.</p>
+            <p>La <i>sobrecarga</i> permite seleccionar la llamada a un 
+                método a partir del número y tipo de sus parámetros.</p>
+            <p>Úsala con cuidado, hacer un uso intensivo de la <i>sobrecarga</i>
+                puede dar lugar a confusión desde el punto de vista del 
+                programador.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Resumen -->
+                <slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+		<article>
+            <p>El <i>polimorfismo</i> nos permite utilizar clases con tipos 
+                compatibles en cualquier punto de nuestro código.</p>
+            <p>En Java tipos compatible significa que una clase extiende a 
+                otra o que una clase implementa un <b>interface</b>.</p>
+            <p>Coloquialmente: a una referencia de tipo padre podemos 
+                <i>enganchar</i> referencias de sus hijas. A una referencia 
+                de tipo <b>interface</b> le podemos <i>enganchar</i> cualquier 
+                instancia de una clase que implemente el <b>interface</b>.</p>
+            <p>La <i>Vinculación dinámica</i> es el mecanismo que utiliza la 
+                máquina virtual de Java para averiguar, en tiempo de ejecución, 
+                a qué método debe llamar, a partir del tipo del objeto asignado 
+                a una referencia.</p>
+                </article>
+        </slide>
+        
+		<slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

@@ -1,0 +1,962 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Swing: Contenedores y componentes</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Interfaces gráficas de usuario</h2>
+      <h2 data-config-subtitle>Swing: Contenedores y componentes</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+        
+        <!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+             <p>Java proporciona dos bibliotecas de clases 
+                para crear interfaces gráficas de usuario:
+                AWT y Swing.</p>
+            <p>En esta presentación veremos cuales son las 
+                características de cada una de ellas, y el
+                modelo de contenedores y componentes que 
+                ponen a nuestra disposición para crear
+                interfaces gráficas de usuario.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+             <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=DZ/Xbig+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=big%20java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Big Java</a>. Capítulo 17.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a>. Capítulo 12.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&2%2C2%2C">
+                    Head first design patterns.</a> Capítulo 12.</li>
+                <li><a href="http://www3.uji.es/~belfern/pdf/libroJavaConTapa.pdf">Desarrollo de proyectos informáticos con tecnología Java.</a> Capítulo 11.</li>
+             </ol>
+        </article>
+        </slide>
+                
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Interfaces gráficas de usuario en el paquete estándar de Java:
+                    AWT y Swing.</li>
+                <li>¿Qué es Swing y qué me proporciona?</li>
+                <li>Contenedores y componentes.</li>
+                <li>Contenedores disponibles.</li>
+                <li>No bloquees el hilo de ejecución principal.</li>
+                <li>Organización de componentes en contenedores.</li>
+                <!-- <li>Algunos componentes.</li>
+                <li>Cómo responder frente a los eventos.</li>-->
+            </ol>
+        </article>
+        </slide>
+
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el paquete estándar de Java, contamos con 
+                dos opciones para crear interfaces gráficas de usuario:</p>
+            <ol>
+                <li>AWT -Abstract Window Toolkit.</li>
+                <li>Swing.</li>
+            </ol>
+            <p>AWT es una biblioteca <i>pesada -heavy weight-</i>, mientras 
+                que Swing es una biblioteca <i>ligera -light weight-</i> 
+                de componentes.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>La idea de <i>pesada</i> o <i>ligera</i>, en este caso,
+                está relacionada con la dependencia de Java con 
+                el sistema operativo, para visualizar y gestionar los 
+                elementos de la interface gráfica de usuario.</p>
+            <p>En el caso de AWT, la creación, visualización y 
+                gestión de los elementos gráficos depende del SO. 
+                Es el propio SO quien <i>dibuja</i> 
+                y gestiona la interacción sobre los elementos.</p>
+            <p>En el caso de Swing, es Java quien visualiza y gestiona 
+                la interacción del usuario sobre los elementos de 
+                la interface gráfica.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>Aquí tienes la aplicación de ejemplo MVC en Mac OSX
+                programada con AWT:</p>
+            <p class="centrado"><img src="imagenes/mvcAWT.png"></p>
+            <p>Y programada con Swing:</p>
+            <p class="centrado"><img src="imagenes/ejemploMVC.png"></p>
+            <p>Aparentemente la única diferencia está en el tamaño 
+                de la caja de texto.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el caso de Windows, esta es la versión programada 
+                con AWT:</p>
+            <p class="centrado"><img src="imagenes/mvcAWTWindows.png"></p>
+            <p>Y programada con Swing:</p>
+            <p class="centrado"><img src="imagenes/mvcWindows.png"></p>
+            <p>Ahora las diferencias son evidentes.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el caso de Linux, esta es la versión programada 
+                con AWT:</p>
+            <p class="centrado"><img src="imagenes/mvcAWTLinux.png"></p>
+            <p>Y programada con Swing:</p>
+            <p class="centrado"><img class="centered" src="imagenes/mvcLinux.png"></p>
+            <p>Las diferencias también son evidentes.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>Como has podido observar en los ejemplos, 
+                al utilizar AWT el aspecto de los componentes depende 
+                del SO sobre el que se ejecute la aplicación.</p>
+            <p class="centrado"><img src="imagenes/mvcAWT.png"></p>
+            <p class="centrado"><img src="imagenes/mvcAWTWindows.png"></p>
+            <p class="centrado"><img src="imagenes/mvcAWTLinux.png"></p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el caso de Swing, el aspecto es más parecido independientemente 
+                del SO sobre el que se ejecute la aplicación:</p>
+            <p class="centrado"><img src="imagenes/ejemploMVC.png"></p>
+            <p class="centrado"><img src="imagenes/mvcWindows.png"></p>
+            <p class="centrado"><img src="imagenes/mvcLinux.png"></p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el caso de Swing, podemos elegir incluso entre 
+                varios temas -Look And Feel en la jerga Swing.</p>
+            <p class="centrado"><img src="imagenes/aquaLookAndFeel.png"></p>
+            <p class="centrado"><img src="imagenes/metalLookAndFeel.png"></p>
+            <p class="centrado"><img src="imagenes/motifLookAndFeel.png"></p>
+            <p class="centrado"><img src="imagenes/nimbusLookAndFeel.png"></p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>Esta posibilidad nos permite que, con bastante aproximación 
+                el aspecto de la aplicación sea independiente de SO:</p>
+            <p class="centrado"><img src="imagenes/metalLookAndFeel.png"></p>
+            <p class="centrado"><img src="imagenes/mvcWindows.png"></p>
+            <p class="centrado"><img src="imagenes/mvcLinux.png"></p>
+        </article>
+        </slide>
+                
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p>Para conocer los <i>Look and Feel</i> disponibles:</p>
+<pre class="prettyprint" data-lang="Java">
+LookAndFeelInfo info[] = UIManager.getInstalledLookAndFeels();
+for(LookAndFeelInfo look: info)
+    System.out.println(look.getClassName());</pre>
+            <p>Para seleccionar un <i>Look and Feel</i> en particular:</p>
+<pre class="prettyprint" data-lang="Java">
+UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");</pre>
+            <p>La última línea de código lanza varias excepciones.</p>
+        </article>
+        </slide>
+        
+        <!-- Qué es Swing -->
+		<slide>
+        <hgroup>
+			<h2>Qué es Swing</h2>
+        </hgroup>
+        <article>
+            <p>Swing es una biblioteca de clases que permite crear interfaces 
+                gráficas de usuario en Java.</p>
+            <p>Swing forma parte del paquete estándar, no hace falta importar 
+                ningún fichero adicional en nuestros proyectos.</p>
+            <p class="centrado"><img style="width: 300px" 
+                    src="http://docs.oracle.com/javase/tutorial/figures/ui/ui-JavaPasswordStore.png"/></p>
+        </article>
+        </slide>
+
+        <!-- Qué es Swing -->
+		<slide>
+        <hgroup>
+			<h2>Qué es Swing</h2>
+        </hgroup>
+        <article>
+            <p>Swing no es la única alternativa para crear interfaces gráficas de 
+                usuario en Java, <a href="http://www.eclipse.org/swt/">
+                SWT -Standard Widget Toolkit-</a> es una biblioteca, desarrollada por IBM, con 
+                la que también podemos crear interfaces gráficas de usuario.</p>
+            <p>Eclipse utiliza SWT para construir su interfaz gráfica.</p>
+            <p class="centrado"><img src="http://www.eclipse.org/swt/images/mac-example.png"/></p>
+        </article>
+        </slide>
+        
+        <!-- Qué es Swing -->
+		<slide>
+        <hgroup>
+			<h2>Qué es Swing</h2>
+        </hgroup>
+        <article>
+            <p><a href="">JavaFX</a> es la apuesta actual de Oracle para construir 
+                interfaces gráficas de usuario multi-dispositivo.</p>
+            <p>La tendencia actual en la construcción de interfaces gráficas de 
+                usuario es mantener la misma calidad, y riqueza de componentes, 
+                tanto si el cliente es de escritorio, como un navegador, un 
+                dispositivo móvil, la televisión, etcétera.</p>
+            <p class="centrado"><img src="http://docs.oracle.com/javafx/2/layout/img/anchor_in_border_small.png" width="450px"/></p>
+            <div class="source">Imagen: http://docs.oracle.com/javafx/2/layout/img/anchor_in_border_small.png</div>
+        </article>
+        </slide>
+        
+        <!-- Qué es Swing -->
+		<slide>
+        <hgroup>
+			<h2>Qué es Swing</h2>
+        </hgroup>
+        <article>
+            <p>El número de clases dentro de la biblioteca Swing es 
+                <del>muy grande</del> enorme.</p>
+            <p>Nosotros vamos a estudiar una parte pequeña de ella, pero que 
+                nos permitirá construir interfaces gráficas de usuario muy 
+                completas.</p>
+            <p>Swing está orientado a objetos, y usa el patrón de diseño 
+                Observador/Observable para informar de las interacciones 
+                del usuario sobre la interface gráfica de usuario.</p>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Existen dos elementos básicos en la creación de una 
+                interface gráfica de usuario usando Swing:</p>
+            <ul>
+                <li><b>Contenedores</b>: Elementos capaces de albergar otros elementos.</li>
+                <li><b>Componentes</b>: Elementos que se añaden a contenedores.
+                    Usualmente los componentes tienen aspecto gráfico, 
+                    como un botón.</li> 
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Swing proporciona tres tipos de contenedores de alto nivel. 
+                Esto significa que, cualquier otro contenedor que no sea 
+                de alto nivel, o componente, debe ir en su interior.</p>
+            <p>Estos tres contenedores de alto nivel son:</p>
+            <ul>
+                <li><b>JFrame</b>: Se visualiza como una ventana <i>principal</i> con marco y barra de título.</li>
+            </ul>
+            <p class="centrado"><img src="imagenes/ejemploMVC.png"></p>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <ul>
+                <li><b>JDialog</b>: Se visualiza como una ventana independiente de la 
+                    ventana <i>principal</i> para mostrar información como por ejemplo 
+                    el contenido de un directorio.</li>
+            </ul>
+            <p class="centrado"><img src="imagenes/saveDialog.png"></p>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <ul>
+                <li><b>JApplet</b>: Permite crear aplicaciones con interface gráfica que 
+                    se ejecutan en el contexto de un navegador web.</li>
+            </ul>
+            <p class="centrado"><img src="imagenes/applet.png" style="height: 400px"></p>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Una vez que hemos creado un contenedor, los componentes 
+                los añadiremos siguiendo las siguiente reglas:</p>
+            <ul>
+                <li>Un componente se visualizará si lo hemos añadido a un contenedor.</li>
+                <li>Un componente sólo se puede añadir una vez a un contenedor.</li>
+                <li>Los componentes los debemos añadir al <i>panel</i> del 
+                    contenedor.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>El primer ejemplo de contenedor: un <b>JFrame</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Primera Ventana");
+ventana.setSize(400, 400);
+ventana.setVisible(true);</pre>
+            <p class="centrado"><img src="imagenes/primeraVentana.png" style="width: 300px"></p>
+        </article>
+        </slide>
+
+        <!-- Contenedores y componentes --> 
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Detalles a tener en cuenta:</p>
+            <ul>
+                <li>La ventana tiene barra de título y botones.</li>
+                <li>Le hemos dado unas dimensiones iniciales.</li>
+                <li>La hemos hecho visible.</li>
+            </ul>
+            <p>Si pruebas a cerrar la ventana pulsando en el botón del marco 
+                comprobarás que esta no se cierra. Ya veremos cómo hacerlo.</p>
+        </article>
+        </slide>
+
+        <!-- Contenedores y componentes --> 
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Quizás, veas ejemplos donde se extiende a la clase 
+                <b>JFrame</b> para crear la ventana:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Ventana extends JFrame {
+    private Ventana() {
+        super("Primera Ventana");
+    }
+    private void ejecuta() {
+        setSize(400, 400);
+        setVisible(true);
+    }
+    public static void main(String[] args) {
+        new Ventana().ejecuta();
+    }
+}</pre>
+        <p>La desventaja de esta opción es que esta clase 
+            no puede extender a ninguna otra.</p>
+        </article>
+        </slide>
+        
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Añadamos un primer componente, un botón.</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Primera Ventana");
+JButton boton = new JButton("Un botón");
+ventana.getContentPane().add(boton);//Añadimos al panel de la ventana.
+ventana.setSize(400, 400);
+ventana.setVisible(true);
+</pre>
+            <p class="centrado"><img src="imagenes/ventanaConBoton.png" style="height: 270px"></p>
+        </article>
+        </slide>
+
+        <!-- Contenedores y componentes -->
+		<slide>
+        <hgroup>
+			<h2>Contenedores y componentes</h2>
+        </hgroup>
+        <article>
+            <p>Detalles a tener en cuenta:</p>
+            <ul>
+                <li>El botón lo añadimos al panel de la ventana principal.</li>
+                <li>El botón ocupa todo el tamaño de la ventana.</li>
+                <li>El botón se comporta como tal, pero <i>no hace nada</i>.</li>
+            </ul>
+            <p>Recuerda: para añadir componentes, u otros contenedores, a la 
+                ventana principal, hay que hacerlo sobre su panel, y no 
+                directamente sobre ella.</p>
+        </article>
+        </slide>
+
+        <!-- No bloquees el hilo de ejecución principal -->
+		<slide>
+        <hgroup>
+			<h2>No bloquees el hilo principal</h2>
+        </hgroup>
+        <article>
+            <p>Swing utiliza su propio hilo de atención a los eventos 
+                que se puedan producir en la interface gráfica de usuario. 
+                Es importante que no <i>bloquees</i> ese hilo. Para ello 
+                utiliza la siguiente técnica.</p>
+<pre class="prettyprint" data-lang="Java">
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+            new Ventana().ejecuta();
+        }
+    });
+}</pre>
+            <p>Iremos aclarando el código anterior a medida que 
+                avancemos.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Como programadores, no hace falta que nos ocupemos de la 
+                organización de los componentes dentro de los contenedores.</p>
+            <p>Swing nos ofrece <i>gestores de aspecto</i> capaces de organizar, 
+                de manera automática, la posición y tamaño de los componentes 
+                dentro de los contenedores.</p>
+            <p>Los contenedores tienen asignado, por defecto, alguno de estos 
+                <i>gestores de aspecto</i>. En el caso de <b>JFrame</b> este 
+                gestor es <b>BorderLayout</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/borderLayout.png" style="height: 400px"></p>
+            <p>Este es el comportamiento de este <i>gestor de aspecto</i>. 
+                Define 5 zonas, en cada una de las cuales sólo podemos 
+                añadir un componente.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Si no existe alguna de las zonas, la central 
+                se extiende hasta ocupar toda la ventana.</p>
+            <p class="centrado"><img src="imagenes/borderLayout2.png" style="height: 400px"></p>
+        </article>
+        </slide>
+
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El código para generar las imágenes anteriores:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("BorderLayout Manager");
+Container contenedor = ventana.getContentPane();
+contenedor.add(new JButton("BorderLayout.CENTER"), 
+                            BorderLayout.CENTER);
+contenedor.add(new JButton("BorderLayout.NORTH"), BorderLayout.NORTH);
+contenedor.add(new JButton("BorderLayout.SOUTH"), BorderLayout.SOUTH);
+contenedor.add(new JButton("BorderLayout.EAST"), BorderLayout.EAST);
+contenedor.add(new JButton("BorderLayout.WEST"), BorderLayout.WEST);
+ventana.setSize(500, 500);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Otro contenedor muy utilizado es <b>JPanel</b>.</p>
+            <p>Este contenedor no tiene ningún aspecto visual, 
+                sirve como contenedor de otros componenetes y 
+                contenedores.</p>
+            <p>Por defecto, <b>JPanel</b> tiene un <b>FlowLayout</b> 
+                como <i>gestor de aspecto</i>.</p>
+            <p class="centrado"><img src="imagenes/flowLayout.png"></p>
+            <p><b>FlowLayout</b> distribuye los componentes de izquierda a derecha 
+                y de arriba hacia abajo, a medida que los añadimos.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El código del ejemplo anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("FlowLayout Manager");
+Container contenedor = ventana.getContentPane();
+
+JPanel panel = new JPanel();//Este panel contiene los componentes.
+panel.add(new JButton("Uno"));
+panel.add(new JButton("Dos"));
+panel.add(new JButton("Tres"));
+panel.add(new JButton("Cuatro"));
+panel.add(new JButton("Cinco"));
+contenedor.add(panel);
+
+ventana.setSize(200, 200);
+ventana.setVisible(true);</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Como hemos comentado, cada contenedor tiene un 
+                <i>gestor de aspecto</i> por defecto. Pero lo 
+                podemos cambiar:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("FlowLayout Manager");
+Container contenedor = ventana.getContentPane();
+//Cambiamos el gestor de aspecto.
+contenedor.setLayout(new FlowLayout());
+contenedor.add(new JButton("Uno"));
+contenedor.add(new JButton("Dos"));
+contenedor.add(new JButton("Tres"));
+contenedor.add(new JButton("Cuatro"));
+contenedor.add(new JButton("Cinco"));
+
+ventana.setSize(200, 200);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El aspecto final de la interface gráfica es el mismo 
+                que usando un <b>JPanel</b>.</p>
+            <p class="centrado"><img src="imagenes/flowLayout.png"></p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Existen otros <i>gestores de aspecto</i>, por 
+                ejemplo <b>GridLayout</b> nos permite colocar 
+                los componentes en una rejilla:</p>
+            <p class="centrado"><img src="imagenes/gridLayout.png" style="width: 400px"></p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El código del ejemplo anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("GridLayout Manager");
+ventana.setLayout(new GridLayout(2, 3));
+Container contenedor = ventana.getContentPane();
+contenedor.add(new JButton("Uno"));
+contenedor.add(new JButton("Dos"));
+contenedor.add(new JButton("Tres"));
+contenedor.add(new JButton("Cuatro"));
+contenedor.add(new JButton("Cinco"));
+ventana.setSize(500, 500);
+ventana.setVisible(true);</pre>
+            <p>En este caso, la rejilla es 2 filas por 
+                3 columnas.</p>
+        </article>
+        </slide>
+
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p><b>BoxLayout</b> nos permite colocar los componentes 
+                vertical u horizontalmente:</p>
+            <p class="centrado"><img src="imagenes/boxLayout.png" style="width: 300px"></p>
+            <p>Como ves, por defecto, los componentes se alinean a la izquierda.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El código del ejemplo anterior;</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("BoxLayout Manager");
+Container contenedor = ventana.getContentPane();
+contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+contenedor.add(new JButton("Uno"));
+contenedor.add(new JButton("Dos"));
+contenedor.add(new JButton("Tres"));
+contenedor.add(new JButton("Cutro"));
+contenedor.add(new JButton("Cinco"));
+ventana.setSize(400, 400);
+ventana.setVisible(true);</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>La alineación es propia de cada componente. 
+                Si quieres que los componentes se alineen en 
+                el centro:</p>
+            <p class="centrado"><img src="imagenes/boxLayout2.png" style="width: 300px"></p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>El código del ejemplo anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+JButton boton = new JButton("Uno");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+contenedor.add(boton);
+boton = new JButton("Dos");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+contenedor.add(boton);
+boton = new JButton("Tres");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+contenedor.add(boton);
+boton = new JButton("Cuatro");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+contenedor.add(boton);
+boton = new JButton("Cinco");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+contenedor.add(boton);</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Y aún existen otros muchos <i>gestores de aspecto</i> que 
+                puedes encontrar en 
+                <a href="http://docs.oracle.com/javase/tutorial/uiswing/layout/index.html">
+                Gestores de aspecto</a>.</p>
+            <p>Otro detalle que quizás hayas notado, es que estamos dando 
+                unas dimensiones explícitas para el tamaño de la ventana.</p>
+            <p>Pero, Swing es lo suficientemente inteligente como para calcular
+                el tamaño óptimo de la ventana, a partir de los componentes 
+                que contiene.</p>
+            <p>Para ello, basta sustituir:</p>
+<pre class="prettyprint" data-lang="Java">
+ventana.setSize(400, 400);</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Por:</p>
+<pre class="prettyprint" data-lang="Java">ventana.pack();</pre>
+            <p class="centrado"><img src="imagenes/pack.png"></p>
+            <p>Swing calcula el tamaño óptimo para que se vean 
+                todos los componentes que hemos añadido.</p>
+            <p>La ventaja es que, si fijamos nosotros el tamaño, puede 
+                que al cambiar de SO el aspecto no sea el que nosotros 
+                queremos, ya que, por ejemplo, el ancho del tipo 
+                de letra no es el mismo en todos los SOs.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Fíjate como cambia el aspecto del ejemplo de 
+                <b>GridLayout</b> cuando le pedimos a Swing que 
+                <i>empaquete</i> el contenido de la ventana, en vez 
+                de dar nosotros unas dimensiones.</p>
+            <p class="centrado"><img src="imagenes/gridLayout2.png"></p>
+            <p>Basándose en el texto de cada uno de los botones, Swing 
+                calculo un tamaño óptimo para ellos. Y, a partir del 
+                tamaño de los botones, Swing calcula el tamañan óptimo 
+                para la ventana.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Este es el aspecto que tiene la misma aplicación 
+                en Windows:</p>
+            <p class="centrado"><img src="imagenes/gridLayout2Windows.png"></p>
+            <p>Fíjate, que en este caso, no existe espacio entre los botones. 
+                Compárala con la versión en Mac OSX:</p>
+            <p><div class="flexbox vcenter"><img src="imagenes/gridLayout2.png"></div></p> 
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>La idea básica en el uso de contenedores, para 
+                crear la interface gráfica de tu aplicación, 
+                es que los contenedores se pueden anidar dentro 
+                de otros contenedores.</p>
+            <p class="centrado"><img src="imagenes/contenedoresAnidados.png"></p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>En ejemplo anterior, los botones horizontales se han añadido 
+                a un panel -<b>JPanel</b> dispone de un <b>FlowLayout</b> como 
+                <i>gestor de aspecto por defecto</i>-, y el panel a la región 
+                norte de la ventana.</p>
+<pre class="prettyprint" data-lang="Java">
+JPanel panelNorte = new JPanel();
+panelNorte.add(new JButton("Norte 1"));
+panelNorte.add(new JButton("Norte 2"));
+panelNorte.add(new JButton("Norte 3"));
+contenedor.add(panelNorte, BorderLayout.NORTH);</pre>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+            <p>Los botones verticales se han añadido a un panel al que se 
+                le ha modificado su <i>gestor de aspecto</i>, para que sea 
+                <b>BoxLayout</b>. Además, la alineación de cada uno de los 
+                botones se ha fijado como centrada.</p>
+            <p>Finalmente, el panel se ha añadido a la región central 
+                de la ventana.</p>
+        </article>
+        </slide>
+        
+        <!-- Organización de componentes en contenedores -->
+		<slide>
+        <hgroup>
+			<h2>Organización de componentes</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+JPanel panelCentro = new JPanel();
+panelCentro.setLayout(new BoxLayout(panelCentro, BoxLayout.PAGE_AXIS));
+JButton boton = new JButton("Centro 1");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+panelCentro.add(boton);
+boton = new JButton("Centro 2");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+panelCentro.add(boton);
+boton = new JButton("Centro 3");
+boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+panelCentro.add(boton);
+contenedor.add(panelCentro);</pre>
+            <p>La idea básica es que puedes agrupar contenedores 
+                dentro de otros contenedores, de este modo, con 
+                un poco de experiencia, siempre conseguirás 
+                que el aspecto de tus aplicaciones sea el que 
+                tú deseas.</p>
+        </article>
+        </slide>
+        
+        <!-- Enlaces web -->
+		<slide>
+        <hgroup>
+			<h2>Enlaces web</h2>
+        </hgroup>
+        <article>
+            <p><a href="http://docs.oracle.com/javase/tutorial/uiswing/layout/index.html">Sobre contenedores.</a></p>
+            <p><a href="http://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html">Lista con componentes.</a>
+        </article>
+        </slide>
+
+        <slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

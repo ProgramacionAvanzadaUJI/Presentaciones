@@ -1,0 +1,1204 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Interfaces</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+    <slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
+      <h2 data-config-subtitle>Interfaces</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+		<!--  Introducción -->
+    <slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+		<article>
+            <p>Eres capaz definir clases, y sabes que estas clases definen nuevos
+				tipos de datos.</p>
+            <p>Eres capaz de crear nuevos objetos a partir de clases, y 
+                utilizar sus métodos para trabajar con ellos.</p>
+            <p>En este capítulo vamos a ver una nueva construcción del lenguaje 
+                de programación <i>Java</i>, los <b>interface</b>.</p>
+            <p>Con los <b>interface</b> creamos nuevos tipos de datos, pero 
+                esta vez los tipos son <i>abstractos</i>, no poseen ninguna 
+                implementación.</p>
+            <p>La potencia de este mecanismo es increíble, una referencia a
+                un objeto que implemente un <b>interface</b> lo podemos 
+                <i>ver</i> como de este tipo abstracto. Y podemos manejar 
+                clases que no están relacionadas entre sí a través de este 
+                tipo abstracto.</p> 
+		        </article>
+        </slide>
+
+
+        <!-- Bibliografía -->
+                <slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=D/Xbig+java&searchscope=1&SORT=D&SUBKEY=big+java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=D&1%2C1%2C">
+                    Big Java</a> Secciones 8.1 y 8.2.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head+first+java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a> Capítulo 8.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat/?searchtype=X&searcharg=el+lenguaje+de+programaci%C3%B3n+java&searchscope=1&sortdropdown=-&SORT=DZ&extended=0&SUBMIT=Cerca&searchlimits=&searchorigarg=Xhead+first+java%26SORT%3DDZ">
+                    El lenguaje de programación Java</a> Capítulo 4.</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 3.</li>
+            </ol>
+          <p><b>Recursos en la web</b></p>
+          <ol>
+                <li><a href="http://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">
+                    Página web de Oracle</a></li>
+           </ol> 
+                </article>
+        </slide>
+
+        
+		<!--  Contenidos -->
+		        <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+		<article>
+			<ol>
+				<li>Ejemplo introductorio.</li>
+				<li>La anotación <b>@Override</b>.</li>
+				<li>Principio DRY: Don't Repeat Yourself.</li>
+				<li>Los interfaces son tipos de datos.</li>
+				<li>Implementación de varios interfaces.</li>
+				<li>Polimorfismo utilizando <b>interface</b>.</li>
+				<li>Vinculación Dinámica.</li>
+				<li>Resumen.</li>
+			</ol>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+            <p>Me gusta cocinar.</p>
+            <div class="build">
+			<p>Preparemos una paella.</p>
+			<pre class="prettyprint" data-lang="Java">
+public class Paella {
+    public void preparaPaella() {
+        System.out.println("Lava y trocea la verdura.");
+        System.out.println("Corta el pollo.");
+        System.out.println("Fríe el pollo.");
+        System.out.println("Añade la verdura");
+        System.out.println("Añade agua.");
+        System.out.println("Deja hervir");
+        System.out.println("Añade el arroz.");
+        System.out.println("Espera 20 minutos.");
+        System.out.println("Sirve en un plato.");
+    }
+}</pre></div>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>Ahora vamos a cocinar la paella.</p>
+			<pre class="prettyprint" data-lang="Java">
+<b>private void preparaReceta(Paella paella)</b> {
+    paella.preparaPaella();
+}
+
+private void aCocinar() {
+   <b>Paella paella = new Paella();</b>
+   preparaReceta(paella);
+}
+</pre>
+			<p>
+				Fíjate que la referencia en el método <b>preparaReceta</b> es del
+				mismo tipo que el objeto que estamos creando.
+			</p>
+			<p>Fíjate, que la referencia del método 
+			 <b>preparaReceta(Paella paella)</b> también es de tipo
+			     <b>Paella</b>.</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>Me está entrando hambre. Cocinemos una lubina al horno.</p>
+			<pre class="prettyprint" data-lang="Java">
+public class LubinaAlHorno {
+    public void preparaLubina() {
+        System.out.println("Extrae las vísceras.");
+        System.out.println("Desescama.");
+        System.out.println("Lava y trocea en gajos un limón.");
+        System.out.println("Haz varios cortes en el lomo.");
+        System.out.println("Introduce en cada corte un gajo de limón.");
+        System.out.println("Mete la lubina en el horno.");
+        System.out.println("Espera 20 minutos.");
+        System.out.println("Sirve en un plato.");
+        System.out.println("Acompáñala con ensalada.");
+    }
+}</pre>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>Cocinemos ahora la lubina.</p>
+			<pre class="prettyprint" data-lang="Java">
+    <b>private void preparaReceta(Paella paella)</b> {
+        paella.preparaPaella();
+    }
+    <b>private void preparaReceta(LubinaAlHorno lubinaAlHorno)</b> {
+        lubinaAlHorno.preparaLubina();
+    }
+
+    private void aCocinar() {
+        <b>Paella paella = new Paella();</b>
+        preparaReceta(paella);
+        <b>LubinaAlHorno lubinaAlHorno = new LubinaAlHorno();</b>
+        preparaReceta(lubinaAlHorno);
+    }</pre>
+			<p>Hemos utilizado la sobrecarga para escribir un método con el
+				mismo nombre pero argumentos de distinto tipo.</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>Espera, espera, ¿me quieres decir que cada vez que quiera 
+			     preparar una 
+				nueva receta tengo que añadir un nuevo método sobrecargado? ¿Seguro
+				que no hay una forma mejor de resolverlo?</p>
+			<p>Yo sé preparar recetas, tanto si es paella como si es
+				lubina al horno, tan sólo sigo los pasos de la receta, 
+				me da igual que receta concreta estoy preparando.</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>
+				Empecemos por unificar el nombre de los métodos en los objetos <b>Paella</b>
+				y <b>LubinaAlHorno</b>.
+			</p>
+<pre class="prettyprint" data-lang="Java">
+public class Paella {
+    <b>public void preparaReceta()</b> {
+        System.out.println("Lava y trocea la verdura.");
+        ....
+}            
+public class LubinaAlHorno {
+    <b>public void preparaReceta()</b> {
+        System.out.println("Extrae las vísceras.");
+        ....
+}</pre>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>¿Cómo nos queda la elaboración de las recetas ahora?</p>
+			<pre class="prettyprint" data-lang="Java">
+    <b>private void preparaReceta(Paella receta)</b> {
+        receta.preparaReceta();
+    }
+    <b>private void preparaReceta(LubinaAlHorno receta)</b> {
+        receta.preparaReceta();
+    }
+
+    private void aCocinar() {
+        <b>Paella paella = new Paella();</b>
+        preparaReceta(paella);
+        <b>LubinaAlHorno lubinaAlHorno = new LubinaAlHorno();</b>
+        preparaReceta(lubinaAlHorno);
+    }</pre>
+			<p>Se parecen mucho solo cambia el tipo de los argumentos.</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>
+				Sería fantástico si de algún modo pudiésemos indicar que la <b>Paella</b>
+				y la <b>LubinaAlHorno</b> pueden verse como la misma cosa abstracta a efectos
+				de uso de referencias, y utilizar el tipo concreto cuando llamamos a
+				los métodos.
+			</p>
+			<p>Este es precisamente el cometido de los interfaces.</p>
+			<p>Los interfaces son tipos de datos abstractos donde se declaran 
+			     métodos que las clases	deben implementar.</p>
+			<p>Veamoslo con el ejemplo de las recetas.</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>
+				Creemos un <b>interface</b> con el comportamiento común a las dos
+				clases:
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+<b>public interface Receta {
+    void preparaReceta();
+}</b></pre>
+			<p>
+				Ahora indicamos que la Paella implementa este <b>interface</b>.
+			</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class Paella implements Receta</b> {
+    <b>@Override
+    public void preparaReceta()</b> {
+        System.out.println("Lava y trocea la verdura.");
+        ...
+</pre>
+			<p>
+				Fíjate en el uso de la anotación <b>@Override</b>.
+			</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>
+				Hagamos que <b>LubinaAlHorno</b> también implemente el <b>interface</b>.
+			</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class LubinaAlHorno implements Receta</b> {
+    <b>@Override
+    public void preparaReceta()</b> {
+        System.out.println("Extrae las vísceras.");
+        ...</pre>
+			<p>
+				Fíjate de nuevo en el uso de la anotación <b>@Override</b>.
+			</p>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>¿Cómo cocinamos ahora?</p>
+<pre class="prettyprint" data-lang="Java">
+<b>private void preparaReceta(Receta receta)</b> {
+    receta.preparaReceta();
+}
+
+private void aCocinar() {
+    <b>Receta receta = new Paella()</b>;
+    preparaReceta(receta);
+    <b>receta = new LubinaAlHorno();</b>
+    preparaReceta(receta);
+}
+</pre>
+		        </article>
+        </slide>
+
+
+		<!--  Ejemplo introductorio -->
+		        <slide>
+        <hgroup>
+			<h2>Ejemplo introductorio</h2>
+        </hgroup>
+		<article>
+			<p>O de una manera más concisa:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>private void preparaReceta(Receta receta)</b> {
+    receta.preparaReceta();
+}
+
+private void aCocinar() {
+    <b>preparaReceta(new Paella());
+    preparaReceta(new LubinaAlHorno())</b>;
+}</pre>
+			<p>Dos puntos importantes:</p>
+			<ol>
+				<li>Da igual la receta, el método que utilizo es <b>preparaReceta(Receta
+						receta)</b></li>
+				<li>Cada clase implementa de modo distinto el método <b>preparaReceta()</b>
+					definido en el <b>interface Receta</b>.
+				</li>
+			</ol>
+		        </article>
+        </slide>
+
+
+		<!-- La anotación @Override -->
+		        <slide>
+        <hgroup>
+			<h2>La anotación @Override</h2>
+        </hgroup>
+		<article>
+			<p>
+				Hemos visto cómo marcar en la definición de las clases los métodos
+				que se definen y que están declarados en el <b>interface</b>,
+				usando la anotación <b>@Override</b>.
+			</p>
+			<p>Veamos ahora por qué es tan útil.</p>
+			<p>
+				Supón que nos despistamos y que definimos un método <b>preparaLaReceta()</b>
+				en vez de <b>preparaReceta()</b> en la clase <b>Paella</b>.
+			</p>
+			<p>
+				Si no utilizamos la anotación <b>@Override</b> no hubiésemos
+				obtenido ningún error en la clase <b>Paella</b>.
+			</p>
+			<p>
+				Si utilizamos la anotación <b>@Override</b> le estamos indicando al
+				compilador que queremos sobrescribir un método que debe estar
+				declarado en algún <b>interface</b> de los que implementa la clase.
+				Y de no ser así debemos obtener un error.
+			</p>
+		        </article>
+        </slide>
+
+
+		<!-- Principio DRY -->
+		        <slide>
+        <hgroup>
+			<h2>Principio DRY: Don't Repeat Yourself</h2>
+        </hgroup>
+		<article>
+			<p>Lo que hemos hecho en el ejemplo anterior es utilizar, sin
+				conocerlo, el principio <b class="green"> DRY: Don't Repeat 
+				Yourself</b>. Cuando aparece
+				código repetido, hay que utilizar alguna técnica para eliminarlo.</p>
+			<p>
+				En nuestro caso teníamos dos método que sólo se diferenciaban en el
+				tipo de dato de su único argumento. El modo de fusionar ambos
+				métodos ha sido definir un <b>interface</b> común a ambos tipos, y
+				utilizarlo como argumento del método.
+			</p>
+			<p>Sencillo. Muy potente.</p>
+		        </article>
+        </slide>
+
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>
+				Al igual que las clases definen tipos <i>concretos</i>, los <b>interfaces</b>
+				definen tipos <i>abstractos</i> de datos.
+			</p>
+			<p>
+				Como ya hemos visto, en Java un <b>interface</b> se define del
+				siguiente modo:
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+[modificador acceso] interface nombreDelInterface {
+    [modificador acceso] static final [tipo] constante = valor;
+    [modificador acceso] [tipo] nombreDelMetodo(argumentos);
+}</pre>
+			<p>Pueden formar parte de un interface:</p>
+			<ul>
+				<li><b>Definición</b> de constantes.</li>
+				<li><b>Declaración</b> de métodos.</li>
+			</ul>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>
+				Las clases implementan (<b>implements</b>) <b>interface</b>.
+			</p>
+			<p>
+				La clase que implementa un <b>interface</b> debe <i>definir</i> todos los métodos <i>declarados</i> en el <b>interface</b>.
+			</p>
+			<p>
+				Por defecto, los métodos declarados en un <b>interface</b> son <b>public
+					abstract</b>.
+			<p>
+				Por defecto, todas las constantes definidas en un <b>interface</b>
+				son <b>public static final</b>.
+			<p>
+				Para asegurarnos que un método de la clase está definiendo un método
+				declarado en el <b>interface</b> utilizamos la anotación <b>@Override</b>
+				sobre el método.
+			</p>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>Veamos un ejemplo:</p>
+			<pre class="prettyprint" data-lang="Java">
+public interface Calificador {
+    [public final static] float APROBADO = 5;
+    [public final static] float NOTABLE = 7;
+    [public final static] float SOBRESALIENTE = 9;
+    [public final static] float MATRICULA_HONOR = 10;
+    [public abstract] <b>float califica();</b>
+    [public abstract] <b>void addNota(float nuevaNota);</b>
+}</pre>
+            <p>Los métodos <b>califica()</b> y <b>addNota(float nuevaNota)</b>
+                los debe definir cualquier clase que implemente este 
+                <b>interface</b>.</p>
+		</article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>Una clase que lo implementa:</p>
+			<pre class="prettyprint" data-lang="Java">
+<b>public class CalificadorUniforme implements Calificador</b> {
+    public final static int NUMERO_MAXIMO_NOTAS = 10;
+    private float[] notas = new float[NUMERO_MAXIMO_NOTAS];
+    private int numeroNotas = 0;
+    <b>@Override
+    public float califica()</b> {
+        float suma = 0;
+        for(int i = 0; i < numeroNotas; i++)
+            suma += notas[i];
+        return suma/numeroNotas;
+    }
+    <b>@Override
+    public void addNota(float nuevaNota)</b> {
+        if(numeroNotas < NUMERO_MAXIMO_NOTAS)
+            notas[numeroNotas++] = nuevaNota;
+    }
+}</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>Utilicemos un test unitario para probar la clase:</p>
+			<pre class="prettyprint" data-lang="Java">
+public class CalificadorUniformeTest {
+    private Calificador calificador;
+    
+    @Before
+    public void init() {
+        calificador = new CalificadorUniforme();
+    }
+    
+    @Test
+    public void testCalificaConMaximoNotas() {
+        for(int i = 0; i < CalificadorUniforme.NUM_MAX_NOTAS; i++)
+            calificador.addNota(i);
+        assertThat(calificador.califica(), is(4.5f));
+    }...</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>Continuación del test</p>
+			<pre class="prettyprint" data-lang="Java">...
+    @Test
+    public void testCalificaConCincoNotas() {
+        for(int i = 0; i < 5; i++)
+            calificador.addNota(i);
+        assertThat(calificador.califica(), is(2.0f));
+    }
+    
+    @Test
+    public void testCalificaMatriculaHonor() {
+        calificador.addNota(10);
+        assertThat(calificador.califica(), is(10.0f));
+    }
+}</pre>
+			<p>Estupendo, los tests pasan.</p>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>
+				Definamos otra clase que implemente el mismo <b>interface</b>.
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+<b>public class CalificadorLineal implements Calificador</b> {
+    public final static int NUMERO_MAXIMO_NOTAS = 10;
+    private float[] notas = new float[NUM_MAX_NOTAS];
+    private int numeroNotas = 0;
+    <b>@Override
+    public float califica()</b> {
+        float suma = 0;
+        for(int i = 0; i < numeroNotas; i++)
+            suma += notas[i]*(i+1);
+        return suma/sumaPesos();
+    }
+    <b>@Override
+    public void addNota(float nuevaNota)</b> {
+        if(numeroNotas < NUM_MAX_NOTAS)
+            notas[numeroNotas++] = nuevaNota;
+    } ...</pre>
+		    </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		        <slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<pre class="prettyprint" data-lang="Java">...
+    private float sumaPesos() {
+        float suma = 0;
+        for(int i = 0; i < numeroNotas; i++)
+            suma += i+1;
+        return suma;
+    }
+}</pre>
+			<p>Esta clase, da un peso a cada nota, de modo que, a medida que
+				avanza el curso las notas tienen mayor peso.</p>
+		    </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		<slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>Y los tests:</p>
+			<pre class="prettyprint" data-lang="Java">
+public class CalificadorLinealTest {
+    private Calificador calificador;
+    
+    @Before
+    public void init() {
+        calificador = new CalificadorLineal();
+    }
+    
+    @Test
+    public void testCalificaConMaximoNotas() {
+        for(int i = 0; i < CalificadorLineal.NUM_MAX_NOTAS; i++)
+            calificador.addNota(i);
+        assertThat(calificador.califica(), is(6.0f));
+    }...</pre>
+		    </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		<slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<pre class="prettyprint" data-lang="Java">...
+    @Test
+    public void testCalificaConCincoNotasIguales() {
+        for(int i = 0; i < 5; i++)
+            calificador.addNota(5);
+        assertThat(calificador.califica(), is(5.0f));
+    }
+    
+    @Test
+    public void testCalificaMatriculaHonor() {
+        calificador.addNota(10);
+        assertThat(calificador.califica(), is(10.0f));
+    }
+}</pre>
+			<p>Estos test también pasan.</p>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		<slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>
+				Ahora ya podemos utilizar nuestro <b>interface</b>.
+			<pre class="prettyprint" data-lang="Java">
+private void ponNotas(Calificador calificador) {
+    calificador.addNota(5); // Primer ejercicio
+    calificador.addNota(6); // Segundo ejercicio
+    calificador.addNota(10); // Último ejercicio
+}
+private void califica() {
+    Calificador calificador = new CalificadorUniforme();
+    ponNotas(calificador);
+    // Lo siguiente muestra --> Nota final: 7.0
+    System.out.println("Nota final: " + calificador.califica());
+    calificador = new CalificadorLineal();
+    ponNotas(calificador);
+    // Lo siguiente muestra --> Nota final: 7.8333335
+    System.out.println("Nota final: " + calificador.califica());
+}</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Los interfaces son tipos de datos -->
+		<slide>
+        <hgroup>
+			<h2>Los interfaces son tipos de datos</h2>
+        </hgroup>
+		<article>
+			<p>A una referencia cuyo tipo es un <b>interface</b> le podemos asignar cualquier objeto que <b>implements</b> ese <b>interface</b>. Se dice que los tipos son compatibles.</p>
+<pre class="prettyprint" data-lang="Java">
+Calificador calificadorUniforme = new CalificadorUniforme();
+Calificador calificadorLineal = new CalificadorLineal();
+Calificador calificador = calificadorUniforme = calificadorLineal;
+</pre>
+			<p>Cuidado, si dos clases implementan el mismo <b>interface</b> no existe compatibilidad entre ellas.</p>
+<pre class="prettyprint" data-lang="Java">
+CalificadorUniforme calificadorUniforme = new CalificadorUniforme();
+CalificadorLineal calificadorLineal = new CalificadorLineal();
+calificadorUniforme = calificadorLineal; // Error, los tipos no son compatibles.
+</pre>
+		</article>
+		</slide>
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				Una clase puede implementar más de un <b>interface</b>.
+			</p>
+			<p>
+				Supongamos que tenemos la siguiente clase que describe una <b>Persona</b>.
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+public class Persona {
+    private String nombre;
+    private String domicilio;
+    private int curso;
+    private float notaExpediente;
+    ...</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				Por otro lado, hay veces que nos gustaría trabajar con objetos de
+				esta clase pero verlos como <b>Ciudadano</b> de quien
+				lo único que nos interesa es su nombre y dirección.
+			</p>
+			<p>
+				Y otras veces nos interesa ver a una <b>Persona</b> como un <b>Estudiante</b>
+				de quien lo único que nos interesa saber es el curso en el que está
+				matriculado y su nota de expediente.
+			</p>
+		        </article>
+        </slide>
+
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				Definamos un <b>interface</b> que nos permita acceder sólo a
+				los métodos que nos interesa de una <b>Persona</b> como <b>Ciudadano</b>.
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+public interface Ciudadano {
+    String getDomicilio();
+    String getNombre();
+}</pre>
+			<p>
+				Y definamos un <b>interface</b> que nos permita acceder 
+				sólo a los 
+				métodos de una <b>Persona</b> como un <b>Estudiante.</b>
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+public interface Estudiante {
+    float getNotaExpediente();
+    int getCurso();
+}</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				Ahora <b>Persona</b> implementa ambos <b>interface</b>.
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+public class Persona implements Ciudadano, Estudiante {
+    ...
+    @Override
+    public String getNombre() {
+        return nombre;
+    }   
+    @Override
+    public String getDomicilio() {
+        return domicilio;
+    }
+    @Override
+    public int getCurso() {
+        return curso;
+    }
+    @Override
+    public float getNotaExpediente() {
+        return notaExpediente;
+    }...</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				De tal manera que cuando nos interese podemos ver a la <b>Persona</b>
+				como un <b>Ciudadano</b> o como un <b>Estudiante</b>.
+			<pre class="prettyprint" data-lang="Java">
+private void personaComoCiudadano(Ciudadano ciudadano) {
+    System.out.println("Nombre:" + ciudadano.getNombre());
+    System.out.println("Domicilio: " + ciudadano.getDomicilio());
+}
+private void personaComoEstudiante(Estudiante estudiante) {
+    System.out.println("Curso: " + estudiante.getCurso());
+    System.out.println("Nota expediente: " + 
+        estudiante.getNotaExpediente());
+}
+private void juega() {
+    Persona persona = new Persona("Oscar", "UJI", 4, 10.0f);
+    personaComoCiudadano(persona);
+    personaComoEstudiante(persona);
+}
+</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Implementación de varios interfaces -->
+		        <slide>
+        <hgroup>
+			<h2>Implementación de varios interfaces</h2>
+        </hgroup>
+		<article>
+			<p>
+				Pero cuidado, si la referencia es de un tipo <i>sólo</i> podremos
+				utilizar los métodos declarados en ese tipo.
+			</p>
+			<pre class="prettyprint" data-lang="Java">
+private void personaComoCiudadano(Ciudadano ciudadano) {
+    System.out.println("Nombre:" + ciudadano.getNombre());
+    System.out.println("Domicilio: " + ciudadano.getDomicilio());
+    // La siguiente línea da un error
+    //System.out.println("Curso: " + ciudadano.getCurso());
+}
+    
+private void personaComoEstudiante(Estudiante estudiante) {
+    System.out.println("Curso: " + estudiante.getCurso());
+    System.out.println("Nota expediente: " + 
+        estudiante.getNotaExpediente());
+    // La siguiente línea da un error
+    //System.out.println("Nombre:" + estudiante.getNombre());
+}
+</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Clases distintas implementando el mismo interface -->
+		        <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+            <p>Aunque el ejemplo de introducción mostraba este mismo caso, veamos
+                otro ejemplo.</p>
+            <p class="centrado"><img src='imagenes/interfaces.png' 
+			     style='width: 400px'> </p>
+            <p>Estamos desarrollado una aplicación para Hacienda. En la 
+			     aplicación gestionamos tanto <b>Personas</b> como 
+			     <b>Empresas</b>, pero a efectos de transacciones comerciales 
+			     a ambos los podemos ver como <b>Pagadores</b>.</p>
+		        </article>
+        </slide>
+
+		
+        <!-- Clases distintas implementando el mismo interface -->
+                <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+            <p>
+                Aquí tenemos el <b>interface</b> común.
+            </p>
+            <pre class="prettyprint" data-lang="Java">
+public interface Pagador {
+    String getNombre();
+    String getDireccion();
+    String getNif();
+}</pre>
+            <p>Y las dos implementaciones de este <b>interface</b>.</p>
+                </article>
+        </slide>
+
+
+        <!-- Clases distintas implementando el mismo interface -->
+                <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+			<pre class="prettyprint" data-lang="Java">
+public class Persona implements Pagador {
+    private String nombre;
+    private String direccion;
+    private String nif;
+    private float estatura;
+    private float peso;    
+    @Override
+    public String getNombre() {
+        return "Sr./Sra. " + nombre;
+    }    
+    @Override
+    public String getDireccion() {
+        return direccion;
+    }    
+    @Override
+    public String getNif() {
+        return nif;
+    }...</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Clases distintas implementando el mismo interface -->
+		        <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+			<pre class="prettyprint" data-lang="Java">
+public class Empresa implements Pagador {
+    private String nombre;
+    private String direccion;
+    private String nif;
+    private int numeroEmpleados;
+    @Override
+    public String getNombre() {
+        return nombre;
+    }    
+    @Override
+    public String getDireccion() {
+        return direccion;
+    }    
+    @Override
+    public String getNif() {
+        return nif;
+    }...</pre>
+		        </article>
+        </slide>
+
+
+		<!-- Clases distintas implementando el mismo interface -->
+		        <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+			<p>Probemos todo ello.</p>
+			<pre class="prettyprint" data-lang="Java">
+Pagador pagadores[] = new Pagador[2];
+pagadores[0] = new Persona("Oscar", "UJI", "123d", 1.7f, 63);
+pagadores[1] = new Empresa("Indra", "Madrid", "321q", 500);
+
+for(Pagador pagador: pagadores){
+    System.out.println("Nombre: " + pagador.getNombre());
+    System.out.println("Dirección: " + pagador.getDireccion());
+    System.out.println("NIF: " + pagador.getNif());
+}            
+</pre>
+            <p>
+                El <b>interface Pagador</b> es un tipo de datos, y podemos crear un
+                array de referencias de este tipo.
+            </p>
+            <p>
+                Da igual que el objeto sea de tipo <b>Persona</b> o <b>Empresa</b>,
+                ambos se pueden ver como <b>Pagador</b>.
+            </p>
+                </article>
+        </slide>
+
+
+        <!-- Clases distintas implementando el mismo interface -->
+                <slide>
+        <hgroup>
+			<h2>Clases distintas implementando el mismo interface</h2>
+        </hgroup>
+		<article>
+            <p>La salida es la siguiete:</p>
+<samp>
+Nombre: Sr./Sra. Oscar<br />
+Dirección: UJI<br />
+NIF: 123d<br />
+Nombre: Indra<br />
+Dirección: Madrid<br />
+NIF: 321q<br />
+</samp>
+            <p>Perfecto, ningún problema.</p>
+                </article>
+        </slide>
+
+
+        <!-- Polimorfismo utilizando interfaces -->
+                <slide>
+        <hgroup>
+			<h2>Polimorfismo utilizando interfaces</h2>
+        </hgroup>
+		<article>
+            <p>Al utilizar <b>interfaces</b> 
+                <a href="http://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html">
+                polimorfismo</a> significa que diferentes clases
+				que implementan el mismo <b>interface</b> son sustituibles, 
+				es decir, que allí donde utilizamos una también podremos utilizar 
+				la otra.</p>
+            <p>La diferencia entre ambas radicará en cómo cada una implementa 
+                los métodos declarados en el <b>interface</b>.</p>
+            <p>Dicho de otro modo, mismo método diferentes implementaciones.</p>
+            <p class="centrado"> <img src='imagenes/interfaces2.png' 
+                style='width: 500px'> </p>
+                </article>
+        </slide>
+
+        
+        <!--  Vinculación Dinámica -->
+        <slide>
+        <hgroup>
+			<h2>Vinculación Dinámica</h2>
+        </hgroup>
+		<article>
+            <p>Las referencias son la puerta de entrada a los objetos.</p>
+            <p>En Java, nunca accedemos directamente a los objetos, siempre 
+                lo hacemos a través de referencias.</p>
+            <p>Ahora bien, ¿cómo sabe Java el método correcto a invocar si 
+                accedemos a una referencia de tipo <b>interface</b> para la 
+                que tenemos más de una implementación en diferentes objetos?</p>
+            <p>Java utiliza el mecanismo de <i>Vinculación Dinámica</i>: 
+                en tiempo de ejecución, la máquina virtual de Java determina 
+                el tipo del objeto que es referenciado para llamar el método 
+                correcto.</p>
+                </article>
+        </slide>
+
+
+        <!--  Vinculación Dinámica -->
+        <slide>
+        <hgroup>
+			<h2>Vinculación Dinámica</h2>
+        </hgroup>
+		<article>
+<pre class="prettyprint" data-lang="Java">
+Pagador pagador = new Persona("Óscar", "Castellón", "123");
+System.out.println(pagador.getNombre());
+pagador = new Empresa("UJI", "Castellón", "321");
+System.out.println(pagador.getNombre());
+</pre>
+			<p>En este ejemplo, la referencia que usamos es de tipo <b>Pagador</b>, que no tiene ningún método implementado, sólo declarado.</p>
+			<p>Creamos un objeto de tipo <b>Persona</b> que asignamos a una referencia de tipo <b>Pagador</b> y, a través de la referencia <b>pagador</b>, llamamos al método <b>getNombre()</b>, en este caso, el método que se llama es el que implementa la clase <b>Persona</b>.</p>
+			<p>A continuación, creamos un objeto de tipo <b>Empresa</b> lo asignamos a <b>pagador</b> y llamamos a <b>getNombre()</b>, en este segundo caso, el método que se llama es el que está definido en la clase <b>Empresa</b>.</p>
+        </article>
+        </slide>
+
+
+		<!-- Resumen -->
+                <slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+		<article>
+            <p>Los interfaces definen tipos de datos <i>abstractos</i>.</p>
+            <p>Una clase puede implementar todos los <b>interface</b> que
+			    necesite.</p>
+			 <p>Una clase que implementa un <b>interface</b> puede ser 
+			    <i>vista</i> como ese <b>interface</b>.</p>
+			 <p><b class="green">Patrón de diseño:</b> Programa orientado al 
+			     <i>interfaz</i> 
+			     no a la <i>implementación</i>.</p>
+			 <p><b class="red">Antipatrón:</b> Una clase no debe implementar un 
+			     <b>interface</b> sólo porque necesita un método 
+			     declarado en él.</p>
+		        </article>
+        </slide>
+
+		
+		<!-- Referencias on-line -->
+		        <slide>
+        <hgroup>
+			<h2>Referencias on-line</h2>
+        </hgroup>
+		<article>
+		  <a href="http://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">
+		      Página web de Oracle</a>
+		        </article>
+        </slide>
+
+		
+		<slide class="backdrop"></slide>   
+		
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

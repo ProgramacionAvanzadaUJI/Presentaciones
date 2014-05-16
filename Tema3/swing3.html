@@ -1,0 +1,1021 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!-- <!DOCTYPE html>-->
+<html>
+<head>
+<title>Swing: Componentes básicos</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Interfaces gráficas de usuario</h2>
+      <h2 data-config-subtitle>Swing: Componentes básicos</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+        
+        
+        <!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>Existe una gran cantidad de componentes Swing, 
+                puedes echarles un vistazo en 
+                <a href="http://docs.oracle.com/javase/tutorial/ui/features/components.html">
+                Guía de componentes Swing</a>.</p>
+            <p>En este capítulo, vamos a estudiar cómo usar algunos de
+                ellos.</p>
+            <p>Empezaremos por los más sencillos, e iremos avanzando
+                hasta llegar a ver componentes muy sofisticados.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+             <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=DZ/Xbig+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=big%20java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Big Java</a>. Capítulo 17.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a>. Capítulo 12.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&2%2C2%2C">
+                    Head first design patterns.</a> Capítulo 12.</li>
+                <li><a href="http://www3.uji.es/~belfern/pdf/libroJavaConTapa.pdf">Desarrollo de proyectos informáticos con tecnología Java.</a> Capítulo 11.</li>
+             </ol>
+        </article>
+        </slide>
+                
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Botones.</li>
+                	<ol>
+                		<li>Sin estado.</li>
+                		<li>Con estado.</li>
+                		<li>Con estado y excluyentes.</li>
+                	</ol>
+                <li>Mostrar texto.</li>
+                	<ol>
+                		<li>Que no se puede modificar.</li>
+                		<li>En una única línea.</li>
+                		<li>En párrafos.</li>
+                	</ol>
+                <li>Barras de desplazamiento -scroll-</li>
+                <li>Listas.</li>
+                <li>Sliders.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Botones sin estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones sin estado</h2>
+        </hgroup>
+        <article>
+            <p>Un botón sin estado es aquel sobre el que podemos hacer 
+                <i>click</i> pero que no queda pulsado después de ello.</p>
+            <p>La clase <b>JButton</b> define un componente con este tipo de 
+                comportamiento.</p>
+            <p class="centrado"><img src="imagenes/ejemploJButton1.png"></p>
+            
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Ejemplo JButton");
+Container contenedor = ventana.getContentPane();
+JButton boton = new JButton("Soy un botón sencillo");
+contenedor.add(boton);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Botones sin estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones sin estado</h2>
+        </hgroup>
+        <article>
+            <p>El evento de interés más común que este componente genera es
+                <b>ActionEvent</b>, que ya sabemos que podemos escuchar 
+                implementando la <b>interface ActionListener</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+boton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Me pulsaste");
+    }
+});
+</pre>
+            <p>Ahora, cada vez que se pulse el botón, se mostrará un mensaje
+                por consola.</p>
+        </article>
+        </slide>
+
+        <!-- Botones sin estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones sin estado</h2>
+        </hgroup>
+        <article>
+            <p>Podemos tener el mismo escuchador para más de un botón:</p>
+<pre class="prettyprint" data-lang="Java">
+JButton boton = new JButton("Soy un botón sencillo");
+ActionListener escuchador;
+boton.addActionListener(escuchador = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Me pulsaste.");
+    }
+});
+JButton otroBoton = new JButton("Soy otro botón");
+otroBoton.addActionListener(escuchador);
+</pre>
+            <p>¿Cómo podemos saber qué botón generó el evento?</p>
+        </article>
+        </slide>
+        
+        <!-- Botones sin estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones sin estado</h2>
+        </hgroup>
+        <article>
+            <p>Tenemos, al menos, dos opciones:</p>
+            <ol>
+                <li>Preguntar al evento por el componente que lo generó:</li>
+<pre class="prettyprint" data-lang="Java">
+public void actionPerformed(ActionEvent e) {
+    JButton boton = (JButton)e.getSource(); //Devuelve Object
+    ...
+}
+</pre>
+                <li>Asignar un <i>command</i> al botón:</li>
+<pre class="prettyprint" data-lang="Java">
+boton.setActionCommand("comando1");
+...
+public void actionPerformed(ActionEvent e) {
+    String comando = e.getActionCommand();
+    ...
+}
+</pre>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Botones sin estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones sin estado</h2>
+        </hgroup>
+        <article>
+            <p>Si asignamos un <i>command</i> a cada uno de los botones,
+                gracias a que la versión Java 1.7 permite hacer <b>switch</b>
+                sobre <b>String</b> podremos filtrar rápidamente el botón
+                que fue pulsado.</p>
+<pre class="prettyprint" data-lang="Java">
+switch(e.getActionCommand()) {
+    case "comando1":
+        //Código de respuesta
+        break;
+    case "comando2":
+        //Código de respuesta
+        break;
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p>Si necesitas botones que guarden su estado, para saber si están
+                pulsados o no, puedes usar las clases: <b>JCheckBox</b> o 
+                <b>JRadioButton</b>.</p>
+            <p>Veamos primero cómo funcionan los <b>JCheckBox</b>.</p>
+            <p class="centrado"><img src="imagenes/ejemploJCheckBox1.png" style="width: 200px"/></p>
+            <p>Como puedes ver, si necesitas poder seleccionar más de un botón,
+                utiliza <b>JCheckBox</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p>El código del ejemplo anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Ejemplo JCheckBox");
+JCheckBox rojo = new JCheckBox("Rojo");
+JCheckBox amarillo = new JCheckBox("Amarillo");
+JCheckBox verde = new JCheckBox("Verde");
+JPanel colores = new JPanel();
+colores.setLayout(new BoxLayout(colores, BoxLayout.PAGE_AXIS));
+ventana.setContentPane(colores);//Cambiamos el panel contenedor
+colores.add(new JLabel("Elije tus colores favoritos:"));
+colores.add(verde);
+colores.add(amarillo);
+colores.add(rojo);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p>Si buscamos los escuchadores que le podemos añadir a un 
+                <b>JCheckBox</b> veremos que son los mismos que los que podemos
+                añadir a un <b>JButton</b>.</p>
+            <p>Veamos primero el comportamiento al usar <b>ActionListener</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+rojo.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Botón pulsado.");
+    }
+});
+</pre>
+            <p>Con este escuchador, cada vez que pulsemos el botón obtendremos
+                un mensaje en consola.</p>
+        </article>
+        </slide>
+
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p>Si necesitamos conocer si lo que ha ocurrido es que el botón
+                ha quedado pulsado tras el <i>click</i>, o no ha quedado pulsado,
+                necesitamos un evento que nos dé más información que 
+                <b>ActionEvent</b>.</p>
+            <p>Ese evento es <b>ItemEvent</b>, que podemos prever que lo 
+                podemos escuchar implementando la <b>interface ItemListener</b>.</p>
+            <p>Recuerda que, quien lleva una descripción sobre lo que ha ocurrido
+                es la referencia a <b>ItemEvent</b>, a ella le preguntaremos 
+                por la información que queremos conocer.</p>
+            <p>Recuerda, también, que Swing utiliza el método <i>push</i> para 
+                notificar a sus escuchadores.</p>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p><b>ItemListener</b> declara sólo 
+                <b>itemStateChanged(ItemEvent e)</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+rojo.addItemListener(new ItemListener() {
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        switch(e.getStateChange()) {//Preguntamos al evento
+            case ItemEvent.SELECTED:
+                System.out.println("CheckBox seleccionado.");
+                break;
+            case ItemEvent.DESELECTED:
+                System.out.println("CheckBox deseleccionado.");
+                break;
+        }
+    }
+});
+</pre>
+            <p>Como puedes ver, <b>ItemEvent</b> nos permite conocer más 
+                detalles de lo que ha ocurrido.</p>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+            <p>Igual que en el caso de <b>JButton</b>, podemos añadir el mismo
+                escuchador a más de un <b>JCheckBox</b>, ya que a cada uno 
+                de ellos le podemos asignar un <i>ActionCommand</i>.</p>
+            <p>Pero tenemos que hacer algo más de trabajo para conocer quien
+                fue, finalmente, el <b>JCheckBox</b> que generó el evento.</p>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+JCheckBox rojo = new JCheckBox("Rojo");
+rojo.setActionCommand("rojo");
+ItemListener escuchador;
+rojo.addItemListener(escuchador = new ItemListener() {
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        JCheckBox boton = (JCheckBox)e.getItemSelectable();
+        String comando = boton.getActionCommand();
+        switch(e.getStateChange()) {
+            case ItemEvent.SELECTED:
+              System.out.println("Seleccionado el botón " + comando);
+              break;
+            case ItemEvent.DESELECTED:
+              System.out.println("Deseleccionado el botón " + comando);
+              break;
+        }    }    });
+JCheckBox amarillo = new JCheckBox("Amarillo");
+amarillo.setActionCommand("amarillo");
+amarillo.addItemListener(escuchador);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado y excluyentes -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado y excluyentes</h2>
+        </hgroup>
+        <article>
+            <p>Si lo que necesitas son botones con estado y con comportamiento
+                excluyente, <b>JRadioButton</b> y <b>ButtonGroup</b> son lo
+                que necesitas.</p>
+            <p>Ten en cuenta que es una conveción usar <b>JCheckBox</b> cuando
+                no necesitamos comportamiento excluyente, y <b>JRadioButton</b>
+                cuando sí lo necesitamos.</p>
+            <p>Por qué los <b>radio button</b> se llama así.</p>
+            <p class="centrado"><img src="imagenes/radioButton.jpg" height="220px"/></p>
+            <div class="source">Fuente: https://p.twimg.com/Asg7fOeCAAE-4Oo.jpg</div>
+        </article>
+        </slide>
+
+        <!-- Botones con estado y excluyentes -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado y excluyentes</h2>
+        </hgroup>
+        <article>
+            <p>Si en el código de ejemplo de <b>JCheckBox</b> sustituimos esa
+                por <b>JRadioButton</b> el resultado visual es:</p>
+            <p class="centrado"><img src="imagenes/ejemploJRadioButton.png" /></p>
+            <p>Y su comportamiento es exactamente el mismo que antes.</p>
+            <p>Pero, la diferencia es que podemos <i>agrupar</i> los 
+                <b>JRadioButton</b> para que tengan un comportamiento 
+                excluyente.</p>
+<pre class="prettyprint" data-lang="Java">
+ButtonGroup grupo = new ButtonGroup();
+grupo.add(verde);
+grupo.add(amarillo);
+grupo.add(rojo);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Botones con estado y excluyentes -->
+		<slide>
+        <hgroup>
+			<h2>Botones con estado y excluyentes</h2>
+        </hgroup>
+        <article class="flexbox vcenter">
+            <p>Un <b>ButtonGroup</b> es una agrupación lógica, no tiene ningún
+                resultado visual sobre los <b>JRadioButton</b>.</p>
+            <p>Lo que hemos conseguido, ahora, es que cada vez que un botón 
+                se selecciona, el seleccionado anterior, si existe, se 
+                deselecciona.</p>
+            <p><video src="video/ejemploJRadioButton.mov" /></p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto que no se puede modificar -->
+		<slide>
+        <hgroup>
+			<h2>Texto que no se puede modificar</h2>
+        </hgroup>
+        <article>
+            <p>Uno de los componentes más <i>sencillos</i>
+            	en Swing es <b>JLabel</b>, con el podemos
+            	visualizar texto que el usuario no puede modificar.</p>
+            <p class="centrado"><img src="imagenes/ejemploJLabel.png" /></p>
+            <p>El código para generar la ventana anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Ejemplo de JLabel");
+ventana.getContentPane().add(new JLabel("Hola, soy un JLabel"));
+</pre>
+        </article>
+        </slide>
+
+        <!-- Mostrar texto que no se puede modificar -->
+		<slide>
+        <hgroup>
+			<h2>Texto que no se puede modificar</h2>
+        </hgroup>
+        <article>
+            <p>El usuario no puede modificar el texto que aparece 
+                sobre el <b>JLabel</b>. Aunque sí lo podemos 
+                modificar desde nuestro código:</p>
+<pre class="prettyprint" data-lang="Java">
+JLabel etiqueta = new JLabel();
+etiqueta.setText("Texto sobre el JLable");
+ventana.getContentPane().add(etiqueta);
+</pre>
+            <p class="centrado"><img class="centered" src="imagenes/ejemploJLabel2.png"></p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto que no se puede modificar -->
+		<slide>
+        <hgroup>
+			<h2>Texto que no se puede modificar</h2>
+        </hgroup>
+        <article>
+            <p>Los <b>JLabel</b> permiten, incluso, usar etiquetas 
+                HTML, que sabe como formatear correctamente:</p>
+            <p class="centrado"><img src="imagenes/ejemploJLabel3.png"></p>
+<pre class="prettyprint" data-lang="Java">
+String html = &quot;&lt;html&gt;&quot; +
+              &quot;Texto en &lt;b&gt;negrita&lt;/b&gt;&lt;br/&gt;&quot; +
+              &quot;Texto en &lt;i&gt;cursiva&lt;/i&gt;&lt;br/&gt;&quot; +
+              &quot;Una lista:&quot; + 
+              &quot;&lt;ol&gt;&lt;li&gt;Primer item.&lt;/li&gt;&quot; +
+              &quot;&lt;li&gt;Segundo item.&lt;/li&gt;&quot; +
+              &quot;&lt;/ol&gt;&quot; +
+              &quot;&lt;/html&gt;&quot;;
+JFrame ventana = new JFrame(&quot;Ejemplo de JLabel&quot;);
+JLabel etiqueta = new JLabel(html);</pre>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto que no se puede modificar -->
+		<slide>
+        <hgroup>
+			<h2>Texto que no se puede modificar</h2>
+        </hgroup>
+        <article>
+            <p>Además, como parte del contenido del <b>JLabel</b> se pueden 
+                mostrar iconos.</p>
+            <p>También tenemos opciones para alinear el texto en horizontal 
+                y vertical, etcétera.</p>
+            <p>Puedes encontrar información detallada 
+                <a href="http://docs.oracle.com/javase/tutorial/uiswing/
+                components/label.html">aquí</a></p> 
+         </article>
+        </slide>
+         
+        <!-- Mostrar texto en una única línea -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en una única línea</h2>
+        </hgroup>
+        <article>
+            <p>Si lo que necesitas es un componente que permita al usuario
+                introducir una línea de texto, para leer su NIF por ejemplo,
+                puedes utilizar <b>JTextField</b>.</p>
+            <p class="centrado"><img src="imagenes/ejemploJTextField1.png" /></p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Ejemplo JTextField");
+Container contenedor = ventana.getContentPane();
+JTextField nif = new JTextField(20);
+JLabel nifLabel = new JLabel("NIF: ");
+contenedor.setLayout(new FlowLayout());
+contenedor.add(nifLabel);
+contenedor.add(nif);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+
+        <!-- Mostrar texto en una única línea -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en una única línea</h2>
+        </hgroup>
+        <article>
+            <p>Detalle de código:</p>
+            <ul>
+                <li>Cuando creas el <b>JTextField</b> puedes indicar el 
+                    número de caracteres que contendrá.</li>
+                <li>Hemos cambiado el <i>gestor de aspecto</i> que por defecto
+                    tiene <b>JFrame</b> a un <b>FlowLayout</b> con:</li>
+<pre class="prettyprint" data-lang="Java">
+contenedor.setLayout(new FlowLayout());
+</pre>
+                <li>También hemos añadido un <b>JLabel</b>.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en una única línea -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en una única línea</h2>
+        </hgroup>
+        <article>
+            <p>Para leer el texto actual de un <b>JTextField</b> utilizamos 
+                el método <b>String getText()</b>.</p>
+            <p>Para modificar el texto de un <b>JTextField</b> utilizamos 
+                el método <b>void setText(String texto)</b>.</p>
+            <p>Podemos incluso, decidir si el texto se puede editar o no 
+                con <b>setEditable(boolean sino)</b></p>
+            <p>Además, puedes cambiar la fuente de las letras, etcétera.</p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en una única línea -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en una única línea</h2>
+        </hgroup>
+        <article>
+            <p>Un <b>JTextField</b> genera eventos de tipo <b>ActionListener</b>
+                cada vez que se pulsa la tecla <i>Enter</i> y tiene el foco.</p>
+            <p>Ya conocemos, de las clases que implementan botones, cómo 
+                escuchar este tipo de eventos.</p>
+            <p>Otro evento que quizás te pueda interesar es <b>CaretEvent</b>,
+                que se genera cada vez que desplazamos el cursor sobre el texto
+                que aparece en el <b>JTextField</b>.</p>
+            <p>De nuevo, puedes prever que la <b>interface</b> que debes 
+                implementar es <b>CaretListener</b>, y habrás acertado.</p>
+            <p>Esta <b>interface</b> define un único método
+                <b>caretUpdate(CaretEvent e)</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en una única línea -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en una única línea</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+nif.addCaretListener(new CaretListener() {
+    @Override
+    public void caretUpdate(CaretEvent e) {
+        System.out.println(e.getDot());
+        System.out.println(e.getMark());
+    }
+});
+</pre>
+            <p>El método <b>getDot()</b> nos indica la posición actual del 
+                cursor si no hay texto seleccionado, o la posición de un extremo
+                del texto que tengamos seleccionado.</p>
+            <p>El método <b>getMark()</b> nos indica la posición del otro 
+                extremo del texto que tengamos seleccionado. 
+                Si no hay texto seleccionado, las 
+                dos posiciones coinciden.</p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en párrafos -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en párrafos</h2>
+        </hgroup>
+        <article>
+            <p>Si lo que necesitas es mostrar párrafos de texto, la clase que 
+                lo permite es <b>JTextArea</b>.</p>
+            <p>A <b>JTextArea</b> le puedes añadir los mismos escuchadores 
+                que a <b>JTextField</b>.</p>
+            <p>Veamos un ejemplo algo más elaborado con el escuchador de eventos
+                <b>CaretEvent</b> y los métodos que nos proporciona
+                la clase <b>JTextArea</b>:</p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en párrafos -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en párrafos</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+texto.addCaretListener(new CaretListener() {
+    @Override
+    public void caretUpdate(CaretEvent e) {
+        int posicion = e.getDot();
+        try {
+            int linea = texto.getLineOfOffset(posicion);
+            int columna = posicion - texto.getLineStartOffset(linea);
+            String infoTexto = "Linea: " + (linea+1) + 
+                            "; Columna: " + (columna+1);
+            info.setText(infoTexto);
+        } catch (BadLocationException e1) {
+            e1.printStackTrace();
+        }
+    }
+});
+</pre>
+            <p>El método <b>getLineOfOffset(posicion)</b> del <b>JTextArea</b>
+                devuelve la línea a partir de una posición dentro del texto.</p>
+        </article>
+        </slide>
+        
+        <!-- Mostrar texto en párrafos -->
+		<slide>
+        <hgroup>
+			<h2>Mostrar texto en párrafos</h2>
+        </hgroup>
+        <article>
+            <p>El método <b>getLineStartOffset(linea)</b> devuelve cual es la 
+                posición, dentro del texto del primer carácter de esta línea.</p>
+            <p class="centrado"><img src="imagenes/ejemploJTextArea1.png" /></p>
+        </article>
+        </slide>
+
+        <!-- Barras de desplazamiento -->
+		<slide>
+        <hgroup>
+			<h2>Barras de desplazamiento</h2>
+        </hgroup>
+        <article>
+            <p>Como habrás observado, por defecto un <b>JTextArea</b> no tiene
+                barras de desplazamiento -scroll-</p>
+            <p>Las barras de desplazamiento se pueden añadir a ciertos 
+                componentes, como por ejemplo <b>JTextArea</b>, o como veremos
+                más adelante, a <b>JList</b>.</p>
+            <p>Las barras de desplazamiento implementan el patrón de diseño 
+                <i>Decorador</i>, son componentes que <i>decoran</i> a otros
+                componentes.</p> 
+        </article>
+        </slide>
+        
+        <!-- Barras de desplazamiento -->
+		<slide>
+        <hgroup>
+			<h2>Barras de desplazamiento</h2>
+        </hgroup>
+        <article>
+            <p>Para añadir barras de desplazamiento horizontales y verticales 
+                utilizamos <b>JScrollPane</b>.</p>
+            <p>El detalle, en este caso es que, lo que finalmente añadimos a la
+                ventana principal es el <b>JScrollPane</b> no el componente que
+                ha decorado.</p>
+<pre class="prettyprint" data-lang="Java">
+JScrollPane scroll = new  JScrollPane(texto);
+...
+contenedor.add(scroll);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Barras de desplazamiento -->
+		<slide>
+        <hgroup>
+			<h2>Barras de desplazamiento</h2>
+        </hgroup>
+        <article>
+            <p>El resultado final es:</p>
+            <p class="centrado"><img src="imagenes/ejemploJScrollPane.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- Barras de desplazamiento -->
+		<slide>
+        <hgroup>
+			<h2>Barras de desplazamiento</h2>
+        </hgroup>
+        <article>
+            <p><b>JScrollPane</b> nos permite definir la <i>política</i> de 
+                aparición de las barras de desplazamiento:</p>
+            <ul>
+                <li><b>setHorizontalScrollBarPolicy(int politica)</b>.</li>
+                <li><b>setVerticalScrollBarPolicy(int politica)</b>.</li>
+            </ul>
+            <p>Donde la <i>política</i> puede ser:</p>
+            <ul>
+                <li>HORIZONTAL_SCROLLBAR_AS_NEEDED</li>
+                <li>HORIZONTAL_SCROLLBAR_ALWAYS</li>
+                <li>HORIZONTAL_SCROLLBAR_NEVER</li>
+            </ul>
+            <p>Si queremos que las barras de desplazamiento se vean sólo cuando
+                es necesario, siempre, o nunca.</p>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>Si necesitas visualizar una lista de elementos, puedes utilizar
+                <b>JList</b>.</p>
+            <p class="centrado"><img src="imagenes/ejemploJList.png" /></p>
+        </article>
+        </slide>
+
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>El código para generar la imagen anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+String[] datos = {"Enero", "Febrero", "Marzo", "Abril",
+                  "Mayo", "Junio", "Julio", "Agosto",
+                  "Septiembre", "Octubre", "Noviembre",
+                  "Diciembre"};
+JFrame ventana = new JFrame("Ejemplo de JList");
+JList meses = new JList(datos);
+ventana.getContentPane().add(meses);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+            <p>Como ves, los elementos de la lista los puedes tener en un 
+                array.</p>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>Al igual que en el caso de <b>JTextArea</b>, por defecto la 
+                clase <b>JList</b> no incluye barras de desplazamiento. 
+                Si las necesitamos, las incluimos tal y como hicimos en
+                el caso de <b>JTextArea</b>:</p>
+            <p class="centrado"><img src="imagenes/ejemploJList2.png" /></p>
+            <p>Y puedes asignar el número de elementos visibles con 
+            <b>setVisibleRowCount(int)</b></p>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>El código para generar la imagen anterior:</p>
+<pre class="prettyprint" data-lang="Java">
+String[] datos = {"Enero", "Febrero", "Marzo", "Abril",
+                  "Mayo", "Junio", "Julio", "Agosto",
+                  "Septiembre", "Octubre", "Noviembre",
+                  "Diciembre"};
+JFrame ventana = new JFrame("Ejemplo de JList");
+JList meses = new JList(datos);
+JScrollPane scroll = new JScrollPane(meses);
+meses.setVisibleRowCount(4);
+ventana.getContentPane().add(scroll);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>Por defecto, el <b>JList</b> se crea con selección de múltiples
+                intervalos.</p>
+            <p class="centrado"><img src="imagenes/ejemploJList3.png" /></p>
+            <p>Para cambiar el modo de selección puedes utilizar 
+                <b>setSelectionMode(int)</b> donde los modos de selección son 
+                constantes de <b>interface ListSelectionModel</b>:</p>
+            <ul>
+                <li>SINGLE_SELECTION</li>
+                <li>SINGLE_INTERVAL_SELECTION</li>
+                <li>MULTIPLE_INTERVAL_SELECTION</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>Si buscamos qué eventos genera <b>JList</b> cuando un usuario
+                selecciona alguno de los elementos de la lista, nos 
+                encontraremos que el evento es <b>ListSelectionEvent</b> que 
+                podremos escuchar implementando la 
+                <b>interface ListSelectionListener</b>.</p>
+            <p>Esta <b>interface</b> sólo declara un método 
+                <b>valueChanged(ListSelectionEvent e)</b></p>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p><b>ListSelectionEvent</b> nos puede informar, entre otras cosas,
+                si se ha acabado la selección; y en el caso de lista de selección
+                múltiple: el índice del primer elemento seleccionado, y el 
+                índice del último elemento seleccionado:</p>
+            <ul>
+                <li><b>getValueIsAdjusting();</b></li>
+                <li><b>getFirstIndex();</b></li>
+                <li><b>getLastIndex();</b></li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Listas -->
+		<slide>
+        <hgroup>
+			<h2>Listas</h2>
+        </hgroup>
+        <article>
+            <p>Pero si lo que te interesa es consultar, en cualquier momento,
+                por el estado de selección de los elementos, puedes utilizar:
+                <b>getSelectedValuesList()</b> método de la clase <b>JList</b>
+                que devuelve una lista con todos los elementos seleccionados.</p>
+            <p>Por su parte <b>getSelectedIndices()</b> devuelve un array de 
+                enteros con los índices de los elementos seleccionados.</p>
+            <p>Para recuperar un elemento de la lista a partir de su índice
+                <b>JList.getModel().getElementAt(int indice)</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Sliders -->
+		<slide>
+        <hgroup>
+			<h2>Sliders</h2>
+        </hgroup>
+        <article>
+            <p>Los <b>JSlider</b> nos sirven para cambiar un valor de modo
+                visible.</p>
+            <p class="centrado"><img src="imagenes/ejemploJSlider.png" /></p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Ejemplo JSlider");
+Container contenedor = ventana.getContentPane();
+JSlider slider = new JSlider(0, 100);
+contenedor.add(slider);
+ventana.pack();
+ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Sliders -->
+		<slide>
+        <hgroup>
+			<h2>Sliders</h2>
+        </hgroup>
+        <article>
+            <p>Cada vez que manipulamos un <b>JSlider</b> se genera un 
+                <b>ChangeEvent</b> que podemos escuchar con la 
+                <b>interface ChangeListener</b> que declara un único método
+                <b>stateChanged(ChangeEvent e)</b></p>
+<pre class="prettyprint" data-lang="Java">
+slider.addChangeListener(new ChangeListener() {
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JSlider slider = (JSlider)e.getSource();
+            if(slider.getValueIsAdjusting()) 
+                valorActual.setText("Valor actual: " + 
+                    slider.getValue());
+            else valorFijado.setText("Valor fijado: " + 
+                    slider.getValue());
+    }   });
+</pre>
+            <p class="centrado"><object type="application/x-java-applet" height="80" width="300">
+                <param name="code" value="componentes.sliders.EjemploJSlider" />
+                <param name="archive" value="applets/ejemploJSlider.jar" />
+            </object></p>
+        </article>
+        </slide>
+
+        <!-- Sliders -->
+		<slide>
+        <hgroup>
+			<h2>Sliders</h2>
+        </hgroup>
+        <article>
+            <p>Como has visto en el ejemplo, se pueden modificar muchos 
+                detalles visuales de un <b>JSlider</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+JSlider slider = new JSlider(0, 100);
+slider.setMajorTickSpacing(20);
+slider.setMinorTickSpacing(5);
+slider.setPaintTicks(true);
+slider.setPaintLabels(true);
+</pre>
+            <ul>
+                <li><b>setMajorTickSpacing(int)</b>: intervalo entre 
+                    <i>ticks</i> primarios.</li>
+                <li><b>setMinorTickSpacing(int)</b>: intervalo entre
+                    <i>ticks</i> secundarios</li>
+                <li><b>setPaintTicks(boolean)</b>: si se visualizan 
+                    los <i>ticks</i> o no.</li>
+                <li><b>setPaintLabels(boolean)</b>: si se visualizan 
+                    las etiquetas de los <i>ticks</i> o no.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Resumen -->
+		<slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+        <article>
+            <p>Hemos visto algunos de los componenetes de una interfaz gráfica 
+                de usuario más comunes: Botone, componentes de texto, barras 
+                de desplazamietno, listas y slider.</p>
+            <p>El modelo de programación para la detección de los eventos de 
+                usuario está basado en el patrón de diseño <i>Observer</i> y
+                el método <i>push</i> de notificación.</p>
+            <p>Un mismo componente, en general, genera más de un tipo de evento
+                cada vez que el usuario interacciona sobre él.</p>
+            <p>La técnica para programar respuestás a los eventos que generan es
+                siempre la misma: definir una clase que implemente el 
+                <b>interface</b> capaz de escuchar los eventos en los que 
+                estamos interesados.</p>
+        </article>
+        </slide>
+
+        <slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

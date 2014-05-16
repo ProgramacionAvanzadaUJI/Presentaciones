@@ -1,0 +1,1036 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Programación dirigida por eventos</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Interfaces gráficas de usuario</h2>
+      <h2 data-config-subtitle>Programación dirigida por eventos</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+                
+        <!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>La mayor parte de las aplicaciones informáticas ofrecen, al 
+                usuario que las utiliza, una interfaz gráfica.</p>
+            <p>Estas interfaces gráficas están compuestos por componentes 
+                (botones, listas, cajas de edición de texto, etc.), con los que 
+                el usuario interacción para llevar a cabo su tarea.</p>
+            <p>Es el usuario el que, en cada momento, decide qué es lo siguiente 
+                que la aplicación va a hacer a través de su interacción.</p>
+            <p>La aplicación debe responder a la interacción del usuario.</p>
+            <p>Nosotros, como programadores, debemos escribir el código de 
+                respuesta a la interacción del usuario.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+             <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=DZ/Xbig+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=big%20java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Big Java</a>. Capítulo 17.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a>. Capítulo 12.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&2%2C2%2C">
+                    Head first design patterns.</a> Capítulo 12.</li>
+                <li><a href="http://www3.uji.es/~belfern/pdf/libroJavaConTapa.pdf">Desarrollo de proyectos informáticos con tecnología Java.</a> Capítulo 11.</li>
+             </ol>
+        </article>
+        </slide>
+                
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Las interfaces de texto son tediosas.</li>
+                <li>Las interfaces gráficas molan.</li>
+                <li>Dime tú lo que quieres hacer.</li>
+                <li>El patrón de diseño Observador/Observable</li>
+                <li>El (meta) patrón de diseño Modelo Vista Controlador.</li>
+                <li>Un ejemplo de aplicación que implementa MVC.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- Las interfaces de texto son tediosas -->
+		<slide>
+        <hgroup>
+			<h2>Las interfaces de texto son tediosas</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/terminal.png" style="width: 500px"></p>
+            <ul>
+                <li>Son poco intuitivas.</li>
+                <li>El usuario puede cometer un error fácilmente.</li>
+                <li>Pueden ser buenas para tareas administrativas.</li>
+                <li>En general consumen pocos recursos.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Las interfaces de texto son tediosas -->
+        <slide>
+        <hgroup>
+            <h2>Las interfaces de texto son tediosas</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/googleplus.png" style="width: 500px"></p>
+            <ul>
+                <li>Autoexplicativas (si están bien diseñadas).</li>
+                <li>Conjunto <i>estándar</i> de componentes.</li>
+                <li>Consumen, en general, más recursos.</li>
+                <li>Concurrencia (muchos elementos activos en la misma vista).</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p>Pero la gran diferencia radica en el modelo de programación.</p>
+            <p>En las interfaces de texto, la aplicación es la que inicia la 
+                interacción con el usuario, y este responde.</p>
+            <p>La interacción 
+                está dirigida por la aplicación.</p>
+        </article>
+        </slide>
+
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p class="centered"><video src="video/agenda.mov" height="500px"></video></p>
+            <div class="source">Vídeo</div>
+        </article>
+        </slide>
+        
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p>En las interfaces gráficos, es el usuario quien inicia
+                la interacción y la aplicación responde.</p>
+            <p>Las interfaces gráficas están centradas en el usuario, las de 
+                texto en la máquina.</p>
+        </article>
+        </slide>
+        
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p class="centered"><video src="video/agendaSwing.mov" width="800px"></video></p>
+            <div class="source">Vídeo</div>
+        </article>
+        </slide>
+        
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p>En las interfaces gráficas, el usuario interacciona con 
+                distintos elementos de la interfaz (ventanas, botones, solapas, 
+                etcétera), y la aplicación responde en consecuencia.</p>
+            <p>Este nuevo modelo de programación se llama <i>Programación 
+                Dirigida por Eventos.</i></p>
+        </article>
+        </slide>
+        
+        <!-- Dime tú lo que quieres hacer -->
+		<slide>
+        <hgroup>
+			<h2>Dime tú lo que quieres hacer</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img class="centered" src="imagenes/dirigidoPorEventos.png" style="width: 800px"></p>
+            <p>Cada interacción del usuario con la interfaz gráfica 
+                genera uno o más 
+                eventos. El programador escribe el código de respuesta a 
+                estos eventos.</p>
+        </article>
+        </slide>
+        
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Ya conocemos este patrón. Cuando programamos interfaces 
+                gráficas de usuario, los distintos componentes de la interfaz 
+                son <b>Observables</b> y nosotros escribiremos clases 
+                <b>Observador</b> que serán notificadas cada vez que 
+                el usuario interaccione con el componente.</p>
+        </article>
+        </slide>
+        
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>El usuario interacciona sobre un <i>Componente</i>.</li>
+                <li>Se crea un <i>Evento</i> que describe lo que ha ocurrido.</li>
+                <li>El <i>Evento</i> se envía a todos los <i>Escuchadores</i> registrados.</li>
+                <li>Cada <i>Escuchador</i> da una respuesta.</li>
+            </ol>
+            <p class="centrado"><img src="imagenes/dirigidoPorEventos2.png" style="width: 750px"></p>
+        </article>
+        </slide>
+
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Swing usa el modelo <i>push</i> de notificación.</p>
+            <p>Al informar a los Observadores, se les envía información de lo que ha ocurrido.</p>
+            <p>Esta información llega al método de notificación como una referencia en la lista 
+                de argumentos.</p>
+            <p>La información, además de datos concretos sobre lo ocurrido, describe 
+                quién fue el causante del evento, entre otros detalles.</p>
+            <p class="centrado"><img class="centered" src="imagenes/observadoPush.png" style="width: 800px"></p>
+        </article>
+        </slide>
+
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Existe una segunda opción de notificación, en la que 
+                no se envía ninguna información de lo ocurrido, 
+                simplemente se notifica que algo ha ocurrido.</p>
+            <p>Cada uno de los Observadores es el responsable de, 
+                una vez recibida la notificación, solicitar la 
+                información que necesite.</p>
+            <p class="centrado"><img src="imagenes/observadoPull.png" style="width: 800px"></p>
+        </article>
+        </slide>
+                        
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Una ventaja del método <i>push</i> sobre <i>pull</i> 
+                es que ahorramos tiempo al no tener que hacer una 
+                nueva llamada para obtener los datos.</p>
+            <p>Otra ventaja del modelo <i>push</i> sobre <i>pull</i> 
+                es que, la información que se le envía al Observador 
+                puede ser más rica que simplemente indicar los atributos que 
+                han cambiado. Podríamos, por ejemplo, enviar también una 
+                referencia al Observado en el que se produjo el cambio. 
+                De este modo, un mismo Observador podría observar a más 
+                de un Observable al mismo tipo, y saber qué Observado 
+                cambió de estado a través de la información que se le envía
+                en la notificación.</p>
+            <p>Como ya hemos comentado, Swing utiliza notificación <i>push</i>.</p>
+        </article>
+        </slide>
+        
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Una ventaja del método <i>pull</i> sobre <i>push</i> 
+                es que el objeto Observado se despreocupa completamente 
+                de los datos que le interesan al Observador.</p>
+            <p>En este caso, existe una menor dependencia entre el 
+                Observador y el Observado, ya que no se ha establecido 
+                ningún tipo de contrato a través de la lista de 
+                argumentos del método de notificación.</p>
+        </article>
+        </slide>
+        
+        <!-- El patrón de diseño Observador/Observable -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Observador/Observable</h2>
+        </hgroup>
+        <article>
+            <p>Tanto el esquema <i>push</i> como 
+                el <i>pull</i> están implementando el 
+                <i>Principio de Hollywood: Tú no nos llames, 
+                ya te llamaremos nosotros</i>.</p>
+            <p class="centrado"><img src="imagenes/hollywood.jpg" style="width: 500px"></p>
+        </article>
+        </slide>
+                
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+            <p>El patrón de diseño Modelo Vista Controlador (MVC) ayuda 
+                a <i>desacoplar</i> nuestras clases cuando programamos 
+                interfaces gráficas de usuario.</p>
+            <p>La idea básica es agrupar las clases según tres roles:</p>
+            <ol>
+                <li><b>Modelo:</b> este rol lo juegan todas las clases 
+                    responsables de mantener y gestionar los datos de nuestra 
+                    aplición.</li>
+                <li><b>Vista:</b> este rol lo juegan todas las clases 
+                    responsables de visualizar datos.</li>
+                <li><b>Controlador:</b> conecta la <b>Vista</b> con el <b>Modelo</b>. 
+                    También conectado con la <emph>dinámica de la aplicación</emph>.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+            <p>Imagina que estás desarrollando una aplicación para gestionar tus 
+                contactos.</p>
+             <p class="centrado"><img src="imagenes/agenda.png" style="width: 600px"></p>
+        </article>
+        </slide>
+                
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+             <p class="centrado"><img src="imagenes/agenda.png" style="width: 300px"></p>
+             <ol>
+                <li>La <b>Vista</b> es la responsable de mostrar la información gráficamente.</li>
+                <li>El <b>Modelo</b> mantiene los datos de los contactos.</li>
+                <li>El <b>Controlador</b> realiza cambios en el <b>Modelo</b> cuando 
+                    el usuario interaciona con la <b>Vista</b>.</li>
+             </ol>
+        </article>
+        </slide>
+
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+            <p>La dinámica que se establece entre estos tres roles es la siguiente:</p>
+            <p class="centrado"><img src="imagenes/mvc.png" style="width: 800px"></p>
+        </article>
+        </slide>                
+
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+            <p>La principal ventaja de este patrón es que se ha desacoplado 
+                el modelo de datos y su visualización.</p>
+            <p>Puedo cambiar el <i>aspecto</i> de la <b>Vista</b> sin 
+                necesidad de modificar el <b>Modelo</b>.</p>
+            <p>Si por ejemplo, hemos escrito una aplicación que muestra 
+                los datos del <b>Modelo</b> en forma de gráfico de dos 
+                dimensiones, podríamos reemplazar el gráfico, o añadir 
+                además, una visualización de los datos en una tabla.</p>
+            <p>Puedo, incluso, tener más de una <b>Vista</b> del mismo 
+                <b>Modelo</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- El (meta) patrón de diseño Modelo Vista Controlador -->
+		<slide>
+        <hgroup>
+			<h2>El patrón Modelo Vista Controlador</h2>
+        </hgroup>
+        <article>
+            <p>Puedo cambiar el <b>Modelo</b> sin modificar la <b>Vista</b>.</p>
+            <p>Los datos de mi <b>Modelo</b> pueden estar en un simple 
+                fichero de texto, pero en el momento en que necesite utilizar 
+                una BD, cambiaré sólo el <b>Modelo</b> nunca será necesario 
+                cambiar además la <b>Vista</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p>Veamos un sencillo ejemplo de implementación del patrón MVC.</p>
+            <p class="centered"><video src="video/ejemploMVC.mov" width="800px"></video></p>
+            <div class="source">Vídeo</div>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/ejemploMVC.png" style="width: 800px"></p>
+            <p><b>Modelo</b>: Mantiene la lista de entradas. Sabe qué entrada hay <i>seleccionada</i>.</p>
+            <p><b>Vista</b>: Interfaz gráfica, con una caja de edición de texto, tres botones 
+                y un texto de información.</p>
+            <p><b>Controlador</b>: Sabe qué hay que hacer cuando el usuario pulsa cada uno 
+                de los tres botones que muestra la <b>Vista</b>.</p> 
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p>Lo que nos indica <i>MVC</i> es que el <b>Modelo</b> 
+                sólo conoce a la <b>Vista</b>, pero no al <b>Controlador</b>.</p> 
+            <p>La <b>Vista</b> conoce al <b>Controlador</b> y al <b>Modelo</b>.</p>
+            <p>Y el <b>Controlador</b> conoce a la <b>Vista</b>
+                y al <b>Modelo</b>.</p>
+            <p>Lo que significa que existen referencias cruzadas entre ellas.</p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p>Primera decisión, no hagamos que las clases tengan referencias 
+                a otras clases (tipos concretos), si no a <b>interfaces</b> 
+                (tipos abstractos), de este modo 
+                desacoplamos la referencia y la implementación concreta que 
+                le inyectamos.</p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionModelo implements Modelo {
+    private Vista vista; //Vista es un interface
+    ...
+}</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionVista implements Vista {
+    private Controlador controlador; //Controlador es un interface
+    private Modelo modelo; //Modelo es un interface
+    ...
+}</pre>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionControlador implements Controlador {
+    private Modelo modelo; //Modelo es un interface
+    private Vista vista; //Vista es un interface
+    ...
+}</pre>
+            <p>Tendremos que inyectar la referencia en cada uno de los 
+                atributos. Lo podremos hacer, bien con un constructor, 
+                en el momento de crear 
+                las clases concretas; bien con métodos <i>set</i>; o con 
+                ambos.</p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p>El diagrama UML en este caso es:</p>
+            <p class="centrado"><img src="imagenes/implementacionMVC.png" style="width: 750px"></p>
+            <p>Cada clase concreta mantiene referencias de tipo <b>interface</b></p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><i>Swing</i> utiliza el modo <i>push</i> para notificar a los 
+                Observadores de un componente de que algo ha ocurrido sobre él. 
+                Cada vez que el usuario 
+                interacciona con un componente gráfico, este genera un 
+                <i>Evento</i> que transporta información de lo que ha ocurrido.</p>
+            <p>Entre otra información, el <i>Evento</i> contiene una referencia 
+                al componente que lo lanzó.</p>
+            <p>Por lo tanto, si nos interesa, podemos usar el mismo Observador 
+                para más de un componente, ya que a la recepción del 
+                <i>Evento</i> podemos conocer el componente que lo lanzó.</p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p>Veamos cómo implementar la dinámica del patrón MVC.</p>
+            <p><b>(1) Acción del usuario</b></p>
+            <p class="centrado"><img class="centered" src="imagenes/mvcPaso1.png" style="width: 750px"></p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(1) Acción del usuario</b></p>
+<pre class="prettyprint" data-lang="Java">
+class Escuchador implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        JButton boton = (JButton)e.getSource();
+        String texto = boton.getText();
+        if(texto.equals("Nuevo"))
+            controlador.anyadeEntrada();
+        else if(texto.equals("Atras"))
+            controlador.atras();
+        else if(texto.equals("Adelante"))
+            controlador.adelante();
+    }
+}</pre>
+            <p>Recuerda que en el patrón Observador/Observable, 
+                un <b>Escuchador</b> debe implementar cierto <b>interface</b>.
+                En nuestros caso este <b>interface</b> es 
+                <b>ActionListener</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(1) Acción del usuario</b></p>
+            <p>El interface <b>ActionListener</b> declara un único método: 
+                <b>public void actionPerformed(ActionEvent e)</b>.</p>
+            <p>La notificación invoca al método <b>actionPerformed</b> que 
+                recibe como argumento una referencia de tipo <b>ActionEvent</b>, 
+                quien, como ya hemos comentado, transporta información 
+                sobre lo ocurrido.</p>
+            <p>En particular, podemos conocer el componente que lanzó el evento 
+                de este modo:</p>
+<pre class="prettyprint" data-lang="Java">
+e.getSource();</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(1) Acción del usuario</b></p>
+            <p>La <i>Vista</i>, notifica al <b>Controlador</b> de la acción 
+                del usuario:</p>
+<pre class="prettyprint" data-lang="Java">
+class Escuchador implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        JButton boton = (JButton)e.getSource();
+        String texto = boton.getText();
+        if(texto.equals("Nuevo"))
+            controlador.anyadeEntrada(); // &larr; Notificación
+        else if(texto.equals("Atras"))
+            controlador.atras(); // &larr; Notificación
+        else if(texto.equals("Adelante"))
+            controlador.adelante(); // &larr; Notificación
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(2) Solicita datos</b></p>
+            <p class="centrado"><img src="imagenes/mvcPaso2.png" style="width: 800px"/></p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(2) Solicita datos</b></p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionControlador implements Controlador {
+    ...
+    public void anyadeEntrada() {
+        String entrada = vista.getEntrada();
+        ...
+    }
+    ...
+}</pre>
+            <p>La ventaja de que el <b>Controlador</b> decida los 
+                datos que necesita es que, posteriormente, si lo necesitásemos, 
+                el <b>Controlador</b> podría pedir nuevos datos a la <b>Vista</b>.</p>
+            <p>Ejemplo: en el caso de una agenda, hoy la búsqueda es    por 
+                nombre, pero mañana puede ser por nombre y apellidos.</p>
+        </article>
+        </slide>
+                
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(3) Actualiza el modelo</b></p>
+            <p class="centrado"><img src="imagenes/mvcPaso3.png" style="width: 800px"></p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(3) Actualiza el modelo</b></p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionControlador implements Controlador {
+    ...
+    public void anyadeEntrada() {
+        String entrada = vista.getEntrada();
+        modelo.anyadeEntrada(entrada);
+    }
+    ...
+}</pre>
+            <p>El <b>Controlador</b> conoce cómo modificar el <b>Modelo</b>.</p>
+            <p>El <b>Modelo</b> se actualiza por petición del <b>Controlador</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(4) Notifica actualización</b></p>
+            <p class="centrado"><img src="imagenes/mvcPaso4.png" style="width: 800px"></p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(4) Notifica actualización</b></p>
+            <p>El <b>Modelo</b> notifica su cambio de estado a la <b>Vista</b>, 
+                por si a esta le interesa actualizarse:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionModelo implements Modelo {
+    ...
+    public void anyadeEntrada(String entrada) {
+        entradas.add(entrada);// &larr; El Modelo se actualiza
+        posicionActual++;// &larr; El Modelo se actualiza
+        vista.nuevaEntrada();// &larr; El Modelo notifica a la Vista
+    }
+    ...
+}</pre>
+        </article>
+        </slide>
+            
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(5) Solicita nuevos datos</b></p>
+            <p class="centrado"><img src="imagenes/mvcPaso5.png" style="width: 800px"></p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>(5) Solicita nuevos datos</b></p>
+            <p>La <b>Vista</b> solicita al <b>Modelo</b> los datos que son 
+                de su interés.</p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionVista implements Vista {
+    ...
+    public void nuevaEntrada() {
+        String infoEstadoEntradas = "Numero de entradas: " +
+        modelo.getPoscionEntradaActual() + " de " +
+        modelo.getNumeroEntradas();
+        // Muestra nueva información.
+    }
+    ...
+}</pre>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Hemos cerrado el ciclo</b></p>
+            <p class="centrado"><img src="imagenes/mvc.png" style="width: 800px"></p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Conectémoslo todo</b></p>
+            <p>En nuestro método <b>main</b> es donde hacemos las conexiones 
+                (<i>wiring</i>).</p>
+<pre class="prettyprint" data-lang="Java">
+public static void main(String args[]) {
+	ImplementacionControlador controlador = 
+	                      new ImplementacionControlador();
+	ImplementacionVista vista = new ImplementacionVista();
+	ImplementacionModelo modelo = new ImplementacionModelo();
+	modelo.setVista(vista);
+	controlador.setVista(vista);
+	controlador.setModelo(modelo);
+	vista.setModelo(modelo);
+	vista.setControlador(controlador);
+    ...
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Al final, estos son los métodos declarados en los interfaces:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Controlador {
+    void anyadeEntrada();
+    void adelante();
+    void atras();
+}</pre>
+            <p>El <b>Controlador</b> declara todos los métodos que usará la 
+                <b>Vista</b>.</p>
+        </article>
+        </slide>
+                        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+<pre class="prettyprint" data-lang="Java">
+public interface Modelo {
+    // Estos son los métodos que necesita conocer el Controlador.
+    void anyadeEntrada(String entrada);
+    void incrementaPosicionActual();
+    void decrementaPosicionActual();
+    // Y estos son los métodos que necesita concer la Vista.
+    int getNumeroEntradas();
+    String getEntradaActual();
+    int getPoscionEntradaActual();
+}
+</pre>
+            <p>El <b>Modelo</b> está declarando métodos que sólo utilizará 
+                el <b>Controlador</b> junto a métodos que sólo utilizará 
+                la <b>Vista</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+<pre class="prettyprint" data-lang="Java">
+public interface InformaVista {
+    // Este método sólo la usa el Controlador.
+    String getEntrada();
+    // Estos métodos sólo los usa el Modelo.
+    void entradaActualCambiada();
+    void nuevaEntrada();
+}
+</pre>
+            <p>La <b>Vista</b> declara métodos que usan tanto el 
+                <b>Controlador</b> como el <b>Modelo</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p class="centrado"><img src="http://www.tuexperto.com/wp-content/uploads/2011/10/pioneer-sc-lx85-02.jpg" style="width: 650px"></p>
+            <p>El <b>interface</b> declara métodos que algunos clientes no van a utilizar.</p>
+            <div class="source">Imagen: http://www.tuexperto.com/wp-content/uploads/2011/10/pioneer-sc-lx85-02.jpg</div>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Recuerdas la <b><i>I</i></b> de los <i>Principios <b>SOLID</b></i>: 
+                <i>El interfaz de una clase debe estar orientado a un 
+                único cliente</i>.<p>
+            <p>En nuestro caso el interfaz de la clase <b>ImplementacionModelo</b> 
+                está orientado tanto al <b>Controlador</b> como a la 
+                <b>Vista</b>. Y como en la <b>Vista</b> tenemos:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionVista implements Vista {
+    private Controlador controlador; //Controlador es un interface
+    ....</pre>
+            <p>La <b>Vista</b> tiene acceso a métodos que no le interesan, y 
+                que desde el punto de vista del programador pueden resultar 
+                <i>chocantes</i>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>¿Cómo lo podemos mejorar? Sencillo, creemos dos <b>interface</b>
+                a partir del anterior, en uno declaramos los métodos de 
+                interés para la <b>Vista</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface InterrogaModelo {
+    int getNumeroEntradas();
+    String getEntradaActual();
+    int getPoscionEntradaActual();
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Y en el otro los métodos que interesen 
+                sólo al <b>Controlador</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface CambioModelo {
+    void anyadeEntrada(String entrada);
+    void incrementaPosicionActual();
+    void decrementaPosicionActual();
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Con el <b>interface Vista</b> tenemos una situación parecida,
+                declara métodos que sólo son necesarios para el <b>Controlador</b>
+                y otros que sólo son necesarios para el <b>Modelo</b>. 
+                Podemos separarlos en dos <b>interfaces</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface InterrogaVista {
+    String getEntrada();
+}</pre>
+
+<pre class="prettyprint" data-lang="Java">
+public interface InformaVista {
+    void entradaActualCambiada();
+    void nuevaEntrada();
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Las clases concretas quedan como:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionModelo implements CambioModelo, 
+                                             InterrogaModelo {
+    private InformaVista vista;
+    ...</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionVista implements InterrogaVista, 
+                                            InformaVista {
+    private Controlador controlador;
+    private InterrogaModelo modelo;
+    ...</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ImplementacionControlador implements Controlador {
+    private InterrogaVista vista;
+    private CambioModelo modelo;
+    ...</pre>
+        </article>
+        </slide>
+        
+        <!-- Un ejemplo de aplicación que implementa MVC -->
+		<slide>
+        <hgroup>
+			<h2>Un ejemplo de aplicación con MVC</h2>
+        </hgroup>
+        <article>
+            <p><b>Detalles de implementación</b></p>
+            <p>Ahora sí que hemos acabado.</p>
+            <div class="build">
+                <p>... o quizás no...</p>
+                <p>Tienes una implementación aquí 
+                    <a href="fuentes/ejemploMVC.zip">ejemploMVC.zip</a> 
+                    para que sigas jugando con él.</p>
+            </div>
+        </article>
+        </slide>
+        
+        <!-- Recursos en Internet -->
+		<slide>
+        <hgroup>
+			<h2>Recursos en Internet</h2>
+        </hgroup>
+        <article>
+            <p><a href="http://en.wikipedia.org/wiki/MVC_Design_Pattern">Wikipedia</a>.</p>
+            <p><a href="http://docs.oracle.com/javase/tutorial/ui/index.html">Qué es Swing</a>.</p>
+            <p><a href="http://docs.oracle.com/javase/tutorial/uiswing/index.html">Cómo se programa Swing</a>.</p>
+        </article>                    
+        </slide>
+            
+        <slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

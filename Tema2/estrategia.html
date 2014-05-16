@@ -1,0 +1,878 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>El patrón de diseño Strategy</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Patrones de diseño</h2>
+      <h2 data-config-subtitle>Estrategia (Strategy)</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+		<!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+                <p>Un principio general en cualquier ámbito de la vida es: 
+                <b>No reinventes la rueda</b>.</p>
+                <p>Ante un nuevo problema, después de analizarlo, lo 
+                    primero que nos debemos preguntar antes de atacarlo 
+                    es: <b>¿Existe ya una solución para este problema?</b></p>
+                <p>De eso tratan los patrones de diseño, son soluciones bien 
+                    conocidas a problemas recurrente en POO.</p>
+                <p>En este primer capítulo sobre patrones de diseño vamos a 
+                    ver el patrón <b>Estrategia (Strategy)</b>
+		</article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head%20first%20design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
+                    Head first design Patterns.</a> Capítulo 1.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones%20de%20dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
+                    Patrones de diseño.</a> Capítulo 5.</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 16.</li>
+            </ol>
+            <p><b>Recursos en la web</b></p>
+            <ol>
+                <li><a href="http://c2.com/cgi/wiki?StrategyPattern">
+                    Design Patterns Book.</a></li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Voy a contarte un chiste.</li>
+                <li>Programemos el chiste.</li>
+                <li>Encapsulemos lo que varía.</li>
+                <li>Definición de patrón de diseño <b>Estrategia (Strategy).</b>
+                <li>Ejemplos del paquete estándar.</li>
+                <li>Recursos en Internet</li>
+            </ol>
+		</article>
+        </slide>
+        
+        <!-- Voy a contarte un chiste -->
+		<slide>
+        <hgroup>
+			<h2>Voy a contarte un chiste</h2>
+        </hgroup>
+        <article>
+            <p>La empresa para la que trabajamos quiere contratar nuevo 
+                personal, y nos encargan que hagamos la selección técnica 
+                de los candidatos.</p>
+            <p>La prueba, extremadamente complicada, consiste en contar 
+                del 1 hasta el 10.</p>
+		</article>
+        </slide>
+                
+        <!-- Voy a contarte un chiste -->
+		<slide>
+        <hgroup>
+			<h2>Voy a contarte un chiste</h2>
+        </hgroup>
+        <article>
+            <p>Hacemos pasar al primer candidato y le pedimos 
+                que cuente del 1 al 10.</p>
+            <p>El candidato empieza a contar: diez, nueve, ocho, 
+                siete, seis, cinco, cuatro, tres, dos, uno.</p>
+            <p>Ante nuestra sorpresa, le preguntamos al candidato por qué 
+                cuenta de manera descendente.</p>
+            <p><div class="build">
+                <div class="flexbox vcenter"><em>Antes de cambiar de empleo trabajé como astronauta, 
+                y contábamos de esta manera en los lanzamientos.</em>
+                <p class="centrado"><img src="imagenes/astronauta.gif" style="width: 150px"></p></div>
+                </div></p>
+        </article>
+        </slide>
+
+        <!-- Voy a contarte un chiste -->
+		<slide>
+        <hgroup>
+			<h2>Voy a contarte un chiste</h2>
+        </hgroup>
+        <article>
+            <p>Hacemos pasar al segundo candidato y, de nuevo, 
+                le pedimos que cuente del 1 al 10.</p>
+            <p>El candidato empieza a contar: uno, tres, cinco, siete, nueve, dos, cuatro, 
+                seis, ocho y diez.</p>
+            <p>Sorprendidos de nuevo, le preguntamos al candidato por qué 
+                cuenta primero los pares y luego los impares.</p>
+            <p><div class="build">
+                <div class="flexbox vcenter"><em>Yo era cartero antes de cambiar de trabajo, 
+                y cuando repartía las cartas, primero recorría la acera de los 
+                impares y luego la de los pares.</em>
+                <p class="centrado"><img src="imagenes/cartero-tocotoc.jpg" style="width: 150px"></p></div>
+                </div></p>
+        </article>
+        </slide>
+
+        <!-- Voy a contarte un chiste -->
+		<slide>
+        <hgroup>
+			<h2>Voy a contarte un chiste</h2>
+        </hgroup>
+        <article>
+            <p>Hacemos pasar al tercer y último candidato, y como tenemos la mosca 
+                detrás de la oreja, le preguntamos cual era su trabajo anterior.</p>
+            <p><em>Yo trabajaba como funcionario.</em></p>
+            <p>Confiamos en no tener ninguna sorpresa y le pedimos que cuente del 1 al 10.</p>
+            <p><div class="build"><em>Uno, dos, tres, cuatro, cinco, seis, 
+                siete,...</em></div></p>
+            <p><div class="build">
+                <div class="flexbox vcenter"><em>sota, caballo y rey.</em>
+                <p class="centrado"><img src="imagenes/espanolas.jpg" style="width: 200px"></p></div>
+                </div></p>
+        </article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Intentemos programar el chiste.</p>
+            <p>Lo primero que se nos ocurre es definir tres clases: 
+                Astronauta, Cartero y Funcionario:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Astronauta {
+    private String nombre;
+    
+    public Astronauta(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String cuenta() {
+        return "Diez, nueve, ocho, siete, seis, 
+            cinco, cuatro, tres, dos, uno.";
+    }
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>La clase para representar al <b>Cartero</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Cartero {
+    private String nombre;
+    
+    public Cartero(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String cuenta() {
+        return "Uno, tres, cinco, siete, nueve, 
+            dos, cuatro, seis, ocho y diez.";
+    }
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Finalmente, la clase para representar al <b>Funcionario</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Funcionario {
+    private String nombre;
+    
+    public Funcionario(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String cuenta() {
+        return "Uno, dos, tres, cuatro, cinco, 
+            seis, siete, sota, caballo y rey.";
+    }
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Para completar el ejemplo, definamos también el candidato ideal:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Ideal {
+    private String nombre;
+    
+    public Ideal(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String cuenta() {
+        return "Uno, dos, tres, cuatro, cinco, 
+            seis, siete, ocho, nueve y diez.";
+    }
+}</pre>
+            <p>He omitido en todos los casos <b>public String getNombre()</b>
+		</article>
+        </slide>
+        
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Cosas que podemos mejorar en las clases, como siempre, intentamos 
+                eliminar código repetido:</p>
+            <ol>
+                <li>Todas tienen un método <b>String cuenta()</b>.</li>
+                <li>Todas tienen un atributo <b>String nombre</b>.</li>
+            </ol>
+            <p>Una pregunta: ¿Recuerdas por qué el método cuenta devuelve un 
+                <b>String</b> y no lo muestra directamente por consola 
+                usando <b>System.out.println(...)?</b></p>
+            <p>Una posible solución es definir un <b>interface</b> 
+                que declare el método común y hacer que <b>Astronauta, Cartero,  
+                Funcionario</b> e <b>Ideal</b> lo implementen.</p>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Otra posible solución es definir una 
+                superclase abstracta, que 
+                contenga el atributo y el método común declarado <b>abstract</b>, 
+                y hacer que <b>Astronauta, Cartero,  
+                Funcionario</b> e <b>Ideal</b> extienda esa superclase.</p>
+            <div class="build">
+                <p>¿Alguna otra idea?</p>
+                <p>¿Qué te parece mejor?</p>
+                <p>¿Por qué?</p>
+            </div>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Empecemos con la opción del <b>interface</b>.</p>
+            <p>Llamémoslo <b>Contador</b></p>
+<pre class="prettyprint" data-lang="Java">
+public interface Contador {
+    String cuenta();
+    String getNombre(); // Añadido por comodidad
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>La clase <b>Astronauta</b> quedaría como:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Astronauta implements Contador {
+    private String nombre;
+    
+    public Astronauta(String nombre) {
+        this.nombre = nombre;
+    }
+    @Override
+    public String cuenta() {
+        return "Diez, nueve, ocho, siete, seis, 
+            cinco, cuatro, tres, dos, uno.";
+    }
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+}</pre>
+            <!-- Un ejercicio puede consistir en implementar las clases -->
+		</article>
+        </slide>
+                
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Juguemos un poco con las clases:</p>
+<pre class="prettyprint" data-lang="Java">
+Contador contador = new Astronauta("Gagarin");
+System.out.println("Soy " + contador.getNombre() + 
+    ": " + contador.cuenta());
+contador = new Cartero("Cartero de Pablo Neruda");
+System.out.println("Soy " + contador.getNombre() + 
+    ": " + contador.cuenta());
+contador = new  Funcionario("Oscar");
+System.out.println("Soy " + contador.getNombre() + 
+    ": " + contador.cuenta());
+contador = new Ideal("Galileo");
+System.out.println("Soy " + contador.getNombre() + 
+    ": " + contador.cuenta());
+</pre>
+		</article>
+        </slide>
+        
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Lo que obtenemos es:</p>
+            <samp>Soy Gagarin: Diez, nueve, ocho, siete, seis, cinco, cuatro, tres, dos, uno.</samp><br />
+            <div class="build">
+                <samp>Soy Cartero de Pablo Neruda: Uno, tres, cinco, siete, nueve, dos, cuatro, seis, ocho y diez.<br /></samp>
+                <samp>Soy Oscar: Uno, dos, tres, cuatro, cinco, seis, siete, sota, caballo y rey.<br /></samp>
+                <samp>Soy Galileo: Uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve y diez.<br /></samp>
+            </div>
+		</article>
+        </slide>
+        
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Resumiendo:</p>
+            <ul>
+                <li>Hemos promocionado el método común a un <b>interface</b>.</li>
+                <li>Todas las clases tienen el mismo atributo <b>nombre</b>.</li>
+                <li>Un <b>Astronauta</b> siempre contará como 
+                    un <b>Astronatua</b>.</li>
+            </ul>
+            <p>Veamos si con la clase abstracta mejoramos la implementación.</p>
+        </article>
+        </slide>
+                
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Llamemos a la superclase <b>Candidato</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public abstract class Candidato {
+    private String nombre;
+    
+    public Candidato(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public abstract String cuenta();
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Ahora hagamos que <b>Astronauta</b> extienda a 
+                <b>Candidato</b></p>
+<pre class="prettyprint" data-lang="Java">
+public class Astronauta extends Candidato {
+    public Astronauta(String nombre) {
+        super(nombre);
+    }
+    
+    @Override
+    public String cuenta() {
+        return "Diez, nueve, ocho, siete, seis, cinco, 
+            cuatro, tres, dos, uno.";
+    }
+}
+</pre>
+            <p>Hmmm, parece que esta clase es más sucinta. Quizás en este caso 
+                la clase <b>abstract</b> sea mejor opción.</p>
+		</article>
+        </slide>
+
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Juguemos un poco con estas clases:</p>
+<pre class="prettyprint" data-lang="Java">
+Candidato candidato = new Astronauta("Gagarin");
+System.out.println("Soy " + candidato.getNombre() + ": " + 
+    candidato.cuenta());
+candidato = new Cartero("Cartero de Pablo Neruda");
+System.out.println("Soy " + candidato.getNombre() + ": " + 
+    candidato.cuenta());
+candidato = new Funcionario("Oscar");
+System.out.println("Soy " + candidato.getNombre() + ": " + 
+    candidato.cuenta());
+candidato = new Ideal("Galileo");
+System.out.println("Soy " + candidato.getNombre() + ": " + 
+    candidato.cuenta());
+</pre>
+		</article>
+        </slide>
+                
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Lo que obtenemos es:</p>
+            <samp>Soy Gagarin: Diez, nueve, ocho, siete, seis, cinco, cuatro, tres, dos, uno.</samp><br />
+    	    <samp>Soy Cartero de Pablo Neruda: Uno, tres, cinco, siete, nueve, dos, cuatro, seis, ocho y diez.<br /></samp>
+			<samp>Soy Oscar: Uno, dos, tres, cuatro, cinco, seis, siete, sota, caballo y rey.<br /></samp>
+			<samp>Soy Galileo: Uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve y diez.<br /></samp>
+            </div>
+		</article>
+        </slide>
+                
+        <!-- Programemos el chiste -->
+		<slide>
+        <hgroup>
+			<h2>Programemos el chiste</h2>
+        </hgroup>
+        <article>
+            <p>Pero, ¿cómo podemos entrenar a un candidato que no sea ideal para que cuente en 
+                el orden correcto?</p>
+            <p>Si tomamos a un <b>Astronauta</b> siempre contará en orden descendente, 
+                y si tomamos a un <b>Cartero</b> siempre contará primero los impares 
+                y luego los pares, no hay modo de cambiar el comportamiento del objeto una vez 
+                que lo hemos instanciado.</p>
+            <p>Hemos resuelto el problema, pero necesitamos más flexibilidad.</p>
+		</article>
+        </slide>
+
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Las clases <b>Astronauta, Cartero, Funcionario</b> e 
+                <b>Ideal</b> comparten un método común que hemos 
+                promocionado a un <b>interface</b> o a una clase 
+                <b>abstract</b>, pero cada una de ellas se encarga 
+                de dar un implementación diferente.</p>
+            <p>Esto está bien, pero el comportamiento está demasiado ligado 
+                a la definición de las clases concretas. No podemos hacer 
+                que un <b>Astronauta</b> cambie su forma de contar.</p>
+            <div class="build">
+                <div>
+                    <p class="green"><b>PRINCIPIO</b></p>
+                    <p class="green"><b>Encapsula lo que varía</b>.</p>
+                </div>
+                <p>En este caso lo que varía es el algoritmo para contar.</p>
+            </div> 
+        </article>
+        </slide>
+                        
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>¿Cómo encapsulamos un algoritmo en una clase?</p>
+            <p>Muy fácil, aquí lo tienes:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ContadorDescendente implements Contador {
+    @Override
+    public String cuenta() {
+        return "Diez, nueve, ocho, siete, seis, 
+            cinco, cuatro, tres, dos, uno.";
+    }
+}</pre>
+            <p>Y el interfaz con el método común.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Contador {
+    String cuenta();
+}</pre>
+        </article>
+        </slide>
+                        
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Vaya!, ¿y como queda la clase <b>Astronauta</b>?</p>
+<pre class="prettyprint" data-lang="Java">
+public class Astronauta {
+    private String nombre;
+    private Contador contador;
+    
+    public Astronauta(String nombre) {
+        this.nombre = nombre;
+        contador = new ContadorDescendente();
+    }
+    
+    public String cuenta() {
+        return contador.cuenta(); //Método delegado
+    }...
+}
+</pre>
+            <div class="build"><p>Para, para!, pero ahora estás ligando en el constructor 
+                de <b>Astronauta</b> la implementación concreta 
+                de <b>Contador</b>.</p></div>
+        </article>
+        </slide>
+                        
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Vaya!, me he colado, perdón quería escribir esto:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Astronauta {
+    private String nombre;
+    private Contador contador;
+    
+    public Astronauta(String nombre, Contador contador) {
+        this.nombre = nombre;
+        this.contador = contador;
+    }
+    public void setContador(Contador contador) {
+        this.contador = contador;
+    }
+    public String cuenta() {
+        return contador.cuenta();
+    } ...
+}
+</pre>
+        </article>
+        </slide>
+                        
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>¿Hemos creado alguna instancia concreta en el código anterior?</p>
+            <p>¿Cómo jugamos con la clase?</p>
+<pre class="prettyprint" data-lang="Java">
+Astronauta astronauta = new Astronauta("Gagarin", 
+    new ContadorDescendente());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());</pre>
+            <samp>Soy Gagarin: Diez, nueve, ocho, siete, seis, cinco, cuatro, tres, dos, uno.</samp>
+            <p>Guau!, funciona.</p>
+        </article>
+        </slide>
+                        
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>¿Y cómo hacemos para que cuente como un <b>Cartero</b>?</p>
+            <p>Primero definimos una clase que encapsule la forma de contar 
+                como un <b>Cartero</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public class ContadorImparesPares implements Contador {
+    @Override
+    public String cuenta() {
+        return "Uno, tres, cinco, siete, nueve, 
+            dos, cuatro, seis, ocho y diez.";
+    }
+}
+</pre>
+		</article>
+        </slide>
+
+        <!-- Encapsulemos lo que varía -->
+		<slide>
+        <hgroup>
+			<h2>Encapsulemos lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Y luego inyectamos el comportamiento en tiempo de ejecución.</p>
+<pre class="prettyprint" data-lang="Java">
+Astronauta astronauta = new Astronauta("Gagarin", 
+    new ContadorDescendente());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());
+
+astronauta.setContador(new ContadorImparesPares());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());
+</pre>
+            <samp>Soy Gagarin: Diez, nueve, ocho, siete, seis, cinco, cuatro, tres, dos, uno.<br />
+                Soy Gagarin: Uno, tres, cinco, siete, nueve, dos, cuatro, seis, ocho y diez.</samp>
+            <p>Increíble, ahora el <b>Astronauta</b> cuenta como un <b>Cartero</b>.</p>
+		</article>
+        </slide>
+
+        <!-- Definición de patrón de diseño Estrategia (Strategy) -->
+		<slide>
+        <hgroup>
+			<h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
+        </hgroup>
+        <article class="smaller">
+            <q>Define una familia de algoritmos, encapsula cada uno de ellos 
+                y los hace intercambiables.
+                Permite que un algorimto varíe independientemente de los clientes 
+                que lo usan.</q>
+            <div class="source">Patrones de diseño <br />
+                Erich Gamma et al.</div>
+		</article>
+        </slide>
+
+        <!-- Definición de patrón de diseño Estrategia (Strategy) -->
+		<slide>
+        <hgroup>
+			<h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
+        </hgroup>
+        <article>
+            <p>En nuestro ejemplo:</p>
+            <ul>
+                <li>Familia de algoritmos &rarr; Modos de contar de 1 a 10.</li>
+                <li>Encapsulamiento &rarr; Cada una de las clases que cuentan.</li>
+                <li>Intercambiables &rarr; Referencia al <b>interface Contador</b>.</li>
+            </ul>
+		</article>
+        </slide>
+
+        <!-- Definición de patrón de diseño Estrategia (Strategy) -->
+		<slide>
+        <hgroup>
+			<h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
+        </hgroup>
+        <article>
+            <p>Este sería el modelo UML general del patrón Estrategia:</p>
+            <p class="centrado"><img src="imagenes/strategy.png" style="width: 700px" /></p>
+		</article>
+        </slide>
+
+        <!-- Definición de patrón de diseño Estrategia (Strategy) -->
+		<slide>
+        <hgroup>
+			<h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
+        </hgroup>
+        <article>
+            <p>Y en el caso concreto de los algoritmo de contar:</p>
+            <p class="centrado"><img src="imagenes/contar.png" style="width: 700px" /></p>
+		</article>
+        </slide>
+
+        <!-- Ejemplos del paquete estándar -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplos del paquete estándar</h2>
+        </hgroup>
+        <article>
+            <p>En el capítulo de programación con genéricos vimos como utilizar 
+                el método <b>Arrays.sort(Object[] a)</b>. 
+                La clase <b>Arrays</b> proporciona otro método para ordenar un
+                array de elementos <b>Arrays.sort(T[] a, Comparator< ? super T> c)</b>.
+                El segundo argumento de este método debe ser una clase que implemente el 
+                <b>interface Comparator</b> que define dos métodos:</p>
+                <ul>
+                    <li><b>int compare(T o1, T o2);</b></li>
+                    <li><b>boolean equals(Object obj);</b></li>
+                </ul>
+                <p>El método interesante en este caso es el primero. Del segundo, 
+                    <b>Object</b> da una implementación por defecto.</p>
+		</article>
+        </slide>
+
+        <!-- Ejemplos del paquete estándar -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplos del paquete estándar</h2>
+        </hgroup>
+        <article>
+            <p>La clase <b>Arrays</b> está utilizando el patrón 
+                <b>Strategy</b> pues espera que le inyectemos el 
+                algoritmo de comparación que utilizará <b>merge sort</b> 
+                dentro de una clase que implemente <b>Comparator</b>.</p>
+            <p>Del diagrama UML general podemos concretar:</p>
+            <ul>
+                <li>Algoritmo &rarr; <b>Comparator</b></li>
+                <li>Algoritmo Concreto &rarr; Una clase que implemente <b>Comparator</b></li>
+                <li>Cliente &rarr; La clase <b>Arrays</b>
+            </ul>
+        </article>
+        </slide>             
+
+        <!-- Ejemplos del paquete estándar -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplos del paquete estándar</h2>
+        </hgroup>
+        <article>
+            <p>Definamos entonces la clase que implementa <b>Comparator</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+class Comparador< T extends Color > implements Comparator< T > {
+    @Override
+    public int compare(T color1, T color2) {
+        if(color1.getRGB() < color2.getRGB()) return -1;
+        else if(color1.getRGB() > color2.getRGB()) return 1;
+        else return 0;
+    }
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Ejemplos del paquete estándar -->
+		<slide>
+        <hgroup>
+			<h2>Ejemplos del paquete estándar</h2>
+        </hgroup>
+        <article>
+            <p>Probemos el algoritmo</p>
+<pre class="prettyprint" data-lang="Java">
+Color colores2[] = {new Color(0, 0, 0),
+        new Color(1, 1, 1),
+        new Color(1, 0, 1)};
+Arrays.sort(colores2, new Comparador<Color>());
+System.out.println(Arrays.asList(colores));</pre>
+            <p>Obtenemos como resultado:</p>
+            <samp>[[0, 0, 0], [1, 0, 1], [1, 1, 1]]</samp>
+		</article>
+        </slide>
+
+        <!-- Resumen -->
+        <slide>
+        <hgroup>
+            <h2>Resumen</h2>
+        </hgroup>
+        <article>
+            <p>Los patrones de diseño hacen uso intensivo de los principios
+                de la POO.</p>
+            <p>En particular, el patrón <b>Strategy</b> hace uso del principio
+                «Encapsula lo que varía». Lo que varía en este caso es un algoritmo,
+                que puede tener varias implementaciones.</p>
+            <p>La manera de encapsular el altoritmo es, simplemente, crear
+                una clase con su implementación.</p>
+            <p>Para que el patrón sea la más flexible posible, las clases clientes
+                no instancian el algoritmo directamente, simplemente tienen
+                una referencia a un <b>interface</b> bajo el cual se encuentra
+                la clase que implementa un algoritmo concreto.</p> 
+        </article>
+        </slide>
+        
+        <!-- Recursos en Internet -->
+		<slide>
+        <hgroup>
+			<h2>Recursos en Internet</h2>
+        </hgroup>
+        <article>
+            <h3>Recursos en Internet</h3>
+            <p><a href="http://en.wikipedia.org/wiki/Strategy_pattern">Wikipedia.</a></p>
+            <p><a href="http://c2.com/cgi/wiki?StatePattern">Gang of four</a></p>
+            <p><a href="http://www.freejavaguide.com/java-design-patterns.pdf">
+                Recurso libre sobre patrones de diseño.</a></p>
+            <p><a href="http://martinfowler.com/articles/injection.html">Inyección de dependencias</a></p>
+            <p><a href="http://es.wikipedia.org/wiki/Inyecci%C3%B3n_de_dependencias">
+                Inyección de dependencias en la Wikipedia</a></p>
+		</article>
+        </slide>
+        
+        
+        <slide class="backdrop"></slide>   
+	</slides>
+	
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

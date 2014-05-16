@@ -1,0 +1,1071 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Genéricos</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Este estilo es mío -->
+<style type="text/css">
+strong {
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body style="opacity: 0">
+    <slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
+      <h2 data-config-subtitle>Genéricos</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+        <!--  Introducción -->
+        <slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+		<article>
+            <p>Recuerda estructuras de datos tales como las <i>listas</i>, 
+                las <i>colas</i> o los <i>árboles</i><p>
+            <p>Estas estructuras de datos pueden trabajar con cualquier tipo de datos,
+                podemos tener listas de <i>Persona</i> y también de <i>Empresa</i>, 
+                la funcionalidad que la lista ofrece es independiente del tipo 
+                de datos que maneja.</p>
+            <p>En POO este comportamiento (independencia del tipo de datos) lo 
+                podemos conseguir utilizando <b>genéricos</b>.</p>
+        </article>
+        </slide>
+
+
+        <!-- Bibliografía -->
+        <slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=D/Xbig+java&searchscope=1&SORT=D&SUBKEY=big+java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=D&1%2C1%2C">
+                    Big Java</a> Capítulo 16.</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 9.</li>
+            </ol>
+            <p><b>Recursos en la web</b></p>
+            <ol>
+                <li><a href="http://docs.oracle.com/javase/tutorial/java/generics/index.html">
+                    Genéricos en la página web de Oracle.</a></li>
+                <li><a href="http://docs.oracle.com/javase/tutorial/extra/generics/index.html">
+                    Otro recurso sobre genéricos en la página web de Oracle.</a></li>
+            </ol>
+        </article>
+        </slide>
+
+        
+        <!--  Contenidos -->
+        <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li>Métodos genéricos.</li>
+                <li>Clases genéricas.</li>
+                <li>Interfaces genéricas.</li>
+                <li>Límites.</li>
+                <li>Comodines.</li>
+                <li>Ejemplos en el paquete estándar.</li>
+                <li>Resumen.</li>
+            </ol>
+        </article>
+        </slide>
+
+
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>Imagina que necesitas un método 
+                que te imprima información sobre una <b>Persona</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public void muestra(Persona persona) {
+    System.out.println(persona.toString() + 
+        " de tipo " + persona.getClass().getName());
+}
+</pre>
+            <p>Y ahora quieres hacer lo mismo para <b>Empresa</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public void muestra(Empresa empresa) {
+    System.out.println(empresa.toString() + 
+        " de tipo " + empresa.getClass().getName());
+}
+</pre>
+            <p>Hmmmm, ya nos estamos repitiendo.</p>
+        </article>
+        </slide>
+
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+            <h2>Métodos genéricos</h2>
+        </hgroup>
+        <article>
+            <p>De acuerdo, este caso ya lo sabemos resolver, basta utilizar la clase padre de ambas:</p>
+<pre class="prettyprint" data-lang="Java">
+public void muestra(Cliente cliente) {
+    System.out.println(cliente.toString() + 
+        " de tipo " + cliente.getClass().getName());
+}
+</pre>
+            <p>Polimorfismo al rescate. Pero, ¿y si no existe una relación entre las clases?</p>
+<pre class="prettyprint" data-lang="Java">
+public String muestra(Float real) {
+    return real + " de tipo " + real.getClass().getName();
+}
+
+public String muestra(Integer real) {
+    return real + " de tipo " + real.getClass().getName();
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>Nos sería de gran ayuda si el tipo del argumento estuviese 
+                indeterminado, y que pudiese ser cualquiera.</p>
+            <p>Eso es precisamente lo que nos permiten los genéricos, 
+                en el caso de los métodos, nos permiten  
+                dejar sin especificar el tipo del argumento.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>Cuando definimos un método podemos dejar sin especificar el tipo 
+                de alguno de los argumentos:</p>
+<pre class="prettyprint" data-lang="Java">
+public class MetodoGenerico {
+    public static < T > void muestra(T dato) {
+        System.out.println("El dato es:" + dato.toString() + 
+            " de tipo " + dato.getClass().getName());
+    }
+}
+</pre>
+            <p>Y lo podemos usar así:
+<pre class="prettyprint" data-lang="Java">
+MetodoGenerico.muestra(1);
+MetodoGenerico.muestra("Hola");
+</pre>     
+            <samp>El dato es:1 de tipo java.lang.Integer<br />
+El dato es:Hola de tipo java.lang.String</samp>    
+        </article>
+        </slide>
+
+        
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>Lo que está ocurriendo es que el compilador de Java crea  
+                un método con el tipo más general, que en este caso
+                es <b>Object</b>.</p>
+            <p>Esto se hace así para preservar la compatibilidad hacia atrás.
+                La programación con genéricos fue introducida en la versión 5
+                de Java, de la mano de 
+                <a href="http://lampwww.epfl.ch/~odersky/">Martin Odersky</a>.</p>
+            <p>A esta técnica se le llama 
+            <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html">
+            borrado de tipos</a>.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>Un método genérico puede tener el tipo de algunos 
+                de sus argumentos sin especificar:</p>
+<pre class="prettyprint" data-lang="Java">
+public class MetodoGenerico {
+    public static < T, U > boolean tiposIguales(T primero, U segundo) {
+        return primero.getClass().equals(segundo.getClass());
+    }
+}
+</pre>
+            <p>Lo podemos usar así:</p>
+<pre class="prettyprint" data-lang="Java">
+System.out.println(MetodoGenerico.tiposIguales("Hola", "Adios"));
+System.out.println(MetodoGenerico.tiposIguales("Hola", 1));
+</pre>
+            <samp>true<br />
+                false
+            </samp>
+        </article>
+        </slide>
+
+
+        <!-- Métodos genéricos -->
+        <slide>
+        <hgroup>
+			<h2>Métodos genéricos</h2>
+        </hgroup>
+		<article>
+            <p>¿Cual es la ventaja?</p>
+            <p>Seguir la buena práctica de programación <i>DRY:
+                Don't Repeat Yourself</i>, no te repitas.</p>
+            <p>En otras asignaturas del grado, has visto algoritmos
+                cuyo funcionamiento es independiente del tipo de datos
+                sobre el que trabajan, por ejemplo, los algoritmos de
+                ordenación. Para que estos funcionen, basta conocer, 
+                según algún criterio, que elemento es mayor que otro.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+            <p>Los genéricos también los podemos utilizar con clases.</p>
+            <p>Las clases genéricas son muy útiles cuando necesitamos 
+                que manejen cualquier tipo de datos. Un ejemplo son las 
+                clases que implementan estructuras de datos: Listas, Colas, 
+                Árboles, Grafos, etcétera.</p>
+            <p>Veamos como primer ejemplo una sencilla clase que no es más 
+                que un contenedor de datos genérico.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+<pre class="prettyprint" data-lang="Java">
+public class ContenedorGenerico< T > {
+    private T dato;
+
+    public ContenedorGenerico() {
+        super();
+    }
+    public ContenedorGenerico(T dato) {
+        super();
+        this.dato = dato;
+    }
+    public T getDato() {
+        return dato;
+    }
+    public void setDato(T dato) {
+        this.dato = dato;
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+            <p>Podemos instanciar la clase genérica así:</p>
+<pre class="prettyprint" data-lang="Java">
+ContenedorGenerico< Integer > entero = 
+    new ContenedorGenerico< Integer >(1);
+ContenedorGenerico< Float > real = 
+    new ContenedorGenerico< Float >(1.1f);
+ContenedorGenerico< Persona > persona = 
+    new ContenedorGenerico< Persona >(new Persona(...));
+</pre>
+            <p>Especificamos el tipo concreto cuando declaramos las referencias 
+                o cuando creamos instancias.</p>
+            <p>Vayamos un poco más lejos y creemos un contenedor enlazado.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+<pre class="prettyprint" data-lang="Java">
+public class ContenedorEnlazadoGenerico< T > {
+    private ContenedorGenerico< T > dato;
+    private ContenedorEnlazadoGenerico< T > siguiente;
+    
+    public ContenedorEnlazadoGenerico(T dato) {
+        super();
+        this.dato = new ContenedorGenerico< T >(dato);
+    }
+    public T getDato() {
+        return dato.getDato();
+    }
+    public ContenedorEnlazadoGenerico< T > getSiguiente() {
+        return siguiente;
+    }
+    public void setSiguiente(ContenedorEnlazadoGenerico< T > 
+        siguiente) {
+        this.siguiente = siguiente;
+    }   
+}</pre>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+            <p>Ahora ya podemos crear una lista:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ListaGenerica< T > {
+    private ContenedorEnlazadoGenerico< T > cabeza;
+    private ContenedorEnlazadoGenerico< T > cola;
+    private int cuantos;
+    
+    public ListaGenerica() {
+        super();
+        cabeza = cola = null;
+        cuantos = 0;
+    }
+    public void addElemento(T dato) {
+        ...sigue la implementación</pre>
+        </article>
+        </slide>
+
+        
+        <!-- Clases genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Clases genéricas</h2>
+        </hgroup>
+		<article>
+            <p>Y podríamos trabajar con ella de esta manera:</p>
+<pre class="prettyprint" data-lang="Java">
+ListaGenerica< Integer > enteros = new ListaGenerica< Integer >();
+enteros.addElemento(1);
+enteros.addElemento(2);
+ListaGenerica< Float > reales = new ListaGenerica< Float >();
+reales.addElement(1.1f);
+reales.addElement(2.2f);</pre>
+            <p>Además, las clases genéricas detectan incompatibilidad 
+                de tipos en tiempo de compilación.</p>
+<pre class="prettyprint" data-lang="Java">
+ListaGenerica< Integer > enteros = new ListaGenerica< Integer >();
+enteros.addElement(1.1f);</pre>
+            <p>Dará un error, estamos intentando añadir un <b>Float</b>
+                a un lista de <b>Integer</b>.</p>
+        </article>
+        </slide>
+
+        
+        <!-- Interfaces genéricas -->
+        <slide>
+        <hgroup>
+			<h2>Interfaces genéricas</h2>
+        </hgroup>
+		<article>
+            <p>Los interfaces también pueden hacer uso de genéricos:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface DevuelveDatoGenerico< T > {
+    T getDato();
+    void setDato(T dato);
+}</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ContenedorGenerico< T > 
+    implements DevuelveDatoGenerico< T >{
+    ....
+    @Override
+    public T getDato() {
+        return dato;
+    }
+    @Override
+    public void setDato(T dato) {
+        this.dato = dato;
+    }
+}</pre>
+        </article>
+        </slide>
+
+        
+        <!-- Interfaces genéricas -->
+        <slide>
+        <hgroup>
+            <h2>Interfaces genéricas</h2>
+        </hgroup>
+        <article>
+            <p>Ahora podemos estar tentados de hacer lo siguiente:</p>
+<pre class="prettyprint" data-lang="Java">
+DevuelveDatoGenerico< Float > dato = 
+    new ContenedorGenerico< Float >(2.2f);
+dato = new ContenedorGenerico< Integer >(1);</pre>
+            <p>Lo que nos da un error en tiempo de compilación.</p>
+            <p>¿Cómo es posible ya que <b>DevuelveDatoGenerico< T ></b>
+                trabaja con genéricos?</p>
+            <p>Es cierto, pero el tipo de la referencia lo forma tanto el nombre 
+                del genérico como el tipo particular.</p>
+            <p><b>DevuelveDatoGenerico< T ></b> no es un tipo.</p>
+            <p><b>DevuelveDatoGenerico< Integer ></b> si que lo es.</p>
+        </article>
+        </slide>
+
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Supón que estas desarrollando una aplicación para una cooperativa agrícola. La cooperativa vende, entre otras frutas, mandarinas y naranjas.</p>
+            <p>Necesitan poder calcular los porcentajes de cada tipo de fruta según algún parámetro, por ejemplo:</p>
+            <ul>
+                <li>Porcentaje de mandarinas con un calibre mayor que cierto calibre dado.</li>
+                <li>Porcentaje de naranjas con un calibre mayor que cierto calibre dado.</li>
+                <li>Porcentaje de naranjas de una cierta variedad.</li>
+                <li>Porcentaje de mandarina con un índice de azúcar superior a un índice dado.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Cuando te pones a codificar, rápidamente te das cuenta que tanto las mandarinas como las naranjas tienen calibre (y en general cualquier fruta), así que decides crear una superclase <strong>Fruta</strong>:</p>
+<pre class="prettyprint" data-laguage="Java">
+public abstract class Fruta {
+    private float tamanyo;
+    
+    public Fruta(float tamanyo) {
+        this.tamanyo = tamanyo;
+    }
+    
+    float getTamanyo() {
+        return tamanyo;
+    }
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Las mandarinas quedan como:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Mandarina extends Fruta {
+    private float indiceAzucar;
+    
+    public Mandarina(float tamanyo, float indiceAzucar) {
+        super(tamanyo);
+        this.indiceAzucar = indiceAzucar;
+    }
+    
+    public float getIndiceAzucar() {
+        return indiceAzucar;
+    }
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Y por su parte, las naranjas quedan como:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Naranja extends Fruta {
+    private String variedad;
+    
+    public Naranja(float tamanyo) {
+        super(tamanyo);
+    }
+    
+    public String getVariedad() {
+        return variedad;
+    }
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Hasta aquí sencillo. Ahora quieres una clase que te realice los cálculos de porcentaje para las mandarinas:</p>
+<pre class="prettyprint" data-lang="Java">
+public class AnalizadorMandarinas {
+    private Collection< Mandarina > mandarinas = new ArrayList< >();
+    
+    public float porcentajeIndiceAzucar(float indiceAzucar) {
+        int contador = 0;
+        for(Mandarina mandarina: mandarinas) {
+            if(mandarina.getIndiceAzucar() >= indiceAzucar)
+                contador++;
+        }
+        return (float)contador/mandarinas.size();
+    }
+}
+</pre>
+            <p>Fíjate que necesitamos que la colección sea de <strong>Mandarina</strong> porque necesitamos consultar su índice de azúcar.</p>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Para el analizador de <strong>Naranja</strong> la idea es muy parecida:</p>
+<pre class="prettyprint" data-lang="Java">
+public class AnalizadorNaranjas {
+    private Collection< Naranja > naranjas = new ArrayList< >();
+    
+    public float porcentajeVariedad(String variedad) {
+        int contador = 0;
+        for(Naranja naranja: naranjas) {
+            if(variedad.equals(naranja.getVariedad()))
+                contador++;
+        }
+        return (float)contador/naranjas.size();
+    }
+}    
+</pre>
+            <p>De nuevo, la colección es de <strong>Naranja</strong>.</p>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Empieza lo bueno, como el calibre está definido en la clase <strong>Fruta</strong>, se nos ocurre crear otra clase de utilidad para hacer el cálculo de porcentaje según calibre:</p>
+<pre class="prettyprint" data-lan="Java">
+public class UtilidadesFruta {
+    public static Collection< Fruta > procesaCalibre(Collection< Fruta > frutas,
+                                                     float calibre) {
+        Collection< Fruta > validas = new ArrayList< >();
+        for(Fruta fruta: frutas) {
+            if(fruta.getTamanyo() >= calibre)
+                validas.add(fruta);
+        }
+        return validas;
+    }
+}
+</pre>
+            <p>Ningún problema, la definición del método es correcta.</p>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Y queremos usarla así:</p>
+<pre class="prettyprint" data-lang="Java">
+public class AnalizadorMandarinas {
+    private Collection< Mandarina > mandarinas = new ArrayList< >();
+    
+    ....    
+    public float porcentajeCalibre(float calibre) {
+        int contador = UtilidadesFruta.procesaCalibre(mandarinas, calibre).size();
+        return (float)contador/mandarinas.size();
+    }
+}
+</pre>
+            <p>No podemos, el método <strong>porcentajeCalibre</strong> espera un <strong>Collection<Fruta></strong> pero ya sabemos que un <strong>Collection<Mandarina></strong> no lo es. ¿Qué hacemos?</p>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Solución:</p>
+<pre class="prettyprint" data-lang="Java">
+public class AnalizadorMandarinas {
+    .......    
+    public float porcentajeCalibre(float calibre) {
+        Collection< Fruta > frutas = new  ArrayList< >();
+        for(Mandarina mandarina: mandarinas)
+            frutas.add(mandarina);
+        int contador = UtilidadesFruta.procesaCalibre(frutas, calibre).size();
+        return (float)contador/mandarinas.size();
+    }
+}
+</pre>
+            <div class="build">
+                <p>Claro, y también puedes programarlo en Cobol ;)</p>
+                <p>El problema está en <strong>UtilidadesFrutas</strong> que sólo sabe trabajar con <strong>Collection< Fruta ></strong>.<p>
+            </div>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Intentemos utilizar genéricos:</p>
+<pre class="prettyprint" data-lang="Java">
+public static < T > Collection< T > procesaCalibre(Collection< T > frutas,
+                                                   float calibre) {
+    Collection< T > validas = new ArrayList< >();
+    for(T fruta: frutas) {
+        if(fruta.getTamanyo() >= calibre)
+            validas.add(fruta);
+    }
+    return validas;
+}
+</pre>
+            <p>El problema es que < T > es tan genérico que no podemos garantizar que esos tipos tengan definido el método <strong>getTamanyo()</strong>.</p>
+            <p>Pongamos límites a esta situación.</p>
+        </article>
+        </slide>
+        
+        <!-- Límites -->
+        <slide>
+        <hgroup>
+            <h2>Límites</h2>
+        </hgroup>
+        <article>
+            <p>Veamos la solución limpia utilizando límites:</p>
+<pre class="prettyprint" data-lang="Java">
+
+public static <b>< T extends Fruta></b> Collection< T > procesaCalibre(Collection< T > frutas,
+                                                                       float calibre) {
+    Collection< T > validas = new ArrayList< >();
+    for(T fruta: frutas) {
+        if(fruta.getTamanyo() >= calibre)
+            validas.add(fruta);
+    }
+    return validas;
+}
+</pre>
+            <p>Este es el camino, estamos fijando un límite superior, queremos que el método sea genérico y a su vez que extienda a la clase <strong>Fruta</strong>.</p>
+        </article>
+        </slide>
+        
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>¿Y existe un mecanismo para poder definir referencias sin tipo 
+                genérico concreto? Afortunadamente sí, los <em>Comodines</em>.</p>
+<pre class="prettyprint" data-lang="Java">
+DevuelveDatoGenerico< Integer > entero = 
+    new ContenedorGenerico< Integer >(1);
+DevuelveDatoGenerico< ? >comodin = 
+    new ContenedorGenerico< Float >(2.0f);</pre>
+            <p>Fantástico!!!... bueno, no tan rápido. Hay cosas que con 
+                los comodines no podemos hacer:</p>
+<pre class="prettyprint" data-lang="Java">
+comodin.getDato(); // No hay problema.
+comodin.setDato(3); // Tenemos un error.</pre>
+            <p>No podmeos utilizar las referencias comodín para modificar el 
+                estado de un objeto.</p>
+        </article>
+        </slide>
+
+
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>Supón ahora que tenemos la siguiente jerarquía de clases:</p>
+            <p class="centrado"><img src="imagenes/genericosHerencia.png" style="width: 400px"></p>
+            <p>Y que la clase <b>Perro</b> es <b>abstract</b></p>
+<pre class="prettyprint" data-lang="Java">
+public abstract class Perro extends Animal {
+    public abstract String ladra();
+}</pre>
+        </article>
+        </slide>
+        
+
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>Y las dos implementaciones de la clase <b>Perro</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Caniche extends Perro {
+    @Override
+    public String ladra() {
+        return "Ladro como un caniche";
+    }
+}
+</pre>
+<pre class="prettyprint" data-lang="Java">
+public class Chiuaua extends Perro {
+    @Override
+    public String ladra() {
+        return "Ladro como un chiuaua";
+    }
+}
+</pre>
+        </article>
+        </slide>
+        
+
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>Ahora queremos una referencia de tipo <b>DevuelveDatoGenerico</b>
+                que pueda referenciar a cualquier tipo de <b>Perro</b>.</p>
+            <p>Con lo que hasta ahora sabemos se nos ocurre:</p>
+<pre class="prettyprint" data-lang="Java">
+DevuelveDatoGenerico< ? > perro = 
+    new ContenedorGenerico< Perro >(new Caniche());
+perro = new ContenedorGenerico< Perro >(new Chiuaua());</pre>
+            <p>Hasta aquí todo bien, pero ahora se nos ocurre probar:</p>
+<pre class="prettyprint" data-lang="Java">
+perro = new ContenedorGenerico< Gato >(new Gato());</pre>
+            <p>Vaya!, no hay problema, pero nosotros sólo queremos <b>Perro</b></p>
+        </article>
+        </slide>
+        
+
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>¿Cómo limitamos el tipo de las referencias cuando usamos comodines?</p>
+            <p>Con los límites. Veamos primero los límites superiores:</p>
+            <p>Si queremos que nuestra referencia sea de cualquier 
+                tipo de <b>Perro</b>, es como decir que 
+                <b>Perro</b> es el límite superior del comodín:</p>
+<pre class="prettyprint" data-lang="Java">
+DevuelveDatoGenerico< ? extends Perro > perro = 
+    new ContenedorGenerico< Caniche >(new Caniche());
+perro = new ContenedorGenerico< Chiuaua >(new Chiuaua());</pre>
+            <p>Sin problema, <b>Caniche</b> y <b>Chiuaua</b> 
+                extienden a <b>Perro</b>
+        </article>
+        </slide>
+
+                
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>Intentémoslo de nuevo con el <b>Gato</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+perro = new ContenedorGenerico< Gato >(new Gato());</pre>
+            <p>Obtenemos:</p>
+            <samp>Type mismatch: cannot convert from ContenedorGenerico< Gato > 
+            to DevuelveDatoGenerico< ? extends Perro ></samp>
+            <p>Bien!, porque <b>Gato</b> no es hija de 
+                <b>Perro</b>.</p>
+            <p class="green"><b>Los límites superiores marcan la clase superior 
+                que se puede utilizar con un tipo genérico.</b></p>
+        </article>
+        </slide>
+
+                
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+			<h2>Comodines</h2>
+        </hgroup>
+		<article>
+            <p>Si el límite lo fija un <b>interface</b> no una clase, 
+                la sintaxis sigue utilizando <b>extends</b>, no 
+                <b>implements</b>:</p>
+<pre class="prettyprint" data-lang="Java">public interface UnInterface {
+...
+}</pre>
+<pre class="prettyprint" data-lang="Java">
+ArrayList< ? extends UnInterface > al = .... // Bien
+ArrayList< ? implements UnIterface > al = ... // Mal!!!
+</pre>
+        </article>
+        </slide>
+
+                
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+            <h2>Comodines</h2>
+        </hgroup>
+        <article>
+            <p>También podemos usar comodines con un límite inferior:</p>
+<pre class="prettyprint" data-lang="Java">
+ArrayList< ? super Caniche > perros = new ArrayList< Perro >();
+</pre>
+            <p>En este caso, estamos indicando que <b>perros</b> es una referencia 
+                a la que podemos asignar cualquier <b>ArrayList</b> 
+                cuyos elementos tengan como hija a <b>Caniche</b>, 
+                como por ejemplo <b>Perro</b>, tal y como aparece 
+                en el ejemplo.</p>
+        </article>
+        </slide>
+
+        <!-- Comodines -->
+        <slide>
+        <hgroup>
+            <h2>Comodines</h2>
+        </hgroup>
+        <article>
+            <p>Imagina que tenemos la siguiente clase hija de <b>Caniche</b></p>
+<pre class="prettyprint" data-lang="Java">
+public class CanicheSudafricano extends Caniche {
+    @Override
+    public String ladra() {
+        return "Ladro como un caniche... sudafricano.";
+    }
+}
+</pre>
+            <p>En este caso no podríamos hacer:</p>
+<pre class="prettyprint" data-lang="Java">
+List< ? super Caniche > perras = new ArrayList< CanicheSudafricano >();
+</pre>
+            <p>porque <b>CanicheSudafricano</b> no es padre de <b>Caniche</b>, sino una de sus hijas.</p>
+        </article>
+        </slide>
+                
+        <!-- Ejemplos en el paquete estándar -->
+        <slide>
+        <hgroup>
+			<h2>Ejemplos en el paquete estándar</h2>
+        </hgroup>
+		<article>
+            <p>En el paquete estándar de Java tienes numerosos ejemplos de uso 
+                de genéricos. Veamos algunos ejemplos.</p>
+            <p>Colecciones. La clase <b>ArrayList</b> proporciona una     
+                colección a la que yo puedo añadir, recuperar, borrar, etcétera 
+                elementos:</p> 
+<pre class="prettyprint" data-lang="Java">
+ArrayList< Integer > enteros = new ArrayList< Integer >();
+enteros.add(1);
+System.out.println(enteros.size()); // Muestra 1
+enteros.add(1.1); // Error, sólo Integer</pre>
+        </article>
+        </slide>
+
+        <!-- Ejemplos en el paquete estándar -->
+        <slide>
+        <hgroup>
+            <h2>Ejemplos en el paquete estándar</h2>
+        </hgroup>
+        <article>
+            <p>Fíjate, además en la sintaxis:</p>
+<pre class="prettyprint" data-lang="Java">
+ArrayList< Integer > enteros = new ArrayList< Integer >();
+<b>enteros.add(1);</b>
+</pre>
+            <p>Estamos añadiendo un tipo primitivo (int) a una lista
+                que maneja referencias <b>Integer</b>. ¿Qué está
+                ocurriendo?</p>
+            <p>La JVM crea un objeto de tipo <b>Integer</b> conteniendo
+                un <b>int</b> para poder añadirlo a la lista.
+                Esto se conoce como <b>boxing</b></p>
+        </article>
+        </slide>
+
+        <!-- Ejemplos en el paquete estándar -->
+        <slide>
+        <hgroup>
+            <h2>Ejemplos en el paquete estándar</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+ArrayList< Integer > enteros = new ArrayList< Integer >();
+<b>enteros.add(1);</b>
+<b>System.out.println(enteros.get(0) + 1)</b>
+</pre>
+            <p>Fíjate que ahora ocurre al contrario, el método 
+                <b>get(0)</b> no devuelve una referencia de tipo 
+                <b>Integer</b> que parece que sumamos al entero
+                <b>1</b>. Lo que está ocurriendo es que la JVM
+                obtiene el entero contenido en el objeto <b>Integer</b>
+                de nuevo de manera transparente para nosotros <b>unboxing</b>.</p>
+            <p>A los dos mecanismos conjuntos se les llama <b>autoboxing</b>,
+                y existe en Java desde que existe los genéricos.</p>
+        </article>
+        </slide>
+        
+        <!-- Ejemplos en el paquete estándar -->
+        <slide>
+        <hgroup>
+			<h2>Ejemplos en el paquete estándar</h2>
+        </hgroup>
+		<article>
+            <p>El <b>interface Comparable< T ></b> lo puede implementar  
+                una clase cuyas instancias podamos compara entre sí para decir 
+                cual de ellas es mayor.</p>
+            <p>La clase <b>java.awt.Color</b> no implementa  
+                <b>Comparable</b>, creemos una clase que sí lo implemente:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ColorComparable extends Color implements Comparable< Color > {
+    public ColorComparable(int r, int g, int b) {
+        super(r, g, b);
+    }
+    @Override
+    public int compareTo(Color otroColor) {
+        if(getRGB() < otroColor.getRGB()) return -1;
+        else if(getRGB() > otroColor.getRGB()) return 1;
+        else return 0;
+    }
+}</pre>
+        </article>
+        </slide>
+        
+
+        <!-- Ejemplos en el paquete estándar -->
+        <slide>
+        <hgroup>
+			<h2>Ejemplos en el paquete estándar</h2>
+        </hgroup>
+		<article>
+            <p>Ahora podemos ordenar un array de colores comparables:</p>
+<pre class="prettyprint" data-lang="Java">
+ColorComparable colores[] = {new ColorComparable(0, 0, 0),
+    new ColorComparable(1, 1, 1),
+    new ColorComparable(1, 0, 1)};
+
+Arrays.sort(colores);
+
+System.out.println(Arrays.asList(colores));
+</pre>
+            <p>Obtenemos:</p>
+            <samp>[[0, 0, 0], [1, 0, 1], [1, 1, 1]]</samp>
+        </article>
+        </slide>
+        
+
+        <!-- Resumen -->
+        <slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+		<article>
+            <p>La programación con genéricos nos permite definir métodos y clases 
+                que pueden trabajar con diferentes tipos de datos. El tipo de 
+                datos no es importante en el momento de definir la clase genérica, 
+                si no las operaciones que la clase genérica puede hacer sobre 
+                los tipos que maneja.</p>
+            <p>Los genéricos, además, nos avisan de errores en tiempo de compilación 
+                que de otro modo no aparecerían hasta el momento de la ejecución.</p>
+            <p>Es importante notar que en el momento de instanciar una clase genérica 
+                es cuando debemos indicar el tipo concreto. En este punto, el tipo 
+                de las referencias está formado tanto por el nombre de la clase genérica 
+                como por el tipo concreto que se utilizó en la instancia.</p>
+        </article>
+        </slide>
+        
+		<slide class="backdrop"></slide>   
+		
+    </slides>
+    <script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

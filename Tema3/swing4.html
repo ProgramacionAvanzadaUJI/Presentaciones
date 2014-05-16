@@ -1,0 +1,755 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Swing: Componentes sofisticados</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Interfaces gráficas de usuario</h2>
+      <h2 data-config-subtitle>Swing: Componentes sofisticados</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+        
+        
+        <!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>En este capítulo vamos a ver cómo dibujar directamente sobre
+                el área de los componentes utilizando el API 2D.</p>
+            <p>También veremos cómo escuchar los eventos de ratón que
+                generan los componentes cuando el cursos interacciona con 
+                ellos.</p>
+            <p>Finalmente, veremos algunos componentes sofisticados que nos 
+                permitirán visualizar varios paneles si están contenidos en 
+                solapas, ventanas de diálogo para seleccionar ficheros, y 
+                cómo visualizar datos en formato de tabla.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+             <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=DZ/Xbig+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=big%20java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Big Java</a>. Capítulo 17.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a>. Capítulo 12.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&2%2C2%2C">
+                    Head first design patterns.</a> Capítulo 12.</li>
+                <li><a href="http://www3.uji.es/~belfern/pdf/libroJavaConTapa.pdf">Desarrollo de proyectos informáticos con tecnología Java.</a> Capítulo 11.</li>
+             </ol>
+        </article>
+        </slide>
+                
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>JPanel y el API 2D.</li>
+                <li>Detección de eventos del ratón.</li>
+                <li>Paneles con solapas.</li>
+                <li>Ventanas de diálogo para selección de ficheros.</li>
+                <li>Tablas.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Todos los componentes de <i>Swing</i> son hijos de 
+                <b>JComponent</b>, clase que contiene el método 
+                <b>public void paint(Graphics g)</b>, llamado por <i>Swing</i>
+                cada vez que se dibuja un componente de la interfaz 
+                gráfica de usuario.</p>
+            <p><div style="text-align:center;
+                        border-style: solid;
+                        border-color: #f00">
+                        IMPORTANTE<br />
+                        Nunca se llama directamente al método <b>paint(Graphics g)</b>.
+                        Si necesitamos <i>redibujar</i> un componente, llamaremos
+                        al método <b>repaint()</b> del componente.</div></p>
+        </article>
+        </slide>
+
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>El método <b>repaint()</b>, llama internamente a 
+                <b>paint(Graphics g)</b> proporcionándole en contexto gráfico
+                necesario para dibujar. A su vez, <b>paint(Graphics g)</b> 
+                llama, en orden, a los siguientes métodos:</p>
+            <ol>
+                <li><b>paintComponent(Graphics g)</b>: Dibuja el interior del 
+                    componente.</li>
+                <li><b>paintBorder(Graphics g)</b>: Dibuja el borde del 
+                    componente</li>
+                <li><b>paintChildren(Graphics g)</b>: Llama al método
+                    <b>paint(Graphics g)</b> de cada
+                    uno de sus hijos.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>El origen del sistema de coordenadas para el API 2D es:</p>
+            <p class="centrado"><img class="centered" 
+                src="http://docs.oracle.com/javase/tutorial/figures/2d/2D-11.gif" 
+                width="500px">
+                </p>
+            <div class="source">Fuente de la imagen: 
+                http://docs.oracle.com/javase/tutorial/figures/2d/2D-11.gif</div>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Si quiero cambiar el aspecto del componente, puedo hacerlo 
+                sobrescribiendo los dos primeros métodos:</p>
+<pre class="prettyprint" data-lang="Java">
+public class MiBoton extends JButton{
+    private MiBoton(String text) {
+        super(text);
+    }
+    @Override
+    public void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setBackground(Color.CYAN);
+        g2d.clearRect(0, 0, getWidth(), getHeight());
+        g2d.drawString(getText(), 0, getHeight()-2);
+    }
+    @Override
+    protected void paintBorder(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setColor(Color.RED);
+        g2d.drawRect(0, 0, getWidth()-1, getHeight()-1);
+    }...
+</pre>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>El botón que acabamos de crear tendrá el siguiente aspecto:</p>
+            <p class="centrado"><img src="imagenes/miBoton.png" /></p>
+            <p>Sigue siendo un botón, ya que extiende a <b>JButton</b>, le
+                puedo añadir escuchadores, y funcionarán, lo único que he 
+                modificado es cómo se dibuja.</p>
+        </article>
+        </slide>
+
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>A partir de ahora, lo que vamos a hacer es utilizar un 
+                <b>JPanel</b> como nuestro lienzo de dibujo.</p>
+            <p>Como sabes, un <b>JPanel</b> no tiene ningún aspecto visual, 
+                pero eso no quiere decir que no le podamos dar uno, 
+                reescribiendo su método <b>paintComponent(Graphics g)</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public class MiLienzo extends JPanel {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D)g;
+        // Aquí empiezo a dibujar
+    }
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>El <i>API 2D</i> nos proporciona algunos métodos para
+                dibujar primitivas sencillas:</p>
+            <ul>
+                <li>Líneas.</li>
+                <li>Curvas cuadráticas y de Bezier.</li>
+                <li>Rectángulos.</li>
+                <li>Elipses.</li>
+                <li>Arcos.</li>
+                <li>Curvas arbitrarias.</li>
+                <li>Texto.</li>
+            </ul>
+            <p>También podemos dibujar mapas de bits, pero es algo que no 
+                cubriremos en este curso.</p>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>La clase <b>Graphics2D</b> nos ofrece métodos para dibujar cada
+                una de las primitivas anteriores.</p>
+            <p>Para dibujar una línea <b>drawLine(xIni, yIni, xFin, yFin)</b></p>
+            <p class="centrado"><img src="imagenes/linea.png">
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Podemos cambiar el color y el estilo de la línea:</p>
+<pre class="prettyprint" data-lang="Java">
+Stroke estilo = new BasicStroke(3.0f);
+g2d.setStroke(estilo);
+g2d.setColor(Color.RED);
+g2d.drawLine(0, getWidth(), getHeight(), 0);
+</pre>
+            <p class="centrado"><img src="imagenes/linea2.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Podemos dibujar rectángulos, y rectángulos con los bordes 
+                redondeados:</p>
+<pre class="prettyprint" data-lang="Java">
+g2d.drawRect(10, 10, 100, 200);
+g2d.drawRoundRect(150, 50, 100, 200, 40, 40);
+</pre>
+            <p class="centrado"><img src="imagenes/rectangulos.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Óvalos:</p>
+<pre class="prettyprint" data-lang="Java">
+g2d.drawOval(10, 10, 100, 200);
+g2d.drawOval(150, 50, 100, 100);
+</pre>
+            <p class="centrado"><img src="imagenes/ovalos.png">
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+            <p>Y también tenemos las versiones <i>sólidas</i> de los rectángulos:
+                </p>
+<pre class="prettyprint" data-lang="Java">
+g2d.fillRect(10, 10, 100, 200);
+g2d.fillRoundRect(150, 50, 100, 200, 40, 40);
+</pre>
+            <p class="centrado"><img src="imagenes/rectangulosSolidos.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- JPanel y el API 2D -->
+		<slide>
+        <hgroup>
+			<h2>JPanel y el API 2D</h2>
+        </hgroup>
+        <article>
+                <p>Y las versiones sólidas de los óvalos:</p>
+<pre class="prettyprint" data-lang="Java">
+g2d.fillOval(10, 10, 100, 200);
+g2d.fillOval(150, 50, 100, 100);
+</pre>
+            <p class="centrado"><img src="imagenes/ovalosSolidos.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- Detección de eventos del ratón -->
+		<slide>
+        <hgroup>
+			<h2>Detección de eventos del ratón</h2>
+        </hgroup>
+        <article>
+            <p>Todos los componentes generan eventos provocados por la 
+                interacción del ratón. Eventos tales como que el cursor del 
+                ratón ha entrado en el area que define un componente, o que el 
+                cursor ha abandonado el area que define un componente.</p>
+            <p>Este tipo de situaciones las podemos escuchar si implementamos 
+                <b>interface MouseListener</b> que es capaz de escuchar 
+                <b>MouseEvent</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Detección de eventos del ratón -->
+		<slide>
+        <hgroup>
+			<h2>Detección de eventos del ratón</h2>
+        </hgroup>
+        <article>
+            <p><b>MouseListener</b> define 5 métodos:</p>
+<pre class="prettyprint" data-lang="Java">
+lienzo.addMouseListener(new MouseListener() {
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+      System.out.println("["+ e.getX() + ", " + e.getY() + "]");
+    }
+});
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Detección de eventos del ratón -->
+		<slide>
+        <hgroup>
+			<h2>Detección de eventos del ratón</h2>
+        </hgroup>
+        <article>
+            <p>En este caso, tenemos una clase adaptadora, como en el caso de 
+                <b>WindowListener</b> para no tener que sobreescribir tantos 
+                métodos y dejarlos vacíos.</p>
+<pre class="prettyprint" data-lang="Java">
+lienzo.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("["+ e.getX() + ", " + e.getY() + "]");
+    }
+});
+</pre>
+<samp>
+[224, 24]<br />
+[65, 75]<br />
+[202, 145]<br />
+[101, 111]<br />
+[206, 136]<br />
+[137, 166]
+</samp>
+        </article>
+        </slide>
+        
+        <!-- Detección de eventos del ratón -->
+		<slide>
+        <hgroup>
+			<h2>Detección de eventos del ratón</h2>
+        </hgroup>
+        <article>
+            <p>Podemos escuchar otros eventos del ratón, por ejemplo, los 
+                relacionados con el movimiento del cursor con 
+                <b>MouseMotionListener</b>:</p>
+            <ul>
+                <li><b>mouseDragged(MouseEvent)</b></li>
+                <li><b>mouseMoved(MouseEvent)</b></li>
+            </ul>
+            <p>Y los relacionados con el 
+                desplazamiento de la rueda del ratón <b>MouseWheelListener</b>:</p>
+            <ul>
+                <li><b>mouseWheelMoved(MouseWheelEvent)</b></li>
+            </ul>
+            <p>Afortunadamente, <b>MouseAdapter</b> da una implementación por 
+                defecto vacía de todos ellos.</p>
+        </article>
+        </slide>
+        
+        <!-- Paneles con solapas -->
+		<slide>
+        <hgroup>
+			<h2>Paneles con solapas</h2>
+        </hgroup>
+        <article>
+            <p>Los paneles con solapas son un modo compacto de tener más 
+                de una zona de visualización en la misma ventana:</p>
+            <p class="centrado"><img src="imagenes/tabbedPane.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- Paneles con solapas -->
+		<slide>
+        <hgroup>
+			<h2>Paneles con solapas</h2>
+        </hgroup>
+        <article>
+            <p>La idea básica para programarlos, es que, en cada solapa puedo 
+                visualizar el contenido de un panel de modo independiente.</p>
+            <p>Cuando creo una nueva solapa, indico cual es el panel que va en
+                su interior: <b>public void insertTab(String title,
+                Icon icon,
+                Component component,
+                String tip,
+                int index).</b></p>
+            <p>Existe una familia de métodos de comodidad <b>add(...)</b> o 
+                <b>addTab(...)</b>, donde puedo dejar por especificar alguno 
+                de los parámetros.</p>
+        </article>
+        </slide>
+        
+        <!-- Paneles con solapas -->
+		<slide>
+        <hgroup>
+			<h2>Paneles con solapas</h2>
+        </hgroup>
+        <article>
+            <p>El ejemplo mostrado lo conseguimos con:</p>
+<pre class="prettyprint" data-lang="Java">
+JTabbedPane pestanyas = new JTabbedPane();
+pestanyas.add("Rectangulos", new PanelRectangulos());
+pestanyas.add("Ovalos", new PanelOvalos());
+pestanyas.add("Rectangulos solidos", new PanelRectangulosSolidos());
+pestanyas.add("Ovalos solidos", new PanelOvalosSolidos());
+...
+private class PanelRectangulos extends JPanel {
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setColor(Color.BLACK);
+        g2d.drawRect(10, 10, 100, 200);
+        g2d.drawRoundRect(150, 50, 100, 200, 40, 40);
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- Ventanas de diálogo para selección de ficheros -->
+		<slide>
+        <hgroup>
+			<h2>Diálogo para selección de ficheros</h2>
+        </hgroup>
+        <article>
+            <p><i>Swing</i> proporciona una clase muy sofisticada para mostrar
+                una ventana de diálogo en la que el usuario puede elegir un
+                fichero, <b>JFileChooser</b>.</p>
+            <p class="centrado"><img src="imagenes/dialogoAbrir.png" /></p>
+        </article>
+        </slide>
+
+        <!-- Ventanas de diálogo para selección de ficheros -->
+		<slide>
+        <hgroup>
+			<h2>Diálogo para selección de ficheros</h2>
+        </hgroup>
+        <article>
+            <p>Para mostrar una ventana de diálogo que permita abrir un fichero para 
+                lectura, debes pasar una referencia al JFrame que retomará el foco cuando se cierre la ventana del selector:</p>
+<pre class="prettyprint" data-lang="Java">
+JFileChooser selector = new JFileChooser();
+selector.showOpenDialog(ventana);
+</pre>
+            <p>Una vez que cerrada la ventana de diálogo, el método devuelve 
+                una constante que indica lo sucedido:</p>
+            <ul>
+                <li>CANCEL_OPTION</li>
+                <li>APPROVE_OPTION</li>
+                <li>ERROR_OPTION</li>
+            </ul>
+            <p>El fichero seleccionado, después que la ventana se haya cerrado, lo puedes recuperar con <b>File getSelectedFile()</b></p>
+        </article>
+        </slide>
+        
+        <!-- Ventanas de diálogo para selección de ficheros -->
+		<slide>
+        <hgroup>
+			<h2>Diálogo para selección de ficheros</h2>
+        </hgroup>
+        <article>
+            <p>Si lo quieres es mostrar una ventana de diálogo para grabar
+                un fichero:</p>
+<pre class="prettyprint" data-lang="Java">
+JFileChooser selector = new JFileChooser();
+selector.showSaveDialog(ventana);
+</pre>
+            <p>Que también devolverá un entero indicando el resultado de la 
+                interacción.</p>
+            <p>Si quieres <i>personalizar</i> un poco la ventana 
+                de diálogo, cambiando el texto de la barra de título y el 
+                botón <b>Aceptar</b> puedes utilizar:</p>
+<pre class="prettyprint" data-lang="Java">
+JFileChooser selector = new JFileChooser();
+selector.showDialog(ventana, "Elige un fichero");
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Ventanas de diálogo para selección de ficheros -->
+		<slide>
+        <hgroup>
+			<h2>Diálogo para selección de ficheros</h2>
+        </hgroup>
+        <article>
+            <p>Si quieres filtrar por extensión, puedes usar la 
+                clase <b>FileNameExtensionFilter</b>, de este modo:</p>
+<pre class="prettyprint" data-lang="Java">
+JFileChooser selector = new JFileChooser();
+FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+        "Fichero texto", "txt", "rtf");
+selector.setFileFilter(filtro);
+selector.showDialog(ventana, "Elige un fichero");
+</pre>
+            <p>El constructor de <b>FileNameExtensionFilter</b>
+                es:</p>
+<pre class="prettyprint" data-lang="Java">
+FileNameExtensionFilter(String descripcion, String... extensiones);
+</pre>
+            <p>No lo hagas, usa un array de String en su lugar.</p>
+        </article>
+        </slide>
+        
+        <!-- Ventanas de diálogo para selección de ficheros -->
+		<slide>
+        <hgroup>
+			<h2>Diálogo para selección de ficheros</h2>
+        </hgroup>
+        <article>
+            <p>Aquí tienes un ejemplo de ventana personalizada y con filtro 
+                para el formato de los ficheros que se pueden abrir.</p>
+            <p class="centrado"><img src="imagenes/dialogoPersonalizado.png" /></p>
+        </article>
+        </slide>
+        
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+            <p>Otro componente muy sofisticado es <b>JTable</b> que nos permite 
+                visualizar datos en forma de tabla:</p>
+            <p class="centrado"><img src="imagenes/ejemploJTable2.png" 
+                width="700px"/></p>
+            <p>Las tablas no tienes barras de desplazamiento, hay que añadirlas
+                con <b>JScrollPane</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+            <p>De nuevo, nos encontramos con el patrón de diseño MVC para la 
+                programación de este componente gráfico. <b>JTable</b>  
+                visualiza los datos que le proporciona un modelo.</p>
+            <p>Un modelo para <b>JTable</b> es una clase que implementa la 
+                <b>interface TableModel</b>, o más cómodo, que extienda la clase
+                <b>AbstractTableModel</b> quien ya implementa algunos métodos
+                de la <b>interface TableModel</b>.</p>
+            <p>El modelo, a su vez, debe proporcionar, entre otras cosas, los 
+                datos:</p>
+            <p class="centrado"><img 
+                src="http://docs.oracle.com/javase/tutorial/figures/uiswing/components/model.png" /></p>
+            <div class="source">Fuente de la imagen: http://docs.oracle.com/javase/tutorial/figures/uiswing/components/model.png</div>  
+        </article>
+        </slide>
+
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class Modelo extends AbstractTableModel {
+    private final String nombreColumnas[] = {"DNI", "Nombre", "e-mail", 
+                                            "Grupo Laboratorio"};
+    private Object datos[][];
+
+    public int getColumnCount() {
+        return nombreColumnas.length;
+    }
+    public int getRowCount() {
+        return datos.length;
+    }
+    public Object getValueAt(int row, int column) {
+        return datos[row][column];
+    }
+    @Override
+    public String getColumnName(int column) {
+        return nombreColumnas[column];
+    }...
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+            <p>Podemos ordenar los elementos de la tabla por columnas 
+                simplemente pulsando sobre la cabecera de la columna, si 
+                hemos indicado ordenación automática con:</p>
+<pre class="prettyprint" data-lang="Java">
+tabla.setAutoCreateRowSorter(true);
+</pre>
+            <p>También podemos elegir si queremos selección única, múltiple o
+                con espacios intercalados, igual que con <b>JList</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+</pre>
+        </article>
+        </slide>
+
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+            <p>A <b>JTable</b> la podemos escuchar para que nos 
+                notifique cuando se ha seleccionado una de sus filas.</p>
+            <p>El escuchador debe implementar <b>interface ListSelectionListener</b>
+                que es el mismo que usábamos con <b>JList</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public void valueChanged(ListSelectionEvent e) {
+    if(e.getValueIsAdjusting() != true) {
+        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+        ...
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Tablas -->
+		<slide>
+        <hgroup>
+			<h2>Tablas</h2>
+        </hgroup>
+        <article>
+            <p>Fíjate que si ordenamos los elementos de la tabla, puede 
+                ocurrir que el índice de los elementos en la tabla no coincida
+                con los índices de los datos originales.</p>
+            <p>El método <b>convertRowIndexToModel(int)</b> nos devuelve el 
+                índice sobre el modelo a partir de índice sobre la tabla.</p>
+        </article>
+        </slide>
+
+        <!-- Resumen -->
+		<slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+        <article>
+            <p>En este capítulo hemos visto cómo acceder al API 2D para dibujar
+                en el interior de los componentes.</p>
+            <p>El API 2D nos ofrece métodos para dibujar primitivas sencillas.</p>
+            <p>También hemos visto cómo detectar los eventos de ratón que todo
+                componente genera cuando el usuario mueve el cursor del ratón
+                sobre él.</p>
+            <p>Los paneles con solapas, las ventanas de diálogo para apertura 
+                de ficheros y las tablas, son algunos de los componentes 
+                sofisticados que puedes encontrar el <i>Swing</i>.</p>
+        </article>
+        </slide>
+        <slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

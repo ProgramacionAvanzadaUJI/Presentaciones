@@ -1,0 +1,710 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patrón de diseño Decorador (Decorator)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Patrones de diseño</h2>
+      <h2 data-config-subtitle>Patrón de diseño Decorador (Decorator)</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+        
+        <!-- Introducción -->
+        <slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>La herencia extiende el comportamiento de una nueva clase hija 
+                ligándola fuertemente con su clase padre.</p>
+            <p>A veces, necesitamos un mecanismo más flexible que la herencia
+                para ampliar el comportamiento de una clase. De hecho, se recomienda utilizar 
+                la composición frente a la herencia.</p> 
+            <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución a cómo añadir 
+                nueva funcionalidad a una clase, más flexible que la herencia, y de 
+                manera dinámica.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+        <slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head%20first%20design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
+                    Head first design Patterns.</a> Capítulo 3</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones%20de%20dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
+                    Patrones de diseño.</a> Capítulo 4</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 16.</li>
+            </ol>
+            <p><b>Recursos en la web</b></p>
+            <ol>
+                <li><a href="http://c2.com/cgi/wiki?DecoratorPattern">
+                    Design Patterns Book.</a></li>
+            </ol>
+        </article>
+        </slide>        
+        
+        
+        <!-- Contenidos -->
+        <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Tengo que renovar mi vehículo.</li>
+                <li>Programemos la solución.</li>
+                <li>Definición del patrón de diseño <b>Decorador</b>.</li>
+                <li>El patrón <b>Decorador</b> en el paquete estándar de Java.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- Tengo que renovar mi vehículo -->
+        <slide>
+        <hgroup>
+			<h2>Tengo que renovar mi vehículo</h2>
+        </hgroup>
+        <article>
+            <p>Mi coche pasa más tiempo en el taller que en la carretera. 
+                Consume más combustible que un avión y en verano me 
+                achicharro cuando voy a la playa</p>
+            <p>Es hora de cambiar de coche.</p>
+            <p>Me acerco a un concesionario y empiezan las dudas.</p>
+        </article>
+        </slide>
+
+        <!-- Tengo que renovar mi vehículo -->
+        <slide>
+        <hgroup>
+			<h2>Tengo que renovar mi vehículo</h2>
+        </hgroup>
+        <article>
+            <ul>
+                <li>Quiero comprar un coche.</li>
+                <li>Un utilitario, familiar, monovolumen,...</li>
+                <li>Bueno... un utilitario.</li>
+                <li>¿Qué color?
+                <li>Rojo.</li>
+                <li>¿Lo quiere con pintura metalizada?</li>
+                <li>Si
+                <li>¿Aire acondicionada?</li>
+                <li>Si, si.</li>
+                <li>¿Techo solar?</li>
+                <li>No.</li>
+            </ul>
+        </article>
+        </slide>        
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Armado de lápiz y papel el vendedor calcula:</p>
+            <ul>
+                <li>El precio se le queda en: 15.000 del vehículo mas 
+                    600 del aire acondicionado y 600 de la pintura metalizada... 
+                    16.200 euros precio final.</li>
+                <li>¿Y cuanto vale un familiar?</li>
+                <li>19.000 euros.</li>
+                <li>Si le ponemos aire acondicionado y techo solar, pero sin 
+                    pintura metalizada.</li>
+                <li>Vemos, en ese caso tenemos los 19.000 del familiar mas 
+                    los 600 del aire acondicionado mas 1.000 del techo solar,
+                    en total 20.600 euros.</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <ul>
+                <li>¿Me permite una pregunta?</li>
+            </ul>
+            <ul class="build">
+                <li>Cómo no.</li>
+                <li>¿Siempre calcula el precio a mano?</li>
+                <li>¿!!?</li>
+                <li>Es que soy informático y me parece que se puede mejorar.</li>
+                <li>Si me hace el programa le hago un descuento del 50%</li>
+                <li>... ok, hablemos</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>50% es mucha pasta, pongámonos manos a la obra.</p>
+            <p>Analizando el problema tenemos:</p>
+            <ol>
+                <li>Hay varios tipos de vehículos: <b>Utilitario, Familiar, 
+                    Monovolumen,...</b></li>
+                <li>Cada uno de ellos puede tener uno o más accesorios.</li>
+                <li>El resultado final es independiente de cómo yo añada los 
+                    accesorios: aire acondicionado, pintura metalizada, techo solar, 
+                    etcétera.</li>
+                <li>El precio final se ha de calcular de modo automático.</li>
+                <li>Tendré una descripción del vehículo final dependiendo de los 
+                    accesorios que haya añadido.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Primera idea.</p>
+            <p>Escribo una clase para cada vehículo y luego creo clases hijas de cada 
+                uno de ellos añadiendo los extras.</p>
+            <p>Por ejemplo, tendré: Utilitario como clase padre, y después una clase hija que 
+                sea UtilitarioAireAcondicionado, otra que sea UtilitarioPinturaMetalizada,...</p>
+            <p>Y si quiero un Utilitario con aire acondicionado y pintura metalizada tendré 
+                UtilitarioAireAcondicionadoPinturaMetalizada,... uy!, esto no va por buen camino.</p>
+            <p>Tengo una explosión de clases.</p>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Vale, pues puedo tener una clase para cada vehículo, y dentro de cada uno de ellos 
+                una array con los extras que le he añadido.</p>
+            <p>Así calcularé le precio final sumando el precio de los extras y añadiéndoselo 
+                al precio del vehículo.</p>
+            <p>Y para la descripción tengo algo parecido.</p>
+            <p>Parece mejor solución.</p>
+            <p>Pero también podría añadir esos extras a cualquier otro tipo de objeto, y podría 
+                tener una maceta con aire acondicionado, porque no hay una relación semántica entre 
+                el extra y el objeto sobre el que se aplica.</p>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Parece que nos acercamos.</p>
+            <p>Lo que quiero es que cada extra, de alguna manera, recubra al vehículo original 
+                añadiéndole una nueva característica, de manera que un vehículo con aire 
+                acondicionado siga siendo un vehículo, y no solo un vehículo con un agregado de 
+                extras.</p>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Empecemos a programar, a ver si se nos aclaran las ideas:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Utilitario {
+    private float precio;
+    
+    public Utilitario(float precio) {
+        this.precio = precio;
+    }   
+    public float getPrecio() {
+        return precio;
+    }
+    public String descripcion() {
+        return "Vehículo utilitario";
+    }
+}</pre>
+            <p>En esta clase hemos hecho una importante decisión de diseño. 
+                ¿La ves?</p>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Vamos con el código del <b>Familiar</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+public class Familiar {
+    private float precio;
+    
+    public Familiar(float precio) {
+        this.precio = precio;
+    }
+    public float getPrecio() {
+        return precio;
+    }    
+    public String descripcion() {
+        return "Vehículo familiar";
+    }
+}</pre>
+            <p>Debes tener todas las alarmas del sabueso programador encendidas.</p>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Si, efectivamente, mucho código duplicado. 
+                Extraigámoslo a una clase padre.</p>
+<pre class="prettyprint" data-lang="Java">
+public abstract class Vehiculo {
+    private float precio;
+    
+    public Vehiculo(float precio) {
+        this.precio = precio;
+    }
+    
+    public float getPrecio() {
+        return precio;
+    }
+    
+    public abstract String descripcion();
+}</pre>
+            <p>Y los vehículos <b>Utilitario</b> y el <b>Familiar</b> nos quedan como:</p>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class Utilitario extends Vehiculo {
+    public Utilitario(float precio) {
+        super(precio);
+    }    
+    @Override
+    public String descripcion() {
+        return "Vehículo utilitario";
+    }
+}
+</pre>
+<pre class="prettyprint" data-lang="Java">
+public class Familiar extends Vehiculo {
+    public Familiar(float precio) {
+        super(precio);
+    }
+    @Override
+    public String descripcion() {
+        return "Vehículo familiar";
+    }
+}</pre>
+        </article>
+        </slide>
+
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Viene la magia: queremos que aire acondicionado 
+                recubra a <b>Vehículo</b> sin dejar de ser un <b>Vehículo</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public class ConAireAcondicionado extends Vehiculo {
+    private Vehiculo vehiculo;
+    
+    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
+        super(precio);
+        this.vehiculo = vehiculo;
+    }
+    @Override
+    public String descripcion() {
+        return vehiculo.descripcion() + ", con aire acondicionado";
+    }    
+    @Override
+    public float getPrecio() {
+        return vehiculo.getPrecio() + super.getPrecio();
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Veámoslo con un poco más de detalle:</p>
+<pre class="prettyprint" data-lang="Java">
+public class ConAireAcondicionado extends Vehiculo { //Sigue siendo 
+                                                     // un Vehiculo
+    private Vehiculo vehiculo; //Aquí se recubre al vehículo
+    
+    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
+        super(precio); //El padre guarda el precio del extra
+        this.vehiculo = vehiculo; //Nos quedamos con una referencia
+                                  // al vehículo que decoramos.
+    }</pre>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Sumamos a la descripción la característica que añade el extra.</p>
+<pre class="prettyprint" data-lang="Java">
+@Override
+public String descripcion() {
+    return vehiculo.descripcion() + ", con aire acondicionado";
+}</pre>
+            <p>Añadimos al precio del vehículo, el precio del extra que 
+                está guardado en la clase padre.</p>
+<pre class="prettyprint" data-lang="Java">
+@Override
+public float getPrecio() {
+    return vehiculo.getPrecio() + super.getPrecio();
+}</pre>
+        </article>
+        </slide>     
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>No puedo esperar más necesito un test que valide la idea:</p>
+<pre class="prettyprint" data-lang="Java">
+@Test
+public void testUtilitario() {
+    Vehiculo vehiculo = new Utilitario(15000); //Precio del vehiculo
+    vehiculo = new ConAireAcondicionado(vehiculo, 600); //AC
+    assertThat(vehiculo.getPrecio(), is(15600.0f)); //PASA!!!
+}
+</pre>
+            <p>Bien!, la idea es buena. Definamos otro extra.</p>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class ConPinturaMetalizada extends Vehiculo {
+    private Vehiculo vehiculo;
+    
+    public ConPinturaMetalizada(Vehiculo vehiculo, float precio) {
+        super(precio);
+        this.vehiculo = vehiculo;
+    }
+    @Override
+    public String descripcion() {
+        return vehiculo.descripcion() + ", con pintura metalizada";
+    }    
+    @Override
+    public float getPrecio() {
+        return vehiculo.getPrecio() + super.getPrecio();
+    }
+}</pre>
+            <p>Para!, mucho código duplicado con <b>ConAireAcondicionado.</b>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Conocemos la técnica para eliminarlo, ahí va la superclase de los 
+                extras.</p>
+
+<pre class="prettyprint" data-lang="Java">
+public abstract class ConAccesorioExtra extends Vehiculo {
+
+    private Vehiculo vehiculo;
+
+    public ConAccesorioExtra(Vehiculo vehiculo, float precio) {
+        super(precio);
+        this.vehiculo = vehiculo;
+    }
+    @Override
+    public float getPrecio() {
+        return vehiculo.getPrecio() + super.getPrecio();
+    }
+    public String descripcionVehiculo() {
+        return vehiculo.descripcion();
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class ConAireAcondicionado extends ConAccesorioExtra {
+    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
+        super(vehiculo, precio);
+    }
+    @Override
+    public String descripcion() {
+        return descripcionVehiculo() + ", con aire acondicionado";
+    }
+}</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ConPinturaMetalizada extends ConAccesorioExtra {
+    public ConPinturaMetalizada(Vehiculo vehiculo, float precio) {
+        super(vehiculo, precio);
+    }
+    @Override
+    public String descripcion() {
+        return descripcionVehiculo() + ", con pintura metalizada"; 
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Maravilloso, el test sigue pasando, y si no, toca 
+                arreglar el problema hasta que vuelva a pasar. 
+                ¿Te das cuenta lo útiles que son?</p>
+            <p>Probemos un nuevo test:</p>
+<pre class="prettyprint" data-lang="Java">
+@Test
+public void testUtilitario() {
+    Vehiculo vehiculo = new Utilitario(15000);
+    vehiculo = new ConAireAcondicionado(vehiculo, 600);
+    assertThat(vehiculo.getPrecio(), is(15600.0f));
+    vehiculo = new ConPinturaMetalizada(vehiculo, 600);
+    assertThat(vehiculo.getPrecio(), is(16200.0f));
+}</pre>
+            <p>BIEN!, PASA!!!</p>
+        </article>
+        </slide>        
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Estamos lanzados, probemos con un <b>Familiar</b> con 
+                <b>AireAcondicionado</b> y <b>TechoSolar</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+@Test
+public void testFamiliar() {
+    Vehiculo vehiculo = new Familiar(19000);
+    vehiculo = new ConAireAcondicionado(vehiculo, 600);
+    assertThat(vehiculo.getPrecio(), is(19600.0f));
+    vehiculo = new ConTechoSolar(vehiculo, 1000);
+    assertThat(vehiculo.getPrecio(), is(20600.0f));
+}</pre>
+            <p>También pasa!!!</p>
+        </article>
+        </slide>        
+        
+        <!-- Programemos la solución -->
+        <slide>
+        <hgroup>
+			<h2>Programemos la solución</h2>
+        </hgroup>
+        <article>
+            <p>Y si escribimos la clase para el <b>Monovolumen</b>, 
+                le podremos aplicar cualquiera de los extras sin 
+                problemas.</p>
+            <p>Creo que nos hemos ganado ese 50% de descuento.</p>
+        </article>
+        </slide>        
+                
+                                                                                
+        <!-- Definición del patrón de diseño Decorador -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón de diseño Decorador</h2>
+        </hgroup>
+        <article class="smaller">
+            <q>Asigna responsabilidades adicionales a un objeto dinámicamente, 
+                proporcionando una alternativa flexible a la herencia para 
+                extender la funcionalidad.</q>
+            <div class="source">Patrones de Diseño<br />
+                Erich Gamma et al.</div>
+        </article>
+        </slide>
+        
+        <!-- Definición del patrón de diseño Decorador -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón de diseño Decorador</h2>
+        </hgroup>
+        <article>
+            <p>Este sería el modelo UML general del Patrón <b>Decorador</b>:</p>
+            <p class="centrado"><img src="imagenes/decorator.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+        
+        <!-- Definición del patrón de diseño Decorador -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón de diseño Decorador</h2>
+        </hgroup>
+        <article>
+            <p>En nuestro caso concreto:</p>
+            <p class="centrado"><img src="imagenes/decoratorVehiculos.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+
+        <!-- El patrón Decorador en el paquete estándar de Java -->
+        <slide>
+        <hgroup>
+			<h2>El patrón Decorador en el paquete estándar de Java</h2>
+        </hgroup>
+        <article>
+            <p>El ejemplo arquetípico en Java es el paquete de entrada/salida.</p>
+            <p>Java define un gran número de clases en <b>java.io</b> para hacer 
+                tareas de entrada salida.</p>
+            <p>En la jerarquía de clases definidas, unas recubren a otras siguiendo 
+                el patrón de diseño <b>Decorador</b> de tal modo que se van añadiendo 
+                nuevas funcionalidad a la clase original con cada nuevo recubrimiento.</p>
+        </article>
+        </slide>
+                                                                                                        
+        <!-- El patrón Decorador en el paquete estándar de Java -->
+        <slide>
+        <hgroup>
+			<h2>El patrón Decorador en el paquete estándar de Java</h2>
+        </hgroup>
+        <article>
+            <p>En la primera versión de Java, el teclado era una fuente de bytes 
+                de datos, no de caracteres.</p>
+            <p>Normalmente, lo que queremos leer desde el teclado son líneas de 
+                caracteres, no caracteres individuales.</p>
+            <p>Luego de algún modo tenemos que convertir los bytes a caracteres y de 
+                estos a líneas de caracteres.</p>
+            <p>Un posible modo de conseguirlo es utilizar las clases del paquete <b>java.io</b>
+        </article>
+        </slide>
+
+        <!-- El patrón Decorador en el paquete estándar de Java -->
+        <slide>
+        <hgroup>
+			<h2>El patrón Decorador en el paquete estándar de Java</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/decorador.io.png" style="width: 400px"></p>
+<pre class="prettyprint" data-lang="Java">
+InputStream is = System.in; //System.in es el teclado
+InputStreamReader isr = new InputStreamReader(is);
+BufferedReader br = new BufferedReader(isr);
+String texto = br.readLine();</pre>
+        </article>
+        </slide>
+                                                                                                               
+        <!-- Recursos en Internet -->
+        <slide>
+        <hgroup>
+			<h2>Recursos en Internet</h2>
+        </hgroup>
+        <article>
+            <p><a href="http://en.wikipedia.org/wiki/Decorator_pattern">Wikipedia.</a></p>
+            <p><a href="http://c2.com/cgi/wiki?DecoratorPattern">Gang of four</a></p>
+        </article>
+        </slide>
+        
+        <slide class="backdrop"></slide>   
+	</slides>
+	
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

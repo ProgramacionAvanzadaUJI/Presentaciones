@@ -1,0 +1,327 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Enumeraciones</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Polimorfismo y sobrecarga</h2>
+      <h2 data-config-subtitle>Enumeraciones</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+		<!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+		<article>
+            <p>Las enumeraciones en Java nos permiten definir listas de elementos, 
+                cada uno de los cuales se identifica por su posición.</p>
+            <p>Además de este comportamiento básico, las enumeraciones de Java 
+                pueden definir métodos y atributos, lo que las hace muy flexibles 
+                a la hora de definir, por ejemplo, las distintas opciones que 
+                pueden aparecer en un menú.</p>
+		</article>
+        </slide>
+        
+        <!-- Bibliografía -->
+        <slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=D/Xbig+java&searchscope=1&SORT=D&SUBKEY=big+java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=D&1%2C1%2C">
+                    Big Java</a> Capítulo 4, Sección 3.</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 3, Sección 5.</li>
+            </ol>
+            <p><b>Recursos en la web</b></p>
+            <ol>
+                <li><a href="http://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">
+                    Enumeraciones en la página web de Oracle.</a></li>
+            </ol>
+		</article>
+        </slide>
+        
+        <!--  Contenidos -->
+        <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+		<article>
+            <ol>
+                <li>Un ejemplo sencillo con enumeraciones.</li>
+                <li>Las enumeraciones extienden implícitamente a la clase Enum.</li>
+                <li>Las enumeraciones son ricas.</li>
+                <li>Las enumeraciones pueden implementar interfaces.</li>
+                <li>Resumen.</li>
+            </ol>
+		</article>
+        </slide>
+
+        <!-- Un ejemplo sencillo con enumeraciones -->
+        <slide>
+        <hgroup>
+			<h2>Un ejemplo sencillo</h2>
+        </hgroup>
+		<article>
+            <p>El ejemplo siguiente muestra cómo definir las distintas opciones 
+                de un menú para un cajero:</p>
+<pre class="prettyprint" data-lang="Java">
+public enum OpcionesMenu {
+    RETIRAR_EFECTIVO,
+    CONSULTA_SALDO,
+    RECARGAR_TARJETA,
+    REALIZAR_TRANSFERENCIA;
+}</pre>
+            <p>A cada elemento de la enumeración posee un ordinal:</p>
+            <ul start="0">
+                <li><b>0</b> RETIRAR_EFECTIVO.</li>
+                <li><b>1</b> CONSULTA_SALDO.</li>
+                <li><b>2</b> RECARGAR_TARJETA.</li>
+                <li><b>3</b> REALIZAR_TRANSFERENCIA.</li>
+            </ul>       
+		</article>
+        </slide>
+
+        <!-- Un ejemplo sencillo con enumeraciones -->
+        <slide>
+        <hgroup>
+			<h2>Un ejemplo sencillo</h2>
+        </hgroup>
+		<article>
+            <p>De modo que el ordinal lo podemos utilizar para filtrar en un <b>switch</b>:</p>
+<pre class="prettyprint" data-lang="Java">
+OpcionesMenu opcion = OpcionesMenu.CONSULTA_SALDO;
+switch(opcion) {
+    case CONSULTA_SALDO:
+        consultaSaldo();
+        break;
+    case REALIZAR_TRANSFERENCIA:
+        realizarTransferencia();
+        break;
+        ....
+}</pre>
+            <p>Ahora, puedo cambiar el orden en los elementos de la enumeración, 
+                o puedo añadir nuevos elementos en cualquier posición dentro 
+                de la enumeración, el código anterior sigue funcionando.</p>
+		</article>
+        </slide>
+        
+        <!-- La clase Enum -->
+        <slide>
+        <hgroup>
+			<h2>La clase Enum</h2>
+        </hgroup>
+		<article>
+            <p>Al definir una enumeración, implícitamente está extendiendo a la 
+                clase <b>java.lang.Enum</b>. Por ello, tenemos disponible todos los 
+                métodos definidos en ella, por ejemplo:</p>
+            <p><b>values()</b> Devuelve un array con todos los elementos de la enumeración.</p>
+            <p><b>ordinal()</b> Devuelve el orden del elemento dentro de la enumeración.</p>
+            <p><b>name()</b> Devuelve el nombre del elemento.</p>
+            <p>El efecto colateral de extender implícitamente a <b>Enum</b> es que 
+                una enumeración no puede extender a ninguna clase.</p>
+		</article>
+        </slide>
+        
+        <!-- Las enumeraciones son ricas  -->
+        <slide>
+        <hgroup>
+			<h2>Las enumeraciones son ricas</h2>
+        </hgroup>
+		<article>
+            <p>Las enumeraciones pueden definir atributos y métodos:</p>
+<pre class="prettyprint" data-lang="Java">
+public enum OpcionesMenu {
+    RETIRAR_EFECTIVO("Retirar dinero en efectivo."),
+    CONSULTA_SALDO("Consultar el saldo de su cuenta."),
+    RECARGAR_TARJETA("Recargar su tarjeta de débito."),
+    REALIZAR_TRANSFERENCIA("Realizar una transferencia");
+    
+    private String descripcion;
+    
+    private OpcionesMenu(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+}</pre>
+		</article>
+        </slide>
+
+        <!-- Las enumeraciones son ricas  -->
+        <slide>
+        <hgroup>
+			<h2>Las enumeraciones son ricas</h2>
+        </hgroup>
+		<article>
+            <p>En el ejemplo anterior, cada vez que se crea un elemento de
+                la enumeración, se le pasa un String en el constructor que 
+                se almacena en el atributo <b>String descripcion</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+OpcionesMenu opcion = OpcionesMenu.CONSULTAR_SALDO;
+System.out.println(opcion.getDescripcion());</pre>
+            <p>Mostrará: <samp>Consultar el saldo de su cuenta.</samp></p>
+		</article>
+        </slide>
+        
+        <!-- Las enumeraciones son ricas  -->
+        <slide>
+        <hgroup>
+			<h2>Las enumeraciones son ricas</h2>
+        </hgroup>
+		<article>
+            <p>Por comodidad, podemos añadirle un par de métodos más 
+                a nuestra enumeración.</p>
+<pre class="prettyprint" data-lang="Java">
+public static OpcionesMenu getOpcion(int posicion) {
+    return values()[posicion];
+}
+
+public static String getMenu() {
+    StringBuilder sb = new StringBuilder();
+    for(OpcionesMenu opcion: OpcionesMenu.values()) {
+        sb.append(opcion.ordinal());
+        sb.append(".- ");
+        sb.append(opcion.getDescripcion());
+        sb.append("\n");
+    }
+    return sb.toString();
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Las enumeraciones son ricas  -->
+        <slide>
+        <hgroup>
+			<h2>Las enumeraciones son ricas</h2>
+        </hgroup>
+		<article>
+            <p>Ahora, podríamos mostrar el menú con nuestras opciones, 
+                y pedir al usuario que eligiese una de este modo:</p>
+<pre class="prettyprint" data-lang="Java">
+System.out.println(OpcionesMenu.getMenu());
+Scanner scanner = new Scanner(System.in);
+System.out.print("Elije una opción:");
+byte opcion = scanner.nextByte();
+OpcionesMenu opcionMenu = OpcionesMenu.getOpcion(opcion);
+switch(opcionMenu) {...</pre>
+            <p><samp>0.- Retirar dinero en efectivo.<br />
+                     1.- Consultar el saldo de su cuenta.<br />
+                     2.- Recargar su tarjeta de débito.<br />
+                     3.- Realizar una transferencia.</br>
+
+                     Elige una opción:1<br />
+                     ...</samp></p>
+		</article>
+        </slide>
+        
+        <!-- Las enumeraciones pueden implementar interfaces -->
+        <slide>
+        <hgroup>
+			<h2>Las enumeraciones pueden implementar interfaces</h2>
+        </hgroup>
+		<article>
+            <p>Una enumeración no puede extender a ninguna clase, 
+                pero puede implementar todos los <b>interface</b> que 
+                necesite:</p>
+<pre class="prettyprint" data-lang="Java">public enum OpcionesMenu implements ProporcionaDescripcion {
+    RETIRAR_EFECTIVO("Retirar dinero en efectivo."),
+    CONSULTA_SALDO("Consultar el saldo de su cuenta."),
+    RECARGAR_TARJETA("Recargar su tarjeta de débito."),
+    REALIZAR_TRANSFERENCIA("Realizar una transferencia");
+    ...</pre>
+            <p>Donde el <b>interface</b> es:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface ProporcionaDescripcion {
+    String getDescripcion();
+}</pre>
+		</article>
+        </slide>
+        
+        <!-- Resumen -->
+        <slide>
+        <hgroup>
+			<h2>Resumen</h2>
+        </hgroup>
+		<article>
+            <p>Las enumeraciones nos sirven para definir elementos con un 
+                orden entre ellos bajo un tipo común.</p>
+            <p>Para definir una enumeración utilizamos la palabra 
+                reservada <b>enum</b>.</p>
+            <p>Una enumeración implícitamente extiende a la clase 
+                <b>java.lang.Enum</b>, luego explícitamente no 
+                puede extender a ninguna otra clase.</p>
+            <p>Una enumeración puede definir atributos y métodos, 
+                lo que las hace bastante ricas.</p>
+            <p>Una enumeración puede implementar todos los 
+                <b>interface</b> que necesite.</p>
+		</article>
+        </slide>
+        
+        <slide class="backdrop"></slide>   
+	</slides>
+	
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

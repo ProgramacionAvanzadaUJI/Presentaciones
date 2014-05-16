@@ -1,0 +1,915 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>El patrón de diseño Acción (Command)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+    <slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Patrones de diseño</h2>
+      <h2 data-config-subtitle>El patrón de diseño Acción (Command)</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+    
+        <!-- Introducción -->
+        <slide>
+        <hgroup>
+            <h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>Existen ocasiones donde nos interesa ejecutar acciones
+                sin tener conocimiento de quien las ejecuta finalmente.</p>
+            <p>Piensa, por ejemplo, en un sistema de aire acondicionado. 
+                No necesito conocer donde está la máquina de aire 
+                acondicionado, lo único que necesito conocer es qué botón
+                pulsar para que el aire acondicionado se ponga en marcha
+                o se detenga.</p>
+            <p>El patrón de diseño <b>Command</b> nos permite ocultar quien
+                llevará a cabo una determinada acción, de lo único de lo que 
+                nos preocupamos es de indicar la acción que queremos que se
+                realice.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+        <slide>
+        <hgroup>
+            <h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head%20first%20design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
+                    Head first design Patterns.</a> Capítulo 6.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones%20de%20dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
+                    Patrones de diseño.</a> Capítulo 5.</li>
+            </ol>
+        </article>
+        </slide>
+
+        
+        <!-- Contenidos -->
+        <slide>
+        <hgroup>
+            <h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+            	<li>El telemando universal.</li>
+            	<li>Encapsular llamadas a métodos.</li>
+            	<li>Definición del patrón <b>Command</b>.</li>
+            	<li>Undo y Redo con el patrón <b>Command</b>.</li>
+            	<li>Otros usos del patrón <b>Command</b>.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+        	<p>Cada vez que llego a casa y quiero ver la televisión, 
+        	   utilizo el mando para controlar la televisión.</p>
+            <p>Si lo que quiero es ver una película en el DVD, tengo otro
+                mando para controlar el DVD.</p>
+            <p>Si lo que quiero es escuchar un CD, tengo otro mando para 
+                controlar el equipo HiFi.</p>
+            <p>El aire acondicionado también tiene su propio mando.</p>
+            <p>Y así con otros dispositivos.</p>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Me tengo que decidir y construir un mando universal que 
+                me sirva para controlar todos los dispositivos.</p>
+            <p>Me gustaría poder programar el mando universal de tal modo
+                que con él pudiese controlar cualquier dispositivo, sea
+                del tipo que sea.</p>
+            <p>Y si compro nuevos dispositivos que tienen su propio mando
+                a distancia, también quiero poder controlarlos desde el telemando
+                universal.</p>
+            <p>Un amigo me ha dicho que en MarketMedia venden uno de estos
+                dispositivos, y que además tiene una máquina virtual de 
+                Java embebida. Justo lo que necesito.</p>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Problemas con los que me encuentro:</p>
+            <ul>
+                <li>El interfaz de los distintos dispositivos no es uniforme.</li>
+                <li>El usuario, no usará un dispositivo en particular, sino
+                    que utilizará el telemando universal.</li>
+            </ul>
+            <p>Veamos cómo es la implementación que da el fabricante para 
+                los distintos dispositivos.</p>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Este es el aspecto de la clase que implementa la TV:</p>
+<pre class="prettyprint" data-lang="Java">
+public class TV {
+    public TV() {
+        super();
+    }
+    
+    public void enciende() {
+        System.out.println("Encendiendo la televisión");
+    }
+
+    public void apaga() {
+        System.out.println("Apagando la televisión");
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Y este es el aspecto de la clase que implementa el DVD:</p>
+<pre class="prettyprint" data-lang="Java">
+public class DVD {
+    public DVD() {
+    }
+
+    public void play() {
+        System.out.println("Reproduciendo la película");
+    }
+
+    public void stop() {
+        System.out.println("Deteniendo la reproducción de la película");
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>La interfaz pública de la clase TV es:</p>
+<pre class="prettyprint" data-lang="Java">
+public void enciende() {...}
+public void apaga() {...}
+</pre>
+            <p>Y para la clase DVD es:</p>
+<pre class="prettyprint" data-lang="Java">
+public void play() {...}
+public void stop() {...}
+</pre>
+            <p>Y no podemos cambiarlas, el fabricante ha decidido que son 
+                esas.</p>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Intentemos una primera solución con las siguientes hipótesis:</p>
+            <ul>
+                <li>Nuestro mando conoce todos los dispositivos que controla.</li>
+                <li>En todos los casos podemos encenderlos o apagarlos.</li>
+            </ul>
+<pre class="prettyprint" data-lang="Java">
+public class PrimerTelemando {
+    private TV tv = new TV();
+    private DVD dvd = new DVD();
+    public void enciende(TipoDispositivo tipoDispositivo) {
+        switch(tipoDispositivo) {
+            case TV:
+                tv.enciende();
+                break;
+            case DVD:
+                dvd.play();
+                break;
+        }
+    }
+</pre>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Continuación:</p>
+<pre class="prettyprint" data-lang="Java">
+public void apaga(TipoDispositivo tipoDispositivo) {
+    switch(tipoDispositivo) {
+        case TV:
+            tv.apaga();
+            break;
+        case DVD:
+            dvd.stop();
+            break;
+    }
+}
+</pre>
+            <p>Detalle de implementación: he utilizado una enumeración para 
+                seleccionar el tipo de dispositivo que quiero usar.</p>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Probamos nuestra primera solución:</p>
+<pre class="prettyprint" data-lang="Java">
+PrimerTelemando primerTelemando = new PrimerTelemando();
+primerTelemando.apaga(TipoDispositivo.TV);
+primerTelemando.enciende(TipoDispositivo.DVD);
+</pre>
+            <p>El resultado que obtenemos es:</p>
+<samp>
+Apagando la televisión<br>
+Reproduciendo la película
+</samp>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>La solución que acabamos de encontrar funciona, pero tiene
+                algunos problemas si necesitarmos hacer cambios:</p>
+            <ul class="build">
+                <li>Si queremos controlar un nuevo dispositivo, tenemos que
+                    modificar la implementación del telemando.</li>
+                <li>Si los nuevos dispotivos tienen más acciones disponibles,
+                    también tenemos que modificar la implementación del
+                    telemando.</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- El telemando universal -->
+        <slide>
+        <hgroup>
+            <h2>El telemando universal</h2>
+        </hgroup>
+        <article>
+            <p>Para resolver el primer problema, se nos puede ocurrir crear
+                un <b>interface</b> con las acciones que podemos llevar a cabo
+                sobre cada uno de los dispositivos, 
+                y una nueva clase que recubra cada uno
+                de los dispositivos, así podremos verlos a todos con una única
+                interfaz pública y los podremos añadir todos a una 
+                colección única, por ejemplo.</p>
+            <p>No parece mala solución, el problema es si existen dispositivos
+                sobre los que se pueden hacer acciones que no se pueden llevar
+                a cabo sobre otros, por ejemplo, subir el volumen del HiFi.</p> 
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Si observamos con detalle este fragmento de
+                código:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public void enciende(TipoDispositivo tipoDispositivo)</b> {
+    switch(tipoDispositivo) {
+        case TV:
+            <b>tv.enciende();</b>
+            break;
+        case DVD:
+            <b>dvd.play();</b>
+            break;
+    }
+}
+</pre>
+            <p>Nos daremos cuenta de que lo que varia de un dispositivo a otro
+                es que estamos usando en cada caso un método que dependen
+                del dispositivo.</p>
+            <p>Lo que varía es la llamada a un método.</p>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>¿Qué hemos estado haciendo en los patrones anteriores?</p>
+            <p>Encapsular lo que varía dentro de una clase.</p>
+            <p>Ahora tenemos que «encapsular la llamada a un método».</p>
+            <p>Hipótesis:</p>
+            <ul>
+                <li>Todas las llamadas a un método se tienen que ver del mismo
+                    modo, como la misma cosa.</li>
+                <li>Cada llamada actua sobre un dispositivo distinto.</li>
+                <li>Puede ocurrir que un dispositivo ofrezca una interfaz
+                    pública con más métodos que otro dispositivo, o símplemente
+                    distintos.</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Programemos las hipótesis:</p>
+            <ul>
+                <li>Un <b>interface</b> (la herencia en general) me permite ver como
+                    el mismo tipo de datos, tipos de datos concretos con implementaciones
+                    distintas. Puedo, por ejemplo, unificar todas las acciones 
+                    bajo un mismo <b>interface</b>.</li>
+                <li>La llamada a un método la puedo encapsular en una clase
+                    que tenga una referencia al dispositivo sobre el que 
+                    actúa.</li>
+                <li>Tendré una clase distinta por cada acción que puedo llevar
+                    a cabo sobre un dispositivo.</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Vamos por pasos, primero el interface que me permite ver 
+                cualquier acción sobre cualquier dispositivo como la misma 
+                cosa.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Accion {
+    void ejecutaAccion();
+}
+</pre>
+            <p>Vaya, de momento es muy sencillo, demos el siguiente paso.</p>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Las acciones concretas se llevan a cabo sobre dispositivos
+                concretos, por ejemplo encender la televisión. Dicho de otro
+                modo, cada acción implementada como una clase concreta
+                conoce el dispositivo que realiza
+                la acción.</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class AccionEnciendeTV implements Accion {
+    private TV tv</b>;
+    
+    public AccionEnciendeTV(TV tv) {
+        super();
+        this.tv = tv;
+    }
+    <b>@Override
+    public void ejecutaAccion() {
+        tv.enciende();
+    }</b>
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Y si lo que quiero hacer es llamar al método que enciende el
+                DVD... lo encapsulo en una nueva clase:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class AccionEnciendeDVD implements Accion {
+    private DVD dvd;</b>
+    
+    public AccionEnciendeDVD(DVD dvd) {
+        super();
+        this.dvd = dvd;
+    }
+    <b>@Override
+    public void ejecutaAccion() {
+        dvd.play();
+    }</b>
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Con todo esto, ¿cómo queda la implementación del telemando?</p>
+<pre class="prettyprint" data-lang="Java">
+public class Telemando {
+    private Map< TipoAccion, Accion > acciones = new HashMap< TipoAccion, Accion >();
+
+    <b>public void ejecutaAccion(TipoAccion tipoAccion) {
+        acciones.get(tipoAccion).ejecutaAccion();
+    }</b>
+    
+    public void setAccion(TipoAccion tipoAccion, Accion accion) {
+        acciones.put(tipoAccion, accion);
+    }
+}
+</pre>
+            <p>El telemando ni conoce los dispositivos que controla, ni mucho
+                menos sabe qué se puede hacer con ellos. Simplemente ejecuta
+                acciones.</p>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Detalle de implementación, la clase <b>Telemando</b> tiene
+                parametrizadas las acciones que puede realizar.</p>
+            <p>Para realizar una acción, no se le pasa la acción concreta al
+                <b>Telemando</b>, sino sólo el tipo de la acción como un 
+                elemento de una enumeración (<b>TipoAccion</b>).</p>
+<pre class="prettyprint" data-lang="Java">
+public enum TipoAccion {
+    ENCENDER_TV, ENCENDER_DVD, ENCENDER_HIFI, ENCENDER_AA,
+    APAGAR_TV, APAGAR_DVD, APAGAR_HIFI, APAGAR_AA;
+}
+</pre>
+            <p>¿Podría, en algún caso, tener sentido enviar al telemando
+                la acción concreta, en vez de un parámetro (enumeración)
+                que indica la acción?</p>
+        </article>
+        </slide>
+        
+        <!-- Encapsular llamadas a métodos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Vale, pero de algún modo tendremos que conectar las acciones,
+                con los dispositivos que las realizan, 
+                en el telemando. Sí, aquí lo tienes.</p>
+<pre class="prettyprint" data-lang="Java">
+public class CargadorTelemando {
+    public void cargaTelemando(Telemando telemando) {
+        TV tv = new TV();
+        telemando.setAccion(TipoAccion.ENCENDER_TV, new AccionEnciendeTV(tv));
+        telemando.setAccion(TipoAccion.APAGAR_TV, new AccionApagaTV(tv));
+        DVD dvd = new DVD();
+        telemando.setAccion(TipoAccion.ENCENDER_DVD, new AccionEnciendeDVD(dvd));
+        telemando.setAccion(TipoAccion.APAGAR_DVD, new AccionApagaDVD(dvd));
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a mé odos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Vamos a probarlo.</p>
+<pre class="prettyprint" java-lang="Java">
+CargadorTelemando cargadorTelemando = new CargadorTelemando();
+Telemando telemando = new Telemando();
+cargadorTelemando.cargaTelemando(telemando);
+telemando.ejecutaAccion(TipoAccion.ENCENDER_TV);
+telemando.ejecutaAccion(TipoAccion.ENCENDER_DVD);
+telemando.ejecutaAccion(TipoAccion.APAGAR_TV);
+telemando.ejecutaAccion(TipoAccion.APAGAR_DVD);
+</pre>
+<samp>
+Encendiendo la televisión<br>
+Reproduciendo la película<br>
+Apagando la televisión<br>
+Deteniendo la reproducción de la película
+</samp>
+        </article>
+        </slide>
+
+        <!-- Encapsular llamadas a mé odos -->
+        <slide>
+        <hgroup>
+            <h2>Encapsular llamadas a métodos</h2>
+        </hgroup>
+        <article>
+            <p>Recapitulemos:</p>
+            <ol>
+                <li>Tenemos varios dispositivos.</li>
+                <li>Sobre cada dispositivo podemos realizar varias acciones.</li>
+                <li>Queremos realizar las acciones de cualquier dispositivo
+                    desde el mismo telemando.</li>
+            </ol>
+            <p>Solución:</p>
+            <ol>
+                <li>Hemos definido un <b>interface</b> para poder ver las
+                    distintas acciones como la misma cosa.</li>
+                <li>Cada acción concreta se realiza sobre un dispositivo 
+                    concreto.</li>
+                <li>El telemando sólo ejecuta acciones, no sabe cual es el
+                    dispositivo concreto que responde a cada acción.</li>
+            </ol>
+            <p>Hemos encapsulado llamadas a métodos como objetos.</p>
+        </article>
+        </slide>
+
+        <!-- Definición del patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón Command</h2>
+        </hgroup>
+        <article class="smaller">
+            <q>Encapsula una petición en un objeto, permitiendo así 
+                parametrizara los clientes con diferentes peticiones,
+                hacer cola o <b>llevar un registro de las peticiones, y poder
+                deshacer las operaciones.</b></q>
+            <div class="source">Patrones de Diseño<br />
+                Erich Gamma et al.</div>
+        </article>
+        </slide>
+
+        <!-- Definición del patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón Command</h2>
+        </hgroup>
+        <article class="smaller">
+            <p>El diagrama UML de <b>Command</b>:</p>
+<p class="centrado"><img src="imagenes/command.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+        
+        <!-- Definición del patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón Command</h2>
+        </hgroup>
+        <article class="smaller">
+            <p>El caso particular del telemando:</p>
+<p class="centrado"><img src="imagenes/commandTelemando.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>¿Alguna vez te has preguntado cómo recuerdan los programas las
+                acciones que han hecho para deshacerlas?</p>
+            <p>Hay programas que incluso pueden volver a hacer lo que han
+                deshecho. El editor de Eclipse en un ejemplo, puedo borrar y 
+                escribir, y cuando deshago lo último que he hecho,
+                se borra lo que he escrito y se 
+                escribe lo que había borrado. Y puedo rehacer lo que había
+                deshecho, e ir para adelante o para atrás...</p>
+            <p>Veamos cómo hacerlo con el patrón <b>Command</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Empecemos, de nuevo, con la definición del <b>interface 
+                Accion</b>. Ahora cada acción se puede deshacer.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Accion {
+    void ejecutaAccion();
+    void undo();
+}
+</pre>
+            <p>Ahora, además de realizar acciones, las podré deshacer.</p>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Cada acción concreta sabe 
+                deshacer la última acción:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class AccionEnciendeTV implements Accion {
+    private TV tv;</b>
+    
+    public AccionEnciendeTV(TV tv) {
+        super();
+        this.tv = tv;
+    }
+    @Override
+    public void ejecutaAccion() {
+        tv.enciende();
+    }
+    <b>@Override
+    public void undo() {
+        tv.apaga();
+    }</b>
+}
+
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Y para deshacer el encendido del DVD:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class AccionEnciendeDVD implements Accion {
+    private DVD dvd;</b>
+    
+    public AccionEnciendeDVD(DVD dvd) {
+        super();
+        this.dvd = dvd;
+    }
+    @Override
+    public void ejecutaAccion() {
+        dvd.play();
+    }
+    <b>@Override
+    public void undo() {
+        dvd.stop();
+    }</b>
+}
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Finalmente, debemos implementar el telemando con memoria:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class TelemandoUndoRedo extends Telemando {</b>
+    private Deque< TipoAccion > undo = new ArrayDeque< TipoAccion >();
+    private Deque< TipoAccion > redo = new ArrayDeque< TipoAccion >();
+    
+    public TelemandoUndoRedo() {
+        super();
+    }
+
+    @Override
+    public void ejecutaAccion(TipoAccion tipoAccion) {
+        super.ejecutaAccion(tipoAccion);
+        <b>undo.push(tipoAccion);</b>
+    } ....
+</pre>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+    public void undoAccion() {
+        if(undo.isEmpty() == false) {
+            TipoAccion tipoAccion = undo.pop();
+            acciones.get(tipoAccion).undo();
+            redo.push(tipoAccion);
+        } else System.out.println("La pila undo está vacía.");
+    }
+    public void redoAccion() {
+        if(redo.isEmpty() == false) {
+            TipoAccion tipoAccion = redo.pop();
+            ejecutaAccion(tipoAccion);
+        } else System.out.println("La pila redo está vacía.");
+    }
+}
+</pre>
+            <p>Nota: he modificado el mapa <b>acciones</b> como <b>protected</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Probemos nuestro nuevo telemando:</p>
+<pre class="prettyprint" data-lang="Java">
+CargadorTelemando cargadorTelemando = new CargadorTelemando();
+TelemandoUndoRedo telemando = new TelemandoUndoRedo();
+cargadorTelemando.cargaTelemando(telemando);
+telemando.ejecutaAccion(TipoAccion.ENCENDER_TV);
+telemando.ejecutaAccion(TipoAccion.ENCENDER_DVD);
+telemando.undoAccion();
+telemando.undoAccion();
+telemando.redoAccion();
+telemando.redoAccion();
+</pre>
+<samp>
+Encendiendo la televisión<br>
+Reproduciendo la película<br>
+Deteniendo la reproducción de la película<br>
+Apagando la televisión<br>
+Encendiendo la televisión<br>
+Reproduciendo la película
+</samp>
+        </article>
+        </slide>
+        
+        <!-- Undo y Redo con el patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Undo y Redo con el patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Detalles de implementación:</p>
+            <ul>
+                <li>Las acciones no tienen estado, son binarias, 
+                    encender/apagar.</li>
+                <li>El nuevo telemando es hijo del anterior.</li>
+            </ul>
+            <p>Posibles mejoras:</p>
+            <ul>
+                <li>Hay acciones que pueden ser superfluas, por ejemplo, 
+                    encender la televisión no debería hacer nada si ya está
+                    encendida. Lo mismo para apagarla.</li>
+                <li>Hay acciones que inherentemente tienen estado, por ejemplo,
+                    subir el volumen, si deshacemos esta acción, el volumen 
+                    debería quedar con la misma intensidad que la última vez.</li>
+            </ul>
+            <p>¿Te animas ha intentarlo como un ejercicio?</p>
+        </article>
+        </slide>
+        
+        <!-- Otros usos del patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Otros usos del patrón Command</h2>
+        </hgroup>
+        <article>
+            <p>Hemos visto cómo podemos implementar undo/redo con la ayuda
+                del patrón <b>Command</b>.</p>
+            <p><b>Command</b> ofrece otras posibilidades:</p>
+            <ul>
+                <li><b>Macros</b>: se pueden construir acciones «macro» como la unión de 
+                    varias acciones simples, por ejemplo una misma acción
+                    podría encender el HiFi y el aire acondicionado, al llegar
+                    a casa en verano me vendría muy bien.</li> 
+                <li><b>Ejecución tardía</b>: nuestra solución ejecuta las 
+                    acciones en el mismo momento de solicitarlas, pero las 
+                    acciones se podrían ir añadiendo a una cola para ejecutarse
+                    en otro momento.</li>
+                <li><b>Concurrencia</b>: el acceso al recurso puede estar
+                    compartido por varios clientes, quienes encolarían sus 
+                    peticiones y serían atendidas en orden de llegada, por 
+                    ejemplo.</li>
+                <li>Otros usos que a tí se te ocurran.</li>
+            </ul>
+        </article>
+        </slide>
+
+        <!-- Resumen -->
+        <slide>
+        <hgroup>
+            <h2>Resumen</h2>
+        </hgroup>
+        <article>
+            <p>El patrón <b>Command</b> hace de las llamadas a métodos 
+                ciudadanos de primera clase en POO.</p>
+            <p>Una acción encapsula la llamada a un método.</p>
+            <p>La ejecución al método se realiza a través de un invocador,
+                quien no conoce ni el objeto concreto que atenderá la 
+                llamada, ni el método concreto que se llamará.</p>
+            <p>Este patrón desacopla las llamadas a métodos de los clientes 
+                de esos métodos.</p>
+        </article>
+        </slide>
+
+        <!-- Recursos en Internet -->
+        <slide>
+        <hgroup>
+            <h2>Recursos en Internet</h2>
+        </hgroup>
+        <article>
+            <p><a href="http://es.wikipedia.org/wiki/Command_(patr%C3%B3n_de_dise%C3%B1o)">Wikipedia.</a></p>
+            <p><a href="http://c2.com/cgi/wiki?CommandPattern">Gang of four</a></p>
+        </article>
+        </slide>        
+        
+        <slide class="backdrop"></slide>   
+    </slides>
+    
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

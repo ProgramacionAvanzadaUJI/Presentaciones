@@ -1,0 +1,903 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!-- <!DOCTYPE html>-->
+<html>
+<head>
+<title>Swing: El modelo de programación</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle>Interfaces gráficas de usuario</h2>
+      <h2 data-config-subtitle>Swing: El modelo de programación</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+        
+        
+        <!-- Introducción -->
+		<slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>El modelo de programación de la respuesta a 
+                eventos en Swing, sigue el patrón de diseño 
+                Observador/Observable.</p>
+            <p>Los componentes Swing son Observables, cuando 
+                el usuario interacciona sobre ellos, 
+                todos los Observadores son informados.</p>
+            <p>Swing utiliza la aproximación <i>push</i>, 
+                en el momento de informar a los Observadores,
+                se les envía una <i>descripción</i> de lo 
+                ocurrido.</p>
+            <p>Para completar el patrón, es posible registrar
+                y eliminar escuchadores a los componentes.</p>  
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+		<slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+             <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=DZ/Xbig+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=big%20java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Big Java</a>. Capítulo 17.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&1%2C1%2C">
+                    Head first Java</a>. Capítulo 12.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+java&searchscope=1&SORT=DZ/Xhead+first+java&searchscope=1&SORT=DZ&extended=0&SUBKEY=head%20first%20java/1%2C3%2C3%2CB/frameset&FF=Xhead+first+java&searchscope=1&SORT=DZ&2%2C2%2C">
+                    Head first design patterns.</a> Capítulo 12.</li>
+                <li><a href="http://www3.uji.es/~belfern/pdf/libroJavaConTapa.pdf">Desarrollo de proyectos informáticos con tecnología Java.</a> Capítulo 11.</li>
+             </ol>
+        </article>
+        </slide>
+                
+        <!-- Contenidos -->
+		<slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>El modelo de eventos de Swing.</li>
+                <li>Cómo responder a los eventos.</li>
+                <li>Un poco más de Java: clases internas.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- El modelo de eventos de Swing -->
+		<slide>
+        <hgroup>
+			<h2>El modelo de eventos de Swing</h2>
+        </hgroup>
+        <article>
+            <p>En el capítulo dedicado a la programación dirigida por eventos
+                vimos, de modo muy sucinto, el ciclo de interacción con los
+                componentes Swing:</p>
+            <p class="centrado"><img src="imagenes/dirigidoPorEventos2.png" style="width: 800px"></p>
+        </article>
+        </slide>
+        
+        <!-- El modelo de eventos de Swing -->
+		<slide>
+        <hgroup>
+			<h2>El modelo de eventos de Swing</h2>
+        </hgroup>
+        <article>
+            <p>La práctica totalidad de los componentes Swing generan eventos 
+                cuando el usuario interacciona con ellos.</p>
+            <p>Los eventos son instancias de clases definidas en el paquete 
+                estándar de Java.</p>
+            <p>Los contenedores también generan eventos, pero no nos ocuparemos 
+                de ellos.</p>
+            <p>Si queremos <i>escuchar</i> un determinado tipo de eventos, 
+                debemos definir una clase especializada en ello.</p>
+        </article>
+        </slide>
+
+        <!-- El modelo de eventos de Swing -->
+		<slide>
+        <hgroup>
+			<h2>El modelo de eventos de Swing</h2>
+        </hgroup>
+        <article>
+            <p>La descripción por pasos:</p>
+            <ol>
+                <li>Un componente genera un evento -objeto-</li>
+                <li>El componente envía el evento a todos los 
+                    escuchadores registrados.</li>
+                <li>Un escuchador es un objeto de una clase 
+                    que implementa un <b>interface</b> concreto.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Concretémoslo en un caso particular:</p>
+            <p class="centrado"><img src="imagenes/ventanaConBoton.png" style="width: 200px"/></p>
+            <ol>
+                <li>Componente &rarr; Botón -<b>JButton</b>-</li>
+                <li>Evento &rarr; <b>ActionEvent</b></li>
+                <li>Escuchadora &rarr; <b>... implements ActionListener {</b></li>
+                <li>Registro &rarr; <b>addActionListener(Escuchadora);</b></li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>¿Cómo podemos conocer los eventos que lanzan los 
+                distintos componentes?</p>
+            <p>Buscando en esta <a href="http://docs.oracle.com/javase/tutorial/uiswing/events/eventsandcomponents.html">
+                tabla</a>.</p>
+            <p>Como puedes ver, distintos componentes pueden generar 
+                el mismo tipo de evento.</p>
+            <p>Fíjate en el nombrado, si el nombre del <b>interface</b> es <b>xxxListener</b> 
+                el evento que escucha es <b>xxxEvent</b>, y el método de registro es 
+                addxxxListener(xxxListener): <b>ActionListener</b> 
+                &rarr; <b>ActionEvent</b> &rarr; <b>addActionListener(ActionListener escuchadora)</b>.</p>
+        </article>
+        </slide>
+
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Escribamos nuestra clase escuchadora:</p>
+<pre class="prettyprint" data-lang="Java">
+public class EscuchadoraBoton implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Pulsaste el botón.");
+    }
+}</pre>
+            <p>Como ves, esta <b>interface</b> sólo declara un 
+                método <b>actionPerformed(ActionEvent e)</b> 
+                que será llamado cada vez que el usuario pulse
+                el botón.</p>
+        </article>
+        </slide>
+
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Registremos una instancia de esta clase 
+                como escuchador:</p>
+<pre class="prettyprint" data-lang="Java">
+JFrame ventana = new JFrame("Escuchador botón");
+JButton boton = new JButton("Púlsame...");
+
+boton.addActionListener(new EscuchadoraBoton());//Registro escuchador
+
+ventana.getContentPane().add(boton);
+ventana.setSize(500, 500);
+ventana.setVisible(true);
+</pre>
+        </article>
+        </slide>
+
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Ahora, cada vez que pulsemos sobre el botón:</p> 
+            <p class="centrado"><img src="imagenes/ventanaConBoton.png" style="width: 200px"></p>
+            <p>Obtendremos un mensaje por consola.</p>
+            <p class="centrado"><img src="imagenes/ventanaConBotonSalida.png" style="width: 300px"></p>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Como has visto, es sólo una técnica. Nuestro trabajo como 
+                programadores consiste es unir todas las piezas, y sobretodo,
+                escribir el código de respuesta a los eventos que nos interesan.</p>
+            <p>En el ejemplo anterior el código de respuesta era, simplemente,
+                mostrar un mensaje por consola.</p>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Resumamos, de nuevo, el procedimiento:</p>
+            <ol>
+                <li>Decide qué componente, o contenedor, quieres utilizar en la 
+                    interface gráfica.</li>
+                <li>Busca los escuchadores que se le pueden registrar.</li>
+                <li>De entre todos los escuchadores, elige el, o los, que te interese.</li>
+                <li>Escribe una clase que implemente los escuchadores que has elegido 
+                    -recuerda, esto implica que tu clase implemente algunos <b>interface</b>-</li>
+                <li>Tu código de respuesta lo escribirás al definir los métodos que 
+                    declara la <b>interface</b>.</li>
+                <li>Registra una instancia de tu clase escuchadora sobre el componente.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>¿Recuerdas que la ventana no se cerraba al pulsar el botón con
+                el aspa?</p>
+            <p>Vamos a programar que se cierre.</p>
+            <p><strong>1.</strong> Decide qué componente, o contenedor, quieres utilizar en la 
+                    interface gráfica.</p>
+            <p>Nuestro contenedor, en este caso, es <b>JFrame</b>.</p>
+            <p><strong>2.</strong> Busca los escuchadores que se le pueden registrar.</p>
+        </article>
+        </slide>
+                
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article class="nobackground">
+            <iframe src="http://docs.oracle.com/javase/tutorial/uiswing/events/eventsandcomponents.html"></iframe>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p><strong>3.</strong> De entre todos los escuchadores, elige el, o los, que te interese.</p>
+            <p>En este caso sólo tenemos uno (<b>WindowListener</b>). Leemos la documentación y 
+                confirmamos que es lo que necesitamos.</p>
+        </article>
+        </slide>
+
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+           <p><strong>4.</strong> Escribe una clase que implemente los escuchadores que has elegido 
+                    -recuerda, esto implica que tu clase implemente algunos <b>interface</b>-</p>
+<pre class="prettyprint" data-lang="Java">
+public class EscuchadorVentana implements WindowListener {
+    @Override
+    public void windowActivated(WindowEvent e) {    }
+    @Override
+    public void windowClosed(WindowEvent e) {    }
+    @Override
+    public void windowClosing(WindowEvent e) {    }
+    @Override
+    public void windowDeactivated(WindowEvent e) {    }
+    @Override
+    public void windowDeiconified(WindowEvent e) {    }
+    @Override
+    public void windowIconified(WindowEvent e) {    }
+    @Override
+    public void windowOpened(WindowEvent e) {    }
+}
+</pre>
+        </article>
+        </slide>
+                
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+           <p><strong>5.</strong> Tu código de respuesta lo escribirás al definir los métodos que 
+                    declara el <b>interface</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+@Override
+public void windowClosing(WindowEvent e) {
+    System.exit(0);
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p><strong>6.</strong> Registra una instancia de tu clase escuchadora sobre el componente.</p>
+<pre class="prettyprint" data-lang="Java">
+public class VentanaQueSeCierra {
+    ...
+    private void ejecuta() {
+        JFrame ventana = new JFrame("Ventana que se cierra");
+        ventana.addWindowListener(new EscuchadorVentana());
+        ...
+    }
+    ...
+}
+</pre>
+        </article>
+        </slide>
+       
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Te habrás dado cuenta que el <b>interface WindowListener</b>
+                declara 7 métodos, y sólo en 1 hemos escrito código, el resto 
+                los hemos dejado vacios.</p>
+            <p>Este modo de implementar un escuchador es tedioso.</p>
+            <p>Afortunadamente, en estos casos, el paquete estandar de Java 
+                nos ofrece un atajo: las clases adaptadoras.</p>
+            <p>Las clases adaptadoras implementan <b>interfaces</b>, que 
+                declaran un gran número de métodos, dejando la definición 
+                de los métodos vacía.</p>
+            <p>Ahora, en vez de hacer que nuestra clase escuchadora <b>implements</b>
+                un <b>interface</b>, haremos que <b>extends</b> la clase 
+                adaptadora.</p>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class EscuchadorVentanaAdaptado extends WindowAdapter {
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+}
+</pre>
+            <p>En este caso, el código es mucho más legible, sólo muestra
+                detalles de los métodos que nos importan.</p>
+            <p>Fíjate, de nuevo, en el nombrado de la clase adaptadora: si 
+                la <b>interface</b> es <b>xxxListener</b> la clase adaptadora
+                será <b>xxxAdapter</b>. En nuestro caso 
+                <b>interface WindowListener</b> la clase adaptadora
+                <b>class WindowAdapter</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article class="nobackground">
+            <iframe src="http://docs.oracle.com/javase/tutorial/uiswing/events/api.html"></iframe>
+         </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Hemos visto dos técnicas distintas para conseguir un mismo fin:
+                que nuestra aplicación se cierre al cerrar la ventana.</p>
+            <p>Existe una tercera técnica, muy sencilla, que consiste en 
+                utilizar un método de la clase <b>JFrame</b>:</p>
+<pre class="prettyprint" data-lang="Java">ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</pre>
+            <p>Querer acabar la ejecución de la aplicación al cerrar la 
+                ventana principal es algo tan habitual, que la clase 
+                <b>JFrame</b> nos ofrece un método para conseguirlo.</p>
+        </article>
+        </slide>
+        
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>Resumiendo, las tres técnicas que hemos visto para que nuestra
+                aplicación acabe, cuando cerramos la ventana principal son:</p>
+            <ol>
+                <li>Implementar <b>WindowListener</b>.</li>
+                <li>Extender <b>WindowAdapter</b>.</li>
+                <li>Usar el método <b>setDefaultCloseOperation(...)</b> de la 
+                    clase <b>JFrame</b>.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- Cómo responder a los eventos -->
+		<slide>
+        <hgroup>
+			<h2>Cómo responder a los eventos</h2>
+        </hgroup>
+        <article>
+            <p>¿Cuál utilizar en cada caso? La <i>guía</i> es:</p>
+            <ul>
+                <li>Si no vas a hacer nada especial antes de cerrar la 
+                    aplicación -cerrar ficheros, sockets, conexiones a 
+                    Internet- usa el método 
+                    <b>setDefaultCloseOperation(...)</b>.</li>
+                <li>Si la clase escuchadora ya extiende a otra, no te queda más
+                    remedio que implementar <b>WindowListener</b>.</li>
+                <li>Si no tienes la restricción anterior, extiende 
+                    <b>WindowAdapter</b>.</li>
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Antes de pasar a ver algunos de los componentes Swing, 
+                veamos un par de técnicas más para definir clases
+                escuchadoras.</p>
+            <p>Hasta ahora, las clases escuchadoras las hemos definido como
+                clases <i>de primer nivel</i>, es decir, siguiendo el esquema
+                de definición de cualquier clase: creamos un fichero donde 
+                escribimos la definición de la clase.</p>
+            <p>No obstante, la sintaxis de Java nos proporciona un par más 
+                de opciones para definir clases:</p>
+            <ol>
+                <li>Clases internas.</li>
+                <li>Clases internas anónimas.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Recuerda que la <i>encapsulación</i> es uno de los pilares 
+                de la POO.</p>
+            <p>Los objetos encapsulan datos y comportamiento. Y no todos los 
+                datos, o no todo el comportamiento, es totalmente visible.</p>
+            <p>Como sabes, podemos utilizar los <i>modificadores de 
+                acceso</i>, para restringir la visibilidad tanto de los 
+                atributos como de los métodos de una clase.</p>
+            <p>Si un método contiene detalles de implementación que no 
+                queremos hacer visibles a otras clases, lo podemos <i>modificar</i>
+                como <b>private</b>, de modo que sólo la clase donde está 
+                definido pueda utilizarlo.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Lo mismo ocurre con los atributos.</p>
+            <p>Puede que algún atributo de una clase esté definido sólo 
+                por necesidad de la implementación, no porque sea una 
+                característica de los objetos.</p>
+            <p>Igual que en el caso de los métodos, podemos <i>modificar</i>
+                esos atributos como <b>private</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Lo mismo ocurre con las clases, muchas veces con las clases 
+                escuchadoras.</p>
+            <p>Las clases escuchadoras sólo son de interés a las clases 
+                que necesitan utilizarlas para atender a las acciones del usuario,
+                pero son transparentes al resto de clases, es decir, nunca 
+                las van a utilizar.</p>
+            <p>¿Me proporciona Java algún mecanismo para poder 
+                <i>encapsular</i> la definición de una clase dentro de otra?</p>
+            <p>La respuesta es si: <i>las clases internas</i>.</p> 
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Volvamos al ejemplo de la ventana que se cierra. 
+                Encapsulemos la definición de la clase escuchadora.</p>
+<pre class="prettyprint" data-lang="Java">
+public class VentanaQueSeCierra {
+    ...
+    private void ejecuta() {
+        JFrame ventana = new JFrame("Ventana que se cierra");
+        ventana.addWindowListener(new Escuchador());
+        ventana.setSize(300, 300);
+        ventana.setVisible(true);
+    }
+    private class Escuchador extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            System.exit(0);
+        }
+    }
+    ...
+}</pre>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public class VentanaQueSeCierra {
+    ...
+    private class Escuchador extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            System.exit(0);
+        }
+    }
+    ...
+}</pre>
+            <p>Una clase dentro de otra, y la podemos <i>modificar</i> como 
+                <b>private</b> para que no se vea desde fuera, lo único que 
+                es visible desde fuera es su efecto: acabar la ejecución 
+                de la aplicación.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Una propiedad muy interesante -y cómoda- de las clases 
+                internas es que tienen acceso a todos los miembros -atributos 
+                y métodos- de la clase que las contiene.</p>
+            <p>La clase contenedora ahora no tiene que ofrecer <i>servicios</i> que 
+                sólo vaya a utilizar una clase escuchadora interna, y por lo 
+                tanto, los puede <i>modificar</i> como <b>private</b> para 
+                que no sean visibles desde fuera de la clase.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>¿Cómo nombra el compilador de Java a las clases internas?</p>
+            <p>Sabemos que el compilador genera un fichero con extensión 
+                <b>.class</b> por cada fichero de definición de clase pública con
+                extensión <b>.java</b>.</p>
+            <p>Usemos la vista <i>Navigator</i> de Eclipse:</p>
+            <p class="centrado"><img src="imagenes/vistaNavigator1.png" width="500px"></p>
+            <p>El nombre de la clase interna está formado por el nombre 
+                de la clase que la contiene, el símbolo de $ y el nombre de 
+                la clase interna.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Vayamos un poco más allá. Fíjate en este trozo de código:</p>
+<pre class="prettyprint" data-lang="Java">
+ventana.addWindowListener(new WindowListener() {
+    @Override
+    public void windowOpened(WindowEvent e) { }
+    @Override
+    public void windowIconified(WindowEvent e) { }
+    @Override
+    public void windowDeiconified(WindowEvent e) { }
+    @Override
+    public void windowDeactivated(WindowEvent e) { }
+    @Override
+    public void windowClosing(WindowEvent e) { System.exit(0); }
+    @Override
+    public void windowClosed(WindowEvent e) { }
+    @Override
+    public void windowActivated(WindowEvent e) { }
+});
+</pre>
+        </article>
+        </slide>
+
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>¿Observas algo extraño en la siguiente línea de código?</p>
+<pre class="prettyprint" data-lang="Java">
+ventana.addWindowListener(new WindowListener() {
+...
+</pre>
+            <p>Una ayuda, <b>WindowListener</b> es un <b>interface</b>.</p>
+            <p>
+            <div class="build">
+                <p>Los <b>interface</b> en Java no se pueden instanciar.</p>
+                <p>¿Qué está ocurriendo?</p>
+                <p>Veamos la vista <i>Navigator</i>:</p>
+                <p class="centrado"><img src="imagenes/vistaNavigator2.png" 
+                    width="500px">
+            </div>
+            </p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/vistaNavigator2.png" 
+                width="500px">
+            <p>Pues no sé si me ayuda, ¿qué significa ese nombre de clase 
+                <i>VentanaQueSeCierra$1</i>?</p>
+            <p>¿De donde sale esa clase?</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Volvamos al código que generó esa clase:</p>
+<pre class="prettyprint" data-lang="Java">
+ventana.addWindowListener(new WindowListener() {
+...
+</pre>
+            <p>Lo que está cocurriendo es que estamos definiendo una clase 
+                que iplementa <b>WindowListener</b> Y NO TIENE NOMBRE.</p>
+            <p>Estamos definiendo una <i>clase interna anónima</i></p>
+            <ol>
+                <li>Interna porque la estamos definiendo dentro de otra.</li>
+                <li>Anónima porque no tiene nombre.</li>
+                <li>Y estamos creando una instancia de ella en el momento de la 
+                    definición, de ahí el <b>new</b>.</li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>A las <i>clases internas anónimas</i>,
+                el compilador las nombre como: nombre de la clase que la 
+                contiene + $ + ordinal.</p>
+            <p>El ordinal será: 1, 2, 3,... según el orden y número de la 
+                clase dentro de la que está contenida.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Pues este trozo de código también te va a gustar:</p>
+<pre class="prettyprint" data-lang="Java">
+ventana.addWindowListener(new WindowAdapter() {
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+});
+</pre>
+            <p>¿Qué estamos haciendo?</p>
+            <p>Pues lo mismo que en el caso anterior, creando una <i>clase 
+                interna anónima</i>, pero esta vez esa clase está extendiendo 
+                a la clase <b>WindowAdapter</b> y sobreescribe su método 
+                <b>windowClosing(WindowEvent e)</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Podemos crear clases internas anónimas que implementen algún 
+                <b>interface</b> o que extienda a otra clase.</p>
+            <p>Si podemos usar los dos, ¿por cual nos decidimos?</p>
+            <p>La guía esta vez es, si tienes una clase adaptadora, aprovéchala.
+                Si no tienes clase adaptadora, bueno, utiliza el 
+                <b>interface</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Para generar las vistas <i>Navigator</i> no he incluido el 
+                siguiente trozo de código:</p>
+<pre class="prettyprint" data-lang="Java">
+SwingUtilities.invokeLater(new Runnable() {
+    @Override
+    public void run() {
+        new VentanaQueSeCierra().ejecuta();
+    }
+});
+</pre>
+            <p>Si lo incluyo, la vista <i>Navigator</i> nos muestra:</p>
+            <p class="centrado"><img src="imagenes/vistaNavigator3.png" 
+                width="500px"></p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p class="centrado"><img src="imagenes/vistaNavigator3.png" 
+                width="500px"></p>
+            <p>¿Donde está definida la clase <i>VentanaQueSeCierra$2</i>?</p>
+            <p><b>Runnable</b> es también un <b>interface</b>. Igual que antes,
+                si ves el operador <b>new</b> delante de un <b>interface</b> en
+                una construcción como las anteriores, es que se está definiendo 
+                una <i>clase interna anónima</i>.</p>
+        </article>
+        </slide>
+        
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>Resumamos las técnicas que hemos utilizado crear un escuchador:</p>
+            <ol>
+                <li>Crear una <i>clase de primer nivel</i>.</li>
+                <li>Crear una <i>clase interna</i>.</li>
+                <li>Crear una <i>clase interna anónima</i>.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!-- Un poco más de Java: clases internas -->
+		<slide>
+        <hgroup>
+			<h2>Un poco más de Java: clases internas</h2>
+        </hgroup>
+        <article>
+            <p>¿Cuando utilizar una u otra técnicas? La guía es:</p>
+            <ul>
+                <li>Si la clase escuchadora la va a utilizar más de una 
+                    clase cliente, utiliza una <i>clase de primer nivel</i>.</li>
+                <li>Si la clase sólo la va a utilizar una clase cliente, 
+                    encapsúlala como <i>clase interna</i>.</li>
+                <ul>
+                    <li>Si vas a necesitar más de una instancia de la 
+                        <i>clase interna</i>, nombrala.</li>
+                     <li>Si sólo la vas a instanciar una única vez, hazla 
+                        anónima.</li>
+                </ul> 
+            </ul>
+        </article>
+        </slide>
+        
+        <!-- Enlaces web -->
+		<slide>
+        <hgroup>
+			<h2>Enlaces web</h2>
+        </hgroup>
+        <article>
+            <h3>Enlaces web</h3>
+            <p><a href="http://docs.oracle.com/javase/tutorial/uiswing/layout/index.html">Sobre contenedores.</a></p>
+            <p><a href="http://docs.oracle.com/javase/tutorial/ui/features/components.html">Lista con componentes.</a>
+        </article>
+        </slide>
+
+        <slide class="backdrop"></slide>   
+
+    </slides>
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

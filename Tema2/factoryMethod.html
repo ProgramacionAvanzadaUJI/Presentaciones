@@ -1,0 +1,696 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patrón de diseño Método Factoría (Factory Method)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28605511-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body style="opacity: 0">
+	<slides>
+      <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title>Programación Avanzada</h1>
+      <h2 data-config-subtitle>Patrones de diseño</h2>
+      <h2 data-config-subtitle>Patrón de diseño Método Factoría (Factory Method)</h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+        <!--  Introducción -->
+        <slide>
+        <hgroup>
+			<h2>Introducción</h2>
+        </hgroup>
+        <article>
+            <p>Si una clase, cliente, crea instancias de otras, proveedoras, 
+                para trabajar con ellas, estamos relacionando estrechamente 
+                la clase cliente con las proveedoras.</p>
+            <p>Esta estrecha relación se llama acoplamiento.</p>
+            <p>Para que nuestras aplicaciones sean lo más flexibles 
+                posibles frente a posibles cambios, debemos evitar
+                el acoplamiento entre clases en el momento de creación
+                de los objetos.</p>
+            <p>Un modo de hacerlo es mediante el uso del patrón de diseño 
+                <b>Factory Method</b>.</p>
+        </article>
+        </slide>
+        
+        <!-- Bibliografía -->
+        <slide>
+        <hgroup>
+			<h2>Bibliografía</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head+first+design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
+                    Head first design patterns</a> Capítulo 4.</li>
+                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones+de+dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
+                    Patrones de diseño</a> Capítulo 3.</li>
+                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 16, Sección 6.</li>
+            </ol>
+            <p><b>Recursos en la web</b></p>
+            <ol>
+                <li><a href="http://c2.com/cgi/wiki?FactoryMethodPattern">
+                    Página web del libro <i>Design Patterns</i>.</a></li>
+            </ol>
+        </article>
+        </slide>
+        
+        <!--  Contenidos -->
+        <slide>
+        <hgroup>
+			<h2>Contenidos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Echando un vistazo atrás.</li>
+                <li>De nuevo, encapsulando lo que varía.</li>
+                <li>Recapitulemos.</li>
+                <li>Fábrica parametrizada (el mismo perro distinto collar).</li>
+                <li>Definición del patrón de diseño <b>Factory Method</b>.</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!--  Echando un vistazo atrás -->
+        <slide>
+        <hgroup>
+			<h2>Echando un vistazo atrás</h2>
+        </hgroup>
+        <article>
+            <p>¿Recuerdas el patrón de diseño <b>Strategy</b>?</p>
+            <p>Cuando queríamos trabajar con él hacíamos algo como:</p>
+<pre class="prettyprint" data-lang="Java">
+Astronauta astronauta = new Astronauta("Gagarin", 
+    new ContadorAscendente());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());
+
+astronauta.setContador(new ContadorDescendente());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());
+</pre>
+            <p>Creábamos, con el operador <b>new</b> las instancias 
+                de los contadores.</p>            
+        </article>
+        </slide>
+
+        <!--  Echando un vistazo atrás -->
+        <slide>
+        <hgroup>
+			<h2>Echando un vistazo atrás</h2>
+        </hgroup>
+        <article>
+            <p>Como hemos comentado alguna vez, que una clase haga
+                un <b>new</b> para obtener una referencia a otra, 
+                crea una estrecha relación entre las clases.</p>
+            <p>El término que se suele utilizar es <i>acoplamiento 
+                entre clases</i>.</p>
+            <p>Como también hemos comentado, en la medida de lo posible, 
+                hay que relajar al máximo el acoplamiento entre clases.</p>
+            <p>Veamos cómo hacerlo en el caso de creación de objetos.</p>
+        </article>
+        </slide>
+
+        <!--  Echando un vistazo atrás -->
+        <slide>
+        <hgroup>
+			<h2>Echando un vistazo atrás</h2>
+        </hgroup>
+        <article>
+            <p>Recordemos que con el patrón <b>Strategy</b> teníamos un 
+                <b>interface</b>, y algunas implementaciones de él:</p>
+<pre class="prettyprint" data-lang="Java">
+public <b>interface Contador</b> {
+    String cuenta();
+}
+public <b>class ContadorAscendente implements Contador</b> {
+    @Override public String cuenta() {
+        return "Uno, dos, tres, cuatro, cinco, 
+            seis, siete, ocho, nueve y diez";
+    }
+}
+public <b>class ContadorDescendente implements Contador</b> {
+    @Override public String cuenta() {
+        return "Diez, nueve, ocho, siete, seis, 
+            cinco, cuatro, tres, dos y uno.";
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>¿Qué pasa si queremos que nuestros candidatos cuenten
+                en inglés?</p>
+            <p>Deberíamos crear nuevas clases que implementen <b>Contador</b> 
+                y que sobrescriban el método <b>public String cuenta()</b>.</p>
+<pre class="prettyprint" data-lang="Java">
+public <b>class ContadorAscendenteIngles implements Contador</b> {
+    @Override
+    public String cuenta() {
+        return "One, two, three, four, five, 
+            six, seven, eight, nine and ten";
+    }
+}</pre>
+        </article>
+        </slide>
+        
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>De acuerdo, pero, ¿y desde el punto de vista del cliente?</p>
+<pre class="prettyprint" data-lang="Java">
+Astronauta astronauta = new Astronauta("Gagarin", 
+    new ContadorAscendenteIngles());
+System.out.println("Soy " + astronauta.getNombre() + 
+    ": " + astronauta.cuenta());</pre>
+            <p>Vaya, tenemos que modificarlo, y utilizar, esta vez, 
+                una instancia de <b>ContadorAscendenteIngles</b>.</p>
+            <p>Intentemos encapsular, en una clase, la tarea de crear 
+                las instancias concretas. Recuerda que todas implementan 
+                el mismo <b>interface</b>.</p>
+        </article>
+        </slide>
+
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Necesitamos una <i>fábrica</i> que cree las 
+                instancias concretas. Definamos un <b>interface</b> 
+                con este requerimiento.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface Fabrica {
+    Contador getContadorAscendente();
+    Contador getContadorDescendente();
+}</pre>
+            <p>Bien, ahora implementemos una fábrica que me devuelva 
+                instancias de contadores en castellano.</p>
+        </article>
+        </slide>
+
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+<b>public class FabricaCastellano implements Fabrica</b> {
+    public FabricaCastellano() {
+        super();
+    }
+    @Override
+    public Contador getContadorAscendente() {
+        return <b>new ContadorAscendente();</b>
+    }
+    @Override
+    public Contador getContadorDescendente() {
+        return <b>new ContadorDescendente();</b>
+    }
+}</pre>
+            <p>Perfecto, esta es la clase que se ocupa de instanciar    
+                las clases concretas.</p>
+            <p>Hemos encapsulado la creación de clases dentro de ella.</p>
+        </article>
+        </slide>
+        
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Probemos la nueva idea:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>Fabrica fabrica = new FabricaCastellano();</b>
+Contador contador = fabrica.getContadorAscendente();
+System.out.println(contador.cuenta());
+contador = fabrica.getContadorDescendente();
+System.out.println(contador.cuenta());</pre>
+            <p>
+            <samp>
+Uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve y diez.<br />
+Diez, nueve, ocho, siete, seis, cinco, cuatro, tres, dos y uno.
+            </samp>
+            </p>
+            <p>El único <b>new</b> que tenemos es el de creación 
+                de la fábrica concreta.</p>
+        </article>
+        </slide>     
+
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>¿Y si queremos contadores en inglés?</p>
+            <p>Debemos crear la fábrica correspondiente.</p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class FabricaIngles implements Fabrica</b> {
+    public FabricaIngles() {
+        super();
+    }
+    @Override
+    public Contador getContadorAscendente() {
+        <b>return new ContadorAscendenteIngles();</b>
+    }
+    @Override
+    public Contador getContadorDescendente() {
+        <b>return new ContadorDescendenteIngles();</b>
+    }
+}</pre>
+        </article>
+        </slide>
+
+        <!--  De nuevo, encapsulando lo que varía -->
+        <slide>
+        <hgroup>
+			<h2>De nuevo, encapsulando lo que varía</h2>
+        </hgroup>
+        <article>
+            <p>Desde el punto de vista del cliente:</p>
+<pre class="prettyprint" data-lang="Java">
+<b>Fabrica fabrica = new FabricaIngles();</b>
+Contador contador = fabrica.getContadorAscendente();
+System.out.println(contador.cuenta());
+contador = fabrica.getContadorDescendente();
+System.out.println(contador.cuenta());</pre>
+            <p>
+            <samp>
+One, two, three, four, five, six, seven, eight, nine and ten. <br />
+Ten, nine, eight, seven, six, five, four, three, two and one.
+            </samp>
+            </p>
+            <p>Sólo tenemos que cambiar de fábrica (proveedor)!!!</p>
+        </article>
+        </slide>
+
+        <!--  Recapitulemos -->
+        <slide>
+        <hgroup>
+			<h2>Recapitulemos</h2>
+        </hgroup>
+        <article>
+            <ol>
+                <li>Hemos encapsulado la creación de instancias 
+                    en una clase.</li>
+                <li>Podemos tener más de una fábrica para los  
+                    mismos productos.</li>
+                <li>Nuestros clientes eligen qué fábrica usar.</li>
+                <li>Todos los productos se ven bajo el <b>interface</b>
+                    común.</li>
+            </ol>
+            <p>¿Cuantos principios SOLID está siguiendo esta implementación?</p>
+            <div class="build">
+                <p><b>Single Responsability: Sí.</b></p>
+                <p>Open Close: No.</p>
+                <p><b>Liskov Substitution: Sí.</b></p>
+                <p><b>Interface Segregation: Sí.</b></p>
+                <p><b>Dependency Inversion: Sí</b></p>
+            </div>
+        </article>
+        </slide>                        
+
+        <!--  Recapitulemos -->
+        <slide>
+        <hgroup>
+			<h2>Recapitulemos</h2>
+        </hgroup>
+        <article>
+            <p>Fantástico, lo hemos resuelto el cliente se desentiende 
+                de la creación de las instancias, y además, puede 
+                elegir entre varios proveedores.</p>
+            <p>Pero, un detalle de implementación, el cliente debe 
+                conocer los métodos para obtener la instancia concreta:</p>
+            <ol>
+                <li>getContadorAscendente();</li>
+                <li>getContadorDescendente();</li>
+            </ol>
+        </article>
+        </slide>
+
+        <!--  Recapitulemos -->
+        <slide>
+        <hgroup>
+			<h2>Recapitulemos</h2>
+        </hgroup>
+        <article>
+            <p>Supongamos que nuestro cliente es una pequeña aplicación 
+                que muestra un menú, solicita al usuario seleccionar 
+                un tipo de contador, y finalmente muestra el resultado 
+                de contar.</p>
+<pre class="prettyprint" data-lang="Java">
+private void ejecuta() {
+    int tipo;
+    do {
+        menu();
+        tipo = pideOpcion();
+        filtraOpcion(tipo);
+    } while(true);
+}</pre>
+        </article>
+        </slide>
+                
+        <!--  Recapitulemos -->
+        <slide>
+        <hgroup>
+			<h2>Recapitulemos</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+private void menu() {
+    System.out.println("0.- Contador ascendente.");
+    System.out.println("1.- Contador descendente.");
+}
+private void filtraOpcion(int tipo) {
+    Contador contador = fabrica.getContadorAscendente();
+    switch(tipo) {
+        case 0:
+            break;
+        case 1:
+            contador = fabrica.getContadorDescendente();
+            break;
+    }
+    System.out.println(contador.cuenta());....
+</pre>
+            <p>Si queremos incluir nuevas formas de 
+                contar, no nos queda más remedio 
+                que abrir nuestra clase cliente para 
+                tener en cuenta las nuevas modificaciones.</p>
+        </article>
+        </slide>
+
+        <!--  Recapitulemos -->
+        <slide>
+        <hgroup>
+			<h2>Recapitulemos</h2>
+        </hgroup>
+        <article>
+            <p>Intentemos que nuestra clase cliente sea más independiente 
+                a los cambios de las fábricas.</p>
+            <p>¿Cómo? Implementando el patrón de diseño como una fábrica 
+                parametrizada.</p>
+        </article>
+        </slide>        
+        
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+            <p>Empecemos cambiando la <b>interface Fabrica</b>, para 
+                que en vez de una colección de métodos, tenga sólo un 
+                método que reciba el tipo del objeto que queremos crear:</p>
+<pre class="prettyprint" data-lang="Java">
+public interface FabricaParametrizada {
+    Contador getContador(TipoContador tipo);
+}</pre>
+            <p>Y <b>TipoContador</b> es una enumeración. Recuerda lo 
+                útiles que fueron las enumeraciones para representar 
+                opciones de menú: podíamos añadir nuevas opciones y el cliente 
+                de la enumeración veía los cambios sin necesidad de 
+                modificaciones.</p>
+        </article>
+        </slide>
+        
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public enum TipoContador {
+    ASCENDENTE("Contador ascendente"),
+    DESCENDENTE("Contador descendente");
+    private String descripcion;
+    private TipoContador(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public static String opciones() {
+        StringBuilder sb = new StringBuilder();
+        for(TipoContador tipo: values()) 
+            sb.append(tipo.ordinal() + ".- " + tipo.descripcion + "\n");
+        return sb.toString();
+    }
+    public static TipoContador enteroATipo(int posicion) {
+        return values()[posicion];
+    }
+}</pre>
+        </article>
+        </slide>
+
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+            <p>Finalmente, aquí tenemos nuestra fábrica parametrizada:</p>
+<pre class="prettyprint" data-lang="Java">
+public class FabricaCastellanoParametrizada 
+       implements FabricaParametrizada {
+    public Contador getContador(TipoContador tipo) {
+        Contador contador = new ContadorAscendente();
+        switch (tipo) {
+            case DESCENDENTE:
+                contador = new ContadorDescendente();
+                break;
+        }
+        return contador;
+    }
+}</pre>
+            <p>Hemos sustituido los métodos por un <b>switch</b>.</p>
+        </article>
+        </slide>                
+
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+            <p>¿Qué pinta tiene el cliente?</p>
+<pre class="prettyprint" data-lang="Java">
+    private void menu() {
+        System.out.println(TipoContador.opciones());
+    }
+    private void filtraOpcion(TipoContador tipo) {
+        Contador contador = fabrica.getContador(tipo);
+        System.out.println(contador.cuenta());
+    }
+    private void ejecuta() {
+        TipoContador tipo;
+        do {
+            menu();
+            tipo = pideOpcion();
+            filtraOpcion(tipo);
+        } while(true);
+    }
+</pre>
+        </article>
+        </slide>        
+
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+            <p>¿Y si tenemos un contador impares-pares?</p>
+            <p>Sólo tenemos que cambiar la fábrica (y la enumeración).</p>
+<pre class="prettyprint" data-lang="Java">
+public class FabricaCastellanoParametrizada implements FabricaParametrizada {
+    public Contador getContador(TipoContador tipo) {
+        Contador contador = new ContadorAscendente();
+        switch (tipo) {
+            case DESCENDENTE:
+                contador = new ContadorDescendente();
+                break;
+            case IMPARES_PARES:
+                contador = new ContadorImparesPares();
+                break;
+        }
+        return contador;
+    }
+}
+</pre>
+        </article>
+        </slide>
+
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public enum TipoContador {
+    ASCENDENTE("Contador ascendente"),
+    DESCENDENTE("Contador descendente");
+    IMPARES_PARES("Contador impares - pares");
+    ...
+}</pre>
+            <p>El cliente es el mismo:</p>        
+<pre class="prettyprint" data-lang="Java">
+private void menu() {
+    System.out.println(TipoContador.opciones());
+}
+
+private void filtraOpcion(TipoContador tipo) {
+    Contador contador = fabrica.getContador(tipo);
+    System.out.println(contador.cuenta());
+}</pre>
+        </article>
+        </slide>        
+
+        <!--  Fábrica parametrizada -->
+        <slide>
+        <hgroup>
+			<h2>Fábrica parametrizada</h2>
+        </hgroup>
+        <article>
+            <p>Estupendo!!! Y la fábrica parametrizada en inglés.</p>
+            <p>
+            <div class="build">
+            <p>Bueno, no está mal como ejercicio ;)</p>
+            </div>
+            </p>
+        </article>
+        </slide>        
+        
+        <!--  Definición del patrón de diseño Factory Method -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón Factory Method</h2>
+        </hgroup>
+        <article class="smaller">
+            <q>Define una interfaz para crear un objeto, 
+                pero deja que sean las subclases quienes decidan 
+                qué clase instanciar. Permite que una clase 
+                delegue en sus subclases la creación de objetos.</q>
+            <div class="source">Patrones de diseño <br />
+                Erich Gamma et al.</div>
+        </article>
+        </slide>
+        
+        <!--  Definición del patrón de diseño Factory Method -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón Factory Method</h2>
+        </hgroup>
+        <article>
+            <p>Este es el diagrama UML de este patrón de diseño.</p>
+            <p class="centrado"><img src="imagenes/factoryMethod.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+
+        <!--  Definición del patrón de diseño Factory Method -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón Factory Method</h2>
+        </hgroup>
+        <article>
+            <p>En nuestro ejemplo:</p>
+            <p>Producto &rarr; <b>Contador</b>.</p>
+            <p>ProductoConcreto &rarr; <b>ContadorAscendente</b>, 
+                <b>ContadorAscendenteIngles</b>, etc.</p>
+            <p>Fábrica &rarr; <b>Fabrica</b>.</p>
+            <p>FábricaConcreta &rarr; <b>FabricaCastellano</b>, 
+                <b>FabricaCastellanoParametrizada</b>, etc.</p>
+        </article>
+        </slide>        
+
+        <!--  Definición del patrón de diseño Factory Method -->
+        <slide>
+        <hgroup>
+			<h2>Definición del patrón Factory Method</h2>
+        </hgroup>
+        <article>
+            <p>Y este es el diagrama UML para nuesto ejemplo.</p>
+            <p class="centrado"><img src="imagenes/factoryMethodContadores.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+        
+        <!-- Recursos en Internet -->
+        <slide>
+        <hgroup>
+			<h2>Recursos en Internet</h2>
+        </hgroup>
+        <article>
+            <p><a href="http://es.wikipedia.org/wiki/Factory_Method_%28patr%C3%B3n_de_dise%C3%B1o%29">Wikipedia.</a></p>
+            <p><a href="http://c2.com/cgi/wiki?FactoryMethodPattern">Gang of four</a></p>
+            <p><a href="http://www.oodesign.com/">Object Oriented Design</a></p>
+        </article>
+        </slide>        
+
+        <slide class="backdrop"></slide>   
+	</slides>
+	
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

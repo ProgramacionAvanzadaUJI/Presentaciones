@@ -10,7 +10,7 @@ URL: https://code.google.com/p/io-2012-slides
 <!DOCTYPE html>
 <html>
 <head>
-<title>Conceptos de polimorfismo y sobrecarga</title>
+<title>Excepciones</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
@@ -47,32 +47,32 @@ URL: https://code.google.com/p/io-2012-slides
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h2 data-config-subtitle>Excepciones</h2>
+      <h4 data-config-subtitle>Excepciones</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-        
+
         <!-- Introducción -->
         <slide>
         <hgroup>
 			<h2>Introducción</h2>
         </hgroup>
 		<article>
-			<p>Las excepciones son situaciones anómalas que se 
-			producen durante la ejecución de las aplicaciones, como por ejemplo 
+			<p>Las excepciones son situaciones anómalas que pueden ocurrir
+			durante la ejecución de las aplicaciones, como por ejemplo,
 			acceder a un posición de un vector fuera rango.</p>
-			<p>En algunos casos las excepciones no se podrán gestionar, 
-			por ejemplo los de la propia JVM, y en otros 
-			casos si.</p>
+			<p>En algunos casos las excepciones no se podrán gestionar,
+			por ejemplo los de la propia JVM, y en otros
+			casos sí.</p>
 			<p>Java proporciona un mecanismo de gestión de excepciones
-			en los casos en los que estemos obligados a hacerlo. En 
+			en los casos en los que estemos obligados a gestionarlas. En
 			caso de que no queramos gestionar algún tipo de excepción
-			estaremos obligados a indicarlo explícitamente. 
-			No podremos compilar el código a menos 
-			que gestionemos la excepción, o indiquemos explícitamente que 
+			estaremos obligados a indicarlo explícitamente.
+			No podremos compilar el código a menos
+			que gestionemos la excepción, o indiquemos explícitamente que
 			no lo queremos hacer.</p>
 			<p>La definición de excepciones propias se hace
-			a través del mecanismo de extensión de clases.</p>
+			a través del mecanismo de extensión de clases, la Herencia.</p>
         </article>
         </slide>
 
@@ -93,7 +93,7 @@ URL: https://code.google.com/p/io-2012-slides
         </article>
         </slide>
 
-        <!-- Contenidos --> 
+        <!-- Contenidos -->
         <slide>
         <hgroup>
 			<h2>Contenidos</h2>
@@ -109,7 +109,7 @@ URL: https://code.google.com/p/io-2012-slides
 			</ol>
 		</article>
 		</slide>
-		
+
         <!-- Que es una excepción -->
         <slide>
         <hgroup>
@@ -134,7 +134,7 @@ FileReader fichero = new FileReader("este fichero no existe");
             </div>
 		</article>
 		</slide>
-		
+
         <!-- Que es una excepción -->
         <slide>
         <hgroup>
@@ -142,14 +142,14 @@ FileReader fichero = new FileReader("este fichero no existe");
         </hgroup>
 		<article>
 			<p>Las excepciones, como todo en Java durante la ejecución de nuestras
-				aplicaciones, son instancias de clases particulares.</p>
-			<p>Java nos informa de que algo ha ido mal porque recibimos 
+				aplicaciones, son instancias de clases concretas.</p>
+			<p>Java nos informa de que algo ha ido mal porque recibimos
 				un objeto de una clase que representa un determinado error.</p>
 <pre class="prettyprint" data-lang="Java">
 int[] array = new int[10];
 System.out.println(array[10]);
 </pre>
-			<p>Para informarnos del error anterior Java nos hace llegar una 
+			<p>Para informarnos del error anterior, Java nos hace llegar una
 				instancia de la clase <b>ArrayIndexOutOfBoundsException</b>.</p>
             <div class="build">
                 <div>
@@ -162,8 +162,8 @@ FileReader fichero = new FileReader("este fichero no existe");
 			</div>
 		</article>
 		</slide>
-		
-        <!-- Tipos de excepciones --> 
+
+        <!-- Tipos de excepciones -->
         <slide>
         <hgroup>
 			<h2>Tipos de excepciones</h2>
@@ -174,8 +174,8 @@ FileReader fichero = new FileReader("este fichero no existe");
 			<p class="centrado"><img src="imagenes/excepciones.png"></p>
 		</article>
 		</slide>
-		
-        <!-- Tipos de excepciones --> 
+
+        <!-- Tipos de excepciones -->
         <slide>
         <hgroup>
 			<h2>Tipos de excepciones</h2>
@@ -196,14 +196,14 @@ FileReader fichero = new FileReader("este fichero no existe");
 			</ul>
 		</article>
 		</slide>
-		
-        <!-- Cómo se gestiona una excepción --> 
+
+        <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
         </hgroup>
 		<article>
-			<p>Java proporciona un mecanismo para la gestión de excepciones,
+			<p>Java proporciona un mecanismo para la gestión de excepciones:
 				los bloques <b>try...catch[...finally]</b></p>
 <pre class="prettyprint" data-lang="Java">
 try{
@@ -215,15 +215,15 @@ try{
             <p>Como ves, el bloque <b>finally</b> es opcional.</p>
 		</article>
 		</slide>
-		
-        <!-- Cómo se gestiona una excepción --> 
+
+        <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
         </hgroup>
 		<article>
             <p>Un buen estilo de programación implica cerrar
-                los ficheros una vez que hemos acabado de 
+                los ficheros una vez que hemos acabado de
                 trabajar con ellos.</p>
 <pre class="prettyprint" data-lang="Java">
 FileReader fichero = null;
@@ -236,19 +236,19 @@ try{
 }
 </pre>
             <p>Pero, el método <b>close()</b> también puede
-                producir un error de tipo <b>IOException</b>, 
+                producir un error de tipo <b>IOException</b>,
                 luego me exige un nuevo bloque
-                <b>try...catch</b></p>
+                <b>try...catch</b>.</p>
 		</article>
 		</slide>
-		
-        <!-- Cómo se gestiona una excepción --> 
+
+        <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
         </hgroup>
 		<article>
-            <p>Lo podemos corregir del siguiente modo:</p>
+            <p>Lo podemos escribir del siguiente modo:</p>
 <pre class="prettyprint" data-lang="Java">
 FileReader fichero = null;
 try{
@@ -266,8 +266,8 @@ try{
             <p>El bloque anterior de código es bastante obtuso.</p>
 		</article>
 		</slide>
-		
-        <!-- Cómo se gestiona una excepción --> 
+
+        <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
@@ -289,8 +289,8 @@ try {
 </pre>
 		</article>
 		</slide>
-		
-        <!-- Cómo se gestiona una excepción --> 
+
+        <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
@@ -314,7 +314,7 @@ try {
             <p>¿Funcionaría igual si cambiamos el orden?</p>
 		</article>
 		</slide>
-		
+
         <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
@@ -340,17 +340,17 @@ try {
                 es la excepción que no gestionamos.</p>
 		</article>
 		</slide>
-		
+
         <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
 			<h2>Cómo se gestiona una excepción</h2>
         </hgroup>
 		<article>
-            <p>Novedad en Java 7: podemos listar varias opciones 
+            <p>Desde Java 7, podemos listar varias opciones
                 dentro del mismo bloque <b>catch(...)</b>, y si
                 existe relación padre-hija entre ellas, basta con
-                indicar el padre.</p>        
+                indicar el padre.</p>
 <pre class="prettyprint" data-lang="Java">
 try {
     try {
@@ -365,7 +365,7 @@ try {
             <p>La gestión de errores es más sucinta.</p>
 		</article>
 		</slide>
-		
+
         <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>
@@ -373,9 +373,9 @@ try {
         </hgroup>
         <article>
         	<p>Podemos decir que un método tiene dos puntos
-        		de salida, el usual si no se genera ninguna 
+        		de salida, el usual si no se genera ninguna
         		excepción durante su ejecución, o devolver
-        		una excepción en el punto en que esta se 
+        		una excepción en el punto en que esta se
         		produzca, si es que no la gestionamos dentro
         		del método.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -387,30 +387,30 @@ int metodo() throws IOException {
         	<div class="source">Joshua Bloch. Effective Java. Capítulo 8.</div>
         </article>
         </slide>
-        
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
 			<h2>Creación de excepciones propias</h2>
         </hgroup>
 		<article>
-			<p>Si estamos creando nuestro propio API, puede que 
+			<p>Si estamos creando nuestro propio API, puede que
 				existan casos excepcionales en los que nos interese
 				lanzar una excepción que describe un error al utilizar
 				nuestro API.</p>
 			<p>Java nos permite definir nuestras propias excepciones,
-				una vez definidas, su gestión es la misma que para 
+				una vez definidas, su gestión es la misma que para
 				el resto de excepciones, los bloques <b>try...catch</b>.</p>
 			<p>Los pasos son:</p>
 			<ol>
                 <li>Definir una clase que represente a nuestra excepción.</li>
                 <li>Lanzarla en las situaciones de error.</li>
-                <li>Gestionarla en la clase cliente como cualquier otra 
+                <li>Gestionarla en la clase cliente como cualquier otra
                     excepción.</li>
 			</ol>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
@@ -427,18 +427,18 @@ int metodo() throws IOException {
 }
 </pre>
             <p>El texto de la excepción se puede recuperar con el
-                método <b>getMessage()</b> definido en la clase 
+                método <b>getMessage()</b> definido en la clase
                 <b>Throwable</b>.</p>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
 			<h2>Creación de excepciones propias</h2>
         </hgroup>
 		<article>
-            <p>El siguiente paso es «lanzar» una instancia de 
+            <p>El siguiente paso es «lanzar» una instancia de
                 la clase anterior cuando se produzca una situación
                 anómala en nuestro API.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -454,14 +454,14 @@ public class Conversor {
                 absoluto.</p>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
 			<h2>Creación de excepciones propias</h2>
         </hgroup>
 		<article>
-            <p>Finalmente, la clase cliente estará obligada a 
+            <p>Finalmente, la clase cliente estará obligada a
                 gestionar la posible excepción:</p>
 <pre class="prettyprint" data-lang="Java">
 Conversor conversor = new Conversor();
@@ -473,14 +473,14 @@ try {
 </pre>
             <p>Lo que veremos por consola será:</p>
 <pre class="prettyprint">
-conversor.TemperaturaNoValidaException: La temperatura no puede 
+conversor.TemperaturaNoValidaException: La temperatura no puede
 ser inferior a -273º Kelvin
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:6)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
@@ -494,7 +494,7 @@ public class TemperaturaNoValidaException extends Exception {
     public TemperaturaNoValidaException() {
         super("La temperatura no puede ser inferior a -273º Kelvin");
     }
-    
+
     public TemperaturaNoValidaException(double temperaturaActual) {
         super("La temperatura no puede ser inferior a -273º Kelvin " +
                 "la actual es " + temperaturaActual);
@@ -503,14 +503,14 @@ public class TemperaturaNoValidaException extends Exception {
 </pre>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
 			<h2>Creación de excepciones propias</h2>
         </hgroup>
 		<article>
-            <p>Y cuando lanzamos la excepción proporcionamos 
+            <p>Y cuando lanzamos la excepción proporcionamos
                 el valor de la temperatura errónea:</p>
 <pre class="prettyprint" data-lang="Java">
 public class Conversor {
@@ -523,7 +523,7 @@ public class Conversor {
 </pre>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
@@ -541,14 +541,14 @@ try {
 </pre>
             <p>Y la información de la excepción más detallada:</p>
 <pre class="prettyprint">
-conversor.TemperaturaNoValidaException: La temperatura no puede 
+conversor.TemperaturaNoValidaException: La temperatura no puede
 ser inferior a -273º Kelvin la actual es -300.0
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:11)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
 		</article>
 		</slide>
-		
+
         <!-- Creación de excepciones propias -->
         <slide>
         <hgroup>
@@ -566,9 +566,9 @@ ser inferior a -273º Kelvin la actual es -300.0
                 de esta clase.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Conversor {
-    public double celsiusAFharenheit(float celsius) 
+    public double celsiusAFharenheit(float celsius)
     throws IllegalArgumentException {
-        if(celsius < -273) throw new 
+        if(celsius < -273) throw new
             IllegalArgumentException("La temperatura no puede " +
             "ser inferior a -273º Kelvin la actual es " + celsius);
         return 9.0/5.0*celsius + 32;
@@ -577,7 +577,7 @@ public class Conversor {
 </pre>
 		</article>
 		</slide>
-		
+
         <!-- Pruebas unitarias sobre excepciones -->
         <slide>
         <hgroup>
@@ -596,13 +596,13 @@ public void test() throws TemperaturaNoValidaException</b> {
 }
 </pre>
             <p>En el atributo <b>expected</b> indicamos cual
-                es la excepción que esperamos. Si el test pasa, 
+                es la excepción que esperamos. Si el test pasa,
                 significa que la excepción se ha generado. Si el test
                 no pasa, significa que la excepción que esperábamos
                 no se ha producido y algo ha ido mal.</p>
 		</article>
 		</slide>
-		
+
         <!-- Pruebas unitarias sobre excepciones -->
         <slide>
         <hgroup>
@@ -624,11 +624,11 @@ public void testSinAtributo() {
     }
 </pre>
             <p>El «truco» es que hacemos fallar el test si no se
-                produce la excepción. Si se produce, se saltará al 
+                produce la excepción. Si se produce, se saltará al
                 interior del catch, que no hace nada.</p>
 		</article>
 		</slide>
-		
+
         <!-- Resumen -->
         <slide>
         <hgroup>
@@ -637,20 +637,20 @@ public void testSinAtributo() {
 		<article>
             <p>La excepciones son situaciones anómalas que se pueden
                 dar durante la ejecución de nuestras aplicaciones.</p>
-            <p>En el API de Java existen tres tipos de excepciones: 
+            <p>En el API de Java existen tres tipos de excepciones:
                 las de la máquina virtual, las que no necesitamos
                 gestionar, y las que estamos obligados a gestionar.</p>
             <p>Para el último caso Java proporciona un mecanismo bien
                 definido, los bloques <b>try...catch[...finally]</b>.</p>
             <p>Nosotros también podemos definir nuestras propias excepciones
-                extendiendo a la clase adecuada, y el mecanismo para 
+                extendiendo a la clase adecuada, y el mecanismo para
                 gestionarlas es el mismo que con las del API de Java.</p>
             <p>Finalmente, no debes olvidar hacer las pruebas unitarias
                 para tus excepciones.</p>
 		</article>
 		</slide>
-		
-		<slide class="backdrop"></slide>   
+
+		<slide class="backdrop"></slide>
 
 		</slides>
 <script>
@@ -670,4 +670,4 @@ _gaq.push(['_trackPageview']);
   <script>CFInstall.check({mode: 'overlay'});</script>
 <![endif]-->
 </body>
-</html>		
+</html>

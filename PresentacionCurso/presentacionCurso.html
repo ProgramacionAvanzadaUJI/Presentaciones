@@ -321,10 +321,10 @@ int[] res() {
 ContadorSexos cuentaPersonaPorSexo() {
   ContadorSexos contador = new ContadorSexos();
   for(Persona persona: personas)
-    if(persona.isHombre())
-      contador.incrementaHombres();
-    else if(persona.isMujer())
-      contador.incrementaMujeres();
+  if(persona.isHombre())
+    contador.incrementaHombres();
+  else if(persona.isMujer())
+    contador.incrementaMujeres();
   return contador;
 }
 </pre>

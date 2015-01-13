@@ -20,9 +20,10 @@ URL: https://code.google.com/p/io-2012-slides
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="stylesheet" media="all" href="../../theme/css/default.css">
   <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
   <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28605511-1']);
@@ -43,28 +44,28 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h2 data-config-subtitle>Sobrecarga de métodos</h2>
+      <h4 data-config-subtitle>Sobrecarga de métodos</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-    
+
 		<!-- Introducción -->
 		        <slide>
         <hgroup>
 			<h2>Introducción</h2>
         </hgroup>
 		<article>
-			 <p>En este primer tema del curso, vamos a ver los conceptos 
-			     de <i>Polimorfismos</i> y <i>Sobrecarga</i>, fundamentales 
+			 <p>En este primer tema del curso, vamos a ver los conceptos
+			     de <i>Polimorfismos</i> y <i>Sobrecarga</i>, fundamentales
 			     en <i>Programación Orientada a Objetos</i>.</p>
-			 <p>Veremos, también, cuales son los mecanismos que proporciona 
-			     el lenguaje de programación Java para trabajar con estos dos 
+			 <p>Veremos, también, cuáles son los mecanismos que proporciona
+			     el lenguaje de programación Java para trabajar con estos dos
 			     conceptos.</p>
 		</article>
         </slide>
-		
+
         <!-- Bibliografía -->
                 <slide>
         <hgroup>
@@ -79,7 +80,7 @@ URL: https://code.google.com/p/io-2012-slides
             </ol>
         </article>
         </slide>
-		
+
 		<!-- Contenidos -->
 		        <slide>
         <hgroup>
@@ -94,8 +95,8 @@ URL: https://code.google.com/p/io-2012-slides
 			</ol>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Ejemplo de método sobrecargado -->
 		        <slide>
@@ -120,7 +121,7 @@ System.out.println(3); //Aquí el argumento es un entero</pre>
 			</div>
 		</article>
         </slide>
-		
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Definición de signatura de un método  -->
 		        <slide>
@@ -141,7 +142,7 @@ class Ejemplo {
 			</div>
 		</article>
         </slide>
-		
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Definición de signatura de un método  -->
 		        <slide>
@@ -205,7 +206,7 @@ class Ejemplo {
 				</div>
 		</article>
         </slide>
-				
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Definición de signatura de un método  -->
 		        <slide>
@@ -216,13 +217,13 @@ class Ejemplo {
 			<p>
 				<h3><i>Definición:</i></h3>
 			</p>
-			<p>La <b class="green">signatura de un método</b>  lo forma el nombre del método y su lista de 
-			argumentos. En la lista de argumentos es importante tanto el tipo de cada 
+			<p>La <b class="green">signatura de un método</b>  lo forma el nombre del método y su lista de
+			argumentos. En la lista de argumentos es importante tanto el tipo de cada
 			uno de los argumentos como su orden dentro de la lista.</p>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Ejemplo de métodos sobrecargados -->
 		        <slide>
@@ -243,8 +244,8 @@ public void metodo(float real, int entero) {...} //Dos atributos,
 			<p>Veamos algunos ejemplos de uso de estos métodos.</p>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Uso no ambiguo de los métodos sobrecargados -->
 		        <slide>
@@ -259,12 +260,12 @@ metodo(1); //Se llama al método con un entero en la lista de argumentos
 metodo(1.0f); //Se llama al método con un float en la lista de argumentos
 metodo(1, 1.0f); //Se llama al método con un entero y un float
 metodo(1.0f, 1); //Se llama al método con un real y un float</pre>
-			<p>El compilador no tendrá ningún problema con el 
+			<p>El compilador no tendrá ningún problema con el
 				fragmento de código anterior.</p>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Uso ambiguo de métodos sobrecargados -->
 		        <slide>
@@ -283,12 +284,12 @@ public void metodo(float real, int entero) {...} //Dos atributos,
 			<p>¿A qué método se llamará en el siguiente caso?</p>
 			<pre class="prettyprint" data-lang="Java">
 metodo(1, 1);</pre>
-			<p>Tenemos una ambigüedad no podemos decidir a qué  
+			<p>Tenemos una ambigüedad no podemos decidir a qué
 			método se llamará.</p>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de métodos -->
 		<!-- Uso ambiguo de métodos sobrecargados -->
 		        <slide>
@@ -298,7 +299,7 @@ metodo(1, 1);</pre>
 		<article>
 			<pre class="prettyprint" data-lang="Java">
 metodo(1, 1);</pre>
-			<p>Tenemos una ambigüedad no podemos decidir a cual de los siguientes 
+			<p>Tenemos una ambigüedad no podemos decidir a cual de los siguientes
 			métodos se llamará.</p>
 			<pre class="prettyprint" data-lang="Java">
 public void metodo(int entero, float real) {...} //Dos atributos,
@@ -333,8 +334,8 @@ public void metodo(int entero, float real) {...}</pre>
 			</div>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de constructores -->
 		        <slide>
         <hgroup>
@@ -358,8 +359,8 @@ class Ejemplo {
 			</div>
 		</article>
         </slide>
-		
-		
+
+
 		<!-- Sobrecarga de constructores -->
 		        <slide>
         <hgroup>
@@ -377,7 +378,7 @@ class Ejemplo {
 				a la sobrecarga.</p>
 		</article>
         </slide>
-		
+
 		<!-- Recomendación -->
                 <slide>
         <hgroup>
@@ -389,25 +390,25 @@ class Ejemplo {
                 no la debes usar sin justificación.</p>
         </article>
         </slide>
-			
+
         <!-- Resumen -->
                 <slide>
         <hgroup>
 			<h2>Resumen</h2>
         </hgroup>
 		<article>
-            <p>La <i>sobrecarga</i> me permite utilizar el mismo nombre para 
+            <p>La <i>sobrecarga</i> me permite utilizar el mismo nombre para
                 un método, si cambio el número y tipo de sus argumentos.</p>
-            <p>La <i>sobrecarga</i> que métodos puede dar lugar a llamadas 
+            <p>La <i>sobrecarga</i> que métodos puede dar lugar a llamadas
                 ambiguas a métodos si Java hace promoción de tipos.</p>
-            <p>La <i>sobrecarga</i> es una herramienta de la que no debo 
+            <p>La <i>sobrecarga</i> es una herramienta de la que no debo
                 abusar en mi código.</p>
         </article>
         </slide>
-        
-            <slide class="backdrop"></slide>   
+
+            <slide class="backdrop"></slide>
 	</slides>
-    
+
 <script>
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);

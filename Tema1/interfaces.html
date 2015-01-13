@@ -23,7 +23,7 @@ URL: https://code.google.com/p/io-2012-slides
   <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
   <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28605511-1']);
@@ -46,11 +46,11 @@ URL: https://code.google.com/p/io-2012-slides
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h2 data-config-subtitle>Interfaces</h2>
+      <h4 data-config-subtitle>Interfaces</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-    
+
 		<!--  Introducción -->
     <slide>
         <hgroup>
@@ -59,18 +59,18 @@ URL: https://code.google.com/p/io-2012-slides
 		<article>
             <p>Eres capaz definir clases, y sabes que estas clases definen nuevos
 				tipos de datos.</p>
-            <p>Eres capaz de crear nuevos objetos a partir de clases, y 
+            <p>Eres capaz de crear nuevos objetos a partir de clases, y
                 utilizar sus métodos para trabajar con ellos.</p>
-            <p>En este capítulo vamos a ver una nueva construcción del lenguaje 
+            <p>En este capítulo vamos a ver una nueva construcción del lenguaje
                 de programación <i>Java</i>, los <b>interface</b>.</p>
-            <p>Con los <b>interface</b> creamos nuevos tipos de datos, pero 
-                esta vez los tipos son <i>abstractos</i>, no poseen ninguna 
+            <p>Con los <b>interface</b> creamos nuevos tipos de datos, pero
+                esta vez los tipos son <i>abstractos</i>, no poseen ninguna
                 implementación.</p>
             <p>La potencia de este mecanismo es increíble, una referencia a
-                un objeto que implemente un <b>interface</b> lo podemos 
-                <i>ver</i> como de este tipo abstracto. Y podemos manejar 
-                clases que no están relacionadas entre sí a través de este 
-                tipo abstracto.</p> 
+                un objeto que implemente un <b>interface</b> lo podemos
+                <i>ver</i> como de este tipo abstracto. Y podemos manejar
+                clases que no están relacionadas entre sí a través de este
+                tipo abstracto.</p>
 		        </article>
         </slide>
 
@@ -95,11 +95,11 @@ URL: https://code.google.com/p/io-2012-slides
           <ol>
                 <li><a href="http://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">
                     Página web de Oracle</a></li>
-           </ol> 
+           </ol>
                 </article>
         </slide>
 
-        
+
 		<!--  Contenidos -->
 		        <slide>
         <hgroup>
@@ -165,10 +165,10 @@ private void aCocinar() {
 }
 </pre>
 			<p>
-				Fíjate que la referencia en el método <b>preparaReceta</b> es del
+				Fíjate que la referencia <b>paella</b> en el método <b>aCocinar</b> es del
 				mismo tipo que el objeto que estamos creando.
 			</p>
-			<p>Fíjate, que la referencia del método 
+			<p>Fíjate, que la referencia del método
 			 <b>preparaReceta(Paella paella)</b> también es de tipo
 			     <b>Paella</b>.</p>
 		        </article>
@@ -233,12 +233,12 @@ public class LubinaAlHorno {
 			<h2>Ejemplo introductorio</h2>
         </hgroup>
 		<article>
-			<p>Espera, espera, ¿me quieres decir que cada vez que quiera 
-			     preparar una 
+			<p>Espera, espera, ¿me quieres decir que cada vez que quiera
+			     preparar una
 				nueva receta tengo que añadir un nuevo método sobrecargado? ¿Seguro
 				que no hay una forma mejor de resolverlo?</p>
 			<p>Yo sé preparar recetas, tanto si es paella como si es
-				lubina al horno, tan sólo sigo los pasos de la receta, 
+				lubina al horno, tan sólo sigo los pasos de la receta,
 				me da igual que receta concreta estoy preparando.</p>
 		        </article>
         </slide>
@@ -259,7 +259,7 @@ public class Paella {
     <b>public void preparaReceta()</b> {
         System.out.println("Lava y trocea la verdura.");
         ....
-}            
+}
 public class LubinaAlHorno {
     <b>public void preparaReceta()</b> {
         System.out.println("Extrae las vísceras.");
@@ -308,7 +308,7 @@ public class LubinaAlHorno {
 				los métodos.
 			</p>
 			<p>Este es precisamente el cometido de los interfaces.</p>
-			<p>Los interfaces son tipos de datos abstractos donde se declaran 
+			<p>Los interfaces son tipos de datos abstractos donde se declaran
 			     métodos que las clases	deben implementar.</p>
 			<p>Veamoslo con el ejemplo de las recetas.</p>
 		        </article>
@@ -456,7 +456,7 @@ private void aCocinar() {
         </hgroup>
 		<article>
 			<p>Lo que hemos hecho en el ejemplo anterior es utilizar, sin
-				conocerlo, el principio <b class="green"> DRY: Don't Repeat 
+				conocerlo, el principio <b class="green"> DRY: Don't Repeat
 				Yourself</b>. Cuando aparece
 				código repetido, hay que utilizar alguna técnica para eliminarlo.</p>
 			<p>
@@ -543,7 +543,7 @@ public interface Calificador {
     [public abstract] <b>void addNota(float nuevaNota);</b>
 }</pre>
             <p>Los métodos <b>califica()</b> y <b>addNota(float nuevaNota)</b>
-                los debe definir cualquier clase que implemente este 
+                los debe definir cualquier clase que implemente este
                 <b>interface</b>.</p>
 		</article>
         </slide>
@@ -564,14 +564,12 @@ public interface Calificador {
     <b>@Override
     public float califica()</b> {
         float suma = 0;
-        for(int i = 0; i < numeroNotas; i++)
-            suma += notas[i];
+        for(int i = 0; i < numeroNotas; i++) suma += notas[i];
         return suma/numeroNotas;
     }
     <b>@Override
     public void addNota(float nuevaNota)</b> {
-        if(numeroNotas < NUMERO_MAXIMO_NOTAS)
-            notas[numeroNotas++] = nuevaNota;
+        if(numeroNotas < NUMERO_MAXIMO_NOTAS) notas[numeroNotas++] = nuevaNota;
     }
 }</pre>
 		        </article>
@@ -588,12 +586,12 @@ public interface Calificador {
 			<pre class="prettyprint" data-lang="Java">
 public class CalificadorUniformeTest {
     private Calificador calificador;
-    
+
     @Before
     public void init() {
         calificador = new CalificadorUniforme();
     }
-    
+
     @Test
     public void testCalificaConMaximoNotas() {
         for(int i = 0; i < CalificadorUniforme.NUM_MAX_NOTAS; i++)
@@ -618,7 +616,7 @@ public class CalificadorUniformeTest {
             calificador.addNota(i);
         assertThat(calificador.califica(), is(2.0f));
     }
-    
+
     @Test
     public void testCalificaMatriculaHonor() {
         calificador.addNota(10);
@@ -690,12 +688,12 @@ public class CalificadorUniformeTest {
 			<pre class="prettyprint" data-lang="Java">
 public class CalificadorLinealTest {
     private Calificador calificador;
-    
+
     @Before
     public void init() {
         calificador = new CalificadorLineal();
     }
-    
+
     @Test
     public void testCalificaConMaximoNotas() {
         for(int i = 0; i < CalificadorLineal.NUM_MAX_NOTAS; i++)
@@ -719,7 +717,7 @@ public class CalificadorLinealTest {
             calificador.addNota(5);
         assertThat(calificador.califica(), is(5.0f));
     }
-    
+
     @Test
     public void testCalificaMatriculaHonor() {
         calificador.addNota(10);
@@ -839,8 +837,8 @@ public interface Ciudadano {
     String getNombre();
 }</pre>
 			<p>
-				Y definamos un <b>interface</b> que nos permita acceder 
-				sólo a los 
+				Y definamos un <b>interface</b> que nos permita acceder
+				sólo a los
 				métodos de una <b>Persona</b> como un <b>Estudiante.</b>
 			</p>
 			<pre class="prettyprint" data-lang="Java">
@@ -867,7 +865,7 @@ public class Persona implements Ciudadano, Estudiante {
     @Override
     public String getNombre() {
         return nombre;
-    }   
+    }
     @Override
     public String getDomicilio() {
         return domicilio;
@@ -900,7 +898,7 @@ private void personaComoCiudadano(Ciudadano ciudadano) {
 }
 private void personaComoEstudiante(Estudiante estudiante) {
     System.out.println("Curso: " + estudiante.getCurso());
-    System.out.println("Nota expediente: " + 
+    System.out.println("Nota expediente: " +
         estudiante.getNotaExpediente());
 }
 private void juega() {
@@ -930,10 +928,10 @@ private void personaComoCiudadano(Ciudadano ciudadano) {
     // La siguiente línea da un error
     //System.out.println("Curso: " + ciudadano.getCurso());
 }
-    
+
 private void personaComoEstudiante(Estudiante estudiante) {
     System.out.println("Curso: " + estudiante.getCurso());
-    System.out.println("Nota expediente: " + 
+    System.out.println("Nota expediente: " +
         estudiante.getNotaExpediente());
     // La siguiente línea da un error
     //System.out.println("Nombre:" + estudiante.getNombre());
@@ -951,16 +949,16 @@ private void personaComoEstudiante(Estudiante estudiante) {
 		<article>
             <p>Aunque el ejemplo de introducción mostraba este mismo caso, veamos
                 otro ejemplo.</p>
-            <p class="centrado"><img src='imagenes/interfaces.png' 
+            <p class="centrado"><img src='imagenes/interfaces.png'
 			     style='width: 400px'> </p>
-            <p>Estamos desarrollado una aplicación para Hacienda. En la 
-			     aplicación gestionamos tanto <b>Personas</b> como 
-			     <b>Empresas</b>, pero a efectos de transacciones comerciales 
+            <p>Estamos desarrollado una aplicación para Hacienda. En la
+			     aplicación gestionamos tanto <b>Personas</b> como
+			     <b>Empresas</b>, pero a efectos de transacciones comerciales
 			     a ambos los podemos ver como <b>Pagadores</b>.</p>
 		        </article>
         </slide>
 
-		
+
         <!-- Clases distintas implementando el mismo interface -->
                 <slide>
         <hgroup>
@@ -993,15 +991,15 @@ public class Persona implements Pagador {
     private String direccion;
     private String nif;
     private float estatura;
-    private float peso;    
+    private float peso;
     @Override
     public String getNombre() {
         return "Sr./Sra. " + nombre;
-    }    
+    }
     @Override
     public String getDireccion() {
         return direccion;
-    }    
+    }
     @Override
     public String getNif() {
         return nif;
@@ -1025,11 +1023,11 @@ public class Empresa implements Pagador {
     @Override
     public String getNombre() {
         return nombre;
-    }    
+    }
     @Override
     public String getDireccion() {
         return direccion;
-    }    
+    }
     @Override
     public String getNif() {
         return nif;
@@ -1054,7 +1052,7 @@ for(Pagador pagador: pagadores){
     System.out.println("Nombre: " + pagador.getNombre());
     System.out.println("Dirección: " + pagador.getDireccion());
     System.out.println("NIF: " + pagador.getNif());
-}            
+}
 </pre>
             <p>
                 El <b>interface Pagador</b> es un tipo de datos, y podemos crear un
@@ -1094,21 +1092,21 @@ NIF: 321q<br />
 			<h2>Polimorfismo utilizando interfaces</h2>
         </hgroup>
 		<article>
-            <p>Al utilizar <b>interfaces</b> 
+            <p>Al utilizar <b>interfaces</b>
                 <a href="http://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html">
                 polimorfismo</a> significa que diferentes clases
-				que implementan el mismo <b>interface</b> son sustituibles, 
-				es decir, que allí donde utilizamos una también podremos utilizar 
+				que implementan el mismo <b>interface</b> son sustituibles,
+				es decir, que allí donde utilizamos una también podremos utilizar
 				la otra.</p>
-            <p>La diferencia entre ambas radicará en cómo cada una implementa 
+            <p>La diferencia entre ambas radicará en cómo cada una implementa
                 los métodos declarados en el <b>interface</b>.</p>
             <p>Dicho de otro modo, mismo método diferentes implementaciones.</p>
-            <p class="centrado"> <img src='imagenes/interfaces2.png' 
+            <p class="centrado"> <img src='imagenes/interfaces2.png'
                 style='width: 500px'> </p>
                 </article>
         </slide>
 
-        
+
         <!--  Vinculación Dinámica -->
         <slide>
         <hgroup>
@@ -1116,14 +1114,14 @@ NIF: 321q<br />
         </hgroup>
 		<article>
             <p>Las referencias son la puerta de entrada a los objetos.</p>
-            <p>En Java, nunca accedemos directamente a los objetos, siempre 
+            <p>En Java, nunca accedemos directamente a los objetos, siempre
                 lo hacemos a través de referencias.</p>
-            <p>Ahora bien, ¿cómo sabe Java el método correcto a invocar si 
-                accedemos a una referencia de tipo <b>interface</b> para la 
+            <p>Ahora bien, ¿cómo sabe Java el método correcto a invocar si
+                accedemos a una referencia de tipo <b>interface</b> para la
                 que tenemos más de una implementación en diferentes objetos?</p>
-            <p>Java utiliza el mecanismo de <i>Vinculación Dinámica</i>: 
-                en tiempo de ejecución, la máquina virtual de Java determina 
-                el tipo del objeto que es referenciado para llamar el método 
+            <p>Java utiliza el mecanismo de <i>Vinculación Dinámica</i>:
+                en tiempo de ejecución, la máquina virtual de Java determina
+                el tipo del objeto que es referenciado para llamar el método
                 correcto.</p>
                 </article>
         </slide>
@@ -1157,18 +1155,18 @@ System.out.println(pagador.getNombre());
             <p>Los interfaces definen tipos de datos <i>abstractos</i>.</p>
             <p>Una clase puede implementar todos los <b>interface</b> que
 			    necesite.</p>
-			 <p>Una clase que implementa un <b>interface</b> puede ser 
+			 <p>Una clase que implementa un <b>interface</b> puede ser
 			    <i>vista</i> como ese <b>interface</b>.</p>
-			 <p><b class="green">Patrón de diseño:</b> Programa orientado al 
-			     <i>interfaz</i> 
+			 <p><b class="green">Patrón de diseño:</b> Programa orientado al
+			     <i>interfaz</i>
 			     no a la <i>implementación</i>.</p>
-			 <p><b class="red">Antipatrón:</b> Una clase no debe implementar un 
-			     <b>interface</b> sólo porque necesita un método 
+			 <p><b class="red">Antipatrón:</b> Una clase no debe implementar un
+			     <b>interface</b> sólo porque necesita un método
 			     declarado en él.</p>
 		        </article>
         </slide>
 
-		
+
 		<!-- Referencias on-line -->
 		        <slide>
         <hgroup>
@@ -1180,9 +1178,9 @@ System.out.println(pagador.getNombre());
 		        </article>
         </slide>
 
-		
-		<slide class="backdrop"></slide>   
-		
+
+		<slide class="backdrop"></slide>
+
     </slides>
 <script>
 var _gaq = _gaq || [];

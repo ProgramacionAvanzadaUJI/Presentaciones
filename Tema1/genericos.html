@@ -52,7 +52,7 @@ strong {
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h2 data-config-subtitle>Genéricos</h2>
+      <h4 data-config-subtitle>Genéricos</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -63,8 +63,8 @@ strong {
 			<h2>Introducción</h2>
         </hgroup>
 		<article>
-            <p>Recuerda estructuras de datos tales como las <i>listas</i>, 
-                las <i>colas</i> o los <i>árboles</i><p>
+            <p>¿Recuerdas estructuras de datos tales como las <i>listas</i>, 
+                las <i>colas</i> o los <i>árboles</i>?<p>
             <p>Estas estructuras de datos pueden trabajar con cualquier tipo de datos,
                 podemos tener listas de <i>Persona</i> y también de <i>Empresa</i>, 
                 la funcionalidad que la lista ofrece es independiente del tipo 
@@ -463,12 +463,12 @@ DevuelveDatoGenerico< Float > dato =
     new ContenedorGenerico< Float >(2.2f);
 dato = new ContenedorGenerico< Integer >(1);</pre>
             <p>Lo que nos da un error en tiempo de compilación.</p>
-            <p>¿Cómo es posible ya que <b>DevuelveDatoGenerico< T ></b>
+            <p>¿Cómo es posible si <b>DevuelveDatoGenerico< T ></b>
                 trabaja con genéricos?</p>
             <p>Es cierto, pero el tipo de la referencia lo forma tanto el nombre 
                 del genérico como el tipo particular.</p>
             <p><b>DevuelveDatoGenerico< T ></b> no es un tipo.</p>
-            <p><b>DevuelveDatoGenerico< Integer ></b> si que lo es.</p>
+            <p><b>DevuelveDatoGenerico< Integer ></b> sí que lo es.</p>
         </article>
         </slide>
 
@@ -484,7 +484,7 @@ dato = new ContenedorGenerico< Integer >(1);</pre>
                 <li>Porcentaje de mandarinas con un calibre mayor que cierto calibre dado.</li>
                 <li>Porcentaje de naranjas con un calibre mayor que cierto calibre dado.</li>
                 <li>Porcentaje de naranjas de una cierta variedad.</li>
-                <li>Porcentaje de mandarina con un índice de azúcar superior a un índice dado.</li>
+                <li>Porcentaje de mandarinas con un índice de azúcar superior a un índice dado.</li>
             </ul>
         </article>
         </slide>
@@ -651,7 +651,7 @@ public class AnalizadorMandarinas {
     }
 }
 </pre>
-            <p>No podemos, el método <strong>porcentajeCalibre</strong> espera un <strong>Collection<Fruta></strong> pero ya sabemos que un <strong>Collection<Mandarina></strong> no lo es. ¿Qué hacemos?</p>
+            <p>No podemos, el método <strong>porcentajeCalibre</strong> espera un <strong>Collection< Fruta ></strong> pero ya sabemos que un <strong>Collection< Mandarina ></strong> no lo es. ¿Qué hacemos?</p>
         </article>
         </slide>
         
@@ -713,8 +713,8 @@ public static < T > Collection< T > procesaCalibre(Collection< T > frutas,
             <p>Veamos la solución limpia utilizando límites:</p>
 <pre class="prettyprint" data-lang="Java">
 
-public static <b>< T extends Fruta></b> Collection< T > procesaCalibre(Collection< T > frutas,
-                                                                       float calibre) {
+public static <b>< T extends Fruta></b> Collection< T > procesaCalibre(
+        Collection< T > frutas, float calibre) {
     Collection< T > validas = new ArrayList< >();
     for(T fruta: frutas) {
         if(fruta.getTamanyo() >= calibre)
@@ -912,7 +912,7 @@ public class CanicheSudafricano extends Caniche {
 </pre>
             <p>En este caso no podríamos hacer:</p>
 <pre class="prettyprint" data-lang="Java">
-List< ? super Caniche > perras = new ArrayList< CanicheSudafricano >();
+List< ? super Caniche > perros = new ArrayList< CanicheSudafricano >();
 </pre>
             <p>porque <b>CanicheSudafricano</b> no es padre de <b>Caniche</b>, sino una de sus hijas.</p>
         </article>
@@ -921,7 +921,7 @@ List< ? super Caniche > perras = new ArrayList< CanicheSudafricano >();
         <!-- Ejemplos en el paquete estándar -->
         <slide>
         <hgroup>
-			<h2>Ejemplos en el paquete estándar</h2>
+			<h2>Ejemplos de genéricos en el paquete estándar</h2>
         </hgroup>
 		<article>
             <p>En el paquete estándar de Java tienes numerosos ejemplos de uso 
@@ -940,7 +940,7 @@ enteros.add(1.1); // Error, sólo Integer</pre>
         <!-- Ejemplos en el paquete estándar -->
         <slide>
         <hgroup>
-            <h2>Ejemplos en el paquete estándar</h2>
+            <h2>Ejemplos de genéricos en el paquete estándar</h2>
         </hgroup>
         <article>
             <p>Fíjate, además en la sintaxis:</p>
@@ -972,8 +972,9 @@ ArrayList< Integer > enteros = new ArrayList< Integer >();
                 <b>get(0)</b> no devuelve una referencia de tipo 
                 <b>Integer</b> que parece que sumamos al entero
                 <b>1</b>. Lo que está ocurriendo es que la JVM
-                obtiene el entero contenido en el objeto <b>Integer</b>
-                de nuevo de manera transparente para nosotros <b>unboxing</b>.</p>
+                obtiene el entero contenido en el objeto <b>Integer</b>,
+                de nuevo de manera transparente para nosotros. 
+                A este mecanismo se le llama: <b>unboxing</b>.</p>
             <p>A los dos mecanismos conjuntos se les llama <b>autoboxing</b>,
                 y existe en Java desde que existe los genéricos.</p>
         </article>
@@ -982,11 +983,11 @@ ArrayList< Integer > enteros = new ArrayList< Integer >();
         <!-- Ejemplos en el paquete estándar -->
         <slide>
         <hgroup>
-			<h2>Ejemplos en el paquete estándar</h2>
+			<h2>Ejemplos de genéricos en el paquete estándar</h2>
         </hgroup>
 		<article>
             <p>El <b>interface Comparable< T ></b> lo puede implementar  
-                una clase cuyas instancias podamos compara entre sí para decir 
+                una clase cuyas instancias podamos compara entre sí para decidir 
                 cual de ellas es mayor.</p>
             <p>La clase <b>java.awt.Color</b> no implementa  
                 <b>Comparable</b>, creemos una clase que sí lo implemente:</p>

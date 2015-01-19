@@ -43,9 +43,9 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Polimorfismo y sobrecarga</h2>
-      <h2 data-config-subtitle>Enumeraciones</h2>
+      <h4 data-config-subtitle>Enumeraciones</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -108,7 +108,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
 		<article>
             <p>El ejemplo siguiente muestra cómo definir las distintas opciones 
-                de un menú para un cajero:</p>
+                de un menú para un cajero automático:</p>
 <pre class="prettyprint" data-lang="Java">
 public enum OpcionesMenu {
     RETIRAR_EFECTIVO,
@@ -116,7 +116,7 @@ public enum OpcionesMenu {
     RECARGAR_TARJETA,
     REALIZAR_TRANSFERENCIA;
 }</pre>
-            <p>A cada elemento de la enumeración posee un ordinal:</p>
+            <p>Cada elemento de la enumeración posee un ordinal:</p>
             <ul start="0">
                 <li><b>0</b> RETIRAR_EFECTIVO.</li>
                 <li><b>1</b> CONSULTA_SALDO.</li>
@@ -132,7 +132,8 @@ public enum OpcionesMenu {
 			<h2>Un ejemplo sencillo</h2>
         </hgroup>
 		<article>
-            <p>De modo que el ordinal lo podemos utilizar para filtrar en un <b>switch</b>:</p>
+            <p>De modo que el ordinal lo podemos utilizar para filtrar un 
+            elemento de la enumeración en un <b>switch</b>:</p>
 <pre class="prettyprint" data-lang="Java">
 OpcionesMenu opcion = OpcionesMenu.CONSULTA_SALDO;
 switch(opcion) {
@@ -144,7 +145,7 @@ switch(opcion) {
         break;
         ....
 }</pre>
-            <p>Ahora, puedo cambiar el orden en los elementos de la enumeración, 
+            <p>Ahora puedo cambiar el orden en los elementos de la enumeración, 
                 o puedo añadir nuevos elementos en cualquier posición dentro 
                 de la enumeración, el código anterior sigue funcionando.</p>
 		</article>
@@ -156,7 +157,7 @@ switch(opcion) {
 			<h2>La clase Enum</h2>
         </hgroup>
 		<article>
-            <p>Al definir una enumeración, implícitamente está extendiendo a la 
+            <p>Al definir una enumeración, implícitamente se está extendiendo a la 
                 clase <b>java.lang.Enum</b>. Por ello, tenemos disponible todos los 
                 métodos definidos en ella, por ejemplo:</p>
             <p><b>values()</b> Devuelve un array con todos los elementos de la enumeración.</p>

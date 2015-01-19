@@ -44,9 +44,9 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Polimorfismo y sobrecarga</h2>
-      <h2 data-config-subtitle>Conceptos de polimorfismo y sobrecarga</h2>
+      <h4 data-config-subtitle>Conceptos de polimorfismo y sobrecarga</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -62,7 +62,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>El <i>polimorfismo</i> es un concepto unificador mientras 
                 que la <i>sobrecarga</i> es un concepto seleccionador.</p>
             <p>Ambos son extensamente utilizados en POO, pero mientras que 
-                el <i>polimorfismo</i> puede ayudar enormemente al construir 
+                el <i>polimorfismo</i> puede ayudar enormemente a construir 
                 software, la <i>sobrecarga</i> puede ser un elemento 
                 de distorsión. Veamos por qué.</p>
                 </article>
@@ -91,9 +91,11 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Sobrecarga</h2>
         </hgroup>
 		<article>
-            <p>Como ya sabemos, los métodos se distinguen por su <i>signatura</i> 
+            <p>Como ya sabemos, los métodos se distinguen por su <i>signatura</i>, 
                 y la signatura está formada tanto por el nombre como por el número 
                 y tipo de los argumentos que recibe el método.</p>
+            <p>Recuerda que el tipo de retorno de un método no forma parte de su
+                signatura, y por lo tanto no sirve para diferenciar métodos.</p>
             <p>Supongamos que estamos definiendo un punto en tres dimensiones 
                 y escribimos la siguiente implementación.</p>
                 </article>
@@ -169,7 +171,7 @@ public class Punto3D {
         this.z = z;
     }
 }</pre>
-            <p>O pasamos todos los atributos a iniciar o ninguno.</p>
+            <p>O pasamos todos los atributos a iniciar, o no pasamos ninguno.</p>
                 </article>
         </slide>
 
@@ -180,14 +182,14 @@ public class Punto3D {
 			<h2>Sobrecarga</h2>
         </hgroup>
 		<article>
-            <p>Fíjate que Java <i>selecciona</i> el método al que se 
+            <p>Fíjate que Java <b>selecciona</b> el método al que se 
                 invoca según su signatura. La sobrecarga nos permite 
                 seleccionar el método adecuado.</p>
-            <p>No confundas la <i>sobrecarga</i> con la <i>sobrescritura</i>.</p>
-            <p><i>Sobrecargar</i> significa definir nuevos métodos.</p>
-            <p><i>Sobrescribir</i> significa <i>ocultar</i> un método 
+            <p>No confundas la <b>sobrecarga</b> con la <b>sobrescritura (@Override)</b>.</p>
+            <p><b>Sobrecargar</b> significa definir nuevos métodos.</p>
+            <p><b>Sobrescribir</b> significa <b>ocultar</b> un método 
                 con una nueva definición de ese mismo método.</p>
-            <p>La <i>sobrecarga</i> no implica herencia, la <i>sobrescritura</i> si.</p>
+            <p>La <b>sobrecarga</b> no implica herencia, la <b>sobrescritura</b> sí.</p>
                 </article>
         </slide>
 
@@ -201,7 +203,7 @@ public class Punto3D {
             <p>El <i>polimorfismo</i> está directamente relacionado con 
                 la herencia.</p>
             <p>El <i>polimorfismo</i> nos permite que allá donde utilicemos un objeto de 
-                tipo padre también podremos utilizar cualquier instancia de 
+                tipo padre, también podremos utilizar cualquier instancia de alguno de 
                 sus hijos.</p>
                 </article>
         </slide>
@@ -237,8 +239,8 @@ public void reciboUnPunto(Punto2D punto) {
 <pre class="prettyprint" data-lang="Java">
 reciboPunto(new Punto2D());
 reciboPunto(new Punto3D());</pre>
-            <p>Por otra parte recuerda el <i>Principio de sustitución de Liskov</i> 
-                que era la <i>L</i> de los principios <i>SOLID</i>. Este 
+            <p>Por otra parte recuerda el <b>Principio de sustitución de Liskov</b> 
+                que era la <b>L</b> de los principios <b>SOLID</b>. Este 
                 principio nos dice que nuestras aplicaciones se deben 
                 comportar igual si a un método le pasamos un objeto de clase 
                 padre como un objeto de cualquiera de sus hijos.</p>
@@ -252,7 +254,7 @@ reciboPunto(new Punto3D());</pre>
 			<h2>Polimorfismo</h2>
         </hgroup>
 		<article>
-            <p>El <i>polimorfismo</i> también funciona con 
+            <p>El <b>polimorfismo</b> también funciona con 
                 <b>interface</b>. ¿Te acuerdas del ejemplo de las recetas?:</p>
 <pre class="prettyprint" data-lang="Java">
 public interface Receta {
@@ -299,13 +301,13 @@ private void aCocinar() {
 			<h2>Cuando utilizarlos</h2>
         </hgroup>
 		<article>
-            <p>Utiliza la <i>sobrecarga</i> con cuidado. Un método con 
+            <p>Utiliza la <b>sobrecarga</b> con cuidado. Un método con 
                 múltiples signaturas puede despistar, ¿cuál debo 
                 utilizar?</p>
-            <p>Utiliza el <i>polimorfismo</i> a discreción, cuanto 
+            <p>Utiliza el <b>polimorfismo</b> a discreción, cuanto 
                 más, mejor.</p>
             <p>Por otro lado, un concepto fuertemente relacionado con 
-                el polimorfismo es la <i>Vinculación dinámica</i>, la 
+                el polimorfismo es la <b>Vinculación dinámica</b>, la 
                 máquina virtual de Java encuentra el método a invocar 
                 basándose en el tipo del objeto que hay por debajo 
                 de una referencia.</p>
@@ -319,7 +321,7 @@ private void aCocinar() {
 			<h2>Cuando utilizarlos</h2>
         </hgroup>
 		<article>
-            <p>Un ejemplo de mal uso de la <i>sobrecarga</i>:</p>
+            <p>Un ejemplo de mal uso de la <b>sobrecarga</b>:</p>
 <pre class="prettyprint" data-lang="Java">
 public class Persona {
     private String nombre;
@@ -369,11 +371,11 @@ public class Persona {
 			<h2>Resumen</h2>
         </hgroup>
 		<article>
-            <p>Los conceptos de <i>sobrecarga</i> y <i>polimorfismo</i> son 
+            <p>Los conceptos de <b>sobrecarga</b> y <b>polimorfismo</b> son 
                 fundamentales de POO.</p>
-            <p>La <i>sobrecarga</i> permite seleccionar la llamada a un 
+            <p>La <b>sobrecarga</b> permite seleccionar la llamada a un 
                 método a partir del número y tipo de sus parámetros.</p>
-            <p>Úsala con cuidado, hacer un uso intensivo de la <i>sobrecarga</i>
+            <p>Úsala con cuidado, hacer un uso intensivo de la <b>sobrecarga</b>
                 puede dar lugar a confusión desde el punto de vista del 
                 programador.</p>
         </article>
@@ -386,15 +388,15 @@ public class Persona {
 			<h2>Resumen</h2>
         </hgroup>
 		<article>
-            <p>El <i>polimorfismo</i> nos permite utilizar clases con tipos 
+            <p>El <b>polimorfismo</b> nos permite utilizar clases con tipos 
                 compatibles en cualquier punto de nuestro código.</p>
             <p>En Java tipos compatible significa que una clase extiende a 
                 otra o que una clase implementa un <b>interface</b>.</p>
             <p>Coloquialmente: a una referencia de tipo padre podemos 
-                <i>enganchar</i> referencias de sus hijas. A una referencia 
-                de tipo <b>interface</b> le podemos <i>enganchar</i> cualquier 
+                <b>enganchar</b> referencias de sus hijas. A una referencia 
+                de tipo <b>interface</b> le podemos <b>enganchar</b> cualquier 
                 instancia de una clase que implemente el <b>interface</b>.</p>
-            <p>La <i>Vinculación dinámica</i> es el mecanismo que utiliza la 
+            <p>La <b>Vinculación dinámica</b> es el mecanismo que utiliza la 
                 máquina virtual de Java para averiguar, en tiempo de ejecución, 
                 a qué método debe llamar, a partir del tipo del objeto asignado 
                 a una referencia.</p>

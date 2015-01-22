@@ -44,9 +44,9 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>Estrategia (Strategy)</h2>
+      <h4 data-config-subtitle>Estrategia (Strategy)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -60,7 +60,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <p>Un principio general en cualquier ámbito de la vida es: 
                 <b>No reinventes la rueda</b>.</p>
                 <p>Ante un nuevo problema, después de analizarlo, lo 
-                    primero que nos debemos preguntar antes de atacarlo 
+                    primero que nos debemos preguntar, antes de atacarlo, 
                     es: <b>¿Existe ya una solución para este problema?</b></p>
                 <p>De eso tratan los patrones de diseño, son soluciones bien 
                     conocidas a problemas recurrente en POO.</p>
@@ -103,7 +103,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Encapsulemos lo que varía.</li>
                 <li>Definición de patrón de diseño <b>Estrategia (Strategy).</b>
                 <li>Ejemplos del paquete estándar.</li>
-                <li>Recursos en Internet</li>
+                <li>Recursos en Internet.</li>
             </ol>
 		</article>
         </slide>
@@ -118,7 +118,7 @@ URL: https://code.google.com/p/io-2012-slides
                 personal, y nos encargan que hagamos la selección técnica 
                 de los candidatos.</p>
             <p>La prueba, extremadamente complicada, consiste en contar 
-                del 1 hasta el 10.</p>
+                desde el 1 hasta el 10.</p>
 		</article>
         </slide>
                 
@@ -129,7 +129,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>Hacemos pasar al primer candidato y le pedimos 
-                que cuente del 1 al 10.</p>
+                que cuente desde el 1 hasta el 10.</p>
             <p>El candidato empieza a contar: diez, nueve, ocho, 
                 siete, seis, cinco, cuatro, tres, dos, uno.</p>
             <p>Ante nuestra sorpresa, le preguntamos al candidato por qué 
@@ -149,7 +149,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>Hacemos pasar al segundo candidato y, de nuevo, 
-                le pedimos que cuente del 1 al 10.</p>
+                le pedimos que cuente desde el 1 hasta el 10.</p>
             <p>El candidato empieza a contar: uno, tres, cinco, siete, nueve, dos, cuatro, 
                 seis, ocho y diez.</p>
             <p>Sorprendidos de nuevo, le preguntamos al candidato por qué 
@@ -172,7 +172,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Hacemos pasar al tercer y último candidato, y como tenemos la mosca 
                 detrás de la oreja, le preguntamos cual era su trabajo anterior.</p>
             <p><em>Yo trabajaba como funcionario.</em></p>
-            <p>Confiamos en no tener ninguna sorpresa y le pedimos que cuente del 1 al 10.</p>
+            <p>Confiamos en no tener ninguna sorpresa y le pedimos que cuente desde el 1 hasta el 10.</p>
             <p><div class="build"><em>Uno, dos, tres, cuatro, cinco, seis, 
                 siete,...</em></div></p>
             <p><div class="build">
@@ -291,7 +291,7 @@ public class Ideal {
             </ol>
             <p>Una pregunta: ¿Recuerdas por qué el método cuenta devuelve un 
                 <b>String</b> y no lo muestra directamente por consola 
-                usando <b>System.out.println(...)?</b></p>
+                usando <b>System.out.println(...)</b>?</p>
             <p>Una posible solución es definir un <b>interface</b> 
                 que declare el método común y hacer que <b>Astronauta, Cartero,  
                 Funcionario</b> e <b>Ideal</b> lo implementen.</p>
@@ -306,9 +306,10 @@ public class Ideal {
         <article>
             <p>Otra posible solución es definir una 
                 superclase abstracta, que 
-                contenga el atributo y el método común declarado <b>abstract</b>, 
+                contenga el atributo y el método común declarado como <b>abstract</b>, 
                 y hacer que <b>Astronauta, Cartero,  
-                Funcionario</b> e <b>Ideal</b> extienda esa superclase.</p>
+                Funcionario</b> e <b>Ideal</b> extienda esa superclase, definiendo cada
+                uno de ellos de modo distinto el método abstracto.</p>
             <div class="build">
                 <p>¿Alguna otra idea?</p>
                 <p>¿Qué te parece mejor?</p>
@@ -437,7 +438,7 @@ public abstract class Candidato {
         return nombre;
     }
     
-    public abstract String cuenta();
+    <b>public abstract String cuenta();</b>
 }</pre>
 		</article>
         </slide>
@@ -534,7 +535,7 @@ System.out.println("Soy " + candidato.getNombre() + ": " +
                 promocionado a un <b>interface</b> o a una clase 
                 <b>abstract</b>, pero cada una de ellas se encarga 
                 de dar un implementación diferente.</p>
-            <p>Esto está bien, pero el comportamiento está demasiado ligado 
+            <p>Eso está bien, pero el comportamiento está demasiado ligado 
                 a la definición de las clases concretas. No podemos hacer 
                 que un <b>Astronauta</b> cambie su forma de contar.</p>
             <div class="build">
@@ -694,8 +695,8 @@ System.out.println("Soy " + astronauta.getNombre() +
 			<h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
         </hgroup>
         <article class="smaller">
-            <q>Define una familia de algoritmos, encapsula cada uno de ellos 
-                y los hace intercambiables.
+            <q>Define una <b>familia de algoritmos</b>, <b>encapsula</b> cada uno de ellos 
+                y los hace <b>intercambiables</b>.
                 Permite que un algorimto varíe independientemente de los clientes 
                 que lo usan.</q>
             <div class="source">Patrones de diseño <br />
@@ -826,7 +827,7 @@ System.out.println(Arrays.asList(colores));</pre>
             <p>Los patrones de diseño hacen uso intensivo de los principios
                 de la POO.</p>
             <p>En particular, el patrón <b>Strategy</b> hace uso del principio
-                «Encapsula lo que varía». Lo que varía en este caso es un algoritmo,
+                <b class="green">Encapsula lo que varía</b>. Lo que varía en este caso es un algoritmo,
                 que puede tener varias implementaciones.</p>
             <p>La manera de encapsular el altoritmo es, simplemente, crear
                 una clase con su implementación.</p>

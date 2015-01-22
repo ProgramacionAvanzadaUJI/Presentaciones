@@ -46,7 +46,7 @@ URL: https://code.google.com/p/io-2012-slides
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>El patrón de diseño Acción (Command)</h2>
+      <h4 data-config-subtitle>El patrón de diseño Acción (Command)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -57,7 +57,7 @@ URL: https://code.google.com/p/io-2012-slides
             <h2>Introducción</h2>
         </hgroup>
         <article>
-            <p>Existen ocasiones donde nos interesa ejecutar acciones
+            <p>Existen ocasiones donde nos interesa realizar acciones
                 sin tener conocimiento de quien las ejecuta finalmente.</p>
             <p>Piensa, por ejemplo, en un sistema de aire acondicionado. 
                 No necesito conocer donde está la máquina de aire 
@@ -129,7 +129,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Me tengo que decidir y construir un mando universal que 
                 me sirva para controlar todos los dispositivos.</p>
             <p>Me gustaría poder programar el mando universal de tal modo
-                que con él pudiese controlar cualquier dispositivo, sea
+                que con él pueda controlar cualquier dispositivo, sea
                 del tipo que sea.</p>
             <p>Y si compro nuevos dispositivos que tienen su propio mando
                 a distancia, también quiero poder controlarlos desde el telemando
@@ -222,7 +222,7 @@ public void apaga() {...}
 public void play() {...}
 public void stop() {...}
 </pre>
-            <p>Y no podemos cambiarlas, el fabricante ha decidido que son 
+            <p>Y no podemos cambiarlas, cada fabricante ha decidido que son 
                 esas.</p>
         </article>
         </slide>
@@ -275,7 +275,8 @@ public void apaga(TipoDispositivo tipoDispositivo) {
     }
 }
 </pre>
-            <p>Detalle de implementación: he utilizado una enumeración para 
+            <p>Detalle de implementación: he utilizado una enumeración 
+                <b>TipoDispositivo</b> para 
                 seleccionar el tipo de dispositivo que quiero usar.</p>
         </article>
         </slide>
@@ -286,7 +287,7 @@ public void apaga(TipoDispositivo tipoDispositivo) {
             <h2>El telemando universal</h2>
         </hgroup>
         <article>
-            <p>Probamos nuestra primera solución:</p>
+            <p>Probemos nuestra primera solución:</p>
 <pre class="prettyprint" data-lang="Java">
 PrimerTelemando primerTelemando = new PrimerTelemando();
 primerTelemando.apaga(TipoDispositivo.TV);
@@ -333,7 +334,8 @@ Reproduciendo la película
                 colección única, por ejemplo.</p>
             <p>No parece mala solución, el problema es si existen dispositivos
                 sobre los que se pueden hacer acciones que no se pueden llevar
-                a cabo sobre otros, por ejemplo, subir el volumen del HiFi.</p> 
+                a cabo sobre otros, por ejemplo, subir el volumen es perfecto 
+                para el equipo HiFi, pero no tiene sentido para el aire acondicionado.</p> 
         </article>
         </slide>
 
@@ -374,14 +376,14 @@ Reproduciendo la película
             <p>Encapsular lo que varía dentro de una clase.</p>
             <p>Ahora tenemos que «encapsular la llamada a un método».</p>
             <p>Hipótesis:</p>
-            <ul>
+            <ol>
                 <li>Todas las llamadas a un método se tienen que ver del mismo
                     modo, como la misma cosa.</li>
                 <li>Cada llamada actua sobre un dispositivo distinto.</li>
                 <li>Puede ocurrir que un dispositivo ofrezca una interfaz
                     pública con más métodos que otro dispositivo, o símplemente
                     distintos.</li>
-            </ul>
+            </ol>
         </article>
         </slide>
 
@@ -392,7 +394,7 @@ Reproduciendo la película
         </hgroup>
         <article>
             <p>Programemos las hipótesis:</p>
-            <ul>
+            <ol>
                 <li>Un <b>interface</b> (la herencia en general) me permite ver como
                     el mismo tipo de datos, tipos de datos concretos con implementaciones
                     distintas. Puedo, por ejemplo, unificar todas las acciones 
@@ -402,7 +404,7 @@ Reproduciendo la película
                     actúa.</li>
                 <li>Tendré una clase distinta por cada acción que puedo llevar
                     a cabo sobre un dispositivo.</li>
-            </ul>
+            </ol>
         </article>
         </slide>
 
@@ -412,7 +414,7 @@ Reproduciendo la película
             <h2>Encapsular llamadas a métodos</h2>
         </hgroup>
         <article>
-            <p>Vamos por pasos, primero el interface que me permite ver 
+            <p>Vamos por pasos. Implementemos primero el <b>interface</b> que me permite ver 
                 cualquier acción sobre cualquier dispositivo como la misma 
                 cosa.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -432,7 +434,7 @@ public interface Accion {
         <article>
             <p>Las acciones concretas se llevan a cabo sobre dispositivos
                 concretos, por ejemplo encender la televisión. Dicho de otro
-                modo, cada acción implementada como una clase concreta
+                modo, cada acción, implementada como una clase concreta,
                 conoce el dispositivo que realiza
                 la acción.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -532,9 +534,9 @@ public enum TipoAccion {
             <h2>Encapsular llamadas a métodos</h2>
         </hgroup>
         <article>
-            <p>Vale, pero de algún modo tendremos que conectar las acciones,
-                con los dispositivos que las realizan, 
-                en el telemando. Sí, aquí lo tienes.</p>
+            <p>Vale, pero de algún modo tendremos que conectar
+                las acciones con los dispositivos que las realizan. 
+                Sí, aquí lo tienes.</p>
 <pre class="prettyprint" data-lang="Java">
 public class CargadorTelemando {
     public void cargaTelemando(Telemando telemando) {
@@ -609,8 +611,8 @@ Deteniendo la reproducción de la película
         <article class="smaller">
             <q>Encapsula una petición en un objeto, permitiendo así 
                 parametrizara los clientes con diferentes peticiones,
-                hacer cola o <b>llevar un registro de las peticiones, y poder
-                deshacer las operaciones.</b></q>
+                hacer cola, o llevar un registro de las peticiones y poder
+                deshacer las operaciones.</q>
             <div class="source">Patrones de Diseño<br />
                 Erich Gamma et al.</div>
         </article>
@@ -637,7 +639,24 @@ Deteniendo la reproducción de la película
 <p class="centrado"><img src="imagenes/commandTelemando.png" style="width: 800px" /></p>
         </article>
         </slide>
-        
+
+        <!-- Definición del patrón Command -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón Command</h2>
+        </hgroup>
+        <article>
+            <p><b>Ventajas:</b></p>
+            <ol>
+                <li>La clase que lleva a cabo la acción está desacoplada
+                    de la clase que solicita realizar la acción.</li>
+                <li>Las acciones se pueden extender, para redefinir las acciones.</li>
+                <li>Se pueden empaquetar varias acciones simples en una macro-acción.</li>
+                <li>Es fácil añadir nuevas acciones al sistema.</li>
+            </ol>
+        </article>
+        </slide>
+
         <!-- Undo y Redo con el patrón Command -->
         <slide>
         <hgroup>
@@ -645,7 +664,7 @@ Deteniendo la reproducción de la película
         </hgroup>
         <article>
             <p>¿Alguna vez te has preguntado cómo recuerdan los programas las
-                acciones que han hecho para deshacerlas?</p>
+                acciones que han hecho para poder deshacerlas si lo necesitamos?</p>
             <p>Hay programas que incluso pueden volver a hacer lo que han
                 deshecho. El editor de Eclipse en un ejemplo, puedo borrar y 
                 escribir, y cuando deshago lo último que he hecho,

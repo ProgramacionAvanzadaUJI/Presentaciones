@@ -46,7 +46,7 @@ URL: https://code.google.com/p/io-2012-slides
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>Patrón de diseño Método Factoría (Factory Method)</h2>
+      <h4 data-config-subtitle>Patrón de diseño Método Factoría (Factory Method)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -62,7 +62,7 @@ URL: https://code.google.com/p/io-2012-slides
                 la clase cliente con las proveedoras.</p>
             <p>Esta estrecha relación se llama acoplamiento.</p>
             <p>Para que nuestras aplicaciones sean lo más flexibles 
-                posibles frente a posibles cambios, debemos evitar
+                posible frente a futuros cambios, debemos evitar
                 el acoplamiento entre clases en el momento de creación
                 de los objetos.</p>
             <p>Un modo de hacerlo es mediante el uso del patrón de diseño 
@@ -138,8 +138,8 @@ System.out.println("Soy " + astronauta.getNombre() +
         </hgroup>
         <article>
             <p>Como hemos comentado alguna vez, que una clase haga
-                un <b>new</b> para obtener una referencia a otra, 
-                crea una estrecha relación entre las clases.</p>
+                un <b>new</b> para obtener una referencia de otra clase, 
+                crea una estrecha relación entre las dos clases.</p>
             <p>El término que se suele utilizar es <i>acoplamiento 
                 entre clases</i>.</p>
             <p>Como también hemos comentado, en la medida de lo posible, 
@@ -660,7 +660,22 @@ private void filtraOpcion(TipoContador tipo) {
             <p class="centrado"><img src="imagenes/factoryMethodContadores.png" style="width: 800px" /></p>
         </article>
         </slide>
-        
+
+        <!--  Definición del patrón de diseño Factory Method -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón Factory Method</h2>
+        </hgroup>
+        <article>
+            <p><b>Ventajas:</b></p>
+            <ol>
+                <li>La creación de nuevas subclases, hijas de las que ya proporciona  
+                    la fábrica, es transparente para los clientes.</li>
+                <li>Conecta jerarquías de clases paralelas.</li>
+            </ol>
+        </article>
+        </slide>
+
         <!-- Recursos en Internet -->
         <slide>
         <hgroup>

@@ -44,9 +44,9 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>Patrón de diseño Observador (Observer)</h2>
+      <h4 data-config-subtitle>Patrón de diseño Observador (Observer)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -166,7 +166,7 @@ URL: https://code.google.com/p/io-2012-slides
                 pueda actualizar su estado.</p>
             <p>Fíjate que aparece de nuevo la idea de inversión de control, 
                 el inicio de la actividad no parte del cliente si no de 
-                quien proporciona los datos.</p>
+                quién proporciona los datos.</p>
         </article>
         </slide>
         
@@ -184,7 +184,7 @@ URL: https://code.google.com/p/io-2012-slides
                 estado actual del sistema.</p>
             <p>La alarma, el sistema de llamadas y el sistema de 
                 almacenamiento son los clientes que desean ser 
-                informados cuando se produzca una situación anómala.</p>
+                informados cuando se produzca la situación anómala: temperatura elevada.</p>
         </article>
         </slide>
         
@@ -194,7 +194,7 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Escribamos la aplicación de notificación de vuelos</h2>
         </hgroup>
         <article>
-            <p>Nuestra aplicación debe funcionar de tal modo, que 
+            <p>Nuestra aplicación debe funcionar de tal modo que, 
                 cualquier viajero se pueda suscribir a un vuelo 
                 para recibir las notificaciones que se vayan 
                 generando sobre él.</p>
@@ -361,11 +361,11 @@ vuelo.setUltimoSuceso("Salida de viajeros");
         <hgroup>
 			<h2>Escribamos la aplicación de notificación de vuelos</h2>
         </hgroup>
-        <article class="smaller">
-<samp>
-Oscar &larr; Notificar: IB123 destino París:Llegada del vuelo.<br />
-Pepe &larr; Notificar: IB123 destino París:Llegada del vuelo.<br />
-Oscar &larr; Notificar: IB123 destino París:Salida de viajeros</samp>
+        <article>
+
+<p>Oscar &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
+<p>Pepe &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
+<p>Oscar &larr; Notificar: IB123 destino París:Salida de viajeros</p>
         </article>
         </slide>
         
@@ -399,8 +399,7 @@ public class Viajero implements Observador {
             <p>E implementemos la clase que es el <b>Observado</b>
 <pre class="prettyprint" data-lang="Java">
 public class Observado {
-    private List< Observador > observadores;
-    
+    private List< Observador > observadores;    
     public Observado() {
         super();
         observadores = new ArrayList< Observador >();
@@ -412,8 +411,7 @@ public class Observado {
         observadores.remove(observador);
     }
     public void notificarObservadores() {
-        for(Observador observador: observadores)
-            observador.notificar();
+        for(Observador observador: observadores) observador.notificar();
     }
 }</pre>
         </article>
@@ -444,8 +442,7 @@ public class Observado {
 <pre class="prettyprint" data-lang="Java">
 public class Vuelo extends Observado {
     private String codigoDestino;
-    private String ultimoSuceso;
-    
+    private String ultimoSuceso;    
     public Vuelo(String codigoDestino) {
         super();
         this.codigoDestino = codigoDestino;
@@ -501,7 +498,30 @@ public class Vuelo extends Observado {
         </article>
         </slide>
                         
-        <!-- Avísame de que algo ha ocurrido, ya me preocupa yo por saber qué -->
+        <!-- Definición del patrón de diseño Observador -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón de diseño Observador</h2>
+        </hgroup>
+        <article>
+            <p><b>Ventajas:</b></p>
+            <ol>
+                <li>Acoplamiento abstracto entre <b>Observador</b> y <b>Observado</b>: Lo 
+                    único que conoce el observador de sus clientes observadores es que 
+                    implementan una cierta interfaz.</li>
+                <li>Comunicación mediante difusión: los observadores están <b>suscritos</b>
+                    a eventos, cuando este se produce, la información se difunde entre todos
+                    los observadores.</li>
+            </ol>
+            <p><b>Desventajas:</b></p>
+            <ol>
+                <li>Un aparente cambio inofensivo en el <b>Obervado</b> puede desencadenar una
+                    cascada de notificaciones hacia los <b>Observadores</b>.</li>
+            </ol>
+        </article>
+        </slide>
+
+
         <slide>
         <hgroup>
 			<h2>Avísame de que algo ha ocurrido, ya me preocupa yo por saber qué</h2>
@@ -527,10 +547,10 @@ public class Vuelo extends Observado {
         </hgroup>
         <article>
             <p>Los paquetes Java relacionados con la gestión de interfaces gráficos 
-                de usuario están plagados con el uso de este patrón de diseño.</p>
+                de usuario están plagados por el uso de este patrón de diseño.</p>
             <p>La idea básica es que los componentes gráficos, por ejemplo un botón, 
                 lanzan eventos cada vez que el usuario interacciona con ellos, y 
-                como respuesta los componentes lanzan notificaciones a todos los 
+                como respuesta, los componentes lanzan notificaciones a todos los 
                 clientes que quieran estar informados de lo ocurrido.</p>
             <p>Veremos con más detalle este procedimiento en el tema de creación 
                 de interfaces gráficos de usuario.</p>

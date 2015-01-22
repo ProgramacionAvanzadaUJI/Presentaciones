@@ -46,7 +46,7 @@ URL: https://code.google.com/p/io-2012-slides
     <hgroup class="auto-fadein">
       <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>Patrón de diseño Único (Singleton)</h2>
+      <h4 data-config-subtitle>Patrón de diseño Único (Singleton)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -112,7 +112,7 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>Hasta que hemos empezado a estudiar algunos patrones de diseño, el único mecanismo que hemos utilizado 
                 para obtener una instancia de una determinada clase 
-                es utilizar el operador <b>new</b>.</p>
+                es el operador <b>new</b>.</p>
             <p>Como recordatorio, <b>new</b> crea un nuevo objeto y nos devuelve 
                 una referencia a ese objeto.</p>
             <p>Cada vez que usamos <b>new</b> creamos un nuevo objeto, una 
@@ -172,8 +172,9 @@ class Conexion {
             <p>Los objetivos son:</p>
             <ol>
                 <li>Prohibir que se pueden crear instancias de una clase con <b>new</b>.</li>
-                <li>Que la clase mantenga una única instancia de sí misma.</li>
-                <li>Ofrecer la posibilidad de obtener esa referencia que es única.</li>
+                <li>Que la clase mantenga una única instancia de si misma.</li>
+                <li>Ofrecer la posibilidad de obtener esa referencia que es única
+                    para todos los clientes de la clase.</li>
             </ol>
             <p>Veámoslo paso por paso.</p>
         </article>
@@ -185,7 +186,7 @@ class Conexion {
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>¿Cómo consigo que nadie pueda crear instancias de mi 
+            <p>¿Cómo consigo que nadie pueda crear instancias de mí 
                 misma sin mi control?</p>
             <p><b>Ocultando mis constructores.</b></p>
 <pre class="prettyprint" data-lang="Java">
@@ -204,7 +205,7 @@ public class Singleton {
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>¿Cómo mantengo una única instancia de mi misma?</p>
+            <p>¿Cómo mantengo una única instancia de mí misma?</p>
             <p><b>En una referencia (estática)</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Singleton {
@@ -395,7 +396,7 @@ public synchronized static SingletonConcurrente getInstance() {
                 <b>synchronize</b> debe obtener primero el cerrojo 
                 del objeto al que pertenece el método antes de 
                 poder ejecutarlo.</p>
-            <p>Todo objeto tiene un cerrojo, es nativo en Java.</p>
+            <p>Todo objeto tiene un cerrojo, es una propiedad nativa en Java.</p>
             <p>Si el hilo obtiene el cerrojo, puede ejecutar el método, 
                 sino, tiene que esperar a que el hilo que lo tiene en posesión 
                 lo libere.</p> 
@@ -443,7 +444,7 @@ public synchronized static SingletonConcurrente getInstance() {
                 pero lo que queremos evitar es que más de un 
                 hilo cree la instancia de <b>Singleton</b>.</p>
             <p>Dicho de otro modo, la única instrucción conflictiva 
-                es la del <b>new</b>, movamos hasta ella la sincronización.</p>
+                es la del <b>new</b>. Movamos hasta ella la sincronización.</p>
         </article>
         </slide>
 
@@ -583,6 +584,23 @@ public static SingletonConcurrenteMejorado getInstance() {
         </article>
         </slide>
         
+        <!--  Definición del patrón de diseño Singleton -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón de diseño Singleton</h2>
+        </hgroup>
+        <article>
+            <p><b>Ventajas:</b></p>
+            <ol>
+                <li>Acceso controlado a la instancia.</li>
+                <li>Evita el uso de variables globales (¿Alguien la utiliza?).</li>
+                <li>En vez de una única instancia, podemos tener un número 
+                    controlado de ellas.</li>
+                <li>Mejor que los métodos <b>static</b>.</li>
+            </ol>
+        </article>
+        </slide>
+
         <!--  Ejemplos de uso de Singleton -->
         <slide>
         <hgroup>

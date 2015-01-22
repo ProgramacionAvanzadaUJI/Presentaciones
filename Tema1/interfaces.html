@@ -114,6 +114,8 @@ URL: https://code.google.com/p/io-2012-slides
 				<li>Implementación de varios interfaces.</li>
 				<li>Polimorfismo utilizando <b>interface</b>.</li>
 				<li>Vinculación Dinámica.</li>
+				<li>Reescritura de interfaces.</li>
+				<li>Novedades en Java 8.</li>
 				<li>Resumen.</li>
 			</ol>
 		        </article>
@@ -1145,6 +1147,139 @@ System.out.println(pagador.getNombre());
         </article>
         </slide>
 
+        <!--  Reescritura de interfaces -->
+        <slide>
+        <hgroup>
+			<h2>Reescritura de interfaces</h2>
+        </hgroup>
+		<article>
+			<p>Una vez que se ha definido un <b>interface</b>, no es conveniente 
+				añadirle nuevo métodos. Al hacerlo, 
+				se invalidarían todas las clases que la hubieran
+				implementado por no sobrecargar el nuevo método.
+<pre class="prettyprint" data-lang="Java">
+public interface HaceAlgo {
+	void hazAlgo(int i, double x);
+	int hazOtraCosa(String s);
+	void hazAlgoNuevo(double x); // Nuevo. Fallan implementaciones previas.
+}
+</pre>
+		</article>
+		</slide>
+
+        <!--  Reescritura de interfaces -->
+        <slide>
+        <hgroup>
+			<h2>Reescritura de interfaces</h2>
+        </hgroup>
+		<article>
+			<p>Una solución
+				es crear una nueva interfaz extendiendo la antigua
+				(veremos este concepto en el tema de herencia). El programador
+				puede usar la nueva interfaz o seguir con la versión
+  				antigua.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface HaceAlgoMas extends HaceAlgo {
+	void hazAlgoNuevo(double x);
+}
+</pre>
+		</article>
+		</slide>
+
+        <!--  Novedades en Java 8 -->
+        <slide>
+        <hgroup>
+			<h2>Novedades en Java 8</h2>
+        </hgroup>
+		<article>
+			<p>Otra solución al problema de añadir
+ 				nuevos métodos a interfaces nos lo resuelve 
+ 				una nueva característica de Java 8: los métodos
+				<b>default</b>.
+			<p>Los métodos <b>default</b> de las interfaces se preceden con la palabra
+				<b>default</b> e incluyen la implementación del método,
+ 				que heredan las clases que implementen el <b>interface</b>.</p>
+			<p>Estas clases que implementan la interfaz pueden, si es necesario,
+				sobreescribir el metodo.</p>
+		</article>
+		</slide>
+
+        <!--  Novedades en Java 8 -->
+        <slide>
+        <hgroup>
+			<h2>Novedades en Java 8</h2>
+        </hgroup>
+		<article>
+			<p>Ahora podríamos ampliar nuestra interfaz HaceAlgo con un
+				método <b>default</b> y las clases que ya implementan esta interfaz no
+				se verían afectadas.</p>
+<pre class="prettyprint" data-lang="Java">
+public interface HaceAlgo {
+    void hazAlgo(int i, double x);
+    int hazOtraCosa(String s);
+    default void hazAlgoNuevo(double x) {
+        System.out.println("Valor de x: " + x);
+    }
+}
+</pre>
+		</article>
+		</slide>
+
+        <!--  Novedades en Java 8 -->
+        <slide>
+        <hgroup>
+			<h2>Novedades en Java 8</h2>
+        </hgroup>
+		<article>
+			<p>¿Pero qué pasa si una clase implementa dos interfaces con
+				métodos <b>default</b> que tienen la misma signatura? </p>
+			<p>En ese caso, la clase ignora ambos métodos.</p>
+			<p>Para evitar problemas como este, un método
+				<b>default</b> no puede sobrecargar ningún metodo
+				de <b>java.lang.Object</b>.</p>
+		</article>
+		</slide>
+
+        <!--  Novedades en Java 8 -->
+        <slide>
+        <hgroup>
+			<h2>Novedades en Java 8</h2>
+        </hgroup>
+		<article>
+			<p>Otra novedad de Java 8 que afecta a las interfaces es la
+				posibilidad de añadirles <b>métodos estáticos</b> o de interfaz.</p>
+			<p>Cuando una clase implementa una interfaz con un método
+				estático, este no forma parte de la clase sino de la interfaz. Por
+				ello hemos de invocarlo con el tipo de la interfaz, y no el de la
+				clase.</p>
+		</article>
+		</slide>
+
+        <!--  Novedades en Java 8 -->
+        <slide>
+        <hgroup>
+			<h2>Novedades en Java 8</h2>
+        </hgroup>
+		<article>
+<pre class="prettyprint" data-lang="Java">
+public interface HaceAlgo {
+    ....
+    static void hazAlgoNuevo(double x) {
+        System.out.println("Valor de x: " + x);
+    }
+}
+
+public class UnaClase implements HaceAlgo {}
+
+public class Principal {
+    public static void main (String[] args) {
+        HaceAlgo.hazAlgoNuevo(2.0);
+        UnaClase.hazAlgoNuevo(2.0); // No compila
+    }
+}
+</pre>
+		</article>
+		</slide>
 
 		<!-- Resumen -->
                 <slide>
@@ -1155,12 +1290,15 @@ System.out.println(pagador.getNombre());
             <p>Los interfaces definen tipos de datos <i>abstractos</i>.</p>
             <p>Una clase puede implementar todos los <b>interface</b> que
 			    necesite.</p>
-			 <p>Una clase que implementa un <b>interface</b> puede ser
+			<p>Una clase que implementa un <b>interface</b> puede ser
 			    <i>vista</i> como ese <b>interface</b>.</p>
-			 <p><b class="green">Patrón de diseño:</b> Programa orientado al
+			<p>Java 8 permite la usar métodos <b>default</b> y 
+				<b>static</b> en los <b>interface</b> para poder modificarlos
+				sin romper la compatibilidad hacia atrás.</p>
+			<p><b class="green">Patrón de diseño:</b> Programa orientado al
 			     <i>interfaz</i>
 			     no a la <i>implementación</i>.</p>
-			 <p><b class="red">Antipatrón:</b> Una clase no debe implementar un
+			<p><b class="red">Antipatrón:</b> Una clase no debe implementar un
 			     <b>interface</b> sólo porque necesita un método
 			     declarado en él.</p>
 		        </article>

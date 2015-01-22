@@ -44,9 +44,9 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h1 data-config-title>Programación Avanzada</h1>
       <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h2 data-config-subtitle>Patrón de diseño Decorador (Decorator)</h2>
+      <h4 data-config-subtitle>Patrón de diseño Decorador (Decorator)</h4>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
@@ -62,7 +62,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>A veces, necesitamos un mecanismo más flexible que la herencia
                 para ampliar el comportamiento de una clase. De hecho, se recomienda utilizar 
                 la composición frente a la herencia.</p> 
-            <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución a cómo añadir 
+            <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución para añadir 
                 nueva funcionalidad a una clase, más flexible que la herencia, y de 
                 manera dinámica.</p>
         </article>
@@ -196,7 +196,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Hay varios tipos de vehículos: <b>Utilitario, Familiar, 
                     Monovolumen,...</b></li>
                 <li>Cada uno de ellos puede tener uno o más accesorios.</li>
-                <li>El resultado final es independiente de cómo yo añada los 
+                <li>El resultado final es independiente del orden en el que se añadan los 
                     accesorios: aire acondicionado, pintura metalizada, techo solar, 
                     etcétera.</li>
                 <li>El precio final se ha de calcular de modo automático.</li>
@@ -250,7 +250,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Parece que nos acercamos.</p>
             <p>Lo que quiero es que cada extra, de alguna manera, recubra al vehículo original 
                 añadiéndole una nueva característica, de manera que un vehículo con aire 
-                acondicionado siga siendo un vehículo, y no solo un vehículo con un agregado de 
+                acondicionado siga siendo un vehículo, y no sólo un vehículo con un agregado de 
                 extras.</p>
         </article>
         </slide>
@@ -400,7 +400,7 @@ public class ConAireAcondicionado extends Vehiculo {
 <pre class="prettyprint" data-lang="Java">
 public class ConAireAcondicionado extends Vehiculo { //Sigue siendo 
                                                      // un Vehiculo
-    private Vehiculo vehiculo; //Aquí se recubre al vehículo
+    private Vehiculo vehiculo; //Aquí se recubre al vehículo original
     
     public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
         super(precio); //El padre guarda el precio del extra
@@ -489,7 +489,6 @@ public class ConPinturaMetalizada extends Vehiculo {
 
 <pre class="prettyprint" data-lang="Java">
 public abstract class ConAccesorioExtra extends Vehiculo {
-
     private Vehiculo vehiculo;
 
     public ConAccesorioExtra(Vehiculo vehiculo, float precio) {
@@ -627,6 +626,26 @@ public void testFamiliar() {
         <article>
             <p>En nuestro caso concreto:</p>
             <p class="centrado"><img src="imagenes/decoratorVehiculos.png" style="width: 800px" /></p>
+        </article>
+        </slide>
+
+        <!-- Definición del patrón de diseño Decorador -->
+        <slide>
+        <hgroup>
+            <h2>Definición del patrón de diseño Decorador</h2>
+        </hgroup>
+        <article>
+            <p><b>Ventajas:</b></p>
+            <ol>
+                <li>Diseño más flexible que utilizando herencia.</li>
+                <li>La funcionalidad se va añadiendo según la vamos necesitando.</li>
+            </ol>
+            <p><b>Desventajas:</b></p>
+            <ol>
+                <li>Desde el punto de vista de la igualdad de objetos, un objeto recubierto 
+                    y el objeto original no se pueden comparar.</li>
+                <li>Si creamos muchos recubridores, puede dar lugar a una explosión de clases.</li>
+            </ol>
         </article>
         </slide>
 

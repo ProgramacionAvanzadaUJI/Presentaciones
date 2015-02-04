@@ -472,6 +472,31 @@ private void aCocinar() {
         </slide>
 
 
+        <!-- Principio DRY -->
+        <slide>
+          <hgroup>
+            <h2>Principio DRY: Don't Repeat Yourself</h2>
+          </hgroup>
+          <article>
+            <p>Nuestro punto de partida:</p>
+            <pre class="prettyprint" data-lang="Java">
+<b>private void preparaReceta(Paella paella)</b> {
+    paella.preparaReceta();
+}
+<b>private void preparaReceta(LubinaAlHorno lubinaAlHorno)</b> {
+    lubinaAlHorno.preparaReceta();
+}
+</pre>
+            <p>Hemos llegado a: </p>
+            <pre class="prettyprint" data-lang="Java">
+<b>private void preparaReceta(Receta receta)</b> {
+    receta.preparaReceta();
+}
+            </pre>
+          </article>
+        </slide>
+
+
 
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
@@ -1153,8 +1178,8 @@ System.out.println(pagador.getNombre());
 			<h2>Reescritura de interfaces</h2>
         </hgroup>
 		<article>
-			<p>Una vez que se ha definido un <b>interface</b>, no es conveniente 
-				añadirle nuevo métodos. Al hacerlo, 
+			<p>Una vez que se ha definido un <b>interface</b>, no es conveniente
+				añadirle nuevo métodos. Al hacerlo,
 				se invalidarían todas las clases que la hubieran
 				implementado por no sobrecargar el nuevo método.
 <pre class="prettyprint" data-lang="Java">
@@ -1193,7 +1218,7 @@ public interface HaceAlgoMas extends HaceAlgo {
         </hgroup>
 		<article>
 			<p>Otra solución al problema de añadir
- 				nuevos métodos a interfaces nos lo resuelve 
+ 				nuevos métodos a interfaces nos lo resuelve
  				una nueva característica de Java 8: los métodos
 				<b>default</b>.
 			<p>Los métodos <b>default</b> de las interfaces se preceden con la palabra
@@ -1292,7 +1317,7 @@ public class Principal {
 			    necesite.</p>
 			<p>Una clase que implementa un <b>interface</b> puede ser
 			    <i>vista</i> como ese <b>interface</b>.</p>
-			<p>Java 8 permite la usar métodos <b>default</b> y 
+			<p>Java 8 permite la usar métodos <b>default</b> y
 				<b>static</b> en los <b>interface</b> para poder modificarlos
 				sin romper la compatibilidad hacia atrás.</p>
 			<p><b class="green">Patrón de diseño:</b> Programa orientado al

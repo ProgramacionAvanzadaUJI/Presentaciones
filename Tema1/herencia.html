@@ -221,7 +221,7 @@ public class Punto3D {
       <p>¿Cuantos métodos tiene la clase hija?<p>
       <p>Los que en ella se definen más <b>los que son accesibles en
           la clase padre</b>.</p>
-      <p>¿Qué de la clase padre métodos son accesibles desde la clase hija?</p>
+      <p>¿Qué métodos de la clase padre son accesibles desde la clase hija?</p>
       <p>Los <b>public</b> y <b>protected</b> del padre, y si padre e hija están
           definidas en el mismo paquete también los del paquete.</p>
       <p class='green'>Los miembros <b>private</b> sólo son accesibles
@@ -684,7 +684,6 @@ public class Padre {
         <article>
             <p>Esta clase <b>Hija</b> intenta sobreescribir el
                 método usando la anotación <b>Override</b>.</p>
-            <p>El resultado es un error en tiempo de compilacion.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Hija extends Padre {
     //@Override // Esto genera un error
@@ -693,6 +692,10 @@ public class Hija extends Padre {
     }
 }
 </pre>
+          <p>El resultado es un error en tiempo de compilacion.</p>
+          <p>Description	Resource	Path	Location	Type
+The method estatico() of type Hija must override or implement a supertype method	Hija.java	/Herencia/src/herencia	line 7	Java Problem
+</p>
         </article>
         </slide>
 
@@ -757,8 +760,9 @@ padre.estatico(); // Aquí tenemos otro warning.
                 referencia de este tipo.</p>
             <p>¿Podemos asignar a una referencia de tipo <b>Punto2D</b> un
                 objeto de tipo <b>Punto3D</b>?
-            <p>Si: <b class='green'>A una referencia de tipo padre
-                le podemos asignar un objeto de cualquier clase hija</b>.</p>
+            <p>Si: <b class='green'>A una referencia de un tipo
+                le podemos asignar un objeto de cualquiera de sus clases
+                hijas</b>.</p>
             <p>¿Y al revés, a una referencia de tipo hijo le puedo asignar un
                 objeto de clase padre?</p>
             <p>No: <b class='red'>A una referencia de tipo hijo nunca
@@ -1055,7 +1059,7 @@ Soy un pájaro y hago: Pio-pio</samp>
             <p class='green'><b>Las clases abstractas no se pueden
                 intanciar.</b></p>
             <p class= 'green'><b>No podemos crear un objeto de una clase
-                abstracta</b></p>
+                abstracta</b>.</p>
             <p>Bueno, no es mucho precio, al fin y al cabo ¿quien metería un
                 <b>Animal</b> en casa sin saber de que animal se trata?</p>
         		        </article>
@@ -1113,7 +1117,7 @@ System.out.println(p2d);
                 principio de substitución de Liskov</a> nos «obliga» a
                 diseñar nuestras clases de modo que el comportamiento
                 de nuestro software no se modifique, si invocamos un método
-                que admite referencias de una clase padre, cuando lo invocamos
+                que admite referencias de una clase padre, o si lo invocamos
                 con referencias de alguna de sus clases hijas. </p>
                 <!--objetos de cualquier clase hija allá donde podamos utilizar objetos de
                 la clase padre.</p>-->

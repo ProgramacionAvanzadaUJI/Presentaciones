@@ -747,19 +747,18 @@ System.out.println("Soy " + astronauta.getNombre() +
                 <h2>Definición de patrón de diseño Estrategia (Strategy)</h2>
             </hgroup>
             <article>
-                <p><b>Ventajas:</b></p>
-                <ol>
-                    <li>Nos permite organizar los algoritmos de resolución de problemas en familias.</li>
-                    <li>Alternativa a la herencia.</li>
-                    <li>Nos permite eliminar las sentencias condicionales.</li>
-                    <li>Ofece elección de la implementación</li>
-                </ol>
-                <p><b>Desventajas:</b></p>
-                <ol>
-                    <li>Los clientes deben conocer los diferentes algoritmos.</li>
-                    <li>Si los algoritmos son complejos, puede que no todos ellos implementen el mismo <b>interface</b> (Violación del principio de segregación de la interfaz).</li>
-                    <li>Aumenta el número de objetos.</li>
-                </ol>
+                    <p><b>Ventajas:</b></p>
+                    <ol>
+                        <li>Permite manipular de modo transparente familias de algoritmos.</li>
+                        <li>Es una alternativa a la herencia.</li>
+                        <li>Evitan las sentencias <b>switch</b>.</li>
+                    </ol>
+                    <p><b>Desventajas</b></p>
+                    <ol>
+                        <li>La decisión del algoritmo a elegir quizás deba 
+                            basarse en su implementación.</li>
+                        <li>Mayor número de objetos en la solución.</li>
+                    </ol>
             </article>
         </slide>
 

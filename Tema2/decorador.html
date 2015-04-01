@@ -157,7 +157,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>19.000 euros.</li>
                 <li>Si le ponemos aire acondicionado y techo solar, pero sin 
                     pintura metalizada.</li>
-                <li>Vemos, en ese caso tenemos los 19.000 del familiar mas 
+                <li>Veamos, en ese caso tenemos los 19.000 del familiar mas 
                     los 600 del aire acondicionado mas 1.000 del techo solar,
                     en total 20.600 euros.</li>
             </ul>
@@ -214,7 +214,7 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>Primera idea.</p>
             <p>Escribo una clase para cada vehículo y luego creo clases hijas de cada 
-                uno de ellos añadiendo los extras.</p>
+                uno de los vehículos añadiendo los extras.</p>
             <p>Por ejemplo, tendré: Utilitario como clase padre, y después una clase hija que 
                 sea UtilitarioAireAcondicionado, otra que sea UtilitarioPinturaMetalizada,...</p>
             <p>Y si quiero un Utilitario con aire acondicionado y pintura metalizada tendré 
@@ -231,7 +231,7 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>Vale, pues puedo tener una clase para cada vehículo, y dentro de cada uno de ellos 
                 una array con los extras que le he añadido.</p>
-            <p>Así calcularé le precio final sumando el precio de los extras y añadiéndoselo 
+            <p>Así calcularé el precio final sumando el precio de los extras y añadiéndoselo 
                 al precio del vehículo.</p>
             <p>Y para la descripción tengo algo parecido.</p>
             <p>Parece mejor solución.</p>
@@ -694,7 +694,50 @@ BufferedReader br = new BufferedReader(isr);
 String texto = br.readLine();</pre>
         </article>
         </slide>
-                                                                                                               
+
+        
+        <!-- El patrón Decorador en el paquete estándar de Java -->
+        <slide>
+        <hgroup>
+			<h2>El patrón Decorador en el paquete estándar de Java</h2>
+        </hgroup>
+        <article>
+            <p>Otro ejemplo es la serialización de objetos a fichero
+                que hemos visto en prácticas.</p>
+            <pre class="prettyprint" data-lang="Java">
+FileOutputStream fos = new FileOutputStream("fichero.bin");
+ObjectOutputStream oos = new ObjectOutputStream(fos);
+oos.writeObject(new Particular());
+oos.close();</pre>
+            <p><b>FileOutputStream</b> me permite escribir flujos de bytes
+            a un fichero.</p>
+            <p><b>ObjectOutputStream</b> recubre a un <b>FileOutputStream</b> y, 
+            además de bytes me permite enviar objetos, que se pueden serializar, 
+            a fichero.</p>
+        </article>
+        </slide>
+            
+            
+        <!-- El patrón Decorador en el paquete estándar de Java -->
+        <slide>
+        <hgroup>
+			<h2>El patrón Decorador en el paquete estándar de Java</h2>
+        </hgroup>
+        <article>
+            <p>Para el caso de lectura de objetos desde fichero, deserialización:</p>
+            <pre class="prettyprint" data-lang="Java">
+FileInputStream fis = new FileInputStream("fichero.bin");
+ObjectInputStream ois = new ObjectInputStream(fis);
+Particular particular = (Particular)ois.readObject();
+ois.close();</pre>
+            <p><b>FileInputStream</b> me permite leer flujos de bytes
+            desde un fichero.</p>
+            <p><b>ObjectInputStream</b> recubre a un <b>FileInputStream</b> y, 
+            además de bytes me permite leer objetos serializados desde fichero.</p>
+        </article>
+        </slide>
+            
+            
         <!-- Recursos en Internet -->
         <slide>
         <hgroup>

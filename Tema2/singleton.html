@@ -62,7 +62,8 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Sólo existe un único dispositivo <i>consola</i>.</p>
             <p>En los tres casos anteriores debemos <i>garantizar</i> que sólo 
                 existe una instancia del sistema de ficheros, gestor de BBDD o 
-                dispositivo <i>consola</i>.</p>
+                dispositivo <i>consola</i>. Sea quien sea el cliente, accedera a 
+                los servicios del proveedor a través de la misma instancia.</p>
             <p>En estos casos, el patrón de diseño <i>Singleton</i> es de 
                 mucha ayuda.</p> 
         </article>
@@ -173,8 +174,8 @@ class Conexion {
             <ol>
                 <li>Prohibir que se pueden crear instancias de una clase con <b>new</b>.</li>
                 <li>Que la clase mantenga una única instancia de si misma.</li>
-                <li>Ofrecer la posibilidad de obtener esa referencia que es única
-                    para todos los clientes de la clase.</li>
+                <li>Ofrecer la posibilidad de obtener esa referencia, que es única,
+                    a todos los clientes de la clase.</li>
             </ol>
             <p>Veámoslo paso por paso.</p>
         </article>
@@ -593,7 +594,7 @@ public static SingletonConcurrenteMejorado getInstance() {
             <p><b>Ventajas:</b></p>
             <ol>
                 <li>Acceso controlado a la instancia.</li>
-                <li>Evita el uso de variables globales (¿Alguien la utiliza?).</li>
+                <li>Evita el uso de variables globales (¿Alguien las utiliza?).</li>
                 <li>En vez de una única instancia, podemos tener un número 
                     controlado de ellas.</li>
                 <li>Mejor que los métodos <b>static</b>.</li>

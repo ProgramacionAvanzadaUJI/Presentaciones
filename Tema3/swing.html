@@ -62,7 +62,7 @@ URL: https://code.google.com/p/io-2012-slides
                 AWT y Swing.</p>
             <p>En esta presentación veremos cuales son las 
                 características de cada una de ellas, y el
-                modelo de contenedores y componentes que 
+                modelo de contenedores y componentes gráficos de usuario que 
                 ponen a nuestra disposición para crear
                 interfaces gráficas de usuario.</p>
         </article>
@@ -226,7 +226,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>En el caso de Swing, podemos elegir incluso entre 
-                varios temas -Look And Feel en la jerga Swing.</p>
+                varios temas -Look And Feel- en la jerga Swing.</p>
             <p class="centrado"><img src="imagenes/aquaLookAndFeel.png"></p>
             <p class="centrado"><img src="imagenes/metalLookAndFeel.png"></p>
             <p class="centrado"><img src="imagenes/motifLookAndFeel.png"></p>
@@ -263,6 +263,18 @@ for(LookAndFeelInfo look: info)
 <pre class="prettyprint" data-lang="Java">
 UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");</pre>
             <p>La última línea de código lanza varias excepciones.</p>
+        </article>
+        </slide>
+        
+        <!-- AWT y Swing -->
+		<slide>
+        <hgroup>
+			<h2>AWT y Swing</h2>
+        </hgroup>
+        <article>
+            <p><b>Importante</b></p>
+            <p>Existen clases con el mismo cometido tanto en AWT como en Swing. Por ejemplo, en ambas bibliotecas tenemos un clase para crear ventana <b>Frame</b> en el caso de AWT y <b>JFrame</b> en el caso de Swing. Fíjate que si es una clase del paquete Swing su nombre empieza por <b>J</b>.</p>
+            <p>Existen otras clases que son el paquete AWT pero se utilizan en Swing, por ejemplo, los eventos y escuchadores. Como no tienen representación gráfica, en Swing se reaprovechan los de AWT.</p>
         </article>
         </slide>
         
@@ -336,8 +348,8 @@ UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");</pre
 			<h2>Contenedores y componentes</h2>
         </hgroup>
         <article>
-            <p>Existen dos elementos básicos en la creación de una 
-                interface gráfica de usuario usando Swing:</p>
+            <p>Existen dos elementos básicos para la creación de 
+                interfaces gráficas de usuario usando Swing:</p>
             <ul>
                 <li><b>Contenedores</b>: Elementos capaces de albergar otros elementos.</li>
                 <li><b>Componentes</b>: Elementos que se añaden a contenedores.
@@ -356,7 +368,7 @@ UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");</pre
             <p>Swing proporciona tres tipos de contenedores de alto nivel. 
                 Esto significa que, cualquier otro contenedor que no sea 
                 de alto nivel, o componente, debe ir en su interior.</p>
-            <p>Estos tres contenedores de alto nivel son:</p>
+            <p>Estos tres contenedores de alto nivel son: JFrame, JDialog y JApplet</p>
             <ul>
                 <li><b>JFrame</b>: Se visualiza como una ventana <i>principal</i> con marco y barra de título.</li>
             </ul>
@@ -372,7 +384,7 @@ UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");</pre
         <article>
             <ul>
                 <li><b>JDialog</b>: Se visualiza como una ventana independiente de la 
-                    ventana <i>principal</i> para mostrar información como por ejemplo 
+                    ventana <b>principal</b> para mostrar información, como por ejemplo 
                     el contenido de un directorio.</li>
             </ul>
             <p class="centrado"><img src="imagenes/saveDialog.png"></p>

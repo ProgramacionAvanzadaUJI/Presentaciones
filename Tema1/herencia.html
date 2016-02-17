@@ -1066,7 +1066,68 @@ Soy un pájaro y hago: Pio-pio</samp>
         </slide>
 
 
-        <!-- Polimorfismo con herencia -->
+        <!-- Clases abstractas -->
+        <slide>
+        <hgroup>
+			<h2>Clases <i>abstractas</i></h2>
+        </hgroup>
+		<article>
+            <p>Tratemos de combinar clases abstractas con interfaces. Definamos primero la interfaz:</p>
+            <pre class="prettyprint" data-lang="Java">
+public interface HazSonido {
+    public String hazSonido();
+}
+            </pre>
+            <p>Hemos definido en ella el método que era abstracto en la clase. Recuerda que todos los métodos de una interfaz son <b>public abstract</b></p>
+        </article>
+        </slide>
+
+
+
+            <!-- Clases abstractas -->
+            <slide>
+                <hgroup>
+                    <h2>Clases <i>abstractas</i></h2>
+                </hgroup>
+                <article>
+                <p>Ahora hagamos que la clase implemente la interfaz, pero sin llegar a definir el método <b>hazSonido()</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
+public abstract class Animal implements HazSonido {
+    private String nombre;
+
+    public Animal(String nombre) {
+        super();
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+}</pre>
+                <p>
+                    Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido, pero no hace definirlo de nuevo.
+                </p>
+        </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>La implementación de las clases concretas es la misma que antes, pero ahora, también podemos utilizar con ellas una referencia de tipo interfaz:</p>
+                <pre class="prettyprint" data-lang="Java">
+HazSonido animalRuidoso = new Perro("Bobby");
+System.out.println(animalRuidoso.hazSonido());
+                </pre>
+                <p class="centrado"><img src='imagenes/interfaceClaseAbstract.png' style='height: 300px'> </p>
+
+            </article>
+        </slide>
+
+
+            <!-- Polimorfismo con herencia -->
             <slide>
         <hgroup>
 			<h2>Polimorfismo con herencia</h2>
@@ -1290,29 +1351,6 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
 			<h2>Paquetes y modificadores de acceso</h2>
         </hgroup>
 		<article>
-            <table>
-                <thead>
-                    <tr><td></td><td><b>private</b></td><td></td><td><b>protected</b></td><td><b>public</b></td></tr>
-                </thead>
-                <tbody>
-                    <tr><td>La clase</td><td>SI</td><td>SI</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>El paquete</td><td>NO</td><td>SI</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>Las hijas</td><td>NO</td><td>NO</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>Otras clases</td><td>NO</td><td>NO</td><td>NO</td><td>SI</td></tr>
-                </tbody>
-            </table>
-            <p>El ámbito natural de los miembros de una clase, atributos y métodos,
-              es el paquete.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
             <p>Dos clases dentro del mismo paquete:</p>
             <p class="centrado"><img src="imagenes/modificadoresAcceso.png"></p>
         		        </article>
@@ -1341,6 +1379,29 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
             <p>Dos clases en paquetes distintos:</p>
             <p class="centrado"><img src="imagenes/modificadoresAcceso3.png"></p>
         		        </article>
+        </slide>
+
+
+        <!-- Paquetes y modificadores de acceso -->
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <table>
+                    <thead>
+                    <tr><td></td><td><b>private</b></td><td></td><td><b>protected</b></td><td><b>public</b></td></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>La clase</td><td>SI</td><td>SI</td><td>SI</td><td>SI</td></tr>
+                    <tr><td>El paquete</td><td>NO</td><td>SI</td><td>SI</td><td>SI</td></tr>
+                    <tr><td>Hijas (otro paquete)</td><td>NO</td><td>NO</td><td>SI</td><td>SI</td></tr>
+                    <tr><td>Otras clases</td><td>NO</td><td>NO</td><td>NO</td><td>SI</td></tr>
+                    </tbody>
+                </table>
+                <p>El ámbito natural de los miembros de una clase, atributos y métodos,
+                    es el paquete.</p>
+            </article>
         </slide>
 
 

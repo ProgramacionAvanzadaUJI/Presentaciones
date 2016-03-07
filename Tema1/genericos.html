@@ -66,7 +66,7 @@ strong {
             <p>¿Recuerdas estructuras de datos tales como las <i>listas</i>,
                 las <i>colas</i> o los <i>árboles</i>?<p>
             <p>Estas estructuras de datos pueden trabajar con cualquier tipo de datos,
-                podemos tener listas de <i>Persona</i> y también de <i>Empresa</i>,
+                podemos tener listas de <b>Persona</b> y también de <b>String</b> o <b>File</b>,
                 la funcionalidad que la lista ofrece es independiente del tipo
                 de datos que maneja.</p>
             <p>En POO este comportamiento (independencia del tipo de datos) lo
@@ -157,12 +157,12 @@ public void muestra(Cliente cliente) {
 </pre>
             <p>Pero, ¿y si no existe una relación entre las clases?</p>
 <pre class="prettyprint" data-lang="Java">
-public String muestra(Float real) {
-    return real + " de tipo " + real.getClass().getName();
+public String muestra(Float numero) {
+    return numero + " de tipo " + numero.getClass().getName();
 }
 
-public String muestra(Integer real) {
-    return real + " de tipo " + real.getClass().getName();
+public String muestra(Integer numero) {
+    return numero + " de tipo " + numero.getClass().getName();
 }
 </pre>
         </article>
@@ -192,7 +192,7 @@ public String muestra(Integer real) {
             <p>Cuando definimos un método podemos dejar sin especificar el tipo
                 de alguno de los argumentos:</p>
 <pre class="prettyprint" data-lang="Java">
-public class MetodoGenerico {
+public class ClaseConMetodoGenerico {
     public static < T > void muestra(T dato) {
         System.out.println("El dato es:" + dato.toString() +
             " de tipo " + dato.getClass().getName());
@@ -201,8 +201,8 @@ public class MetodoGenerico {
 </pre>
             <p>Y lo podemos usar así:
 <pre class="prettyprint" data-lang="Java">
-MetodoGenerico.muestra(1);
-MetodoGenerico.muestra("Hola");
+ClaseConMetodoGenerico.muestra(1);
+ClaseConMetodoGenerico.muestra("Hola");
 </pre>
             <samp>El dato es:1 de tipo java.lang.Integer<br />
 El dato es:Hola de tipo java.lang.String</samp>
@@ -218,7 +218,7 @@ El dato es:Hola de tipo java.lang.String</samp>
 		<article>
             <p>Lo que está ocurriendo es que el compilador de Java crea
                 un método con el tipo más general, que en este caso
-                es <b>Object</b>.</p>
+                es <b>Object</b>, y utiliza casting y métodos puente (bridge) cuando es necesario.</p>
             <p>Esto se hace así para preservar la compatibilidad hacia atrás.
                 La programación con genéricos fue introducida en la versión 5
                 de Java, de la mano de
@@ -550,8 +550,9 @@ public class Mandarina extends Fruta {
 public class Naranja extends Fruta {
     private String variedad;
 
-    public Naranja(float tamanyo) {
-        super(tamanyo);
+    public Naranja(float tamanyo, String variedad) {
+        super(tamanyo, variedad);
+        this.variedad = variedad;
     }
 
     public String getVariedad() {
@@ -913,9 +914,10 @@ public class CanicheSudafricano extends Caniche {
     }
 }
 </pre>
-            <p>En este caso no podríamos hacer:</p>
+            <p>En este caso <b>NO</b> podríamos hacer:</p>
 <pre class="prettyprint" data-lang="Java">
-List< ? super Caniche > perros = new ArrayList< CanicheSudafricano >();
+
+List< ? super Caniche > perros = new ArrayList< CanicheSudafricano >(); // Error
 </pre>
             <p>porque <b>CanicheSudafricano</b> no es padre de <b>Caniche</b>, sino una de sus hijas.</p>
         </article>

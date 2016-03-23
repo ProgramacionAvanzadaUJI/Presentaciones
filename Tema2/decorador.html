@@ -86,6 +86,7 @@ URL: https://code.google.com/p/io-2012-slides
             <ol>
                 <li><a href="http://c2.com/cgi/wiki?DecoratorPattern">
                     Design Patterns Book.</a></li>
+                <li><a href="https://sourcemaking.com/design_patterns/decorator">Decorator Design Pattern.</a></li>
             </ol>
         </article>
         </slide>        
@@ -374,8 +375,8 @@ public class Familiar extends Vehiculo {
 public class ConAireAcondicionado extends Vehiculo {
     private Vehiculo vehiculo;
     
-    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
-        super(precio);
+    public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
+        super(precioExtra);
         this.vehiculo = vehiculo;
     }
     @Override
@@ -402,8 +403,8 @@ public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
                                                      // un Vehiculo
     private Vehiculo vehiculo; //Aquí se recubre al vehículo original
     
-    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
-        super(precio); //El padre guarda el precio del extra
+    public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
+        super(precioExtra); //El padre guarda el precio del extra
         this.vehiculo = vehiculo; //Nos quedamos con una referencia
                                   // al vehículo que decoramos.
     }</pre>
@@ -420,14 +421,16 @@ public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
 <pre class="prettyprint" data-lang="Java">
 @Override
 public String descripcion() {
-    return vehiculo.descripcion() + ", con aire acondicionado";
+    return vehiculo.descripcion() +    // Descripción del vehículo que recubro
+           ", con aire acondicionado"; // Mi descripción como extra
 }</pre>
             <p>Añadimos al precio del vehículo, el precio del extra que 
                 está guardado en la clase padre.</p>
 <pre class="prettyprint" data-lang="Java">
 @Override
 public float getPrecio() {
-    return vehiculo.getPrecio() + super.getPrecio();
+    return vehiculo.getPrecio() + // Precio de vehículo que recubro.
+           super.getPrecio();     // Mi precio como extra, lo guarda el padre.
 }</pre>
         </article>
         </slide>     
@@ -461,8 +464,8 @@ public void testUtilitario() {
 public class ConPinturaMetalizada extends Vehiculo {
     private Vehiculo vehiculo;
     
-    public ConPinturaMetalizada(Vehiculo vehiculo, float precio) {
-        super(precio);
+    public ConPinturaMetalizada(Vehiculo vehiculo, float precioExtra) {
+        super(precioExtra);
         this.vehiculo = vehiculo;
     }
     @Override
@@ -488,11 +491,11 @@ public class ConPinturaMetalizada extends Vehiculo {
                 extras.</p>
 
 <pre class="prettyprint" data-lang="Java">
-public abstract class ConAccesorioExtra extends Vehiculo {
+public abstract class Extra extends Vehiculo {
     private Vehiculo vehiculo;
 
-    public ConAccesorioExtra(Vehiculo vehiculo, float precio) {
-        super(precio);
+    public Extra(Vehiculo vehiculo, float precioExtra) {
+        super(precioExtra);
         this.vehiculo = vehiculo;
     }
     @Override
@@ -513,9 +516,9 @@ public abstract class ConAccesorioExtra extends Vehiculo {
         </hgroup>
         <article>
 <pre class="prettyprint" data-lang="Java">
-public class ConAireAcondicionado extends ConAccesorioExtra {
-    public ConAireAcondicionado(Vehiculo vehiculo, float precio) {
-        super(vehiculo, precio);
+public class ConAireAcondicionado extends Extra {
+    public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
+        super(vehiculo, precioExtra);
     }
     @Override
     public String descripcion() {
@@ -523,9 +526,9 @@ public class ConAireAcondicionado extends ConAccesorioExtra {
     }
 }</pre>
 <pre class="prettyprint" data-lang="Java">
-public class ConPinturaMetalizada extends ConAccesorioExtra {
-    public ConPinturaMetalizada(Vehiculo vehiculo, float precio) {
-        super(vehiculo, precio);
+public class ConPinturaMetalizada extends Extra {
+    public ConPinturaMetalizada(Vehiculo vehiculo, float precioExtra) {
+        super(vehiculo, precioExtra);
     }
     @Override
     public String descripcion() {

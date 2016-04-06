@@ -101,7 +101,10 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Algunos ejemplos.</li>
                 <li>Escribamos la aplicación de notificación de vuelos.</li>
                 <li>Definición del patrón de diseño <b>Observador</b>.</li>
-                <li>Ejemplo en el paquete de Java.</li>
+                <li>Ejemplos en el paquete de Java.</li>
+                <li>Otros ejemplos.</li>
+                <li>Resumen.</li>
+                <li>Recursos en Internet.</li>
             </ol>
         </article>
         </slide>
@@ -521,10 +524,21 @@ public class Vuelo extends Observado {
         </article>
         </slide>
 
+        <slide>
+            <hgroup>
+                <h2>Avísame de que algo ha ocurrido, ya me preocupo yo por saber qué</h2>
+            </hgroup>
+            <article>
+                <p>A esta técnica se le llama el <b>Principio de Hollywood</b>, no nos llames, ya te llamaremos nosotros.</p>
+                <p class="centrado">
+                    <img src="http://www.theblackandblue.com/wp-content/uploads/2011/05/biggest_myth_hollywood_sign.jpg" style="width: 600px">
+                </p>
+            </article>
+        </slide>
 
         <slide>
         <hgroup>
-			<h2>Avísame de que algo ha ocurrido, ya me preocupa yo por saber qué</h2>
+			<h2>Avísame de que algo ha ocurrido, ya me preocupo yo por saber qué</h2>
         </hgroup>
         <article>
             <p>Ahora pasemos a contestar la pregunta que dejamos pendiente: 
@@ -552,11 +566,76 @@ public class Vuelo extends Observado {
                 lanzan eventos cada vez que el usuario interacciona con ellos, y 
                 como respuesta, los componentes lanzan notificaciones a todos los 
                 clientes que quieran estar informados de lo ocurrido.</p>
+            <p>Los eventos que puede lazar un botón son muchos: se ha hecho click, el cursor del ratón ha entrado en su area, ha salido de su áera, etc. Los clientes se suscriben a los eventos que les interesa.</p>
             <p>Veremos con más detalle este procedimiento en el tema de creación 
                 de interfaces gráficos de usuario.</p>
         </article>
         </slide>
-        
+
+        <!-- Otros ejemplos -->
+        <slide>
+            <hgroup>
+                <h2>Otros ejemplos</h2>
+            </hgroup>
+            <article>
+                <p>Las colas de mensajería (broker) son un otro ejemplo de implementación del patrón de diseño <b>Observer</b>, también llamado Publicación/Subscripción (Publish/Subscribe).</p>
+                <p class="centrado"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/The-amqp-model-for-wikipedia.svg" style="width: 600px"></p>
+                <footer class="source">Fuente: wikipedia.</footer>
+            </article>
+        </slide>
+
+        <!-- Otros ejemplos -->
+        <slide>
+            <hgroup>
+                <h2>Otros ejemplos</h2>
+            </hgroup>
+            <article>
+                <p>Hay clientes del broker que producen mensajes.</p>
+                <p>Hay clientes del broker que consumen mensajes.</p>
+                <p>Cada consumidor dice cual o cuales son sus <b>tópicos</b> de interés cuando se registra en el broker.</p>
+                <p>Cuando un productor envía un mensaje, el broker sabe a qué clientes debe enviarlo.</p>
+                <p>Los productores y consumidores no se conocen entre ellos. Productores y Consumidores están totalmente desacoplados.</p>
+            </article>
+        </slide>
+
+        <!-- Otros ejemplos -->
+        <slide>
+            <hgroup>
+                <h2>Otros ejemplos</h2>
+            </hgroup>
+            <article>
+                <p>Existen protocolos que siguen este patrón de diseño:</p>
+                <ul>
+                    <li>Advanced Message Queuing Protocol (AMQP).</li>
+                    <li>Streaming Text Oriented Messaging Protocol (STOMP).</li>
+                    <li>MQTT (formerly MQ Telemetry Transport)</li>
+                </ul>
+                <p>Varias implementaciones para cada protocolo:</p>
+                <ul>
+                    <li><a href="http://activemq.apache.org/" target="_blank">ActiveMQ: AMQP, STOMP, MQTT.</a></li>
+                    <li><a href="http://www.eclipse.org/paho/" target="_blank">Eclipse Paho: MQTT.</a></li>
+                </ul>
+                <p>Y servicios gratuitos:</p>
+                <ul>
+                    <li><a href="https://pusher.com/" target="_blank">Pusher.</a></li>
+                    <li><a href="https://www.firebase.com/" target="_blank">Firebase, base de datos en la nube con notificaciones.</a></li>
+                </ul>
+            </article>
+        </slide>
+
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>El patrón de diseño Observer desacopla completamente los productores y consumidores de mensajes.</p>
+                <p>Los consumidores se suscriben para recibir notificaciones.</p>
+                <p>Los productores envían notificaciones a los consumidores.</p>
+                <p>El ejemplo típico es la respuesta a los eventos que se producen en una aplicación con interfaz gráfica de usuario.</p>
+            </article>
+        </slide>
+
         <!-- Recursos en Internet -->
         <slide>
         <hgroup>

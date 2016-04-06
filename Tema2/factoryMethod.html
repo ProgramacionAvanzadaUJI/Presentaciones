@@ -104,6 +104,8 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Recapitulemos.</li>
                 <li>Fábrica parametrizada (el mismo perro distinto collar).</li>
                 <li>Definición del patrón de diseño <b>Factory Method</b>.</li>
+                <li>Enumeraciones todo en uno.</li>
+                <li>Resumen.</li>
             </ol>
         </article>
         </slide>
@@ -144,7 +146,7 @@ System.out.println("Soy " + astronauta.getNombre() +
                 entre clases</i>.</p>
             <p>Como también hemos comentado, en la medida de lo posible, 
                 hay que relajar al máximo el acoplamiento entre clases.</p>
-            <p>Veamos cómo hacerlo en el caso de creación de objetos.</p>
+            <p>Veamos cómo hacerlo en el caso de la creación de objetos.</p>
         </article>
         </slide>
 
@@ -674,6 +676,112 @@ private void filtraOpcion(TipoContador tipo) {
                 <li>Conecta jerarquías de clases paralelas.</li>
             </ol>
         </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <p>Quizás, algo que no te guste es tener, por un lado la enumeración, y por otro la propia fábrica.</p>
+                <p>La enumeración está encargada de las opciones de menú, y la fábrica de crear las instancias de las clases.</p>
+                <p>Pero, no tiene sentido una sin la otra.</p>
+                <p>Tratemos de fusionar la fábrica y la enumeración es una enumeración capaz de devolverme instancias de contadores.</p>
+            </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <p>Empecemos por el caso sencillo, la fábrica devuelve objetos sin estado, como en el caso de los contadores. Dicho de otro modo, los objetos no tiene atributos que pueden cambiar con el tiempo, o directamente no tiene atributos.</p>
+                <p>Queremos que cada elemento devuelva un objeto:</p>
+                <ul>
+                    <li>Añadamos un atributo a cada elemento de la enumeración de tipo <b>Contador</b>.</li>
+                    <li>Añadamos un método que devuelve ese atributo.</li>
+                </ul>
+            </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+public enum FabricaEnumeracion {
+    ASCENDETE("Contador ascendente", new Ascendente()),
+    SALIR("Salir", new Salir());
+
+    private String descripcion;
+    private Contador contador;
+
+    private FabricaEnumeracion(String descripcion, Contador contador) {
+        this.descripcion = descripcion;
+        this.contador = contador;
+    }
+
+    public Contador getContador() {
+        return contador;
+    }
+    .....
+}</pre>
+            </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <p>La clase Salir es una clase de comodidad, aquí la tienes:</p>
+                <pre class="prettyprint" data-lang="Java">
+public class Salir implements Contador {
+    @Override
+    public String cuenta() {
+        return "Adios.";
+    }
+}</pre>
+                <p>Y el bucle del programa:</p>
+                <pre class="prettyprint" data-lang="Java">
+FabricaEnumeracion opcion;
+do {
+    menu();
+    opcion = pideOpcion();
+    filtraOpcion(opcion);
+} while(opcion != FabricaEnumeracion.SALIR);</pre>
+            </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <p>Y esto es lo bueno, mira a qué queda reducido el método de filtrado:</p>
+                <pre class="prettyprint" data-lang="Java">
+private void filtraOpcion(FabricaEnumeracion tipo) {
+    System.out.println(tipo.getContador().cuenta());
+}</pre>
+                <p>Sí, el switch ha desaparecido, recuerda que las enumeraciones nos servían para hacer desaparecer los switch.</p>
+            </article>
+        </slide>
+
+        <!--  Enumeraciones todo en uno -->
+        <slide>
+            <hgroup>
+                <h2>Enumeraciones todo en uno</h2>
+            </hgroup>
+            <article>
+                <p>¿Y si las clases que devuelve la enumeración tienen estado y la fábrica debe devolver un nuevo objeto cada vez que se solicita?</p>
+                <p>Bonito ejercicio ;)</p>
+            </article>
         </slide>
 
         <!-- Recursos en Internet -->

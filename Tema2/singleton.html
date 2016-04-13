@@ -101,6 +101,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Prueba con el bloque sincronizado.</li>
                 <li>Definición del patrón de diseño <b>Singleton</b>.</li>
                 <li>Ejemplos de uso de <b>Singleton</b>.</li>
+                <li>Resumen.</li>
             </ol>
         </article>
         </slide>
@@ -172,8 +173,8 @@ class Conexion {
         <article>
             <p>Los objetivos son:</p>
             <ol>
-                <li>Prohibir que se pueden crear instancias de una clase con <b>new</b>.</li>
-                <li>Que la clase mantenga una única instancia de si misma.</li>
+                <li>Prohibir que se puedan crear instancias de una clase con <b>new</b>.</li>
+                <li>Que la clase «Única» mantenga una única instancia de si misma.</li>
                 <li>Ofrecer la posibilidad de obtener esa referencia, que es única,
                     a todos los clientes de la clase.</li>
             </ol>
@@ -192,7 +193,7 @@ class Conexion {
             <p><b>Ocultando mis constructores.</b></p>
 <pre class="prettyprint" data-lang="Java">
 public class Singleton {
-    private Singleton() {
+    <b>private</b> Singleton() {
         super();
     }
     ...
@@ -210,7 +211,7 @@ public class Singleton {
             <p><b>En una referencia (estática)</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Singleton {
-    private static Singleton instancia = null;
+    <b>private static Singleton instancia = null;</b>
 
     private Singleton() {
         super();
@@ -237,7 +238,7 @@ public class Singleton {
         super();
     }
 
-    public static Singleton getInstance() {
+    <b>public static Singleton getInstance() {</b>
         if(instancia == null)
             instancia = new Singleton();
         return instancia;
@@ -255,13 +256,13 @@ public class Singleton {
             <p>Aquí tienes una clase que sólo se puede instanciar una vez:</p>
 <pre class="prettyprint" data-lang="Java">
 public class Singleton {
-    private static Singleton instancia = null;
+    <b>private static Singleton instancia = null;</b>
 
-    private Singleton() {
+    <b>private</b> Singleton() {
         super();
     }
 
-    public static Singleton getInstance() {
+    <b>public static Singleton getInstance() {</b>
         if(instancia == null)
             instancia = new Singleton();
         return instancia;
@@ -399,7 +400,7 @@ public synchronized static SingletonConcurrente getInstance() {
                 poder ejecutarlo.</p>
             <p>Todo objeto tiene un cerrojo, es una propiedad nativa en Java.</p>
             <p>Si el hilo obtiene el cerrojo, puede ejecutar el método, 
-                sino, tiene que esperar a que el hilo que lo tiene en posesión 
+                si no, tiene que esperar a que el hilo que lo tiene en posesión
                 lo libere.</p> 
         </article>
         </slide>
@@ -619,6 +620,18 @@ public static SingletonConcurrenteMejorado getInstance() {
         </article>
         </slide>
 
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>El patrón de diseño <b>Sigleton</b> nos sirve para controlar el número de instancias que se crean de una determinada clase.</p>
+                <p>Pertenece a la familia de patrones de diseño de creación.</p>
+                <p>De nuevo, lo que hemos encapsulado dentro de la clase <b>Singleton</b> es el control de la creación de instancias.</p>
+            </article>
+        </slide>
+
         <!-- Recursos en Internet -->
         <slide>
         <hgroup>
@@ -627,6 +640,8 @@ public static SingletonConcurrenteMejorado getInstance() {
         <article>
             <p><a href="http://es.wikipedia.org/wiki/Singleton">Wikipedia</a>.</p>
             <p><a href="http://c2.com/cgi/wiki?SingletonPattern">The Gang of Four</a>.</p>
+            <p><a href="https://sourcemaking.com/design_patterns/singleton">SourceMaking: Singleton Design Pattern.</a></p>
+            <p><a href="https://github.com/ProgramacionAvanzadaUJI/Singleton">Implementación en Github.</a></p>
         </article>
         </slide>
                                 

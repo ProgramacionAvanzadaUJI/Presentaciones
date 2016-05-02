@@ -101,6 +101,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>El modelo de eventos de Swing.</li>
                 <li>Cómo responder a los eventos.</li>
                 <li>Un poco más de Java: clases internas.</li>
+                <li>Resumen.</li>
             </ol>
         </article>
         </slide>
@@ -267,8 +268,8 @@ ventana.setVisible(true);
             <ol>
                 <li>Decide qué componente, o contenedor, quieres utilizar en la 
                     interface gráfica.</li>
-                <li>Busca los escuchadores que se le pueden registrar.</li>
-                <li>De entre todos los escuchadores, elige el, o los, que te interese.</li>
+                <li>Busca los eventos y escuchadores que se le pueden registrar.</li>
+                <li>De entre todos, elige el, o los, que te interese.</li>
                 <li>Escribe una clase que implemente los escuchadores que has elegido 
                     -recuerda, esto implica que tu clase implemente algunas <b>interface</b>-</li>
                 <li>Tu código de respuesta lo escribirás al definir los métodos que 
@@ -290,7 +291,7 @@ ventana.setVisible(true);
             <p><strong>1.</strong> Decide qué componente, o contenedor, quieres utilizar en la 
                     interface gráfica.</p>
             <p>Nuestro contenedor, en este caso, es <b>JFrame</b>.</p>
-            <p><strong>2.</strong> Busca los escuchadores que se le pueden registrar.</p>
+            <p><strong>2.</strong> Busca los eventos y escuchadores que se le pueden registrar.</p>
         </article>
         </slide>
                 
@@ -310,7 +311,7 @@ ventana.setVisible(true);
 			<h2>Cómo responder a los eventos</h2>
         </hgroup>
         <article>
-            <p><strong>3.</strong> De entre todos los escuchadores, elige el, o los, que te interese.</p>
+            <p><strong>3.</strong> De entre todos, elige el, o los, que te interese.</p>
             <p>En este caso sólo tenemos uno (<b>WindowListener</b>). Leemos la documentación y 
                 confirmamos que es lo que necesitamos.</p>
         </article>
@@ -867,8 +868,22 @@ SwingUtilities.invokeLater(new Runnable() {
             </ul>
         </article>
         </slide>
-        
-        <!-- Enlaces web -->
+
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>El modelo de programación Swing se basa en el patrón de diseño Observador/Observable.</p>
+                <p>Cada componente de Swing puede lazar eventos de uno o más tipos.</p>
+                <p>Las clases observadoras o escuchadoras deben implementar el <b>interface</b> adecuado para ser notificadas cuando el usuario interacciona con la interfaz gráfica.</p>
+                <p>Se debe registrar un instancia de la clase escuhadora al componente de interés.</p>
+            </article>
+        </slide>
+
+
+            <!-- Enlaces web -->
 		<slide>
         <hgroup>
 			<h2>Enlaces web</h2>

@@ -51,18 +51,18 @@ URL: https://code.google.com/p/io-2012-slides
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-        
+
         <!-- Introducción -->
         <slide>
         <hgroup>
 			<h2>Introducción</h2>
         </hgroup>
 		<article>
-            <p>Asegurar la calidad del software es un requerimiento 
+            <p>Asegurar la calidad del software es un requerimiento
                 transversal en todo proyecto de desarrollo.</p>
-            <p>La calidad del software se comprueba mediante la realización 
+            <p>La calidad del software se comprueba mediante la realización
                 de pruebas sobre este.</p>
-            <p>En esta primera práctica veremos el primer paso hacia la 
+            <p>En esta primera práctica veremos el primer paso hacia la
                 calidad del software: las pruebas unitarias.</p>
             <p>Pero antes de ello, vamos a ver una herramienta para la construcción de proyectos en Java muy potente llamada <a href="https://maven.apache.org/" target="_blank">Maven</a>.</p>
         </article>
@@ -106,6 +106,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Definir una prueba con la etiqueta @Test</li>
                 <li>Otras etiquetas de JUnit.</li>
                 <li>La biblioteca <b>hamcrest</b>.</li>
+                <li>Pruebas parametrizadas.</li>
                 <li>Suites de pruebas.</li>
                 <li>Un par de plug-ins muy útiles.</li>
             </ol>
@@ -195,13 +196,13 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>¿Qué son las pruebas unitarias?</h2>
         </hgroup>
 		<article>
-            <p>Las pruebas unitarias pretenden probar el comportamiento correcto 
+            <p>Las pruebas unitarias pretenden probar el comportamiento correcto
                 de las clases de manera aislada.</p>
-            <p>Esto significa que se prueba la clase aislándola de su interacción 
+            <p>Esto significa que se prueba la clase aislándola de su interacción
                 con otras clases.</p>
         </article>
         </slide>
-        
+
         <!-- Principios FIRST para la escritura de pruebas unitarias -->
         <slide>
         <hgroup>
@@ -209,41 +210,41 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
 		<article>
             <p><b>F</b>: Fast, los test se han de ejecutar rápidamente.</p>
-            <p><b>I</b>: Isolated, los test se realizan sobre una clase sin 
+            <p><b>I</b>: Isolated, los test se realizan sobre una clase sin
                 interacción con otras.</p>
-            <p><b>R</b>: Repeatable, el orden de ejecución de los test no 
+            <p><b>R</b>: Repeatable, el orden de ejecución de los test no
                 debe influir en el resultado final.</p>
-            <p><b>S</b>: Self-validating, los test se han de ejecutar de modo 
+            <p><b>S</b>: Self-validating, los test se han de ejecutar de modo
                 automático.</p>
-            <p><b>T</b>: Timely, se han de crear al mismo tiempo que el software 
+            <p><b>T</b>: Timely, se han de crear al mismo tiempo que el software
                 que se está creando.</p>
         </article>
         </slide>
-        
+
         <!-- El framework JUnit -->
         <slide>
         <hgroup>
 			<h2>El framework JUnit</h2>
         </hgroup>
 		<article>
-            <p>Existen frameworks para realizar pruebas unitarias para prácticamente 
+            <p>Existen frameworks para realizar pruebas unitarias para prácticamente
                 cualquier lenguaje de programación.</p>
             <p>En el caso de Java podemos incluso elegir entre varias opciones.</p>
             <p>Una de ellas es JUnit, puede que la más consolidada.</p>
-            <p><a href="http://www.junit.org/">JUnit</a> este es el enlace a la 
+            <p><a href="http://www.junit.org/">JUnit</a> este es el enlace a la
                 página principal de este framework.</p>
         </article>
         </slide>
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <slide>
         <hgroup>
 			<h2>Crear pruebas unitarias en Eclipse</h2>
         </hgroup>
 		<article>
-            <p>Lo primero que hay que saber es que JUnit ya está integrado 
-                en Eclipse. Cuando te descargas Eclipse también te estás 
-                descargando JUnit y los plug-ins de Eclipse para el trabajo 
+            <p>Lo primero que hay que saber es que JUnit ya está integrado
+                en Eclipse. Cuando te descargas Eclipse también te estás
+                descargando JUnit y los plug-ins de Eclipse para el trabajo
                 con este framework.</p>
             <p>No obstante, nosotros vamos a utilizar <b>Maven</b> para añadir la biblioteca <b>Junit</b>.</p>
             <!--<p>Es una buena práctica, crear paquetes que contengan a las -->
@@ -293,7 +294,7 @@ URL: https://code.google.com/p/io-2012-slides
         </pre>
                 </article>
             </slide>
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <slide>
             <hgroup>
@@ -344,14 +345,14 @@ public class Aritmetica {
     private float ultimoResultado;
     public float suma(float primerSumando, float segundoSumando) {
         return ultimoResultado = primerSumando + segundoSumando;
-    }    
+    }
     public float resta(float minuendo, float sustraendo) {
         return ultimoResultado = minuendo - sustraendo;
     }
-    public float multiplicacion(float primerFactor, 
+    public float multiplicacion(float primerFactor,
         float segundoFactor) {
         return ultimoResultado = primerFactor * segundoFactor;
-    }    
+    }
     public float division(float dividendo, float divisor) {
         return ultimoResultado = dividendo / divisor;
     }
@@ -361,21 +362,21 @@ public class Aritmetica {
 }</pre>
         </article>
         </slide>
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <slide>
         <hgroup>
 			<h2>Crear pruebas unitarias en Eclipse</h2>
         </hgroup>
 		<article>
-            <p>Haz click con el botón derecho del ratón sobre el paquete donde 
+            <p>Haz click con el botón derecho del ratón sobre el paquete donde
                 quieres añadir la nueva clase de prueba.</p>
-            <p>En el menú emergente selecciona  <i>New &rarr; JUnit Test Case</i> 
+            <p>En el menú emergente selecciona  <i>New &rarr; JUnit Test Case</i>
                 se abrirá una ventana como la siguiente.</p>
              <p class="centrado"><img src='imagenes/creacionTestCase.png' style='height: 370px'></p>
         </article>
         </slide>
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <slide>
         <hgroup>
@@ -389,7 +390,7 @@ public class Aritmetica {
             </p>
         </article>
         </slide>
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <!--<slide>-->
         <!--<hgroup>-->
@@ -402,7 +403,7 @@ public class Aritmetica {
             <!--</p>-->
         <!--</article>-->
         <!--</slide>-->
-        
+
         <!-- Crear pruebas unitarias en Eclipse -->
         <slide>
         <hgroup>
@@ -431,7 +432,7 @@ public class AritmeticaTest {
 }</pre>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -449,7 +450,7 @@ public void testSuma() {
             <p>Escribamos el código de prueba.</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -464,13 +465,13 @@ public void testSuma() {
 }</pre>
             <ol>
                 <li>Creamos una instancia de la clase.</li>
-                <li>assertEquals(valorEsperado, valorReal, error) compara el 
+                <li>assertEquals(valorEsperado, valorReal, error) compara el
                     valor esperado con el real dentro de un error.</li>
                 <li>Ejecutamos el test.</li>
             </ol>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -483,7 +484,7 @@ public void testSuma() {
             <p>El primer test pasa, los otros tres no.</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -509,7 +510,7 @@ public void testDivision() {
 }</pre>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -523,7 +524,7 @@ public void testDivision() {
             <p>¿Existe redundancia en el código de los test?</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -543,17 +544,17 @@ public void testDivision() {
 			<h2>La etiqueta @Before</h2>
         </hgroup>
 		<article>
-            <p>Fíjate, que para cada test hemos tenido que crear una 
+            <p>Fíjate, que para cada test hemos tenido que crear una
                 instancia de la clase <b>Aritmetica</b>.</p>
-            <p>Sería muy útil poder indicar que un método se ejecuta 
-                repetidamente antes de cualquier test, y en él crear 
+            <p>Sería muy útil poder indicar que un método se ejecuta
+                repetidamente antes de cualquier test, y en él crear
                 las infraestructuras que necesitamos.</p>
-            <p>Eso es precisamente lo que nos proporciona la etiqueta 
-                <b>@Before</b>, marca un método que se ejecuta siempre antes 
+            <p>Eso es precisamente lo que nos proporciona la etiqueta
+                <b>@Before</b>, marca un método que se ejecuta siempre antes
                 que cualquier test</p>
         </article>
         </slide>
-    
+
         <!-- La etiqueta @Before -->
         <slide>
         <hgroup>
@@ -580,25 +581,25 @@ public class AritmeticaTest {
             <p>Podemos marcar con <b>@Before</b> más de un método.</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @After -->
         <slide>
         <hgroup>
 			<h2>La etiqueta @After</h2>
         </hgroup>
 		<article>
-            <p>De igual modo, la etiqueta <b>@After</b> nos premite realizar 
-                tareas de <i>limpieza</i> después de realizar cada uno 
+            <p>De igual modo, la etiqueta <b>@After</b> nos premite realizar
+                tareas de <i>limpieza</i> después de realizar cada uno
                 de los test.</p>
 <pre class="prettyprint" data-lang="Java">
 public class AritmeticaTest {
     private Aritmetica aritmetica;
-    
+
     @Before
     public void init() {
         aritmetica = new Aritmetica();
     }
-    
+
     @After
     public void finish() {
         aritmetica = null;
@@ -608,24 +609,24 @@ public class AritmeticaTest {
         </article>
         </slide>
 
-        
+
         <!-- La etiqueta @BeforeClass -->
         <slide>
         <hgroup>
 			<h2>La etiqueta @BeforeClass</h2>
         </hgroup>
 		<article>
-            <p>Antes de mostrar cómo se usa la etiqueta <b>@BeforeClass</b> cambiemos la 
+            <p>Antes de mostrar cómo se usa la etiqueta <b>@BeforeClass</b> cambiemos la
                 definición de la clase <b>Aritmética</b>:</p>
 <pre class="prettyprint" data-lang="Java">
-public class Aritmetica {    
+public class Aritmetica {
     public float suma(float primerSumando, float segundoSumando) {
         return primerSumando + segundoSumando;
     }
     public float resta(float minuendo, float sustraendo) {
         return minuendo - sustraendo;
     }
-    public float multiplicacion(float primerFactor, 
+    public float multiplicacion(float primerFactor,
         float segundoFactor) {
         return primerFactor * segundoFactor;
     }
@@ -643,7 +644,7 @@ public class Aritmetica {
 			<h2>La etiqueta @BeforeClass</h2>
         </hgroup>
 		<article>
-            <p>¿Cuál es la principal diferencia de este versión de la clase 
+            <p>¿Cuál es la principal diferencia de este versión de la clase
                 <b>Aritmética</b> con respecto de la anterior?</p>
             <p><div class="build">
                 <p>No tiene estado (atributos).</p>
@@ -652,26 +653,26 @@ public class Aritmetica {
             </div><p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @BeforeClass -->
         <slide>
         <hgroup>
 			<h2>La etiqueta @BeforeClass</h2>
         </hgroup>
 		<article>
-            <p>En los test anteriores, el método marcado con <b>@Before</b> 
-                se ejecuta antes que cualquier método marcado con <b>@Test</b>, 
+            <p>En los test anteriores, el método marcado con <b>@Before</b>
+                se ejecuta antes que cualquier método marcado con <b>@Test</b>,
                 pero fíjate que ahora la clase <b>Aritmetica</b> no tiene estado,
                 hemos eliminado su único atributo <b>ultimaResultado</b>.</p>
-            <p>Para clases sin estado, es interesante crear una única instancia,  
+            <p>Para clases sin estado, es interesante crear una única instancia,
                 y sólo una, antes de que se ejecute cualquier test.</p>
-            <p>Esto es precisamente lo que podemos hacer con la etiqueta 
-                <b>@BeforeClass</b>, el método que se marque con esta etiqueta 
-                se ejecutará <b>una única vez</b> antes que cualquier método 
+            <p>Esto es precisamente lo que podemos hacer con la etiqueta
+                <b>@BeforeClass</b>, el método que se marque con esta etiqueta
+                se ejecutará <b>una única vez</b> antes que cualquier método
                 de prueba.</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @BeforeClass -->
         <slide>
         <hgroup>
@@ -681,32 +682,32 @@ public class Aritmetica {
 <pre class="prettyprint" data-lang="Java">
 public class AritmeticaTest {
     private static Aritmetica aritmetica;
-    
+
     @BeforeClass
     public static void init() {
         aritmetica = new Aritmetica();
     }
     ...
 </pre>
-            <p>Fíjate que estamos obligados a que el método marcado con 
-                <b>@BeforeClass</b> sea estático, y por lo tanto el atributo 
+            <p>Fíjate que estamos obligados a que el método marcado con
+                <b>@BeforeClass</b> sea estático, y por lo tanto el atributo
                     al que accede también debe serlo.</p>
         </article>
         </slide>
-        
+
         <!-- La etiqueta @AfterClass -->
         <slide>
         <hgroup>
 			<h2>La etiqueta @AfterClass</h2>
         </hgroup>
 		<article>
-            <p>De igual modo podemos usar la etiqueta <b>@AfterClass</b> para 
-                marcar un método de limpieza que se ejecute <b>solo una vez</b> 
+            <p>De igual modo podemos usar la etiqueta <b>@AfterClass</b> para
+                marcar un método de limpieza que se ejecute <b>solo una vez</b>
                 después de todos los métodos de test.</p>
 <pre class="prettyprint" data-lang="Java">
 public class AritmeticaTest {
     private static Aritmetica aritmetica;
-    
+
     @BeforeClass
     public static void init() {
         aritmetica = new Aritmetica();
@@ -716,7 +717,7 @@ public class AritmeticaTest {
         aritmetica = null;
     }...
 </pre>
-            <p>Observa que el método marcado con <b>@AfterClass</b> 
+            <p>Observa que el método marcado con <b>@AfterClass</b>
                 también debe ser <b>static</b>.</p>
         </article>
         </slide>
@@ -727,21 +728,21 @@ public class AritmeticaTest {
 			<h2>Cuando utilizar @Before/@After y cuando @BeforeClass/@AfterClass</h2>
         </hgroup>
 		<article>
-            <p>Los test deben ser independientes, si la clase tiene estado, debemos 
+            <p>Los test deben ser independientes, si la clase tiene estado, debemos
                 garantizar que su estado no influya en la ejecución de test diferentes
                 (<b>Isolation</b>), utilizaremos <b>@Before/@After</b>.</p>
-            <p>Si la clase no tiene estado, con una instáncia única es suficiente, 
+            <p>Si la clase no tiene estado, con una instáncia única es suficiente,
                 y en este caso utilizaremos <b>@BeforeClass/@AfterClass</b>.</p>
         </article>
         </slide>
-                        
+
         <!-- La biblioteca hamcrest -->
         <slide>
         <hgroup>
 			<h2>La biblioteca hamcrest</h2>
         </hgroup>
 		<article>
-            <p>La biblioteca <b>hamcrest</b> nos permite escribir test 
+            <p>La biblioteca <b>hamcrest</b> nos permite escribir test
                 con mayor expresividad.</p>
             <pre class="prettyprint" data-lang="Java">
 @Test
@@ -749,58 +750,169 @@ public void testSuma() {
     assertThat(aritmetica, notNullValue());
     assertThat(aritmetica.suma(2, 3), is(5.0f));
 //  assertEquals(2, aritmetica.suma(1, 1), 0);</pre>
-            <p>Observa el uso del método <b>assertThat(valorReal, matcherValorEsperado)</b> 
-                y la posibilidad de utilizar los métodos <b>notNullValue()</b> e 
+            <p>Observa el uso del método <b>assertThat(valorReal, matcherValorEsperado)</b>
+                y la posibilidad de utilizar los métodos <b>notNullValue()</b> e
                 <b>is()</b>. De este modo, los test son mucho más legibles.</p>
         </article>
         </slide>
-        
-        
+
+        <!-- Pruebas parametrizadas -->
+        <slide>
+        <hgroup>
+			<h2>Pruebas parametrizadas</h2>
+        </hgroup>
+		      <article>
+            <p>
+              Si queremos probar un mismo métodos con varios casos de entrada, por ejemplo el método de resta para varias parejas (minuendo, sustraendo), es tedioso tener una prueba diferente para cada caso.
+            </p>
+            <p>
+              <strong>JUnit</strong> nos proporciona un método para escribir pruebas parametrizadas en las que podemos definir cuantos caso de prueba queramos para un mismo método. Veamos como hacerlo.
+            </p>
+          </article>
+        </slide>
+
+        <!-- Pruebas parametrizadas -->
+        <slide>
+        <hgroup>
+			<h2>Pruebas parametrizadas</h2>
+        </hgroup>
+		      <article>
+            <p>
+              Primero creamos una nueva clase de Prueba y le añadimos la anotación <strong>@RunWith(Parameterized.class)</strong>
+            </p>
+            <pre class="prettyprint" data-lang="Java">
+@RunWith(Parameterized.class)
+public class AritmeticaRestaParametrizadaTest {
+...
+}
+            </pre>
+          </article>
+        </slide>
+
+        <!-- Pruebas parametrizadas -->
+        <slide>
+        <hgroup>
+			<h2>Pruebas parametrizadas</h2>
+        </hgroup>
+		      <article>
+            <p>
+              Ahora creamos tres atributos en la clase, uno para el minuendo, otro para el sustraendo y el último para el resultado. Además creamos un constructor que reciba estos tres parámetros como argumento:
+            </p>
+            <pre class="prettyprint" data-lang="Java">
+@RunWith(Parameterized.class)
+public class AritmeticaRestaParametrizadaTest {
+    private static Aritmetica aritmetica;
+    private float minuendo;
+    private float sustraendo;
+    private float resultado;
+
+    public AritmeticaRestaParametrizadaTest(float minuendo, float sustraendo,
+     float resultado) {
+        this.minuendo = minuendo;
+        this.sustraendo = sustraendo;
+        this.resultado = resultado;
+    }
+...
+}
+            </pre>
+          </article>
+        </slide>
+
+        <!-- Pruebas parametrizadas -->
+        <slide>
+        <hgroup>
+			<h2>Pruebas parametrizadas</h2>
+        </hgroup>
+		      <article>
+            <p>
+              Ahora creamos un método que devolverá, como una <strong>Collection</strong> las tuplas de nuestra prueba. Fíjate que lo marcamos con la anotación <strong>Parameters</strong>:
+            </p>
+            <pre class="prettyprint" data-lang="Java">
+@Parameters
+public static Collection<Object[]> parametros() {
+    return Arrays.asList(new Object[][]{
+            {1, 1, 0},
+            {2, 1, 1},
+            {1, 2, -1},
+            {1001, 1, 1000}
+    });
+}
+            </pre>
+          </article>
+        </slide>
+
+        <!-- Pruebas parametrizadas -->
+        <slide>
+        <hgroup>
+			<h2>Pruebas parametrizadas</h2>
+        </hgroup>
+		      <article>
+            <p>
+              Ahora sólo nos queda crear una instancia de la clase <strong>Aritmetica</strong>, y un único método de prueba:
+            </p>
+            <pre class="prettyprint" data-lang="Java">
+@BeforeClass
+public static void setUp() {
+    aritmetica = new Aritmetica();
+}
+
+@Test
+public void restasTest() {
+    assertThat(aritmetica.resta(minuendo, sustraendo), is(resultado));
+}
+            </pre>
+            <p>
+              Cuando ejecutes la clase de prueba verás que el método de prueba se llamará una vez por cada caso definido en el método marcado con la anotación <strong>@Parameters</strong>.
+            </p>
+          </article>
+        </slide>
+
+
         <!-- Las suites de pruebas -->
         <slide>
         <hgroup>
 			<h2>Las suites de pruebas</h2>
         </hgroup>
 		<article>
-            <p>Usualmente, en nuestros proyectos tendremos una gran cantidad 
-                de clases de prueba. Tener que lanzar cada una de ellas de manera 
+            <p>Usualmente, en nuestros proyectos tendremos una gran cantidad
+                de clases de prueba. Tener que lanzar cada una de ellas de manera
                 individual es tedioso.</p>
-            <p>JUnit nos permite lanzar todas las clases de prueba creando una 
-                <b>Test Suite</b> donde especificaremos todas las clases de 
+            <p>JUnit nos permite lanzar todas las clases de prueba creando una
+                <b>Test Suite</b> donde especificaremos todas las clases de
                 prueba que queremos lanzar, una tras otra.</p>
-            <p>Veamos cómo crear una <i>Suite</i> aunque en el ejemplo sólo 
+            <p>Veamos cómo crear una <i>Suite</i> aunque en el ejemplo sólo
                 tenemos una clase de prueba.</p>
         </article>
         </slide>
-        
+
         <!-- Las suites de pruebas -->
         <slide>
         <hgroup>
 			<h2>Las suites de pruebas</h2>
         </hgroup>
 		<article>
-            <p>Para crear una <b>Test Suite</b> selecciona el paquete donde la 
-                quieres crear pulsado el botón derecho de tu ratón, luego 
-                <i>New &rarr; Other...</i> despliega la sección Java y 
+            <p>Para crear una <b>Test Suite</b> selecciona el paquete donde la
+                quieres crear pulsado el botón derecho de tu ratón, luego
+                <i>New &rarr; Other...</i> despliega la sección Java y
                 se abrirá la siguiente ventana.</p>
             <p class="centrado"><img src='imagenes/testSuite.png' style='height: 330px'></p>
             <p>Selecciona <b>JUnit Test Suite</b> y pulsa <i>Next</i>.</p>
         </article>
         </slide>
-        
+
         <!-- Las suites de pruebas -->
         <slide>
         <hgroup>
 			<h2>Las suites de pruebas</h2>
         </hgroup>
 		<article>
-            <p>En la siguiente ventana verás todas las clases de prueba que se 
-                añaden automáticamente a la <b>Suite</b>, si necesitas alguna más 
+            <p>En la siguiente ventana verás todas las clases de prueba que se
+                añaden automáticamente a la <b>Suite</b>, si necesitas alguna más
                 añádela y pulsa <i>Finish</i>.</p>
                 <p class="centrado"><img src='imagenes/testSuite2.png' style='height: 400px'></p>
         </article>
         </slide>
-        
+
         <!-- Las suites de pruebas -->
         <slide>
         <hgroup>
@@ -815,119 +927,119 @@ public class AllTests {
 
 }
 </pre>
-            <p>En la anotación <b>@SuiteClasses</b> tienes un array con todas 
+            <p>En la anotación <b>@SuiteClasses</b> tienes un array con todas
                 las clases que forman la <b>Suite</b>.</p>
-            <p>La <b>Suite</b> se ejecuta en Eclipse como cualquier clase 
-                de pruebas.</p> 
+            <p>La <b>Suite</b> se ejecuta en Eclipse como cualquier clase
+                de pruebas.</p>
         </article>
         </slide>
-        
+
         <!-- El plug-in infinitest -->
         <slide>
         <hgroup>
 			<h2>El plug-in infinitest</h2>
         </hgroup>
 		<article>
-            <p>Como ya sabes, Eclipse es un fantástico IDE para el desarrrollo 
-                en Java. Una de las valiosas posibilidades de Eclipse es que 
+            <p>Como ya sabes, Eclipse es un fantástico IDE para el desarrrollo
+                en Java. Una de las valiosas posibilidades de Eclipse es que
                 podemos extender su funcionalidad añadiendo nuevos plug-ins.</p>
-            <p>Existe una enorme cantidad de plug-ins, en esta práctica vamos 
+            <p>Existe una enorme cantidad de plug-ins, en esta práctica vamos
                 a ver algunos muy útiles relacionados con las pruebas unitarias.</p>
             <p>El primero de ellos es <a href='http://infinitest.github.com'>
                 infinitest</a>.</p>
         </article>
         </slide>
-        
+
         <!-- El plug-in infinitest -->
         <slide>
         <hgroup>
 			<h2>El plug-in infinitest</h2>
         </hgroup>
 		<article>
-            <p>El proceso de instalación del plug-in es muy 
-                sencillo. Selecciona del menú la opción <i>Help &rarr; Install 
+            <p>El proceso de instalación del plug-in es muy
+                sencillo. Selecciona del menú la opción <i>Help &rarr; Install
                 New Software...</i> se abrirá la siguiente ventana:</p>
-            <p class="centrado"><img src='imagenes/instalarPluginInfinitest.png' style='width: 400px'></p> 
+            <p class="centrado"><img src='imagenes/instalarPluginInfinitest.png' style='width: 400px'></p>
         </article>
         </slide>
-        
+
         <!-- El plug-in infinitest -->
         <slide>
         <hgroup>
 			<h2>El plug-in infinitest</h2>
         </hgroup>
 		<article>
-            <p>Copia desde la página de infinitest la url que se indica y pégala 
+            <p>Copia desde la página de infinitest la url que se indica y pégala
                 en el campo <i>Work with</i> la ventana se actualizará así:</p>
             <p class="centrado"><img src='imagenes/instalarPluginInfinitest2.png' style='width: 400px'></p>
             <p>Pulsa <i>Next</i> y sigue con los siguientes pasos de la instalación.</p>
         </article>
         </slide>
-        
+
         <!-- El plug-in infinitest -->
         <slide>
         <hgroup>
 			<h2>El plug-in infinitest</h2>
         </hgroup>
 		<article>
-            <p>A partir de ahora verás en la ventana de Eclipse, abajo a la derecha, el resultado 
-                de la última ejecución de los test. Los test serán ejecutados cada vez que cambies 
+            <p>A partir de ahora verás en la ventana de Eclipse, abajo a la derecha, el resultado
+                de la última ejecución de los test. Los test serán ejecutados cada vez que cambies
                 bien el código de producción o bien el código de los test.</p>
-            <p>La ejecución automática de los test se puede desactivar desde la opción de menú 
+            <p>La ejecución automática de los test se puede desactivar desde la opción de menú
                 <i>Window &rarr; Preferences &rarr; Infinitest &rarr; Continously Test.</i>
         </article>
         </slide>
-            
+
         <!-- El plug-in Ecl-Emma y la cobertura de los test -->
         <slide>
         <hgroup>
 			<h2>El plug-in Ecl-Emma</h2>
         </hgroup>
 		<article>
-            <p>Cuando realizamos test, resulta valioso saber cuántas líneas 
-                de nuestro código de producción se han ejecutado. A esta 
-                magnitud se le llama cobertura de los test. Cuanto mayor sea 
-                la cobertura de nuestros test mayor número de problemas 
+            <p>Cuando realizamos test, resulta valioso saber cuántas líneas
+                de nuestro código de producción se han ejecutado. A esta
+                magnitud se le llama cobertura de los test. Cuanto mayor sea
+                la cobertura de nuestros test mayor número de problemas
                 descubriremos.</p>
-            <p>Esto no implica que tener una cobertura del 100% de nuestro 
-                código signifique que está libre de errores, ya que puede que 
-                haya casos que generen un error y no tenemos un test que 
+            <p>Esto no implica que tener una cobertura del 100% de nuestro
+                código signifique que está libre de errores, ya que puede que
+                haya casos que generen un error y no tenemos un test que
                 ejecute ese caso.</p>
         </article>
         </slide>
-        
+
         <!-- El plug-in Ecl-Emma y la cobertura de los test -->
         <slide>
         <hgroup>
 			<h2>El plug-in Ecl-Emma</h2>
         </hgroup>
 		<article>
-            <p>El plug-in para Eclipse <a href=http://www.eclemma.org>Ecl-Emma</a> 
+            <p>El plug-in para Eclipse <a href=http://www.eclemma.org>Ecl-Emma</a>
                 es excelente para esto.</p>
-            <p>Puedes instalarlo como un plug-in de Eclipse utilizando 
+            <p>Puedes instalarlo como un plug-in de Eclipse utilizando
                 esta url <i>update.eclemma.org</i></p>
-            <p>Al acabar la instalación y reiniciar Eclipse, verás un nuevo botón 
+            <p>Al acabar la instalación y reiniciar Eclipse, verás un nuevo botón
                 en el grupo de botones de ejecución:</p>
             <p class="centrado"> <img src='imagenes/botonEclemma.png'> </p>
-            <p>El primer botón de este grupo lanza el cálculo de cobertura 
+            <p>El primer botón de este grupo lanza el cálculo de cobertura
                 de los test.</p>
         </article>
         </slide>
-        
+
         <!-- El plug-in Ecl-Emma y la cobertura de los test -->
         <slide>
         <hgroup>
 			<h2>El plug-in Ecl-Emma</h2>
         </hgroup>
 		<article>
-                <p>Para ejecutar el cálculo de cobertura, abre una clase de test 
-                    y pulsa el primer botón de este grupo, 
-                    el resultado será parecido al de 
+                <p>Para ejecutar el cálculo de cobertura, abre una clase de test
+                    y pulsa el primer botón de este grupo,
+                    el resultado será parecido al de
                     la siguiente imagen.</p>
                 <p class="centrado"> <img src='imagenes/ejecucionEclemma.png'> </p>
         </article>
         </slide>
-        
+
         <!-- El plug-in Ecl-Emma y la cobertura de los test -->
         <slide>
         <hgroup>
@@ -936,53 +1048,53 @@ public class AllTests {
 		<article>
             <p>Verás que aparece un código de color para cada línea:</p>
             <ul>
-                <li>Si la línea tiene fondo verde es que ha sido cubierta 
+                <li>Si la línea tiene fondo verde es que ha sido cubierta
                     totalmente por los test.</li>
-                <li>Si la línea tiene fondo amarillo es que ha sido cubierta 
-                    parcialmente, por ejemplo en el caso de un <b>if</b> se 
-                    ha probado para el caso en que la expresión booleana se evalúa a  
-                    <b>true</b> pero no para el caso en que se evalúa a 
+                <li>Si la línea tiene fondo amarillo es que ha sido cubierta
+                    parcialmente, por ejemplo en el caso de un <b>if</b> se
+                    ha probado para el caso en que la expresión booleana se evalúa a
+                    <b>true</b> pero no para el caso en que se evalúa a
                     <b>false</b>.</li>
-                <li>Si la línea tiene fondo rojo es que no ha sido cubierta por 
+                <li>Si la línea tiene fondo rojo es que no ha sido cubierta por
                     los test.</li>
             </ul>
         </article>
         </slide>
-        
+
         <!-- El plug-in Ecl-Emma y la cobertura de los test -->
         <slide>
         <hgroup>
 			<h2>El plug-in Ecl-Emma</h2>
         </hgroup>
 		<article>
-            <p>Además, en la <i>Vista Coverage</i> verás un detalle en 
-                porcentajes de la cobertura de los test para todas las 
-                clases de tu proyecto, tal y como muestra la siguiente 
+            <p>Además, en la <i>Vista Coverage</i> verás un detalle en
+                porcentajes de la cobertura de los test para todas las
+                clases de tu proyecto, tal y como muestra la siguiente
                 figura:</p>
-            <p class="centrado"> <img src='imagenes/ejecucionEclemma2.png' 
-                style='width: 800px'> </p> 
+            <p class="centrado"> <img src='imagenes/ejecucionEclemma2.png'
+                style='width: 800px'> </p>
         </article>
         </slide>
-        
+
         <!-- Resumen -->
         <slide>
         <hgroup>
 			<h2>Resumen</h2>
         </hgroup>
 		<article>
-            <p>En esta práctica introductoria, hemos querido hacer patente 
+            <p>En esta práctica introductoria, hemos querido hacer patente
                 la importancia de la calidad del código.</p>
-            <p>Un mecanismo útil para asegurar la calidad del código es 
+            <p>Un mecanismo útil para asegurar la calidad del código es
                 realizar pruebas sobre él.</p>
-            <p><b>JUnit</b> es un excelente framework de pruebas unitarias 
-                que está integrado en Eclipse y facilita enormemente la 
+            <p><b>JUnit</b> es un excelente framework de pruebas unitarias
+                que está integrado en Eclipse y facilita enormemente la
                 escritura de clases de prueba.</p>
-            <p>Finalmente hemos visto un par de <i>plug-ins</i> para Eclipse 
-                que nos ayudan aún más en la tarea de realizar pruebas unitarias 
+            <p>Finalmente hemos visto un par de <i>plug-ins</i> para Eclipse
+                que nos ayudan aún más en la tarea de realizar pruebas unitarias
                 sobre nuestro código y obtener resultados de ellas.</p>
         </article>
         </slide>
-        
+
         <!-- Donde seguir aprendiendo -->
         <slide>
         <hgroup>
@@ -990,18 +1102,18 @@ public class AllTests {
         </hgroup>
 		<article>
             <ul>
-                <li>El libro <i>Clean code</i> de <b>Robert C. Martin</b> es una 
+                <li>El libro <i>Clean code</i> de <b>Robert C. Martin</b> es una
                     excelente referencia sobre cómo escribir buen código.</li>
                 <li><a href='http://weblogs.javahispano.org/artesanodeprimera/entry/cleancode'>
-                    Este enlace</a> al blog de <i>Alfredo Casado</i> es un resumen personal del 
+                    Este enlace</a> al blog de <i>Alfredo Casado</i> es un resumen personal del
                     libro anterior.</li>
-                <li>La página web de <i>JUnit</i> es referencia imprescindible 
+                <li>La página web de <i>JUnit</i> es referencia imprescindible
                     sobre este framework.</li>
             </ul>
         </article>
         </slide>
-        
-		<slide class="backdrop"></slide>   
+
+		<slide class="backdrop"></slide>
 
     </slides>
 <script>

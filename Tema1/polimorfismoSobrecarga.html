@@ -236,10 +236,8 @@ class Ejemplo {
 public void metodo() {...} //Lista de argumentos vacía
 public void metodo(int entero) {...} //Un atributo de tipo entero
 public void metodo(float real) {...} //Un atributo de tipo float
-public void metodo(int entero, float real) {...} //Dos atributos,
-												 //el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos,
-												 //el primero float</pre>
+public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
 			<p>El compilador distingue todos los métodos anteriores.</p>
 			<p>Veamos algunos ejemplos de uso de estos métodos.</p>
 		</article>
@@ -277,10 +275,8 @@ metodo(1.0f, 1); //Se llama al método con un real y un float</pre>
 public void metodo() {...} //Lista de argumentos vacía
 public void metodo(int entero) {...} //Un atributo de tipo entero
 public void metodo(float real) {...} //Un atributo de tipo float
-public void metodo(int entero, float real) {...} //Dos atributos,
-												 //el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos,
-												 //el primero float</pre>
+public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
 			<p>¿A qué método se llamará en el siguiente caso?</p>
 			<pre class="prettyprint" data-lang="Java">
 metodo(1, 1);</pre>
@@ -302,10 +298,9 @@ metodo(1, 1);</pre>
 			<p>Tenemos una ambigüedad no podemos decidir a cual de los siguientes
 			métodos se llamará.</p>
 			<pre class="prettyprint" data-lang="Java">
-public void metodo(int entero, float real) {...} //Dos atributos,
-												 //el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos,
-												 //el primero float</pre>
+
+public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
 			<p><b>Nota: </b>Recuerda las reglas de promoción de tipos.</p>
 		</article>
         </slide>
@@ -388,8 +383,119 @@ class Ejemplo {
             <p><b class="green">No abuses de la sobrecarga.</b></p>
             <p>La sobrecarga es una herramienta, pero por disponer de ella
                 no la debes usar sin justificación.</p>
+                <p>
+                  Sobrecarga los métodos sólo cuando lo necesites.
+                </p>
+                <p>
+                  Antes de sobrecargar un método pregúntate si hay otra manera de conseguir lo mismo.
+                </p>
         </article>
         </slide>
+
+        <!-- Recomendación -->
+        <slide>
+          <hgroup>
+            <h2>Recomendación</h2>
+          </hgroup>
+          <article>
+            <pre class="prettyprint" data-lang="Java">
+class Perona {
+  private String nombre;
+  private String apellidos;
+  private String nif;
+
+  public Persona() { // Constructor por defecto
+    super();
+  }
+
+  public Persona(String nombre) {
+    super();
+    this.nombre = nombre;
+  }
+
+  public Persona(String nombre, String apellidos) {
+    super();
+    this.nombre = nombre;
+    this.apellidos = apellidos;
+  }
+...
+            </pre>
+          </article>
+        </slide>
+
+        <!-- Recomendación -->
+        <slide>
+          <hgroup>
+            <h2>Recomendación</h2>
+          </hgroup>
+          <article>
+            <pre class="prettyprint" data-lang="Java">
+    public Persona(String nombre, String apellidos, String nif) {
+      super();
+      this.nombre = nombre;
+      this.apellidos = apellidos;
+      this.nif = nif;
+    }
+  }
+            </pre>
+          </article>
+        </slide>
+
+            <!-- Recomendación -->
+            <slide>
+              <hgroup>
+                <h2>Recomendación</h2>
+              </hgroup>
+              <article>
+            <p>
+              ¿Y el constructor cuando sólo tenemos el nombre y el nif, pero no los apellidos?
+            </p>
+            <pre class="prettyprint" data-lang="Java" data-trim>
+    public Persona(String nombre, String nif) {
+      super();
+      this.nombre = nombre;
+      this.nif = nif;
+    }
+</pre>
+            <p>
+              Uff! entra en colisión con el constructor:
+            </p>
+            <pre class="prettyprint" data-lang="Java" data-trim>
+    public Persona(String nombre, String apellidos) {
+      super();
+      this.nombre = nombre;
+      this.apellidos = apellidos;
+    }
+</pre>
+          </article>
+        </slide>
+
+        <!-- Recomendación -->
+        <slide>
+          <hgroup>
+            <h2>Recomendación</h2>
+          </hgroup>
+          <article>
+            <p>
+              Lo más aconsejado es definir únicamente el constructor por defecto y el que recibe todos los atributos de la clase:
+            </p>
+            <pre class="prettyprint" data-lang="Java" data-trim>
+public class Persona {
+  ....
+  public Persona() { // Constructor por defecto
+    super();
+  }
+  public Persona(String nombre, String apellidos, String nif) {
+    super();
+    this.nombre = nombre;
+    this.apellidos = apellidos;
+    this.nif = nif;
+  }
+}
+</pre>
+          </article>
+        </slide>
+
 
         <!-- Resumen -->
                 <slide>

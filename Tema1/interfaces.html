@@ -1221,7 +1221,7 @@ public interface HaceAlgoMas extends HaceAlgo {
  				nuevos métodos a interfaces nos lo resuelve
  				una nueva característica de Java 8: los métodos
 				<b>default</b>.
-			<p>Los métodos <b>default</b> de las interfaces se preceden con la palabra
+			<p>Los métodos <b>default</b> de las interfaces van precedidos por la palabra
 				<b>default</b> e incluyen la implementación del método,
  				que heredan las clases que implementen el <b>interface</b>.</p>
 			<p>Estas clases que implementan la interfaz pueden, si es necesario,
@@ -1247,6 +1247,9 @@ public interface HaceAlgo {
     }
 }
 </pre>
+<p>
+  <b>Advertencia</b>: no utilices métodos <b>default</b> en tus aplicaciones, a no ser que tengas problemas de compatibilidad en tu API.
+</p>
 		</article>
 		</slide>
 
@@ -1288,7 +1291,6 @@ public interface HaceAlgo {
 		<article>
 <pre class="prettyprint" data-lang="Java">
 public interface HaceAlgo {
-    ....
     static void hazAlgoNuevo(double x) {
         System.out.println("Valor de x: " + x);
     }
@@ -1303,6 +1305,9 @@ public class Principal {
     }
 }
 </pre>
+<p>
+  <b>Advertencia</b>: evita los métodos static en tus propios <b>interface</b>. Hay que pensar mucho cuando utilizar métodos <b>static</b> en general.
+</p>
 		</article>
 		</slide>
 

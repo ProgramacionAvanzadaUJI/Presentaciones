@@ -59,7 +59,7 @@ URL: https://code.google.com/p/io-2012-slides
 		<article>
             <p>Muchas veces nos encontramos con que, para resolver un problema,
                 disponemos de clases que nos ofrecen una funcionalidad muy
-                cercana a la que necesitamos pero, carecen de cierta funcionalidad
+                cercana a la que necesitamos pero, carecen de cierta otra funcionalidad
                 que nos interesa.</p>
             <p>Una posible solución es escribir una nueva clase desde cero con
                 toda la funcionalidad de la primera más la nueva funcionalidad
@@ -186,7 +186,7 @@ public class Punto3D {
     ...
 }</pre>
             <p>En este caso concreto, decimos que <b>Punto2D</b> es la clase
-                <span class="green"><b>padre o clase base</b></span> y que
+                <span class="green"><b>madre o clase base</b></span> y que
                 <b>Punto3D</b> es la
                 <span class="green"><b>clase hija</b></span>.</p>
             <p>Fíjate que Java nos proporciona la palabra reservada
@@ -217,15 +217,18 @@ public class Punto3D {
 		<article>
       <p>Lo primero que debes saber es que en Java sólo existe la
           <i>Herencia simple</i>, una clase no puede extender a
-          más de una clase padre.</p>
+          más de una clase madre.</p>
       <p>¿Cuantos métodos tiene la clase hija?<p>
       <p>Los que en ella se definen más <b>los que son accesibles en
-          la clase padre</b>.</p>
-      <p>¿Qué métodos de la clase padre son accesibles desde la clase hija?</p>
-      <p>Los <b>public</b> y <b>protected</b> del padre, y si padre e hija están
+          la clase madre</b>.</p>
+      <p>¿Qué métodos de la clase madre son accesibles desde la clase hija?</p>
+      <p>Los <b>public</b> y <b>protected</b> de la madre, y si madre e hija están
           definidas en el mismo paquete también los del paquete.</p>
       <p class='green'>Los miembros <b>private</b> sólo son accesibles
           en la clase que los define.</p>
+          <p>
+            Ya veremos más sobre los modificadores de acceso.
+          </p>
     </article>
   </slide>
 
@@ -267,7 +270,7 @@ public String getDescripcion() {
             <p>Detalles:</p>
             <ul>
 	            <li>Fíjate que como los atributos <b>x</b> e <b>y</b> son
-	                <b>private</b> en la clase padre, no podemos acceder a ellos
+	                <b>private</b> en la clase madre, no podemos acceder a ellos
 	                directamente, tenemos que utilizar los <i>getters</i>.</li>
 	            <li>Utilizamos la anotación <b>@Override</b> para asegurarnos
 	                que estamos sobrescribiendo correctamente el método.</li>
@@ -292,7 +295,7 @@ Punto3D p3d = new Punto3D(1, 2, 3);
 System.out.println(p3d.getDescripcion());
 // Muestra 1.0, 2.0, 3.0</pre>
             <p>El mismo método, definido con distinta implementación en
-                una clase padre y su hija.</p>
+                una clase madre y su hija.</p>
         		        </article>
         </slide>
 
@@ -363,7 +366,7 @@ public String getDescripcion() {
     return getX() + ", " + getY() + ", " + z;
 }</pre>
             <p>La herencia me promete que puedo aprovechar al máximo los
-                métodos ya definidos en la clase padre. Debe haber un mejor
+                métodos ya definidos en la clase madre. Debe haber un mejor
                 modo de escribir este código.</p>
         		        </article>
         </slide>
@@ -376,11 +379,11 @@ public String getDescripcion() {
 			<h2>La palabra reservada super</h2>
         </hgroup>
 		<article>
-            <p>Que una clase hija sobrescriba un método de la clase padre
-                no quiere decir que <i>borre</i> el método de la clase padre,
+            <p>Que una clase hija sobrescriba un método de la clase madre
+                no quiere decir que <i>borre</i> el método de la clase madre,
                 simplemente lo <span class='green'><b>oculta</b></span>.</p>
             <p>Desde una clase hija podemos acceder a los métodos
-                de la clase padre a través de la palabra reservada
+                de la clase madre a través de la palabra reservada
                 <b>super</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 // En la clase Punto2D
@@ -404,13 +407,13 @@ public String getDescripcion() {
         </hgroup>
 		<article>
             <p>La palabra reservada <b>super</b> es una referencia a la clase
-                padre de igual modo que <b>this</b> es una referencia a la
+                madre de igual modo que <b>this</b> es una referencia a la
                 propia clase.</p>
             <p>Hay veces en las que me interesa reescribir un método por
                 completo en la clase hija.</p>
             <p>Pero hay otras veces que lo que nos interesa es
                 <i>aprovechar</i> la implementación que ya nos da la clase
-                padre.</p>
+                madre.</p>
         		        </article>
         </slide>
 
@@ -449,7 +452,7 @@ public Punto3D(double x, double y, double z) {
         </hgroup>
 		<article>
             <p>Cuando se crea un objeto de una clase hija, se debe incluir
-                la funcionalidad de la clase padre.</p>
+                la funcionalidad de la clase madre.</p>
             <!-- <p>Hagamos esta modificación en las clases <b>Punto2D</b> y
                 <b>Punto3D</b> para ver como se construye un objeto de una
                 clase hija.</p> -->
@@ -459,7 +462,7 @@ public Punto2D() {
 }
 ...
 public Punto3D() {
-    //debe iniciar la funcionalidad de la clase padre, ¿cómo?
+    //debe iniciar la funcionalidad de la clase madre, ¿cómo?
     System.out.println("Constructor por defecto clase Punto3D");
 }
 ...
@@ -480,7 +483,7 @@ Punto3D p = new Punto3D();
 		<article>
             <p>Aunque no escribamos explícitamente, cuando se crea un objeto de la clase
                 <b>Punto3D</b> se llama <b>por defecto</b> al constructor
-                sin argumentos de la clase padre <b>Punto2D</b>.</p>
+                sin argumentos de la clase madre <b>Punto2D</b>.</p>
             <p>Por eso, al constructor sin argumentos se le llama
                 <span class='green'><b>constructor por defecto</b></span>.</p>
             <p>Un detalle importante es que, si cuando definimos una clase
@@ -505,15 +508,15 @@ Punto3D p = new Punto3D();
                 <span class='green'><b>construtor por defecto</b></span>.</p>
             <p>Observa este sencillo ejemplo:</p>
 <pre class="prettyprint" data-lang="Java">
-public class Padre {
+public class Madre {
     private int valor;
 
-    public Padre(int valor) {
+    public madre(int valor) {
         this.valor = valor;
     }
 }
 
-public class Hija extends Padre {
+public class Hija extends Madre {
 }</pre>
             <p>Tan poco código y esconde un error.</p>
         		        </article>
@@ -532,12 +535,12 @@ public class Hija extends Padre {
             <p>Regla a seguir: <span class='green'><b>Si desde un constructor de
                 una clase hija no tienes otro
                 constructor mejor al que llamar, llama al menos al
-                constructor por defecto de la clase padre</b></span>.</p>
+                constructor por defecto de la clase madre</b></span>.</p>
         		        </article>
         </slide>
 
 
-        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi padre? -->
+        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
@@ -548,7 +551,7 @@ public class Hija extends Padre {
 public class Punto2D {
     // Aquí la definición de la clase
 }</pre>
-            <p>La clase <b>Punto2D</b> ¿a quien extiende? ¿tiene algún padre?</p>
+            <p>La clase <b>Punto2D</b> ¿a quien extiende? ¿tiene alguna madre?</p>
             <p>Sí, ninguna clase en Java es <i>huérfana</i>. Si explícitamente
                 no se extiende a ninguna clase, implícitamente se extiende a
                 la clase <b>Object</b>, que es la raíz del árbol de jerarquía
@@ -557,7 +560,7 @@ public class Punto2D {
         </slide>
 
 
-        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi padre? -->
+        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
@@ -584,7 +587,7 @@ public class Punto2D {...
         </slide>
 
 
-       <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi padre? -->
+       <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
@@ -619,7 +622,7 @@ System.out.println(p3d);
         </hgroup>
 		<article>
             <p>Existen ocasiones donde no queremos que una clase hija sobrescriba
-                un método de su clase padre.</p>
+                un método de su clase madre.</p>
             <p>Piensa por ejemplo en un método que recibe un valor real entre cero y diez
                 y devuelve una nota como: APROBADO(5-7), NOTABLE(7-9), etcétera.</p>
             <p>Queremos prohibir que una hija  cambien los rangos y haga APROBADO(4-6).
@@ -666,9 +669,9 @@ public class HijaMetodoFinal extends MetodoFinal {
                 a la clase.</p>
             <p>Los métodos estáticos no se pueden sobreescribir, sólo ocultar.</p>
 <pre class="prettyprint" data-lang="Java">
-public class Padre {
+public class Madre {
     public static void estatico() {
-        System.out.println("Estático en el padre.");
+        System.out.println("Estático en el madre.");
     }
 }
 </pre>
@@ -685,7 +688,7 @@ public class Padre {
             <p>Esta clase <b>Hija</b> intenta sobreescribir el
                 método usando la anotación <b>Override</b>.</p>
 <pre class="prettyprint" data-lang="Java">
-public class Hija extends Padre {
+public class Hija extends Madre {
     //@Override // Esto genera un error
     public static void estatico() {
         System.out.println("Estático en la Hija.");
@@ -710,11 +713,11 @@ The method estatico() of type Hija must override or implement a supertype method
                 código?</p>
 <pre class="prettyprint" data-lang="Java">
 Hija.estatico();
-Padre.estatico();
+Madre.estatico();
 </pre>
             <div class="build">
                 <p>Estático en la Hija.</p>
-                <p>Estático en el Padre.</p>
+                <p>Estático en el madre.</p>
             </div>
         </article>
         </slide>
@@ -730,13 +733,13 @@ Padre.estatico();
 <pre class="prettyprint" data-lang="Java">
 Hija hija = new Hija();
 hija.estatico(); // Aquí tenemos un warning.
-Padre padre = hija;
-padre.estatico(); // Aquí tenemos otro warning.
+Madre madre = hija;
+madre.estatico(); // Aquí tenemos otro warning.
 </pre>
             <div class="build">
                 <p>Estático en la Hija.</p>
-                <p>Estático en el Padre.</p>
-            <p>¿Pero el objeto no es de tipo <b>Hija</b>? Si,
+                <p>Estático en el madre.</p>
+            <p>¿Pero el objeto no es de tipo <b>Hija</b>? Sí,
                 pero en el caso de los métodos <b>static</b>
                 lo que manda es el tipo de la referencia.</p>
             <p>De hecho el warning significa que no debes
@@ -760,13 +763,13 @@ padre.estatico(); // Aquí tenemos otro warning.
                 referencia de este tipo.</p>
             <p>¿Podemos asignar a una referencia de tipo <b>Punto2D</b> un
                 objeto de tipo <b>Punto3D</b>?
-            <p>Si: <b class='green'>A una referencia de un tipo
+            <p>Sí: <b class='green'>A una referencia de un tipo
                 le podemos asignar un objeto de cualquiera de sus clases
                 hijas</b>.</p>
             <p>¿Y al revés, a una referencia de tipo hijo le puedo asignar un
-                objeto de clase padre?</p>
+                objeto de clase madre?</p>
             <p>No: <b class='red'>A una referencia de tipo hijo nunca
-                le podemos asignar un objeto de su clase padre</b>.</p>
+                le podemos asignar un objeto de su clase madre</b>.</p>
         		        </article>
         </slide>
 
@@ -936,7 +939,7 @@ Soy un pájaro y hago: Pío-pío</samp>
 		<article>
             <p>Todos los animales tienen el mismo atributo y el mismo método
                 para devolver su valor, podemos llevar los dos a una clase
-                padre <b>Animal</b>.</p>
+                madre <b>Animal</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Animal {
     private String nombre;
@@ -1134,7 +1137,7 @@ System.out.println(animalRuidoso.hazSonido());
         </hgroup>
 		<article>
             <p>Al utilizar <i>Herencia</i> el polimorfismo significa
-                que donde se puede utilizar una clases padre también
+                que donde se puede utilizar una clases madre también
                 se puede utilizar una clase hija.</p>
             <p>Si un método tiene un argumento de tipo una determinada
                 clase, ese método también lo podemos invocar con
@@ -1178,10 +1181,10 @@ System.out.println(p2d);
                 principio de substitución de Liskov</a> nos «obliga» a
                 diseñar nuestras clases de modo que el comportamiento
                 de nuestro software no se modifique, si invocamos un método
-                que admite referencias de una clase padre, o si lo invocamos
+                que admite referencias de una clase madre, o si lo invocamos
                 con referencias de alguna de sus clases hijas. </p>
                 <!--objetos de cualquier clase hija allá donde podamos utilizar objetos de
-                la clase padre.</p>-->
+                la clase madre.</p>-->
         		        </article>
         </slide>
 
@@ -1288,7 +1291,7 @@ public class PersonaIngresosBrutos implements PagadorIngresosBrutos {
         </hgroup>
 		<article>
             <p>Esto te va a sorprender: <span class="green">los <b>interface</b> pueden extender
-                a más de un <b>interface</b> padre.</span></p>
+                a más de un <b>interface</b> madre.</span></p>
             <p>Fíjate que no hay problema, puesto que los <b>interface</b> sólo
                 declaran métodos pero no los definen.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -1296,7 +1299,7 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
     // Aquí la definición de sus propios métodos
 }</pre>
             <p>¿Qué ocurre si tenemos métodos con la misma signatura en los
-                <b>interface</b> padre?</p>
+                <b>interface</b> madre?</p>
             <p>Nada, porque están declarados simplemente. Es como si finalmente
                 se fusionasen en uno solo.</p>
             <p>Recomendación: si te llegase a ocurrir, revisa el nombre de tus
@@ -1557,7 +1560,7 @@ public class EstudianteSolid {
         </hgroup>
 		<article>
             <p><b class="green">Las clases hijas pueden
-                ocupar el lugar de las clases padre sin que el comportamiento
+                ocupar el lugar de las clases madre sin que el comportamiento
                 del software se vea modificado.</b></p>
             <p>Este principio lo que nos dice es que cuando una clase extiende
                 a otra debe ampliar el comportamiento de la clase que extiende,
@@ -1797,7 +1800,7 @@ public class ClaseConNombre implements Pagador{
                 </ul>
               </article>
             </slide>
-            
+
                 <!-- Resumen -->
                     <slide>
                 <hgroup>

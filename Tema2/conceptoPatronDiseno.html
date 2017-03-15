@@ -50,24 +50,24 @@ URL: https://code.google.com/p/io-2012-slides
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-    
+
 		<!-- Introducción -->
 		<slide>
         <hgroup>
 			<h2>Introducción</h2>
         </hgroup>
         <article>
-            <p>En el capítulo de introducción a los patrones de diseño, 
-                vimos que los patrones de diseño son soluciones estándar 
+            <p>En el capítulo de introducción a los patrones de diseño,
+                vimos que los patrones de diseño son soluciones estándar
                 a problemas recurrentes en programación.</p>
-            <p>Este capítulo orientará el uso de patrones de diseño: 
+            <p>Este capítulo orientará el uso de patrones de diseño:
                 como identificarlos y las recomendaciones de uso.</p>
-            <p>También veremos que los patrones de diseño se agrupan en 
-                familias, y agruparemos algunos patrones dentro de su 
+            <p>También veremos que los patrones de diseño se agrupan en
+                familias, y agruparemos algunos patrones dentro de su
                 familia correspondiente.</p>
         </article>
         </slide>
-        
+
         <!-- Bibliografía -->
         		<!-- Introducción -->
 		<slide>
@@ -86,7 +86,7 @@ URL: https://code.google.com/p/io-2012-slides
         </article>
         </slide>
 
-        
+
         <!-- Contenidos -->
 		<slide>
         <hgroup>
@@ -108,29 +108,29 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>¿Qué es un patrón de diseño?</h2>
         </hgroup>
         <article>
-            <p>Un patrón de diseño es una solución bien conocida a un problema 
+            <p>Un patrón de diseño es una solución bien conocida a un problema
                 recurrente en un contexto determinado.</p>
-            <p>En el caso de la POO, la solución al problema se explicita como 
+            <p>En el caso de la POO, la solución al problema se explicita como
                 un conjunto de clases, interfaces y sus relaciones.</p>
         </article>
         </slide>
-        
+
         <!-- ¿Qué es un patrón de diseño? -->
 		<slide>
         <hgroup>
 			<h2>¿Qué es un patrón de diseño?</h2>
         </hgroup>
         <article>
-            <p>Los patrones de diseño, además de proporcionar soluciones a problemas, 
+            <p>Los patrones de diseño, además de proporcionar soluciones a problemas,
                 nos proporcionan, como programadores, un lenguaje común.</p>
-            <p>Por ejemplo, si un compañero me dice que tiene un problema con su 
+            <p>Por ejemplo, si un compañero me dice que tiene un problema con su
                 código porque necesita modificar el comportamiento de algunas de
                 sus clase en tiempo de ejecución, y yo conozco la solución, le
                 puedo decir que eche un vistazo al patrón <b>Strategy</b>.</p>
-            <p> 
+            <p>
         </article>
         </slide>
-        
+
         <!-- ¿Qué es un patrón de diseño? -->
 		<slide>
         <hgroup>
@@ -139,19 +139,19 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>La descripción de un patrón de diseño se hace a través de cuatro elementos fundamentales:</p>
             <ol>
-                <li><b>Su nombre</b>: intenta resumir en pocas palabras la idea del 
+                <li><b>Su nombre</b>: intenta resumir en pocas palabras la idea del
                     problema que pretende resolver y su solución.</li>
-                <li><b>Problema que intenta resolver</b>: expone el problema dentro 
+                <li><b>Problema que intenta resolver</b>: expone el problema dentro
                     del contexto en el que se presenta.</li>
-                <li><b>La solución</b>: las clases, interfaces y las relaciones entre ellos 
+                <li><b>La solución</b>: las clases, interfaces y las relaciones entre ellos
                     que forman la solución.</li>
-                <li><b>Las consecuencias</b>: las ventajas e inconvenientes de aplicar la 
+                <li><b>Las consecuencias</b>: las ventajas e inconvenientes de aplicar la
                     solución.</li>
             </ol>
             <p>Una implementación en algún lenguaje de programación popular también es de ayuda.</p>
         </article>
         </slide>
-        
+
         <!-- ¿Qué es un patrón de diseño? -->
 		<slide>
         <hgroup>
@@ -161,16 +161,16 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Veamos el caso del patrón de diseño <b>Strategy</b>.</p>
             <ol>
                 <li><b>Nombre: Strategy (Estrategia)</b></li>
-                <li><b>Problema que intenta resolver</b>: No tenemos una solución única 
-                    para un problema concreto. Por ejemplo, conocemos varios algoritmos 
-                    de ordenación pero no queremos restringirnos sólo a uno de ellos, 
-                    es más, queremos poder cambiar entre ellos de forma dinámica (en 
+                <li><b>Problema que intenta resolver</b>: No tenemos una solución única
+                    para un problema concreto. Por ejemplo, conocemos varios algoritmos
+                    de ordenación pero no queremos restringirnos sólo a uno de ellos,
+                    es más, queremos poder cambiar entre ellos de forma dinámica (en
                     tiempo de ejecución).
-                </li> 
+                </li>
             </ol>
         </article>
         </slide>
-                
+
         <!-- ¿Qué es un patrón de diseño? -->
 		<slide>
         <hgroup>
@@ -181,13 +181,13 @@ URL: https://code.google.com/p/io-2012-slides
 <!--                 <li><b>La solución</b></li> -->
 <!--             </ol> -->
             <p><b>3. La solución</b></p>
-            <p>Define una familia de algoritmos, encapsula cada uno de ellos 
-                    y los hace intercambiables. Permite que un algoritmo varíe 
+            <p>Define una familia de algoritmos, encapsula cada uno de ellos
+                    y los hace intercambiables. Permite que un algoritmo varíe
                     independientemente de los clientes que lo usan.</p>
             <p class="centrado"><img src="imagenes/strategy.png">
         </article>
         </slide>
-        
+
         <!-- ¿Qué es un patrón de diseño? -->
 		<slide>
         <hgroup>
@@ -205,7 +205,7 @@ URL: https://code.google.com/p/io-2012-slides
                     </ol>
                     <p><b>Desventajas</b></p>
                     <ol>
-                        <li>La decisión del algoritmo a elegir quizás deba 
+                        <li>La decisión del algoritmo a elegir quizás deba
                             basarse en su implementación.</li>
                         <li>Mayor número de objetos en la solución.</li>
                     </ol>
@@ -220,17 +220,17 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Familias de patrones de diseño</h2>
         </hgroup>
         <article>
-            <p>Existe una gran cantidad de patrones de diseño. Algunos de ellos 
-                como <b>Strategy</b> son muy recurrentes, otros no lo son 
+            <p>Existe una gran cantidad de patrones de diseño. Algunos de ellos
+                como <b>Strategy</b> son muy recurrentes, otros no lo son
                 tanto.</p>
-            <p>Para poder trabajar con ellos resulta interesante agruparlos 
-                según su propósito, de ahí nacen las familias de patrones 
+            <p>Para poder trabajar con ellos resulta interesante agruparlos
+                según su propósito, de ahí nacen las familias de patrones
                 de diseño.</p>
-            <p>Existen tres grandes familias de patrones de diseño: <i>De Creación, 
+            <p>Existen tres grandes familias de patrones de diseño: <i>De Creación,
                 Estructurales y De Comportamiento</i>.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -238,12 +238,12 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño de Creación.</b></p>
-            <p>Una paradoja: <b>No uses el operador new para crear instancias 
+            <p>Una paradoja: <b>No uses el operador new para crear instancias
                 de una clase</b>, ¿cómo las obtengo entonces ?</p>
             <p>Con algún patrón de la familia de Creación.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -251,23 +251,23 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño de Creación.</b></p>
-            <p>Un ejemplo: Supón que estás desarrollando una aplicación para 
-                la gestión de clínicas dentales. Los datos de los clientes 
-                están en una base de datos, ¿en cual?, ni idea, puede ser 
-                <i>MySQL</i>, <i>Oracle</i>, <i>PostgreSQL</i>, <i>Access</i>, 
-                etcétera.</p>                
-            <p>Con independencia del gestor, de algún modo obtendré acceso 
+            <p>Un ejemplo: Supón que estás desarrollando una aplicación para
+                la gestión de clínicas dentales. Los datos de los clientes
+                están en una base de datos, ¿en cual?, ni idea, puede ser
+                <i>MySQL</i>, <i>Oracle</i>, <i>PostgreSQL</i>, <i>Access</i>,
+                etcétera.</p>
+            <p>Con independencia del gestor, de algún modo obtendré acceso
                 a la base de datos y podré hacer consultas SQL.</p>
-            <p>Afortunadamente, Java resuelve este problema con la biblioteca 
-                <i>jdbc</i>. Independientemente del gestor, yo le pido a un 
-                <i>Factory</i> que me devuelva una instancia para conectarme 
+            <p>Afortunadamente, Java resuelve este problema con la biblioteca
+                <i>jdbc</i>. Independientemente del gestor, yo le pido a un
+                <i>Factory</i> que me devuelva una instancia para conectarme
                 a la base de datos.</p>
             <p>¿Y si cambia el gestor?</p>
-            <p>Me da igual, quien se tiene que preocupar es <i>Factory</i>, yo sólo 
+            <p>Me da igual, quien se tiene que preocupar es <i>Factory</i>, yo sólo
                 soy su cliente.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -275,16 +275,16 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño Estructurales.</b></p>
-            <p>Permiten <i>componer</i> nuevos objetos a partir de 
-                objetos ya existentes. Es más flexible que la herencia 
+            <p>Permiten <i>componer</i> nuevos objetos a partir de
+                objetos ya existentes. Es más flexible que la herencia
                 y la agregación, ya que puede actuar dinámicamente.</p>
-            <p>Hasta ahora, hemos creado nuevas clases a partir de otras 
+            <p>Hasta ahora, hemos creado nuevas clases a partir de otras
                 existentes utilizando la herencia y la composición.</p>
-            <p>Los patrones de diseño Estructurales nos permiten construir 
+            <p>Los patrones de diseño Estructurales nos permiten construir
                 clases a partir de otras de un modo más flexible.</p>
         </article>
         </slide>
-                
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -292,15 +292,15 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño Estructurales.</b></p>
-            <p>Supón, por ejemplo, que estás desarrollando un interfaz de 
-                usuario. Creas objetos que representan ventanas, botones, 
+            <p>Supón, por ejemplo, que estás desarrollando un interfaz de
+                usuario. Creas objetos que representan ventanas, botones,
                 listas, árboles desplegables etcétera.</p>
-            <p>Ahora tienes la necesidad de añadir barras de desplazamiento 
-                a tus elementos gráficos, para poderlas añadir a una ventana, 
+            <p>Ahora tienes la necesidad de añadir barras de desplazamiento
+                a tus elementos gráficos, para poderlas añadir a una ventana,
                 a una lista, etcétera.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -310,15 +310,15 @@ URL: https://code.google.com/p/io-2012-slides
             <p><b>Familia de patrones de diseño Estructurales.</b></p>
             <p>Se te pueden ocurrir dos soluciones:</p>
             <ol>
-                <li>Utilizar la herencia y extender tus clases añadiendo a las 
+                <li>Utilizar la herencia y extender tus clases añadiendo a las
                     nuevas clases hijas la nueva funcionalidad que necesitas.</li>
-                <li>Crear una nueva clase que posea como atributos la clase <b>Ventana</b> 
+                <li>Crear una nueva clase que posea como atributos la clase <b>Ventana</b>
                     y la clase <b>BarraDeDesplazamiento</b></li>
             </ol>
             <p>Las dos soluciones son válidas, pero poco flexibles.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -326,16 +326,16 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño Estructurales.</b></p>
-            <p>Si eliges la primera solución: ¿Qué ocurre si quieres tener 
+            <p>Si eliges la primera solución: ¿Qué ocurre si quieres tener
                 una ventana con barras de desplazamiento y un título?</p>
-            <p>¿Y si quieres barras de desplazamiento, un título y bordes 
+            <p>¿Y si quieres barras de desplazamiento, un título y bordes
                 circulares?</p>
-            <p>¿Y si quieres barras de desplazamiento, bordes circulares 
+            <p>¿Y si quieres barras de desplazamiento, bordes circulares
                 pero no título?</p>
             <p>Uf!, parece que tengo un explosión de clases.</p>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -343,13 +343,13 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño Estructurales.</b></p>
-            <p>Si optas por la segunda solución, y creas un atributo en la 
+            <p>Si optas por la segunda solución, y creas un atributo en la
                 clase <b>Ventana</b> por cada nueva propiedad que quieras añadir:</p>
             <ol>
-                <li>Si la <b>Ventana</b> sólo tiene barra de desplazamiento, 
+                <li>Si la <b>Ventana</b> sólo tiene barra de desplazamiento,
                     el resto de atributos no estarán iniciados.</li>
-                <li>Cada vez que quieras añadir nuevo comportamiento 
-                    tendrás que modificar (abrir) la clase y hacer los 
+                <li>Cada vez que quieras añadir nuevo comportamiento
+                    tendrás que modificar (abrir) la clase y hacer los
                     cambios.</li>
             </ol>
             <div class="build">
@@ -358,7 +358,7 @@ URL: https://code.google.com/p/io-2012-slides
             </div>
         </article>
         </slide>
-        
+
         <!-- Familias de patrones de diseño -->
 <!-- 		<slide> -->
 <!--         <hgroup> -->
@@ -370,7 +370,7 @@ URL: https://code.google.com/p/io-2012-slides
 <!--                 nos puede ayudar.</p> -->
 <!--         </article> -->
 <!--         </slide> -->
-        
+
         <!-- Familias de patrones de diseño -->
 		<slide>
         <hgroup>
@@ -378,15 +378,15 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p><b>Familia de patrones de diseño de Comportamiento.</b></p>
-            <p>En esta familia encontramos patrones que nos permiten cambiar 
-                dinámicamente el comportamiento de los objetos o las relaciones 
+            <p>En esta familia encontramos patrones que nos permiten cambiar
+                dinámicamente el comportamiento de los objetos o las relaciones
                 entre ellos.</p>
-            <p>El patrón <b>Strategy</b> pertenece a esta familia. Nos permite 
-                cambiar dinámicamente, es decir, en tiempo de ejecución, la 
+            <p>El patrón <b>Strategy</b> pertenece a esta familia. Nos permite
+                cambiar dinámicamente, es decir, en tiempo de ejecución, la
                 implementación de un algoritmo.</p>
         </article>
         </slide>
-                
+
         <!-- Algunos patrones de diseño y sus familias -->
 		<slide>
         <hgroup>
@@ -394,8 +394,10 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article class="smaller">
             <table>
+              <thead>
+                <tr><th></th><th>Creación</th><th>Estructurales</th><th>Comportamiento</th></tr>
+              </thead>
                 <tbody>
-                    <tr><th></th><th>Creación</th><th>Estructurales</th><th>Comportamiento</th></tr>
                     <tr><td rowspan="2">Clase</td><td>Factory Method</td><td>Adapter</td><td>Interpreter</td></tr>
                     <tr><td></td><td></td><td>Template method</td></tr>
                     <tr><td rowspan="10">Objeto</td></tr>
@@ -416,7 +418,7 @@ URL: https://code.google.com/p/io-2012-slides
             </div>
         </article>
         </slide>
-        
+
         <!-- Cómo identificar problemas solubles con un patrón -->
 		<slide>
         <hgroup>
@@ -427,30 +429,30 @@ URL: https://code.google.com/p/io-2012-slides
             <ol>
                 <li>Cada vez que necesito una clase recurro al método <b>new</b>.</li>
                 <li>Estoy programando para un hardware o un API particular.</li>
-                <li>Mi implementación depende de la implementación de otras clases 
+                <li>Mi implementación depende de la implementación de otras clases
                     y no sólo de su interfaz.</li>
                 <li>Quiero utilizar varios algoritmos sin que afecte al diseño.</li>
-                <li>El único modo que he utilizado para añadir funcionalidad a mis 
+                <li>El único modo que he utilizado para añadir funcionalidad a mis
                     clases ha sido la herencia.</li>
-                <li>Una clase de un API no me da la funcionalidad que necesito o su 
-                    interfaz pública no es la que necesito.</li> 
+                <li>Una clase de un API no me da la funcionalidad que necesito o su
+                    interfaz pública no es la que necesito.</li>
             </ol>
         </article>
         </slide>
-        
+
         <!-- Recomendaciones de uso -->
 		<slide>
         <hgroup>
 			<h2>Recomendaciones de uso</h2>
         </hgroup>
         <article>
-            <p>No abuses de los patrones de diseño: no intentes usar un patrón de diseño 
+            <p>No abuses de los patrones de diseño: no intentes usar un patrón de diseño
                 sólo porque lo conoces, te puede complicar más que ayudar.</p>
-            <p>Los patrones de diseño son una <i>plantilla</i> de soluciones, los puedes 
-                usar adaptándolos a tu problema particular. Pero respeta siempre el 
-                concepto sobre el que descansa, si tienes que modificar demasiadas cosas 
-                de un patrón para que se adapte a tu problema, quizás sea mejor no 
-                utilizarlo.</p> 
+            <p>Los patrones de diseño son una <i>plantilla</i> de soluciones, los puedes
+                usar adaptándolos a tu problema particular. Pero respeta siempre el
+                concepto sobre el que descansa, si tienes que modificar demasiadas cosas
+                de un patrón para que se adapte a tu problema, quizás sea mejor no
+                utilizarlo.</p>
         </article>
         </slide>
 
@@ -460,22 +462,22 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Resumen</h2>
         </hgroup>
         <article>
-            <p>Los patrones de diseño son soluciones muy probadas a problemas 
+            <p>Los patrones de diseño son soluciones muy probadas a problemas
                 recurrentes en POO.</p>
-            <p>Existe una gran cantidad de patrones de diseño. Para facilitar 
+            <p>Existe una gran cantidad de patrones de diseño. Para facilitar
                 su uso se agrupan en familias.</p>
-            <p>Cada familia es un ámbito genérico a la solución. Las principales 
+            <p>Cada familia es un ámbito genérico a la solución. Las principales
                 familias son: <i>De Creación, Estructural y De Comportamiento</i>.</p>
-            <p>Cuantos más patrones conozcas, antes resolverás los problemas de 
+            <p>Cuantos más patrones conozcas, antes resolverás los problemas de
                 diseño que pueden aparecer en tu código.</p>
-            <p>No caigas en la tiranía de su uso si no te resuelve ningún problema 
+            <p>No caigas en la tiranía de su uso si no te resuelve ningún problema
                 de diseño. No utilices un patrón sólo porque lo conoces.</p>
         </article>
-        </slide>        
-        
-        <slide class="backdrop"></slide>   
+        </slide>
+
+        <slide class="backdrop"></slide>
 	</slides>
-	
+
 <script>
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);

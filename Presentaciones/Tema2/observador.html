@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 Google IO 2012 HTML5 Slide Template
 
@@ -7,308 +8,287 @@ Authors: Eric Bidelman <ebidel@gmail.com>
 URL: https://code.google.com/p/io-2012-slides
 -->
 
-<!DOCTYPE html>
 <html>
+
 <head>
-<title>Patrón de diseño Observador (Observer)</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-  <!--This one seems to work all the time, but really small on ipad-->
-  <!--<meta name="viewport" content="initial-scale=0.4">-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
-  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
-  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
-<script type="text/javascript">
+    <title>Patrón de diseño Observador (Observer)</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+    <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+    <base target="_blank">
+    <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-28605511-1']);
+        _gaq.push(['_trackPageview']);
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28605511-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </head>
 
 <body style="opacity: 0">
-	<slides>
-      <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
-    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
-    <hgroup class="auto-fadein">
-      <h1 data-config-title>Programación Avanzada</h1>
-      <h2 data-config-subtitle>Patrones de diseño</h2>
-      <h4 data-config-subtitle>Patrón de diseño Observador (Observer)</h4>
-      <p data-config-presenter><!-- populated from slide_config.json --></p>
-    </hgroup>
-  </slide>
-        
+    <slides>
+        <slide class="title-slide segue nobackground">
+            <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+            <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+            <hgroup class="auto-fadein">
+                <h1 data-config-title>Programación Avanzada</h1>
+                <h2 data-config-subtitle>Patrones de diseño</h2>
+                <h4 data-config-subtitle>Patrón de diseño Observador (Observer)</h4>
+                <p data-config-presenter>
+                    <!-- populated from slide_config.json -->
+                </p>
+            </hgroup>
+        </slide>
+
         <!-- Introducción -->
         <slide>
-        <hgroup>
-			<h2>Introducción</h2>
-        </hgroup>
-        <article>
-            <p>Existe multitud de casos (sistemas de monitorización, interacción 
-                con interfaces gráficos de usuario, etc.) donde un objeto cliente necesita 
-                conocer los cambios que se han producido en otro objeto.</p>
-            <p>Una posible solución es que el cliente interrogue, cada cierto tiempo, 
-                si se ha producido algún cambio en su objeto de interés. Pero esta 
-                solución es altamente ineficiente.</p>
-            <p>Una solución mejor es que el objeto de interés envíe una notificación 
-                al objeto observador sólo en el caso en que se produzca un cambio.</p>
-        </article>
+            <hgroup>
+                <h2>Introducción</h2>
+            </hgroup>
+            <article>
+                <p>Existe multitud de casos (sistemas de monitorización, interacción con interfaces gráficos de usuario, etc.) donde un objeto cliente necesita conocer los cambios que se han producido en otro objeto.</p>
+                <p>Una posible solución es que el cliente interrogue, cada cierto tiempo, si se ha producido algún cambio en su objeto de interés. Pero esta solución es altamente ineficiente.</p>
+                <p>Una solución mejor es que el objeto de interés envíe una notificación al objeto observador sólo en el caso en que se produzca un cambio en el primero.</p>
+            </article>
         </slide>
-        
+
         <!-- Bibliografía -->
         <slide>
-        <hgroup>
-			<h2>Bibliografía</h2>
-        </hgroup>
-        <article>
-            <ol>
-                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head%20first%20design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
+            <hgroup>
+                <h2>Bibliografía</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li><a href="http://cataleg.uji.es/search~S1*cat?/Xhead+first+design&searchscope=1&SORT=D/Xhead+first+design&searchscope=1&SORT=D&SUBKEY=head%20first%20design/1%2C2%2C2%2CB/frameset&FF=Xhead+first+design&searchscope=1&SORT=D&1%2C1%2C">
                     Head first design Patterns.</a> Capítulo 2.</li>
-                <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones%20de%20dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
+                    <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones%20de%20dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
                     Patrones de diseño.</a> Capítulo 5.</li>
-                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                    <li><a href="http://www3.uji.es/~belfern/libroJava.pdf">
                     Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 16.</li>
-            </ol>
-            <p><b>Recursos en la web</b></p>
-            <ol>
-                <li><a href="http://c2.com/cgi/wiki?ObserverPattern">
+                </ol>
+                <p><b>Recursos en la web</b></p>
+                <ol>
+                    <li><a href="http://c2.com/cgi/wiki?ObserverPattern">
                     Design Patterns Book.</a></li>
-            </ol>
-        </article>
+                </ol>
+            </article>
         </slide>
-        
+
         <!-- Contenidos -->
         <slide>
-        <hgroup>
-			<h2>Contenidos</h2>
-        </hgroup>
-        <article>
-            <ol>
-                <li>Mi primera vez tomando un avión</li>
-                <li>Algunos ejemplos.</li>
-                <li>Escribamos la aplicación de notificación de vuelos.</li>
-                <li>Definición del patrón de diseño <b>Observador</b>.</li>
-                <li>Ejemplos en el paquete de Java.</li>
-                <li>Otros ejemplos.</li>
-                <li>Resumen.</li>
-                <li>Recursos en Internet.</li>
-            </ol>
-        </article>
+            <hgroup>
+                <h2>Contenidos</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li>Mi primera vez tomando un avión</li>
+                    <li>Algunos ejemplos.</li>
+                    <li>Escribamos la aplicación de notificación de vuelos.</li>
+                    <li>Definición del patrón de diseño <b>Observador</b>.</li>
+                    <li>Ejemplos en el paquete de Java.</li>
+                    <li>Otros ejemplos.</li>
+                    <li>Resumen.</li>
+                    <li>Recursos en Internet.</li>
+                </ol>
+            </article>
         </slide>
 
         <!-- Mi primera vez tomando un avión -->
         <slide>
-        <hgroup>
-			<h2>Mi primera vez tomando un avión</h2>
-        </hgroup>
-        <article>
-            <p>Los hechos descritos es este capítulo son ficción.</p>
-            <p>La primera vez que tuve que coger un vuelo, al llegar al aeropuerto 
-                preguntaba a todo le mundo:</p>
-            <ul>
-                <li>¿Por favor, el vuelo hacia...?</li>
-                <li>Acérquese a su puerta de embarque y allí le dirán.</li>
-                <li>De acuerdo gracias.</li>
-            </ul>
-            <p>Y ya en la puerta de embarque:</p>
-            <ul>
-                <li>Por favor, ¿A qué hora sale el vuelo hacia...?</li>
-                <li>Aún no se conoce la hora.</li>
-                <li>Gracias.</li>
-            </ul>
-        </article>
+            <hgroup>
+                <h2>Mi primera vez tomando un avión</h2>
+            </hgroup>
+            <article>
+                <p>Los hechos descritos es este capítulo son ficción.</p>
+                <p>La primera vez que tuve que coger un vuelo, al llegar al aeropuerto preguntaba a todo le mundo:</p>
+                <ul>
+                    <li>¿Por favor, el vuelo hacia...?</li>
+                    <li>Acérquese a su puerta de embarque y allí le dirán.</li>
+                    <li>De acuerdo gracias.</li>
+                </ul>
+                <p>Y ya en la puerta de embarque:</p>
+                <ul>
+                    <li>Por favor, ¿A qué hora sale el vuelo hacia...?</li>
+                    <li>Aún no se conoce la hora.</li>
+                    <li>Gracias.</li>
+                </ul>
+            </article>
         </slide>
-        
+
         <!-- Mi primera vez tomando un avión -->
         <slide>
-        <hgroup>
-			<h2>Mi primera vez tomando un avión</h2>
-        </hgroup>
-        <article>
-            <p>Y diez minutos más tarde.</p>
-            <ul>
-                <li>¿Se sabe ya cuando saldrá el vuelo hacia...?</li>
-                <li>No, aún no, pero no se preocupe <b>nosotros le avisamos</b>.</li>
-                <li>Ah, gracias.</li>
-            </ul>
-            <p>Unos instantes después:</p>
-            <ul>
-                <li>El vuelo con salida hacia... efectuará su salida...</li>
-            </ul>
-            <p>Bien, pues en eso consiste precisamente el patrón de diseño 
-                <b>Observador</b>, no te preocupes por enterarte de que algo ha ocurrido, 
-                dinos que estás interesado, y cuando ocurra, nosotros te avisamos.</p>
-        </article>
+            <hgroup>
+                <h2>Mi primera vez tomando un avión</h2>
+            </hgroup>
+            <article>
+                <p>Y diez minutos más tarde.</p>
+                <ul>
+                    <li>¿Se sabe ya cuando saldrá el vuelo hacia...?</li>
+                    <li>No, aún no, pero no se preocupe <b>nosotros le avisamos</b>.</li>
+                    <li>Ah, gracias.</li>
+                </ul>
+                <p>Unos instantes después:</p>
+                <ul>
+                    <li>El vuelo con salida hacia... efectuará su salida...</li>
+                </ul>
+                <p>Bien, pues en eso consiste precisamente el patrón de diseño
+                    <b>Observador</b>, no te preocupes por enterarte de que algo ha ocurrido, dinos que estás interesado, y cuando ocurra, nosotros te avisamos.</p>
+            </article>
         </slide>
-        
+
         <!-- Algunos ejemplos -->
         <slide>
-        <hgroup>
-			<h2>Algunos ejemplos</h2>
-        </hgroup>
-        <article>
+            <hgroup>
+                <h2>Algunos ejemplos</h2>
+            </hgroup>
+            <article>
                 <h3>Clientes gráficos</h3>
-            <p>Imagina una aplicación que muestra los datos, en tiempo real,
-                de la cotización de valores en bolsa.</p>
-            <p>El cliente gráfico no interroga continuamente si una 
-                cotización ha variado, sino que, si una cotización varía, 
-                se informa automáticamente al cliente gráfico para que 
-                pueda actualizar su estado.</p>
-            <p>Fíjate que aparece de nuevo la idea de inversión de control, 
-                el inicio de la actividad no parte del cliente si no de 
-                quién proporciona los datos.</p>
-        </article>
+                <p>Imagina una aplicación que muestra los datos, en tiempo real, de la cotización de valores en bolsa.</p>
+                <p>El cliente gráfico no interroga continuamente si una cotización ha variado, sino que, si una cotización varía, se informa automáticamente al cliente gráfico para que pueda actualizar su estado.</p>
+                <p>Fíjate que aparece de nuevo la idea de inversión de control, el inicio de la actividad no parte del cliente si no de quién proporciona los datos.</p>
+            </article>
         </slide>
-        
+
         <!-- Algunos ejemplos -->
         <slide>
-        <hgroup>
-			<h2>Algunos ejemplos</h2>
-        </hgroup>
-        <article>
+            <hgroup>
+                <h2>Algunos ejemplos</h2>
+            </hgroup>
+            <article>
                 <h3>Monitorización</h3>
-            <p>Imagina que estás construyendo un sistema de monitorización 
-                para un horno de cocción de azulejos. Si la temperatura 
-                se eleva por encima de cierto umbral debes disparar una 
-                alarma, hacer una llamada de emergencia y almacenar el 
-                estado actual del sistema.</p>
-            <p>La alarma, el sistema de llamadas y el sistema de 
-                almacenamiento son los clientes que desean ser 
-                informados cuando se produzca la situación anómala: temperatura elevada.</p>
-        </article>
-        </slide>
-        
-        <!-- Escribamos la aplicación de notificación de vuelos -->
-        <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Nuestra aplicación debe funcionar de tal modo que, 
-                cualquier viajero se pueda suscribir a un vuelo 
-                para recibir las notificaciones que se vayan 
-                generando sobre él.</p>
-            <p>Tenemos estas dos condiciones iniciales:</p>
-            <ol>
-                <li>Un viajero sólo se podrá suscribir a las notificaciones 
-                    generadas por un vuelo.</li>
-                <li>Un vuelo puede tener suscritos cero a más viajeros.</li>
-                <li>Cada vez que en un vuelo genere una notificación 
-                    esta ha de llegar a todos los viajeros suscritos.</li>
-            </ol>
-        </article>
+                <p>Imagina que estás construyendo un sistema de monitorización para un horno de cocción de azulejos. Si la temperatura se eleva por encima de cierto umbral debes disparar una alarma, hacer una llamada de emergencia y almacenar el estado actual
+                    del sistema.</p>
+                <p>La alarma, el sistema de llamadas y el sistema de almacenamiento son los clientes que desean ser informados cuando se produzca la situación anómala: temperatura elevada.</p>
+            </article>
         </slide>
 
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Empecemos con los atributos y constructor del <b>Vuelo</b>:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Nuestra aplicación debe funcionar de tal modo que cualquier viajero se pueda suscribir a un vuelo, para recibir las notificaciones que se vayan generando sobre él.</p>
+                <p>Tenemos estas dos condiciones iniciales:</p>
+                <ol>
+                    <li>Un viajero sólo se podrá suscribir a las notificaciones generadas por un vuelo.</li>
+                    <li>Un vuelo puede tener suscritos cero a más viajeros.</li>
+                    <li>Cada vez que en un vuelo genere una notificación esta ha de llegar a todos los viajeros suscritos.</li>
+                </ol>
+            </article>
+        </slide>
+
+        <!-- Escribamos la aplicación de notificación de vuelos -->
+        <slide>
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Empecemos con los atributos y constructor del <b>Vuelo</b>:</p>
+                <pre class="prettyprint" data-lang="Java">
 public class Vuelo {
     private String codigoDestino;
-    private List< Viajero > viajeros;
+    private List&lt;Viajero&gt; viajeros;
     private String ultimoSuceso;
-    
+
     public Vuelo(String codigoDestino) {
         super();
         this.codigoDestino = codigoDestino;
-        viajeros = new ArrayList< Viajero >();
+        viajeros = new ArrayList&lt;Viajero&gt;();
         ultimoSuceso = "";
     }
     ....</pre>
-        </article>
+            </article>
         </slide>
-                
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Ahora los atributos y constructor del <b>Viajero</b>:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Ahora los atributos y constructor del <b>Viajero</b>:</p>
+                <pre class="prettyprint" data-lang="Java">
 public class Viajero {
     private String nombre;
     private Vuelo vuelo;
-    
+
     public Viajero(String nombre, Vuelo vuelo) {
         super();
         this.nombre = nombre;
         this.vuelo = vuelo;
     }
     ...</pre>
-        </article>
+            </article>
         </slide>
-        
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Completemos la implementación de <b>Vuelo</b>.</p>
-            <p>Un <b>Viajero</b> se suscribe a las notificaciones 
-                de un vuelo con:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Completemos la implementación de <b>Vuelo</b>.</p>
+                <p>Un <b>Viajero</b> se suscribe a las notificaciones de un vuelo con:</p>
+                <pre class="prettyprint" data-lang="Java">
 public void suscribirObservador(Viajero viajero) {
     viajeros.add(viajero);
 }
 </pre>
-            <p>Y elimina sus suscripción con:</p>
-<pre class="prettyprint" data-lang="Java">
+                <p>Y elimina sus suscripción con:</p>
+                <pre class="prettyprint" data-lang="Java">
 public void eliminarObservador(Viajero viajero) {
     viajeros.remove(viajero);
 }</pre>
-        </article>
+            </article>
         </slide>
-        
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Cada vez que algo ocurre, hay que notificarlo a todos los 
-                viajeros suscritos:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Cada vez que algo ocurre, hay que notificarlo a todos los viajeros suscritos:</p>
+                <pre class="prettyprint" data-lang="Java">
 public void notificarObservadores() {
     for(Viajero viajero: viajeros)
         viajero.notificar();
 }
 </pre>
-            <p>Antes de pasar adelante, ¿Por qué simplemente notificamos 
-                y no enviamos además lo que ha ocurrido: <b>ultimoSuceso</b>?</p>
-            <p><div class="build">
-                <p>Lo vemos después de acabar la presentación del patrón.</p>
-            </div></p>
-        </article>
+                <p>Antes de pasar adelante, ¿Por qué simplemente notificamos y no enviamos además lo que ha ocurrido: <b>ultimoSuceso</b>?</p>
+                <p>
+                    <div class="build">
+                        <p>Lo vemos después de acabar la presentación del patrón.</p>
+                    </div>
+                </p>
+            </article>
         </slide>
-        
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Completemos la implementación de la clase <b>Vuelo</b> 
-                con un par de métodos de utilidad.</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Completemos la implementación de la clase <b>Vuelo</b> con un par de métodos de utilidad.</p>
+                <pre class="prettyprint" data-lang="Java">
 public String getUltimoSuceso() {
     return codigoDestino + ":" + ultimoSuceso;
 }
@@ -318,35 +298,35 @@ public void setUltimoSuceso(String ultimoSuceso) {
     notificarObservadores();
 }
 </pre>
-            <p>Pasemos a la clase <b>Viajero</b>.
-        </article>
+                <p>Pasemos a la clase <b>Viajero</b>.</p>
+            </article>
         </slide>
 
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>La clase <b>Viajero</b> tiene poco código:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>La clase <b>Viajero</b> tiene poco código:</p>
+                <pre class="prettyprint" data-lang="Java">
 public void notificar() {
-    System.out.println(nombre + "<-- Notificar: " + 
+    System.out.println(nombre + "&lt;-- Notificar: " +
         vuelo.getUltimoSuceso());
 }
 </pre>
-            <p>No necesita nada más.</p>
-        </article>
+                <p>No necesita nada más.</p>
+            </article>
         </slide>
-                
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Antes de hacer alguna mejora probémoslo:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Antes de hacer alguna mejora probémoslo:</p>
+                <pre class="prettyprint" data-lang="Java">
 Vuelo vuelo = new Vuelo("IB123 destino París");
 Viajero oscar = new Viajero("Oscar", vuelo);
 vuelo.suscribirObservador(oscar);
@@ -356,56 +336,53 @@ vuelo.setUltimoSuceso("Llegada del vuelo.");
 vuelo.eliminarObservador(pepe);
 vuelo.setUltimoSuceso("Salida de viajeros");
 </pre>
-        </article>
+            </article>
         </slide>
 
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
 
-<p>Oscar &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
-<p>Pepe &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
-<p>Oscar &larr; Notificar: IB123 destino París:Salida de viajeros</p>
-        </article>
+                <p>Oscar &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
+                <p>Pepe &larr; Notificar: IB123 destino París:Llegada del vuelo.</p>
+                <p>Oscar &larr; Notificar: IB123 destino París:Salida de viajeros</p>
+            </article>
         </slide>
-        
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Objetivo cumplido, pero intentemos mejorar el código, 
-                ya que esta idea parece potente. Aseguremos el método 
-                necesario en la clase <b>Viajero</b> definiendo el siguiente 
-                <b>interface Observador</b>.</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Objetivo cumplido, pero intentemos mejorar el código, ya que esta idea parece potente. Aseguremos que el método <strong>notificar()</strong> lo define la clase <b>Viajero</b> definiendo el siguiente <b>interface Observador</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
 public interface Observador {
     void notificar();
 }</pre>
-            <p>Ahora <b>Viajero</b> quedará como:</p>
-<pre class="prettyprint" data-lang="Java">
+                <p>Ahora <b>Viajero</b> quedará como:</p>
+                <pre class="prettyprint" data-lang="Java">
 public class Viajero implements Observador {
     ...</pre>
-        </article>
+            </article>
         </slide>
-        
+
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>E implementemos la clase que es el <b>Observado</b>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>E implementemos la clase que es el <b>Observado</b></p>
+                <pre class="prettyprint" data-lang="Java">
 public class Observado {
-    private List< Observador > observadores;    
+    private List&lt;Observador&gt; observadores;
     public Observado() {
         super();
-        observadores = new ArrayList< Observador >();
+        observadores = new ArrayList&lt;Observador&gt;();
     }
     public void suscribirObservador(Observador observador) {
         observadores.add(observador);
@@ -417,35 +394,32 @@ public class Observado {
         for(Observador observador: observadores) observador.notificar();
     }
 }</pre>
-        </article>
-        </slide>
-        
-        <!-- Escribamos la aplicación de notificación de vuelos -->
-        <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Fíjate que la clase <b>Observado</b> sólo tiene un cometido: 
-                informar a todos los <b>observadores</b> cada vez que se 
-                produzca un evento.</p>
-            <p>Una única responsabilidad, un único motivo para el cambio.</p>
-            <p>Los detalles particulares los implementarán sus clase hijas, 
-                como por ejemplo <b>Vuelo</b>.</p>
-        </article>
+            </article>
         </slide>
 
         <!-- Escribamos la aplicación de notificación de vuelos -->
         <slide>
-        <hgroup>
-			<h2>Escribamos la aplicación de notificación de vuelos</h2>
-        </hgroup>
-        <article>
-            <p>Para acabar, la clase <b>Vuelo</b> quedará como:</p>
-<pre class="prettyprint" data-lang="Java">
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Fíjate que la clase <b>Observado</b> sólo tiene un cometido: informar a todos los <b>observadores</b> cada vez que se produzca un evento.</p>
+                <p>Una única responsabilidad, un único motivo para el cambio.</p>
+                <p>Los detalles particulares los implementarán sus clase hijas, como por ejemplo <b>Vuelo</b>.</p>
+            </article>
+        </slide>
+
+        <!-- Escribamos la aplicación de notificación de vuelos -->
+        <slide>
+            <hgroup>
+                <h2>Escribamos la aplicación de notificación de vuelos</h2>
+            </hgroup>
+            <article>
+                <p>Para acabar, la clase <b>Vuelo</b> quedará como:</p>
+                <pre class="prettyprint" data-lang="Java">
 public class Vuelo extends Observado {
     private String codigoDestino;
-    private String ultimoSuceso;    
+    private String ultimoSuceso;
     public Vuelo(String codigoDestino) {
         super();
         this.codigoDestino = codigoDestino;
@@ -459,69 +433,63 @@ public class Vuelo extends Observado {
         notificarObservadores();
     }
 }</pre>
-        </article>
+            </article>
         </slide>
-        
+
         <!-- Definición del patrón de diseño Observador -->
         <slide>
-        <hgroup>
-			<h2>Definición del patrón de diseño Observador</h2>
-        </hgroup>
-        <article class="smaller">
-            <q>Define una dependencia de uno a muchos entre objetos,
-                de forma que cuando un objeto cambie de estado 
-                se notifique y se actualicen automáticamente todos los objetos 
+            <hgroup>
+                <h2>Definición del patrón de diseño Observador</h2>
+            </hgroup>
+            <article class="smaller">
+                <q>Define una dependencia de uno a muchos entre objetos,
+                de forma que cuando un objeto cambie de estado
+                se notifique y se actualicen automáticamente todos los objetos
                 que depende de él.</q>
-            <div class="source">
-                Patrones de diseño<br />
-                Erich Gamma et al.
-            </div>
-        </article>
+                <div class="source">
+                    Patrones de diseño<br /> Erich Gamma et al.
+                </div>
+            </article>
         </slide>
 
         <!-- Definición del patrón de diseño Observador -->
         <slide>
-        <hgroup>
-			<h2>Definición del patrón de diseño Observador</h2>
-        </hgroup>
-        <article>
-            <p>Este es el diagrama UML de este patrón:</p>
-            <p class="centrado"><img src="imagenes/observer.png" style="width: 600px"></p>
-        </article>
+            <hgroup>
+                <h2>Definición del patrón de diseño Observador</h2>
+            </hgroup>
+            <article>
+                <p>Este es el diagrama UML de este patrón:</p>
+                <p class="centrado"><img src="imagenes/observer.png" style="width: 600px"></p>
+            </article>
         </slide>
 
         <!-- Definición del patrón de diseño Observador -->
         <slide>
-        <hgroup>
-			<h2>Definición del patrón de diseño Observador</h2>
-        </hgroup>
-        <article>
-            <p>Y esta es el caso particular de nuestro ejemplo:</p>
-            <p class="centrado"><img src="imagenes/observer.aeropuerto.png" style="width: 600px"></p>
-        </article>
+            <hgroup>
+                <h2>Definición del patrón de diseño Observador</h2>
+            </hgroup>
+            <article>
+                <p>Y esta es el caso particular de nuestro ejemplo:</p>
+                <p class="centrado"><img src="imagenes/observer.aeropuerto.png" style="width: 600px"></p>
+            </article>
         </slide>
-                        
+
         <!-- Definición del patrón de diseño Observador -->
         <slide>
-        <hgroup>
-            <h2>Definición del patrón de diseño Observador</h2>
-        </hgroup>
-        <article>
-            <p><b>Ventajas:</b></p>
-            <ol>
-                <li>Acoplamiento abstracto entre <b>Observador</b> y <b>Observado</b>: Lo 
-                    único que conoce el observador de sus clientes observadores es que 
-                    implementan una cierta interfaz.</li>
-                <li>Comunicación mediante difusión: los observadores están <b>suscritos</b>
-                    a eventos, cuando este se produce, la información se difunde entre todos
-                    los observadores.</li>
-            </ol>
-            <p><b>Desventajas:</b></p>
-            <ol>
-                <li>Un aparente cambio inofensivo en el <b>Obervado</b> puede desencadenar una
-                    cascada de notificaciones hacia los <b>Observadores</b>.</li>
-            </ol>
-        </article>
+            <hgroup>
+                <h2>Definición del patrón de diseño Observador</h2>
+            </hgroup>
+            <article>
+                <p><b>Ventajas:</b></p>
+                <ol>
+                    <li>Acoplamiento abstracto entre <b>Observador</b> y <b>Observado</b>: Lo único que conoce el observador de sus clientes observadores es que implementan una cierta interfaz.</li>
+                    <li>Comunicación mediante difusión: los observadores están <b>suscritos</b> a eventos, cuando este se produce, la información se difunde entre todos los observadores.</li>
+                </ol>
+                <p><b>Desventajas:</b></p>
+                <ol>
+                    <li>Un aparente cambio inofensivo en el <b>Obervado</b> puede desencadenar una cascada de notificaciones hacia los <b>Observadores</b>.</li>
+                </ol>
+            </article>
         </slide>
 
         <slide>
@@ -537,39 +505,36 @@ public class Vuelo extends Observado {
         </slide>
 
         <slide>
-        <hgroup>
-			<h2>Avísame de que algo ha ocurrido, ya me preocupo yo por saber qué</h2>
-        </hgroup>
-        <article>
-            <p>Ahora pasemos a contestar la pregunta que dejamos pendiente: 
-                ¿Por qué simplemente notificamos 
-                y no enviamos además lo que ha ocurrido: <b>ultimoSuceso</b>?</p>
-            <p>La primera respuesta, contradictoria, es que sí que lo podíamos
-                haber enviado.</p>
-            <p>La matización es: siempre que sepamos qué es exactamente
-				lo que el cliente espera de nosotros.</p>
-            <p>Pero si no estamos seguros de lo que el cliente espera de 
-                nosotros es mejor que, simplemente, le informemos de que algo 
-                ha ocurrido, y que sea él quien nos pida lo que necesita.</p>
-        </article>
+            <hgroup>
+                <h2>Avísame de que algo ha ocurrido, ya me preocupo yo por saber qué</h2>
+            </hgroup>
+            <article>
+                <p>Ahora pasemos a contestar la pregunta que dejamos pendiente: ¿Por qué simplemente notificamos y no enviamos además lo que ha ocurrido: <b>ultimoSuceso</b>?</p>
+                <p>La primera respuesta, contradictoria, es que sí que lo podíamos haber enviado.</p>
+                <p>La matización es: siempre que sepamos qué es exactamente lo que el cliente espera de nosotros.</p>
+                <p>Pero si no estamos seguros de lo que el cliente espera de nosotros es mejor que, simplemente, le informemos de que algo ha ocurrido, y que sea el cliente quien nos pida lo que necesita.</p>
+            </article>
         </slide>
-        
+
         <!-- Ejemplos en el paquete de Java -->
         <slide>
-        <hgroup>
-			<h2>Ejemplos en el paquete de Java</h2>
-        </hgroup>
-        <article>
-            <p>Los paquetes Java relacionados con la gestión de interfaces gráficos 
-                de usuario están plagados por el uso de este patrón de diseño.</p>
-            <p>La idea básica es que los componentes gráficos, por ejemplo un botón, 
-                lanzan eventos cada vez que el usuario interacciona con ellos, y 
-                como respuesta, los componentes lanzan notificaciones a todos los 
-                clientes que quieran estar informados de lo ocurrido.</p>
-            <p>Los eventos que puede lazar un botón son muchos: se ha hecho click, el cursor del ratón ha entrado en su area, ha salido de su áera, etc. Los clientes se suscriben a los eventos que les interesa.</p>
-            <p>Veremos con más detalle este procedimiento en el tema de creación 
-                de interfaces gráficos de usuario.</p>
-        </article>
+            <hgroup>
+                <h2>Ejemplos en el paquete de Java</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Los paquetes Java relacionados con la gestión de interfaces gráficos de usuario están plagados por el uso de este patrón de diseño.
+                </p>
+                <p>
+                    La idea básica es que los componentes gráficos, por ejemplo un botón, lanzan eventos cada vez que el usuario interacciona con ellos, y estos eventos llegan todos los clientes que quieran estar informados de lo ocurrido.
+                </p>
+                <p>
+                    Los eventos que puede lazar un botón son muchos: se ha hecho click, el cursor del ratón ha entrado en su area, ha salido de su áera, etc. Los clientes se suscriben sólo a los eventos que les interesa.
+                </p>
+                <p>
+                    Veremos con más detalle este procedimiento en el tema de creación de interfaces gráficos de usuario.
+                </p>
+            </article>
         </slide>
 
         <!-- Otros ejemplos -->
@@ -578,8 +543,12 @@ public class Vuelo extends Observado {
                 <h2>Otros ejemplos</h2>
             </hgroup>
             <article>
-                <p>Las colas de mensajería (broker) son un otro ejemplo de implementación del patrón de diseño <b>Observer</b>, también llamado Publicación/Subscripción (Publish/Subscribe).</p>
-                <p class="centrado"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/The-amqp-model-for-wikipedia.svg" style="width: 600px"></p>
+                <p>
+                    Las colas de mensajería (broker) son otro ejemplo de implementación del patrón de diseño <b>Observer</b>, también llamado Publicación/Subscripción (Publish/Subscribe).
+                </p>
+                <p class="centrado">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/The-amqp-model-for-wikipedia.svg" style="width: 600px">
+                </p>
                 <footer class="source">Fuente: wikipedia.</footer>
             </article>
         </slide>
@@ -638,34 +607,38 @@ public class Vuelo extends Observado {
 
         <!-- Recursos en Internet -->
         <slide>
-        <hgroup>
-			<h2>Recursos en Internet</h2>
-        </hgroup>
-        <article>
-            <p><a href="http://es.wikipedia.org/wiki/Observer_(patr%C3%B3n_de_dise%C3%B1o)">Wikipedia.</a></p>
-            <p><a href="http://c2.com/cgi/wiki?ObserverPattern">The Gang of Four</a></p>
-        </article>
+            <hgroup>
+                <h2>Recursos en Internet</h2>
+            </hgroup>
+            <article>
+                <p><a href="http://es.wikipedia.org/wiki/Observer_(patr%C3%B3n_de_dise%C3%B1o)">Wikipedia.</a></p>
+                <p><a href="http://c2.com/cgi/wiki?ObserverPattern">The Gang of Four</a></p>
+            </article>
         </slide>
-        
+
         <slide class="backdrop"></slide>
-           
-	</slides>
-	
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
-_gaq.push(['_trackPageview']);
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
+    </slides>
 
-<!--[if IE]>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    <!--[if IE]>
   <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
   <script>CFInstall.check({mode: 'overlay'});</script>
 <![endif]-->
 </body>
+
 </html>

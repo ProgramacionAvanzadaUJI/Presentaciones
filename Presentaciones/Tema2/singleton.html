@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 Google IO 2012 HTML5 Slide Template
 
@@ -7,7 +8,6 @@ Authors: Eric Bidelman <ebidel@gmail.com>
 URL: https://code.google.com/p/io-2012-slides
 -->
 
-<!DOCTYPE html>
 <html>
 <head>
 <title>Patrón de diseño Único (Singleton)</title>
@@ -60,15 +60,15 @@ URL: https://code.google.com/p/io-2012-slides
             <p>El sistema de ficheros de mi ordenador es único.</p>
             <p>Existe un único gestor de bases de datos para mi aplicación.</p>
             <p>Sólo existe un único dispositivo <i>consola</i>.</p>
-            <p>En los tres casos anteriores debemos <i>garantizar</i> que sólo 
-                existe una instancia del sistema de ficheros, gestor de BBDD o 
-                dispositivo <i>consola</i>. Sea quien sea el cliente, accedera a 
+            <p>En los tres casos anteriores debemos <i>garantizar</i> que sólo
+                existe una instancia del sistema de ficheros, gestor de BBDD o
+                dispositivo <i>consola</i>. Sea quien sea el cliente, accedera a
                 los servicios del proveedor a través de la misma instancia.</p>
-            <p>En estos casos, el patrón de diseño <i>Singleton</i> es de 
-                mucha ayuda.</p> 
+            <p>En estos casos, el patrón de diseño <i>Singleton</i> es de
+                mucha ayuda.</p>
         </article>
         </slide>
-        
+
         <!-- Bibliografía -->
         <slide>
         <hgroup>
@@ -80,12 +80,12 @@ URL: https://code.google.com/p/io-2012-slides
                     Head first design patterns</a> Capítulo 5.</li>
                 <li><a href="http://cataleg.uji.es/search~S1*cat?/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ/Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&extended=0&SUBKEY=patrones+de+dise%C3%B1o/1%2C8%2C8%2CB/frameset&FF=Xpatrones+de+dise{u00F1}o&searchscope=1&SORT=DZ&3%2C3%2C">
                     Patrones de diseño</a> Capítulo 3.</li>
-                <li><a href="http://www3.uji.es/~belfern/docencia.html">
+                <li><a href="http://www3.uji.es/~belfern/libroJava.pdf">
                     Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 16, Sección 5.</li>
             </ol>
         </article>
         </slide>
-        
+
         <!--  Contenidos -->
         <slide>
         <hgroup>
@@ -112,33 +112,33 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>Hasta que hemos empezado a estudiar algunos patrones de diseño, el único mecanismo que hemos utilizado 
-                para obtener una instancia de una determinada clase 
+            <p>Hasta que hemos empezado a estudiar algunos patrones de diseño, el único mecanismo que hemos utilizado
+                para obtener una instancia de una determinada clase
                 es el operador <b>new</b>.</p>
-            <p>Como recordatorio, <b>new</b> crea un nuevo objeto y nos devuelve 
+            <p>Como recordatorio, <b>new</b> crea un nuevo objeto y nos devuelve
                 una referencia a ese objeto.</p>
-            <p>Cada vez que usamos <b>new</b> creamos un nuevo objeto, una 
+            <p>Cada vez que usamos <b>new</b> creamos un nuevo objeto, una
                 nueva instancia.</p>
         </article>
         </slide>
-        
+
         <!--  Controlar la creación de instancias -->
         <slide>
         <hgroup>
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>Como hemos visto en la introducción, hay casos en los que nos 
+            <p>Como hemos visto en la introducción, hay casos en los que nos
                 interesa que una clase sólo se pueda instanciar una única vez.</p>
-            <p>Por ejemplo, una conexión a una base de datos. Establecer una 
-                conexión a una base de datos es una operación costosa, tanto 
+            <p>Por ejemplo, una conexión a una base de datos. Establecer una
+                conexión a una base de datos es una operación costosa, tanto
                 en términos de tiempo, como en términos de recursos.</p>
-            <p>Si cada vez que quiero hacer una consulta a la misma base de datos 
-                establezco una conexión, estoy consumiendo recursos de manera 
+            <p>Si cada vez que quiero hacer una consulta a la misma base de datos
+                establezco una conexión, estoy consumiendo recursos de manera
                 innecesaria.</p>
-            <p>¿Cómo puedo resolverlo? Garantizando, de algún modo, que siempre 
-                trabajo con la misma instancia de la clase que representa una 
-                conexión a la base de datos.</p>  
+            <p>¿Cómo puedo resolverlo? Garantizando, de algún modo, que siempre
+                trabajo con la misma instancia de la clase que representa una
+                conexión a la base de datos.</p>
         </article>
         </slide>
 
@@ -157,14 +157,14 @@ class Cliente {
 
 <pre class="prettyprint" data-lang="Java">
 class Conexion {
-    //1.- La primera vez que me piden una conexión, 
+    //1.- La primera vez que me piden una conexión,
     //    la creo, me la guardo y la devuelvo.
-    //2.- Las siguientes veces, devuelvo la conexión que 
+    //2.- Las siguientes veces, devuelvo la conexión que
     //    tengo guardada.
 }</pre>
         </article>
         </slide>
-        
+
         <!--  Controlar la creación de instancias -->
         <slide>
         <hgroup>
@@ -188,8 +188,8 @@ class Conexion {
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>¿Cómo consigo que nadie pueda crear instancias de mí 
-                misma sin mi control?</p>
+            <p>¿Cómo consigo que nadie pueda crear instancias de mí
+                misma sin mí control?</p>
             <p><b>Ocultando mis constructores.</b></p>
 <pre class="prettyprint" data-lang="Java">
 public class Singleton {
@@ -200,7 +200,7 @@ public class Singleton {
 }</pre>
         </article>
         </slide>
-        
+
         <!--  Controlar la creación de instancias -->
         <slide>
         <hgroup>
@@ -220,14 +220,14 @@ public class Singleton {
 }</pre>
         </article>
         </slide>
-        
+
         <!--  Controlar la creación de instancias -->
         <slide>
         <hgroup>
 			<h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>¿Cómo obtienen mis clases cliente mi única 
+            <p>¿Cómo obtienen mis clases cliente mi única
                 instancia?</p>
              <p><b>Con un método público (y estático)</b>.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -246,7 +246,7 @@ public class Singleton {
 }</pre>
         </article>
         </slide>
-        
+
         <!--  Controlar la creación de instancias -->
         <slide>
         <hgroup>
@@ -271,7 +271,7 @@ public class Singleton {
             <p>Sencillo<span class="build"><span>, quizás demasiado ;)</span></span></p>
         </article>
         </slide>
-        
+
         <!--  Primera prueba de Singleton -->
         <slide>
         <hgroup>
@@ -281,7 +281,7 @@ public class Singleton {
 <pre class="prettyprint" data-lang="Java">
 public class TestSingleton {
     private void ejecuta() {
-        for(int i = 0; i < 100; i++)
+        for(int i = 0; i &lt; 100; i++)
             new Thread(new Hilo()).start();
         Singleton.saludo();
     }
@@ -292,10 +292,10 @@ public class TestSingleton {
         @Override
         public void run() {
             Singleton.getInstance();
-        }       
+        }
     }
 }</pre>
-            <p>Estamos creando 100 hilos que piden la 
+            <p>Estamos creando 100 hilos que piden la
                 instancia.</p>
         </article>
         </slide>
@@ -311,11 +311,11 @@ private class Hilo implements Runnable {
     @Override
     public void run() {
         Singleton.getInstance();
-    }       
+    }
 }</pre>
-            <p>Fíjate que ahora, la clase cliente <b>Hilo</b> no hace 
-                uso de <b>new </b> para obtener una instancia 
-                de <b>Singleton</b>, hace uso de un método 
+            <p>Fíjate que ahora, la clase cliente <b>Hilo</b> no hace
+                uso de <b>new </b> para obtener una instancia
+                de <b>Singleton</b>, hace uso de un método
                 <b>static</b> que le proporciona la instancia.</p>
             <p>Sólo leyendo este código, ¿Por qué sé que el método
                 <b>getInstance()</b> es estático?</p>
@@ -343,19 +343,19 @@ private class Hilo implements Runnable {
             </p>
         </article>
         </slide>
-        
+
         <!--  Primera prueba de Singleton -->
         <slide>
         <hgroup>
 			<h2>Primera prueba de Singleton</h2>
         </hgroup>
         <article>
-            <p>Nuestra solución es buena en ambientes no concurrentes, 
-                pero cuando tenemos muchos clientes que piden 
-                la instancia, como has visto, puede que se 
+            <p>Nuestra solución es buena en ambientes no concurrentes,
+                pero cuando tenemos muchos clientes que piden
+                la instancia, como has visto, puede que se
                 creen, sin control, varias de ellas.</p>
         </article>
-        </slide>        
+        </slide>
 
         <!--  Sincroniza el acceso a los recursos compartidos -->
         <slide>
@@ -363,16 +363,16 @@ private class Hilo implements Runnable {
 			<h2>Sincroniza el acceso a los recursos compartidos</h2>
         </hgroup>
         <article>
-            <p>Afortunadamente, la programación de hilos, y su 
+            <p>Afortunadamente, la programación de hilos, y su
                 sincronización, es nativa en Java.</p>
 <pre class="prettyprint" data-lang="Java">
 public class SingletonConcurrente {
     private static SingletonConcurrente instancia = null;
-    
+
     private SingletonConcurrente() {
         super();
     }
-    
+
     public synchronized static SingletonConcurrente getInstance() {
         if(instancia == null)
             instancia = new SingletonConcurrente();
@@ -394,14 +394,14 @@ public synchronized static SingletonConcurrente getInstance() {
         instancia = new SingletonConcurrente();
     return instancia;
 }</pre>
-            <p>Un hilo que intenta acceder a un método modificado con 
-                <b>synchronize</b> debe obtener primero el cerrojo 
-                del objeto al que pertenece el método antes de 
+            <p>Un hilo que intenta acceder a un método modificado con
+                <b>synchronize</b> debe obtener primero el cerrojo
+                del objeto al que pertenece el método antes de
                 poder ejecutarlo.</p>
             <p>Todo objeto tiene un cerrojo, es una propiedad nativa en Java.</p>
-            <p>Si el hilo obtiene el cerrojo, puede ejecutar el método, 
+            <p>Si el hilo obtiene el cerrojo, puede ejecutar el método,
                 si no, tiene que esperar a que el hilo que lo tiene en posesión
-                lo libere.</p> 
+                lo libere.</p>
         </article>
         </slide>
 
@@ -429,7 +429,7 @@ public synchronized static SingletonConcurrente getInstance() {
             </p>
         </article>
         </slide>
-        
+
         <!--  Sincroniza el acceso a los recursos compartidos -->
         <slide>
         <hgroup>
@@ -442,10 +442,10 @@ public synchronized static SingletonConcurrente getInstance() {
         instancia = new SingletonConcurrente();
     return instancia;
 }</pre>
-            <p>Fíjate que estamos sincronizado todo el método, 
-                pero lo que queremos evitar es que más de un 
+            <p>Fíjate que estamos sincronizado todo el método,
+                pero lo que queremos evitar es que más de un
                 hilo cree la instancia de <b>Singleton</b>.</p>
-            <p>Dicho de otro modo, la única instrucción conflictiva 
+            <p>Dicho de otro modo, la única instrucción conflictiva
                 es la del <b>new</b>. Movamos hasta ella la sincronización.</p>
         </article>
         </slide>
@@ -461,16 +461,16 @@ public synchronized static SingletonConcurrente getInstance() {
 <b>private static volatile SingletonConcurrenteMejorado instancia = null;</b>
 
 public static SingletonConcurrenteMejorado getInstance() {
-    if(instancia == null) 
+    if(instancia == null)
         <b>synchronized (SingletonConcurrenteMejorado.class) {</b>
-            if(instancia == null) 
+            if(instancia == null)
                 instancia = new SingletonConcurrenteMejorado();
         }
     return instancia;
-}</pre> 
-            <p>Ahora sólo estamos sincronizando un bloque de código, 
-                y para ello utilizamos el cerrojo de 
-                <b>SingletonConcurrenteMejorado.class</b>, que sí 
+}</pre>
+            <p>Ahora sólo estamos sincronizando un bloque de código,
+                y para ello utilizamos el cerrojo de
+                <b>SingletonConcurrenteMejorado.class</b>, que sí
                 te prometo que es un objeto y único por clase ;)</p>
         </article>
         </slide>
@@ -482,34 +482,13 @@ public static SingletonConcurrenteMejorado getInstance() {
         </hgroup>
         <article>
 <pre class="prettyprint" data-lang="Java">private static volatile SingletonConcurrenteMejorado instancia = null;</pre>
-            <p>Modificar un atributo con <b>volatile</b> significa que sus 
+            <p>Modificar un atributo con <b>volatile</b> significa que sus
                 lecturas o escrituras se harán de manera <i>atómica</i>.</p>
             <p>Si un hilo está leyendo un dato cuyo tamaño es mayor que 32 bits,
-                se hace en un solo paso. Ningún otro hilo modificará el valor 
+                se hace en un solo paso. Ningún otro hilo modificará el valor
                 al mismo tiempo.</p>
         </article>
         </slide>
-                
-        <!--  Sincronicemos sólo un bloque de código -->
-        <slide>
-        <hgroup>
-			<h2>Sincronicemos sólo un bloque de código</h2>
-        </hgroup>
-        <article>
-<pre class="prettyprint" data-lang="Java">
-public static SingletonConcurrenteMejorado getInstance() {
-    if(instancia == null) 
-        synchronized (SingletonConcurrenteMejorado.class) {
-            if(instancia == null) 
-                <b>instancia = new SingletonConcurrenteMejorado();</b>
-        }
-    return instancia;
-}</pre> 
-            <p>Ahora, el primer hilo que acceda al bloque, obtendrá el 
-                cerrojo de <b>SingletonConcurrenteMejorado.class</b> 
-                y se creará la instancia.</p>
-        </article>
-        </slide>        
 
         <!--  Sincronicemos sólo un bloque de código -->
         <slide>
@@ -519,21 +498,42 @@ public static SingletonConcurrenteMejorado getInstance() {
         <article>
 <pre class="prettyprint" data-lang="Java">
 public static SingletonConcurrenteMejorado getInstance() {
-    <b>if(instancia == null)</b> 
+    if(instancia == null)
         synchronized (SingletonConcurrenteMejorado.class) {
-            if(instancia == null) 
+            if(instancia == null)
+                <b>instancia = new SingletonConcurrenteMejorado();</b>
+        }
+    return instancia;
+}</pre>
+            <p>Ahora, el primer hilo que acceda al bloque, obtendrá el
+                cerrojo de <b>SingletonConcurrenteMejorado.class</b>
+                y se creará la instancia.</p>
+        </article>
+        </slide>
+
+        <!--  Sincronicemos sólo un bloque de código -->
+        <slide>
+        <hgroup>
+			<h2>Sincronicemos sólo un bloque de código</h2>
+        </hgroup>
+        <article>
+<pre class="prettyprint" data-lang="Java">
+public static SingletonConcurrenteMejorado getInstance() {
+    <b>if(instancia == null)</b>
+        synchronized (SingletonConcurrenteMejorado.class) {
+            if(instancia == null)
                 instancia = new SingletonConcurrenteMejorado();
         }
     <b>return instancia;</b>
-}</pre> 
-            <p>Cualquier hilo que llame posteriormente a este método 
+}</pre>
+            <p>Cualquier hilo que llame posteriormente a este método
                 sólo se tiene que preocupar por consultar si:</p>
 <pre class="prettyprint" data-lang="Java">
 <b>if(instancia == null)</b>
 </pre>
             <p>Sin necesidad de competir por el cerrojo.</p>
         </article>
-        </slide>        
+        </slide>
 
         <!--  Prueba con el bloque sincronizado -->
         <slide>
@@ -563,7 +563,7 @@ public static SingletonConcurrenteMejorado getInstance() {
 			<h2>Definición del patrón de diseño Singleton</h2>
         </hgroup>
         <article>
-            <q>Garantiza que una clase sólo tenga una instancia, 
+            <q>Garantiza que una clase sólo tenga una instancia,
                 y proporciona un punto de acceso global a ella.</q>
             <div class="source">
                 Patrones de diseño<br />
@@ -578,14 +578,14 @@ public static SingletonConcurrenteMejorado getInstance() {
 			<h2>Definición del patrón de diseño Singleton</h2>
         </hgroup>
         <article>
-            <p>Este es el diagrama UML del patrón de 
+            <p>Este es el diagrama UML del patrón de
                 diseño <b>Singleton</b>.</p>
             <p class="centrado"><img src="imagenes/singleton.png" style="width: 400px"></p>
-            <p>El diagrama UML es sencillo, la implementación, 
+            <p>El diagrama UML es sencillo, la implementación,
                 Thread-safe, no lo ha sido tanto.</p>
         </article>
         </slide>
-        
+
         <!--  Definición del patrón de diseño Singleton -->
         <slide>
         <hgroup>
@@ -596,7 +596,7 @@ public static SingletonConcurrenteMejorado getInstance() {
             <ol>
                 <li>Acceso controlado a la instancia.</li>
                 <li>Evita el uso de variables globales (¿Alguien las utiliza?).</li>
-                <li>En vez de una única instancia, podemos tener un número 
+                <li>En vez de una única instancia, podemos tener un número
                     controlado de ellas.</li>
                 <li>Mejor que los métodos <b>static</b>.</li>
             </ol>
@@ -611,12 +611,12 @@ public static SingletonConcurrenteMejorado getInstance() {
         <article>
             <p><b>Singleton</b> es un patrón base para algunos <i>frameworks</i>
                 Java, como <a href="http://www.springsource.org/">Spring</a>.</p>
-            <p>Las dependencias entre los componentes se <i>inyectan</i> como 
+            <p>Las dependencias entre los componentes se <i>inyectan</i> como
                 <b>Singletons</b>.</p>
-            <p>Esta idea se ha incorporado a la última versión de <b>Java2 
+            <p>Esta idea se ha incorporado a la última versión de <b>Java2
                 Enterprise Edition</b>.</p>
-            <p>Tanto <b>Spring</b> como <b>Java2 EE</b> están orientados 
-                al desarrollo de aplicaciones en el lado del servidor.</p> 
+            <p>Tanto <b>Spring</b> como <b>Java2 EE</b> están orientados
+                al desarrollo de aplicaciones en el lado del servidor.</p>
         </article>
         </slide>
 
@@ -644,11 +644,11 @@ public static SingletonConcurrenteMejorado getInstance() {
             <p><a href="https://github.com/ProgramacionAvanzadaUJI/Singleton">Implementación en Github.</a></p>
         </article>
         </slide>
-                                
+
         <slide class="backdrop"></slide>
-           
+
 	</slides>
-	
+
 <script>
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);

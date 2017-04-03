@@ -11,7 +11,7 @@ URL: https://code.google.com/p/io-2012-slides
 <html>
 <head>
 <title>Patrón de diseño Decorador (Decorator)</title>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -50,24 +50,23 @@ URL: https://code.google.com/p/io-2012-slides
       <p data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
   </slide>
-        
+
         <!-- Introducción -->
         <slide>
         <hgroup>
 			<h2>Introducción</h2>
         </hgroup>
         <article>
-            <p>La herencia extiende el comportamiento de una nueva clase hija 
+            <p>La herencia extiende el comportamiento de una nueva clase hija
                 ligándola fuertemente con su clase padre.</p>
             <p>A veces, necesitamos un mecanismo más flexible que la herencia
-                para ampliar el comportamiento de una clase. De hecho, se recomienda utilizar 
-                la composición frente a la herencia.</p> 
-            <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución para añadir 
-                nueva funcionalidad a una clase, más flexible que la herencia, y de 
+                para ampliar el comportamiento de una clase. De hecho, se recomienda utilizar la composición frente a la herencia.</p>
+            <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución para añadir
+                nueva funcionalidad a una clase, más flexible que la herencia, y de
                 manera dinámica.</p>
         </article>
         </slide>
-        
+
         <!-- Bibliografía -->
         <slide>
         <hgroup>
@@ -89,9 +88,9 @@ URL: https://code.google.com/p/io-2012-slides
                 <li><a href="https://sourcemaking.com/design_patterns/decorator">Decorator Design Pattern.</a></li>
             </ol>
         </article>
-        </slide>        
-        
-        
+        </slide>
+
+
         <!-- Contenidos -->
         <slide>
         <hgroup>
@@ -113,8 +112,8 @@ URL: https://code.google.com/p/io-2012-slides
 			<h2>Tengo que renovar mi vehículo</h2>
         </hgroup>
         <article>
-            <p>Mi coche pasa más tiempo en el taller que en la carretera. 
-                Consume más combustible que un avión y en verano me 
+            <p>Mi coche pasa más tiempo en el taller que en la carretera.
+                Consume más combustible que un avión y en verano me
                 achicharro cuando voy a la playa</p>
             <p>Es hora de cambiar de coche.</p>
             <p>Me acerco a un concesionario y empiezan las dudas.</p>
@@ -141,8 +140,8 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>No.</li>
             </ul>
         </article>
-        </slide>        
-        
+        </slide>
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -151,14 +150,14 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>Armado de lápiz y papel el vendedor calcula:</p>
             <ul>
-                <li>El precio se le queda en: 15.000 del vehículo mas 
-                    600 del aire acondicionado y 600 de la pintura metalizada... 
+                <li>El precio se le queda en: 15.000 del vehículo mas
+                    600 del aire acondicionado y 600 de la pintura metalizada...
                     16.200 euros precio final.</li>
                 <li>¿Y cuanto vale un familiar?</li>
                 <li>19.000 euros.</li>
-                <li>Si le ponemos aire acondicionado y techo solar, pero sin 
+                <li>Si le ponemos aire acondicionado y techo solar, pero sin
                     pintura metalizada.</li>
-                <li>Veamos, en ese caso tenemos los 19.000 del familiar mas 
+                <li>Veamos, en ese caso tenemos los 19.000 del familiar mas
                     los 600 del aire acondicionado mas 1.000 del techo solar,
                     en total 20.600 euros.</li>
             </ul>
@@ -194,14 +193,14 @@ URL: https://code.google.com/p/io-2012-slides
             <p>50% es mucha pasta, pongámonos manos a la obra.</p>
             <p>Analizando el problema tenemos:</p>
             <ol>
-                <li>Hay varios tipos de vehículos: <b>Utilitario, Familiar, 
+                <li>Hay varios tipos de vehículos: <b>Utilitario, Familiar,
                     Monovolumen,...</b></li>
                 <li>Cada uno de ellos puede tener uno o más accesorios.</li>
-                <li>El resultado final es independiente del orden en el que se añadan los 
-                    accesorios: aire acondicionado, pintura metalizada, techo solar, 
+                <li>El resultado final es independiente del orden en el que se añadan los
+                    accesorios: aire acondicionado, pintura metalizada, techo solar,
                     etcétera.</li>
                 <li>El precio final se ha de calcular de modo automático.</li>
-                <li>Tendré una descripción del vehículo final dependiendo de los 
+                <li>Tendré una descripción del vehículo final dependiendo de los
                     accesorios que haya añadido.</li>
             </ol>
         </article>
@@ -214,30 +213,30 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>Primera idea.</p>
-            <p>Escribo una clase para cada vehículo y luego creo clases hijas de cada 
+            <p>Escribo una clase para cada vehículo y luego creo clases hijas de cada
                 uno de los vehículos añadiendo los extras.</p>
-            <p>Por ejemplo, tendré: Utilitario como clase padre, y después una clase hija que 
+            <p>Por ejemplo, tendré: Utilitario como clase padre, y después una clase hija que
                 sea UtilitarioAireAcondicionado, otra que sea UtilitarioPinturaMetalizada,...</p>
-            <p>Y si quiero un Utilitario con aire acondicionado y pintura metalizada tendré 
+            <p>Y si quiero un Utilitario con aire acondicionado y pintura metalizada tendré
                 UtilitarioAireAcondicionadoPinturaMetalizada,... uy!, esto no va por buen camino.</p>
             <p>Tengo una explosión de clases.</p>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Vale, pues puedo tener una clase para cada vehículo, y dentro de cada uno de ellos 
+            <p>Vale, pues puedo tener una clase para cada vehículo, y dentro de cada uno de ellos
                 una array con los extras que le he añadido.</p>
-            <p>Así calcularé el precio final sumando el precio de los extras y añadiéndoselo 
+            <p>Así calcularé el precio final sumando el precio de los extras y añadiéndoselo
                 al precio del vehículo.</p>
             <p>Y para la descripción tengo algo parecido.</p>
             <p>Parece mejor solución.</p>
-            <p>Pero también podría añadir esos extras a cualquier otro tipo de objeto, y podría 
-                tener una maceta con aire acondicionado, porque no hay una relación semántica entre 
+            <p>Pero también podría añadir esos extras a cualquier otro tipo de objeto, y podría
+                tener una maceta con aire acondicionado, porque no hay una relación semántica entre
                 el extra y el objeto sobre el que se aplica.</p>
         </article>
         </slide>
@@ -249,13 +248,13 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>Parece que nos acercamos.</p>
-            <p>Lo que quiero es que cada extra, de alguna manera, recubra al vehículo original 
-                añadiéndole una nueva característica, de manera que un vehículo con aire 
-                acondicionado siga siendo un vehículo, y no sólo un vehículo con un agregado de 
+            <p>Lo que quiero es que cada extra, de alguna manera, recubra al vehículo original
+                añadiéndole una nueva característica, de manera que un vehículo con aire
+                acondicionado siga siendo un vehículo, y no sólo un vehículo con un agregado de
                 extras.</p>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -266,10 +265,10 @@ URL: https://code.google.com/p/io-2012-slides
 <pre class="prettyprint" data-lang="Java">
 public class Utilitario {
     private float precio;
-    
+
     public Utilitario(float precio) {
         this.precio = precio;
-    }   
+    }
     public float getPrecio() {
         return precio;
     }
@@ -277,7 +276,7 @@ public class Utilitario {
         return "Vehículo utilitario";
     }
 }</pre>
-            <p>En esta clase hemos hecho una importante decisión de diseño. 
+            <p>En esta clase hemos hecho una importante decisión de diseño.
                 ¿La ves?</p>
         </article>
         </slide>
@@ -292,13 +291,13 @@ public class Utilitario {
 <pre class="prettyprint" data-lang="Java">
 public class Familiar {
     private float precio;
-    
+
     public Familiar(float precio) {
         this.precio = precio;
     }
     public float getPrecio() {
         return precio;
-    }    
+    }
     public String descripcion() {
         return "Vehículo familiar";
     }
@@ -313,20 +312,20 @@ public class Familiar {
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Si, efectivamente, mucho código duplicado. 
+            <p>Si, efectivamente, mucho código duplicado.
                 Extraigámoslo a una clase padre.</p>
 <pre class="prettyprint" data-lang="Java">
 public abstract class Vehiculo {
     private float precio;
-    
+
     public Vehiculo(float precio) {
         this.precio = precio;
     }
-    
+
     public float getPrecio() {
         return precio;
     }
-    
+
     public abstract String descripcion();
 }</pre>
             <p>Y los vehículos <b>Utilitario</b> y el <b>Familiar</b> nos quedan como:</p>
@@ -343,7 +342,7 @@ public abstract class Vehiculo {
 public class Utilitario extends Vehiculo {
     public Utilitario(float precio) {
         super(precio);
-    }    
+    }
     @Override
     public String descripcion() {
         return "Vehículo utilitario";
@@ -369,12 +368,12 @@ public class Familiar extends Vehiculo {
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Viene la magia: queremos que aire acondicionado 
+            <p>Viene la magia: queremos que aire acondicionado
                 recubra a <b>Vehículo</b> sin dejar de ser un <b>Vehículo</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 public class ConAireAcondicionado extends Vehiculo {
     private Vehiculo vehiculo;
-    
+
     public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
         super(precioExtra);
         this.vehiculo = vehiculo;
@@ -382,7 +381,7 @@ public class ConAireAcondicionado extends Vehiculo {
     @Override
     public String descripcion() {
         return vehiculo.descripcion() + ", con aire acondicionado";
-    }    
+    }
     @Override
     public float getPrecio() {
         return vehiculo.getPrecio() + super.getPrecio();
@@ -390,7 +389,7 @@ public class ConAireAcondicionado extends Vehiculo {
 }</pre>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -399,10 +398,10 @@ public class ConAireAcondicionado extends Vehiculo {
         <article>
             <p>Veámoslo con un poco más de detalle:</p>
 <pre class="prettyprint" data-lang="Java">
-public class ConAireAcondicionado extends Vehiculo { //Sigue siendo 
+public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
                                                      // un Vehiculo
     private Vehiculo vehiculo; //Aquí se recubre al vehículo original
-    
+
     public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
         super(precioExtra); //El padre guarda el precio del extra
         this.vehiculo = vehiculo; //Nos quedamos con una referencia
@@ -410,7 +409,7 @@ public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
     }</pre>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -424,7 +423,7 @@ public String descripcion() {
     return vehiculo.descripcion() +    // Descripción del vehículo que recubro
            ", con aire acondicionado"; // Mi descripción como extra
 }</pre>
-            <p>Añadimos al precio del vehículo, el precio del extra que 
+            <p>Añadimos al precio del vehículo, el precio del extra que
                 está guardado en la clase padre.</p>
 <pre class="prettyprint" data-lang="Java">
 @Override
@@ -433,8 +432,8 @@ public float getPrecio() {
            super.getPrecio();     // Mi precio como extra, lo guarda el padre.
 }</pre>
         </article>
-        </slide>     
-        
+        </slide>
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -453,7 +452,7 @@ public void testUtilitario() {
             <p>Bien!, la idea es buena. Definamos otro extra.</p>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -463,7 +462,7 @@ public void testUtilitario() {
 <pre class="prettyprint" data-lang="Java">
 public class ConPinturaMetalizada extends Vehiculo {
     private Vehiculo vehiculo;
-    
+
     public ConPinturaMetalizada(Vehiculo vehiculo, float precioExtra) {
         super(precioExtra);
         this.vehiculo = vehiculo;
@@ -471,7 +470,7 @@ public class ConPinturaMetalizada extends Vehiculo {
     @Override
     public String descripcion() {
         return vehiculo.descripcion() + ", con pintura metalizada";
-    }    
+    }
     @Override
     public float getPrecio() {
         return vehiculo.getPrecio() + super.getPrecio();
@@ -480,14 +479,14 @@ public class ConPinturaMetalizada extends Vehiculo {
             <p>Para!, mucho código duplicado con <b>ConAireAcondicionado.</b>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Conocemos la técnica para eliminarlo, ahí va la superclase de los 
+            <p>Conocemos la técnica para eliminarlo, ahí va la superclase de los
                 extras.</p>
 
 <pre class="prettyprint" data-lang="Java">
@@ -508,7 +507,7 @@ public abstract class Extra extends Vehiculo {
 }</pre>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
@@ -532,20 +531,20 @@ public class ConPinturaMetalizada extends Extra {
     }
     @Override
     public String descripcion() {
-        return descripcionVehiculo() + ", con pintura metalizada"; 
+        return descripcionVehiculo() + ", con pintura metalizada";
     }
 }</pre>
         </article>
         </slide>
-        
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Maravilloso, el test sigue pasando, y si no, toca 
-                arreglar el problema hasta que vuelva a pasar. 
+            <p>Maravilloso, el test sigue pasando, y si no, toca
+                arreglar el problema hasta que vuelva a pasar.
                 ¿Te das cuenta lo útiles que son?</p>
             <p>Probemos un nuevo test:</p>
 <pre class="prettyprint" data-lang="Java">
@@ -559,15 +558,15 @@ public void testUtilitario() {
 }</pre>
             <p>BIEN!, PASA!!!</p>
         </article>
-        </slide>        
-        
+        </slide>
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Estamos lanzados, probemos con un <b>Familiar</b> con 
+            <p>Estamos lanzados, probemos con un <b>Familiar</b> con
                 <b>AireAcondicionado</b> y <b>TechoSolar</b>:</p>
 <pre class="prettyprint" data-lang="Java">
 @Test
@@ -580,36 +579,36 @@ public void testFamiliar() {
 }</pre>
             <p>También pasa!!!</p>
         </article>
-        </slide>        
-        
+        </slide>
+
         <!-- Programemos la solución -->
         <slide>
         <hgroup>
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Y si escribimos la clase para el <b>Monovolumen</b>, 
-                le podremos aplicar cualquiera de los extras sin 
+            <p>Y si escribimos la clase para el <b>Monovolumen</b>,
+                le podremos aplicar cualquiera de los extras sin
                 problemas.</p>
             <p>Creo que nos hemos ganado ese 50% de descuento.</p>
         </article>
-        </slide>        
-                
-                                                                                
+        </slide>
+
+
         <!-- Definición del patrón de diseño Decorador -->
         <slide>
         <hgroup>
 			<h2>Definición del patrón de diseño Decorador</h2>
         </hgroup>
         <article class="smaller">
-            <q>Asigna responsabilidades adicionales a un objeto dinámicamente, 
-                proporcionando una alternativa flexible a la herencia para 
+            <q>Asigna responsabilidades adicionales a un objeto dinámicamente,
+                proporcionando una alternativa flexible a la herencia para
                 extender la funcionalidad.</q>
             <div class="source">Patrones de Diseño<br />
                 Erich Gamma et al.</div>
         </article>
         </slide>
-        
+
         <!-- Definición del patrón de diseño Decorador -->
         <slide>
         <hgroup>
@@ -620,7 +619,7 @@ public void testFamiliar() {
             <p class="centrado"><img src="imagenes/decorator.png" style="width: 800px" /></p>
         </article>
         </slide>
-        
+
         <!-- Definición del patrón de diseño Decorador -->
         <slide>
         <hgroup>
@@ -645,7 +644,7 @@ public void testFamiliar() {
             </ol>
             <p><b>Desventajas:</b></p>
             <ol>
-                <li>Desde el punto de vista de la igualdad de objetos, un objeto recubierto 
+                <li>Desde el punto de vista de la igualdad de objetos, un objeto recubierto
                     y el objeto original no se pueden comparar.</li>
                 <li>Si creamos muchos recubridores, puede dar lugar a una explosión de clases.</li>
             </ol>
@@ -659,25 +658,25 @@ public void testFamiliar() {
         </hgroup>
         <article>
             <p>El ejemplo arquetípico en Java es el paquete de entrada/salida.</p>
-            <p>Java define un gran número de clases en <b>java.io</b> para hacer 
+            <p>Java define un gran número de clases en <b>java.io</b> para hacer
                 tareas de entrada salida.</p>
-            <p>En la jerarquía de clases definidas, unas recubren a otras siguiendo 
-                el patrón de diseño <b>Decorador</b> de tal modo que se van añadiendo 
+            <p>En la jerarquía de clases definidas, unas recubren a otras siguiendo
+                el patrón de diseño <b>Decorador</b> de tal modo que se van añadiendo
                 nuevas funcionalidad a la clase original con cada nuevo recubrimiento.</p>
         </article>
         </slide>
-                                                                                                        
+
         <!-- El patrón Decorador en el paquete estándar de Java -->
         <slide>
         <hgroup>
 			<h2>El patrón Decorador en el paquete estándar de Java</h2>
         </hgroup>
         <article>
-            <p>En la primera versión de Java, el teclado era una fuente de bytes 
+            <p>En la primera versión de Java, el teclado era una fuente de bytes
                 de datos, no de caracteres.</p>
-            <p>Normalmente, lo que queremos leer desde el teclado son líneas de 
+            <p>Normalmente, lo que queremos leer desde el teclado son líneas de
                 caracteres, no caracteres individuales.</p>
-            <p>Luego de algún modo tenemos que convertir los bytes a caracteres y de 
+            <p>Luego de algún modo tenemos que convertir los bytes a caracteres y de
                 estos a líneas de caracteres.</p>
             <p>Un posible modo de conseguirlo es utilizar las clases del paquete <b>java.io</b>
         </article>
@@ -698,7 +697,7 @@ String texto = br.readLine();</pre>
         </article>
         </slide>
 
-        
+
         <!-- El patrón Decorador en el paquete estándar de Java -->
         <slide>
         <hgroup>
@@ -714,13 +713,13 @@ oos.writeObject(new Particular());
 oos.close();</pre>
             <p><b>FileOutputStream</b> me permite escribir flujos de bytes
             a un fichero.</p>
-            <p><b>ObjectOutputStream</b> recubre a un <b>FileOutputStream</b> y, 
-            además de bytes me permite enviar objetos, que se pueden serializar, 
+            <p><b>ObjectOutputStream</b> recubre a un <b>FileOutputStream</b> y,
+            además de bytes me permite enviar objetos, que se pueden serializar,
             a fichero.</p>
         </article>
         </slide>
-            
-            
+
+
         <!-- El patrón Decorador en el paquete estándar de Java -->
         <slide>
         <hgroup>
@@ -735,12 +734,12 @@ Particular particular = (Particular)ois.readObject();
 ois.close();</pre>
             <p><b>FileInputStream</b> me permite leer flujos de bytes
             desde un fichero.</p>
-            <p><b>ObjectInputStream</b> recubre a un <b>FileInputStream</b> y, 
+            <p><b>ObjectInputStream</b> recubre a un <b>FileInputStream</b> y,
             además de bytes me permite leer objetos serializados desde fichero.</p>
         </article>
         </slide>
-            
-            
+
+
         <!-- Recursos en Internet -->
         <slide>
         <hgroup>
@@ -751,10 +750,10 @@ ois.close();</pre>
             <p><a href="http://c2.com/cgi/wiki?DecoratorPattern">Gang of four</a></p>
         </article>
         </slide>
-        
-        <slide class="backdrop"></slide>   
+
+        <slide class="backdrop"></slide>
 	</slides>
-	
+
 <script>
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);

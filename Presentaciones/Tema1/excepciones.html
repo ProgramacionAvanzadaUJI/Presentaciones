@@ -366,6 +366,25 @@ try {
 		</article>
 		</slide>
 
+
+    <!-- Cómo se gestiona una excepción -->
+    <slide>
+    <hgroup>
+  <h2>Cómo se gestiona una excepción</h2>
+    </hgroup>
+<article>
+  <p>También, desde Java 7 se puede utilizar <b>recursos</b> en los bloques try...catch</p>
+  <pre class="prettyprint" data-lang="Java">
+try(FileWriter fw = new FileWriter("src/main/resources/adios.txt")) {
+    fw.write("Adios");
+} catch (IOException e) {
+    e.printStackTrace();
+}
+  </pre>
+  <p>No me preocupo de cerrar el fichero, ya que <b>FileWriter</b>, por herencia, implementa el interface <b>Closeable</b> cuyo único método es <b>close()</b> y lo invoca automáticamente la máquina virtual.</p>
+</article>
+</slide>
+
         <!-- Cómo se gestiona una excepción -->
         <slide>
         <hgroup>

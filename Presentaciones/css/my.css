@@ -1,0 +1,81 @@
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .center {
+  text-align: center;
+}
+
+.reveal .slides .box {
+  width: 40%;
+  padding: 0px;
+  margin: 0px;
+  float: left;
+}
+
+.reveal .before-quote {
+  float: left;
+  margin-right: 50px;
+}
+
+.reveal h3 {
+  color: #777777;
+  border-bottom: solid;
+  border-color: #777777;
+}
+
+.reveal .center h3 {
+  color: #000000;
+  border-bottom: none;
+}
+
+.reveal .centrado {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+}
+
+.reveal .contenidos {
+  font-size: 50%;
+  position: absolute;
+  right: 0px;
+  bottom: 25px;
+}
+
+.reveal table,td {
+  border: 3px solid black;
+}
+
+.reveal table tbody tr td {
+  text-align: center;
+}
+
+.reveal .credito {
+  font-size: 50%;
+  color: #AAA;
+}
+
+.reveal .feature {
+  margin-left: 50px
+}
+
+.reveal .scenario {
+  margin-left: 50px;
+}
+
+.reveal .given {
+  margin-left: 100px;
+}
+
+.reveal .when {
+  margin-left: 100px;
+}
+
+.reveal .then {
+  margin-left: 100px;
+}
+
+.reveal .and {
+  margin-left: 150px;
+}

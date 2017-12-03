@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>JUnit5</title>
+
+	<meta name="description" content="Código Limpio">
+	<meta name="author" content="Oscar Belmonte Fernandez">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="../reveal-js/css/reveal.css">
+	<link rel="stylesheet" href="../reveal-js/css/theme/simple.css" id="theme">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="../reveal-highlight-themes/styles/dark.css">
+
+	<!--<link rel="stylesheet" href="../reveal/lib/css/zenburn.css">-->
+	<link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+
+	<!-- Mis ajustes de css -->
+	<link rel="stylesheet" href="../css/my.css">
+
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<!--[if lt IE 9]>
+        <script src="../reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section class="center">
+				<!-- <h2>Desarrollo de aplicaciones profesionales con Java, React y Docker</h2> -->
+				<h2>JUnit5</h2>
+				<!-- <h3>Introduction</h3> -->
+				<h4>Óscar Belmonte Fernández</h4>
+				<h4>Universitat Jaume I</h4>
+			</section>
+
+			<section>
+				<h3>Introducción</h3>
+				<p>
+					Asegurar la calidad del software es un requerimiento transversal en todo proyecto de desarrollo.
+				</p>
+				<p>
+					La calidad del software se comprueba mediante la realización de pruebas sobre este.
+				</p>
+				<p>
+					En esta primera práctica veremos el primer paso hacia la calidad del software: las pruebas unitarias.
+				</p>
+				<p>
+					Pero antes de ello, vamos a ver una herramienta para la construcción de proyectos en Java muy potente llamada <a href="https://maven.apache.org/" target="_blank">Maven</a>.
+				</p>
+			</section>
+
+			<section>
+				<h3>Bibliografía</h3>
+				<p>
+					<strong>Libros:</strong>
+				</p>
+				<ol>
+					<li><a href="http://cataleg.uji.es/search~S1*cat?/Xbig+java&searchscope=1&SORT=D/Xbig+java&searchscope=1&SORT=D&SUBKEY=big+java/1%2C4%2C4%2CB/frameset&FF=Xbig+java&searchscope=1&SORT=D&1%2C1%2C" target="_blank">
+								Big Java</a> Sección 7.10.</li>
+					<li><a href="http://www3.uji.es/~belfern/libroJava.pdf" target="_blank">
+								Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 6.</li>
+				</ol>
+				<p>
+					<b>Recursos en la web</b>
+				</p>
+				<ol>
+					<li><a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank">Maven in 5 minutes</a>.</li>
+					<li><a href="http://www.JUnit.org/" target="_blank">
+								Página web de JUnit.</a></li>
+					<li><a href="http://www.decharlas.uji.es/es/tdd-junit" target="_blank">
+								Charla de Carlos Blé Jurado sobre TDD y JUnit.</a></li>
+				</ol>
+			</section>
+
+			<section id="contenidos">
+				<h3>Contenidos</h3>
+				<ol>
+					<li><a href="#/maven">Construcción de proyectos con Apache Maven</a>.</li>
+					<li><a href="#/que_son_pruebas_unitarias">¿Qué son las pruebas unitarias?</a>.</li>
+					<li><a href="#/first">Los principios FIRST</a>.</li>
+					<li><a href="#/JUnit">El framework JUnit</a>.</li>
+					<li><a href="#/clase_para_probar">Una clase para probar</a>.</li>
+					<li><a href="#/definir_prueba">Definir una prueba con la etiqueta @Test</a></li>
+					<li><a href="#/otras_etiquetas">Otras etiquetas de JUnit</a>.</li>
+					<li><a href="#/ciclo_vida">El ciclo de ejecución de las pruebas</a>.</li>
+					<li><a href="#/hamcrest">La biblioteca <strong>Hamcrest</strong></a>.</li>
+					<li><a href="#/pruebas_parametrizadas">Pruebas parametrizadas</a>.</li>
+					<li><a href="#/otras_anotaciones">Otras anotaciones útiles</a>.</li>
+					<li><a href="#/cobertura">Cobertura de las pruebas</a>.</li>
+					<!-- <li>Suites de pruebas.</li>
+					<li>Un par de plug-ins muy útiles.</li> -->
+				</ol>
+			</section>
+
+			<section id="maven">
+				<h3>Construcción de proyectos con Apache Maven<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						¿Por qué necesitamos un herramienta de construcción de proyectos?
+					</p>
+					<p>Piensa en las etapas las tareas típicas durante la creación de un proyecto software:</p>
+					<ul>
+						<li>Obtener las bibliotecas de las que depende mi proyecto.</li>
+						<li>Obviamente escribir el código.</li>
+						<li>Compilar el código.</li>
+						<li>Realizar test.</li>
+						<li>Empaquetar mi aplicación.</li>
+						<li>Ejecutar mi aplicación.</li>
+						<li>En el caso de una aplicación web, desplegarla en un servidor</li>
+						<li>... y un largo etcétera de tareas repetitivas.</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>
+						<a href="https://maven.apache.org/" target="_blank">Apache Maven</a> nos permite automatizar estas tareas.
+					</p>
+					<p>
+						Definimos, de modo declarativo, lo que necesitamos (dependencias) en nuestro proyeto, y luego lanzamos las tareas maven adecuadas (plugins).
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Construyamos nuestro primer proyecto con Maven: <b>File &rarr; New &rarr; Project</b>:
+					</p>
+					<img class="centrado" src="imagenes/mvnNewProject.png" style="width: 460px">
+				</section>
+
+				<section>
+					<p>
+						Selecciona la casilla <strong>Create a simple project</strong>:
+					</p>
+					<img class="centrado" src="imagenes/mvnPrimerProyecto.png" style="width: 460px">
+				</section>
+
+				<section>
+					<p>
+						Ahora debes introducir <strong>Group Id</strong> y <strong>Artifact Id</strong>. El primero es el nombre el paquete base, el segundo el nombre de tu proyecto:
+					</p>
+					<img class="centrado" src="imagenes/mvnPrimerProyecto2.png" style="width: 360px">
+				</section>
+
+				<section>
+					<p>
+						Este es el aspecto final del proyecto:
+					</p>
+					<img class="centrado" src="imagenes/mvnPrimerProyecto3.png" style="width: 400px">
+					<p>
+						En el fichero <strong>pom.xml</strong> se encuentra la descripción de tu proyecto. De momento no hay mucho, pero en breve verás como añadir una nueva biblioteca para que forma parte de tu proyecto.
+					</p>
+				</section>
+			</section>
+
+			<section id="que_son_pruebas_unitarias">
+				<h3>¿Qué son las pruebas unitarias?<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Las pruebas unitarias pretenden probar el comportamiento correcto las clases de manera aislada.
+					</p>
+					<p>
+						Esto significa que se prueba la clase aislándola de su interacción con otras clases.
+					</p>
+				</section>
+			</section>
+
+			<section id="first">
+				<h3>Los principios FIRST<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						<strong>F</strong>: Fast, los test se han de ejecutar rápidamente.
+					</p>
+					<p>
+						<strong>I</strong>: Isolated, los test se realizan sobre una clase sin interacción con otras.
+					</p>
+					<p>
+						<strong>R</strong>: Repeatable, el orden de ejecución de los test no debe influir en el resultado final.
+					</p>
+					<p>
+						<strong>S</strong>: Self-validating, los test se han de ejecutar de modo automático.
+					</p>
+					<p>
+						<strong>T</strong>: Timely, se han de crear al mismo tiempo que el software que se está creando.
+					</p>
+				</section>
+			</section>
+
+			<section id="JUnit">
+				<h3>El framework JUnit<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Existen frameworks para realizar pruebas unitarias para prácticamente lenguaje de programación.
+					</p>
+					<p>
+						En el caso de Java podemos incluso elegir entre varias opciones.
+					</p>
+					<p>
+						Una de ellas es JUnit, puede que la más consolidada.
+					</p>
+					<p>
+						<a href="http://www.JUnit.org/" target="_blank">JUnit</a> este es el enlace a la principal de este framework.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Para utilizar JUnit 5, debes añadir las siguientes dependencias:
+					</p>
+					<pre>
+						<code class="xml" data-trim>
+&lt;dependency&gt;
+    &lt;groupId&gt;org.JUnit.jupiter&lt;/groupId&gt;
+    &lt;artifactId&gt;JUnit-jupiter-api&lt;/artifactId&gt;
+    &lt;version&gt;${JUnit.jupiter.version}&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.hamcrest&lt;/groupId&gt;
+    &lt;artifactId&gt;hamcrest-core&lt;/artifactId&gt;
+    &lt;version&gt;${hamcrest.version}&lt;/version&gt;
+&lt;/dependency&gt;
+						</code>
+					</pre>
+					<p>
+						Con las versiones adecuadas:
+					</p>
+					<pre>
+						<code class="xml" data-trim>
+&lt;jupiter.version&gt;5.0.1&lt;/JUnit.jupiter.version&gt;
+&lt;version&gt;1.3&lt;/hamcrest.version&gt;</code>
+					</pre>
+				</section>
+
+				<section>
+					<p>
+						También veremos cómo ejecutar las pruebas con Maven, para ello, necesitamos el siguiente plugin:
+					</p>
+					<pre>
+						<code class="xml" data-trim>
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+  &lt;version&gt;2.19.1&lt;/version&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.JUnit.platform&lt;/groupId&gt;
+      &lt;artifactId&gt;JUnit-platform-surefire-provider&lt;/artifactId&gt;
+      &lt;version&gt;1.0.1&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.JUnit.jupiter&lt;/groupId&gt;
+      &lt;artifactId&gt;JUnit-jupiter-engine&lt;/artifactId&gt;
+      &lt;version&gt;5.0.1&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/plugin&gt;
+						</code>
+					</pre>
+				</section>
+			</section>
+
+			<section id="clase_para_probar">
+				<h3>Una clase para probar<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Supón que quieres probar la siguiente clase.
+					</p>
+					<pre>
+						<code class="java" data-trim data-noescape>
+public class Calculadora {
+    private double ultimoResultado;
+
+    public double suma(double primerSumando, double segundoSumando) {
+        return ultimoResultado = primerSumando + segundoSumando;
+    }
+
+    public double resta(double minuendo, double sustraendo) {
+        return ultimoResultado = minuendo - sustraendo;
+    }
+
+    public double multiplicacion(double primerFactor, double segundoFactor) {
+        return ultimoResultado = primerFactor * segundoFactor;
+    }
+
+    public double division(double dividendo, double divisor) {
+        return ultimoResultado = dividendo / divisor;
+    }
+
+    public double getUltimaResultado() {
+        return ultimoResultado;
+    }
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+
+			<section id="definir_prueba">
+				<h3>Definir una prueba con la etiqueta @Test<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						En la ruta <strong>src/test/java</strong> crea la clase <strong>aritmetica.Calculadora</strong>
+					</p>
+					<p>
+						<strong>JUnit</strong> nos exige que un método de prueba sea público, no debe devolver ningún valor (<strong>void</strong>) y su lista de argumentos debe estar vacía.
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@Test
+public void testSuma() {
+    fail("Not yet implemented");
+}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<p>
+						Ahora sí, escribamos la primera prueba:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+public class CalculadoraTest {
+    @Test
+    public void sumaCincoMasCinco() {
+        Calculadora calculadora = new Calculadora();
+
+        assertEquals(10, calculadora.suma(5, 5));
+    }
+}
+						</code>
+					</pre>
+					<p>
+						La prueba pasa.
+					</p>
+					<img class="centrado" src="imagenes/test.png" />
+				</section>
+
+				<section>
+					<p>
+						Para ejecutar las pruebas con <strong>Maven</strong>:
+					</p>
+					<p>
+						mvn test, y el resultado:
+					</p>
+					<img class="centrado" src="imagenes/testMvn.png" />
+				</section>
+			</section>
+
+			<section id="otras_etiquetas">
+				<h3>Otras etiquetas de JUnit<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Si escribimos una prueba para probar el método de resta:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+public class CalculadoraTest {
+    @Test
+    public void sumaCincoMasCinco() {
+        Calculadora calculadora = new Calculadora();
+
+        assertEquals(10, calculadora.suma(5, 5));
+    }
+
+    @Test
+    public void restaCincoMenosCinco() {
+        Calculadora calculadora = new Calculadora();
+
+        assertEquals(0, calculadora.resta(5, 5));
+    }
+}
+						</code>
+					</pre>
+					<p>
+						Te darás cuenta de que empezamos a tener código repetido, la instanciación de la clase <strong>Calculadora</strong>.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Usemos la etiqueta <strong>@BeforeEach</strong>:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+public class CalculadoraTest {
+    private Calculadora calculadora;
+
+    @BeforeEach
+    public void creaCalculadora() {
+        calculadora = new Calculadora();
+    }
+
+    @Test
+    public void sumaCincoMasCinco() {
+        assertEquals(10, calculadora.suma(5, 5));
+    }
+
+    @Test
+    public void restaCincoMenosCinco() {
+        assertEquals(0, calculadora.resta(5, 5));
+    }
+}
+						</code>
+					</pre>
+					<p>
+						El método anotado con <strong>@BeforeEach</strong> se ejecuta antes de cada uno de los métodos anotados con <strong>@Test</strong>.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Del mismo modo, con la etiqueta <strong>@AfterEach</strong> etiquetamos los métodos que queremos que se ejecuten despúes de cada una de las pruebas:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@BeforeEach
+public void creaCalculadora() {
+    calculadora = new Calculadora();
+}
+
+@AfterEach
+public void eliminaCalculadora() {
+    calculadora = null;
+}
+						</code>
+					</pre>
+					<p>
+						Con ello conseguimos que el resultado de nuestras pruebas sea <strong>Independiente</strong> del resto de pruebas.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Fíjate que:
+					</p>
+					<ul>
+						<li>
+							Puedes tener varios métodos equiquetados con <strong>@BeforeEach</strong> o <strong>@AfterEach</strong>.
+						</li>
+						<li>
+							El orden es:
+							<ol>
+								<li>
+									<strong>@BeforeEach</strong>.
+								</li>
+								<li>
+									<strong>@Test</strong>.
+								</li>
+								<li>
+									<strong>@AfterEach</strong>.
+								</li>
+							</ol>
+						</li>
+						<li>
+							El orden de ejecución dentro de cada grupo es aleatorio.
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>
+						Si nuestra clase no tuviese estado:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+public class CalculadoraSinEstado {
+    public double suma(double primerSumando, double segundoSumando) {
+        return primerSumando + segundoSumando;
+    }
+
+    public double resta(double minuendo, double sustraendo) {
+        return minuendo - sustraendo;
+    }
+
+    public double multiplicacion(double primerFactor,
+                                 double segundoFactor) {
+        return primerFactor * segundoFactor;
+    }
+
+    public double division(double dividendo, double divisor) {
+        return dividendo / divisor;
+    }
+}
+						</code>
+					</pre>
+					<p>
+						Sólo necesitaríamos crear la instancia de <strong>Calculadora</strong> una única vez, antes de ejecutar las pruebas, y eliminar la instancia una única vez, al acabar las pruebas.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Esto lo coseguimos con las etiquetas <strong>@BeforeAll</strong> y <strong>@AfterAll</strong>:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+public class CalculadoraSinEstadoTest {
+    private static Calculadora calculadora;
+
+    @BeforeAll
+    public static void creaCalculadora() {
+        calculadora = new Calculadora();
+    }
+
+    @AfterAll
+    public static void eliminaCalculadora() {
+        calculadora = null;
+    }
+
+    @Test
+    public void sumaCincoMasCinco() {
+        assertEquals(10, calculadora.suma(5, 5));
+    }
+
+    @Test
+    public void restaCincoMenosCinco() {
+        assertEquals(0, calculadora.resta(5, 5));
+    }
+}
+						</code>
+					</pre>
+					<p>
+						Fíjate que los métodos etiquetados deben ser <strong>static</strong>.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Cuando usamos las etiqueteas <strong>@BeforeAll</strong> y <strong>@AfterAll</strong>:
+					</p>
+					<ul>
+						<li>
+							Podemos tener tantos métodos etiquetados como queramos.
+						</li>
+						<li>
+							Los métodos etiquetados con <strong>@BeforeAll</strong> se ejecutan una única vez y antes que cualquier método etiquetado con <strong>@BeforeEach</strong>.
+						</li>
+						<li>
+							Los métodos etiquetados con <strong>@AfterAll</strong> se ejecutan una única vez y después que cualquier método etiquetado con <strong>@AfterEach</strong>.
+						</li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="ciclo_vida">
+				<h3>El ciclo de ejecución de las pruebas<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Con <strong>JUnit 5</strong>, lanzar la ejecución de una prueba, se crea una nueva instancia de la clase cada vez que se ejecuta un método etiquetado con <strong>@Test</strong>. Con ello se aísla completamente la ejecución de métodos de prueba distintos.
+					</p>
+					<p>
+						Sin embargo, podemos forzar que no se cree un nuevo objeto por cada ejecución de un método de prueba añadiendo la etiqueta <strong>@TestInstance(TestInstance.Lifecycle.PER_CLASS)</strong> a la definición de la clase de prueba. En este caso, no es
+						necesario que los métodos etiquetados con <strong>@BeforeAll</strong> o <strong>@AfterAll</strong> sean estáticos.
+					</p>
+					<p>
+						Puedes encontrar el detalle completa en la <a href="http://JUnit.org/JUnit5/docs/current/user-guide/#writing-tests-test-instance-lifecycle" target="_blank">documentación de JUnit 5</a>.
+					</p>
+				</section>
+			</section>
+
+			<section id="hamcrest">
+				<h3>La biblioteca Hamcrest<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						La biblioteca <a href="http://hamcrest.org/" target="_blank">Hamcrest</a> nos permite escribir código de pruebas con una mayor expresividad.
+					</p>
+					<p>
+						Primero importa estáticamente estos dos paquetes:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+import static org.hamcrest.core.Is.*;
+import static org.hamcrest.MatcherAssert.*;
+						</code>
+					</pre>
+					<p>
+						La prueba queda ahora como:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@Test
+public void restaCincoMenosCincoHamcrest() {
+    assertThat(calculadora.resta(5, 5), is(0.0));
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+
+			<section id="pruebas_parametrizadas">
+				<h3>Pruebas parametrizadas<a class="contenidos" href="#/contenidos">Contenidos</a>.</h3>
+				<section>
+					<p>
+						Las pruebas parametrizadas han cambiado radicalmente con respecto de la versión 4 de JUnit. Lo primero que debemos hacer es añadir una nueva dependencia a nuestro proyecto:
+					</p>
+					<pre>
+						<code class="xml" data-trim>
+&lt;dependency&gt;
+    &lt;groupId&gt;org.JUnit.jupiter&lt;/groupId&gt;
+    &lt;artifactId&gt;JUnit-jupiter-params&lt;/artifactId&gt;
+    &lt;version&gt;${JUnit.jupiter.version}&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<p>
+						Lo siguiente es definir un método <strong>static</strong> que proporcionará las tubplas para cada prueba:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+static Stream&lt;Arguments&gt; datos() {
+    return Stream.of(
+            Arguments.of(1.0, 1.0, 2.0),
+            Arguments.of(2.0, 2.0, 4.0)
+    );
+}
+						</code>
+					</pre>
+					<p>
+						Finalmente, definimos el método parametrizado indicando quien es el método que le proporciona las tuplas de datos:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@ParameterizedTest
+@MethodSource("datos")
+public void sumaParametrizada(double primero, double segundo, double resultado) {
+    assertThat(calculadora.suma(primero, segundo), is(resultado));
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+
+			<section id="otras_anotaciones">
+				<h3>Otras anotaciones útiles<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						La anotación <strong>@DisplayName</strong> nos sirve para hacer más legible el resultado de nuestras pruebas:
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@Test
+@DisplayName("suma 5 + 5")
+public void sumaCincoMasCinco() {
+    assertEquals(10, calculadora.suma(5, 5));
+}
+						</code>
+					</pre>
+					<img class="centrado" src="imagenes/testDisplayName.png" />
+				</section>
+
+				<section>
+					<p>
+						Podemos <strong>desactivar</strong> una clase de prueba, o un método con la etiqueta <strong>@Disabled</strong>.
+					</p>
+					<pre>
+						<code class="java" data-trim>
+@Test
+@DisplayName("suma 5 + 5")
+@Disabled
+public void sumaCincoMasCinco() {
+    assertEquals(10, calculadora.suma(5, 5));
+}
+						</code>
+					</pre>
+					<img class="centrado" src="imagenes/testDisabled.png" />
+				</section>
+			</section>
+
+			<section id="cobertura">
+				<h3>Cobertura de las pruebas<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						<strong>IntelliJ</strong> tiene un excelente plug-in para calcular la cobertura de las pruebas.
+					</p>
+					<img class="centrado" src="imagenes/cobertura.png" />
+				</section>
+			</section>
+
+			<section>
+				<h3>Resumen<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Las prueba unitarias son una herramienta imprescindible en el desarrollo de software.
+					</p>
+					<p>
+						Cuando escribas pruebas, intenta seguir los principios <strong>FIRST</strong>.
+					</p>
+					<p>
+						Aunque existen varias bibliotecas para escritura de pruebas en Java, <strong>JUnit</strong> es la primera, y excelente biblioteca para la escritura de código.
+					</p>
+					<p>
+						JUnit tiene una muy buena integración en <strong>IntelliJ</strong>.
+					</p>
+				</section>
+			</section>
+
+		</div>
+	</div>
+
+	<!--<script src="../reveal/lib/js/head.min.js"></script>-->
+	<!--<script src="../reveal/js/reveal.js"></script>-->
+	<script src="../reveal-js/lib/js/head.min.js"></script>
+	<script src="../reveal-js/js/reveal.js"></script>
+
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: false,
+			width: 1366,
+			hight: 768,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// Optional reveal.js plugins
+			dependencies: [{
+					src: '../reveal-js/lib/js/classList.js',
+					condition: function() {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: '../reveal-js/plugin/markdown/marked.js',
+					condition: function() {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: '../reveal-js/plugin/markdown/markdown.js',
+					condition: function() {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: '../reveal-js/plugin/highlight/highlight.js',
+					async: true,
+					condition: function() {
+						return !!document.querySelector('pre code');
+					},
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				},
+				{
+					src: '../reveal-js/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: '../reveal-js/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

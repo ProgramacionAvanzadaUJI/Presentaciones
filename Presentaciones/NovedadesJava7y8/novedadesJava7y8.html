@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Novedades Java 7 y 8</title>
+
+  <meta name="description" content="Novedades Java 7 y 8">
+  <meta name="author" content="Oscar Belmonte Fernandez">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="../reveal-js/css/reveal.css">
+  <link rel="stylesheet" href="../reveal-js/css/theme/simple.css" id="theme">
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="../reveal-highlight-themes/styles/dark.css">
+
+  <!--<link rel="stylesheet" href="../reveal/lib/css/zenburn.css">-->
+  <link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+
+  <!-- Mis ajustes de css -->
+  <link rel="stylesheet" href="../css/my.css">
+
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+
+  <!--[if lt IE 9]>
+        <script src="../reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <section class="center">
+        <h2>Novedades Java 7 y 8</h2>
+        <h4>Óscar Belmonte Fernández</h4>
+        <h4>Universitat Jaume I</h4>
+      </section>
+
+      <!-- Mostrar ejemplo de código anterior a Java 7 y 8, y ver cómo se reescribe en Java 7,8 -->
+
+      <section id="contenidos">
+        <h3>Novedades Java 7 y 8</h3>
+        <ol>
+          <li><a href="#/objetivos">Objetivos</a>.</li>
+          <li><a href="#/optional">Optional</a>.</li>
+          <li><a href="#/acceso_sistema_ficheros">El API NIO para acceso al sistema de ficheros</a>.</li>
+          <li><a href="#/interfaces">Interfaces</a>.</li>
+          <li><a href="#/funciones_lambda">Funciones lambda</a>.</li>
+          <li><a href="#/procesar_datos_streams">Streams para procesar datos.</a></li>
+          <li><a href="#/date_api">API para trabajo con fechas</a>.</li>
+          <li><a href="#/recursos">Recursos</a>.</li>
+        </ol>
+      </section>
+
+      <!-- <section id="seccion2">
+				<h3>Sección 2</h3>
+			</section> -->
+
+      <section id="objetivos">
+        <h3>Objetivos<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <ul>
+            <li>
+              Conocer los cambios introducidos en la definición de <strong>interfaces</strong>.
+            </li>
+            <li>
+              Conocer las nuevas APIs para acceso al sistema de ficheros y trabajo con fechas.
+            </li>
+            <li>
+              Conocer qué son las funciones lambda y como trabajar con ellas.
+            </li>
+            <li>
+              Conocer el trabajo con <strong>streams</strong> ppara procesar datos.
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="optional">
+        <h3>Optional<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <p>
+            ¿Cuantas veces has escrito código como este?
+          </p>
+          <pre><code class="java" data-trim>
+						private Persona buscaPersonaPorNIF(String nif) {
+				        for(Persona persona: personas)
+				            if(persona.nif.equalsIgnoreCase(nif))
+				                return persona;
+
+				        return null;
+				    }
+					</code></pre>
+          <p>
+            Y lo has usado así:
+          </p>
+          <pre><code class="java" data-trim>
+					private void muestraPersona(String nif) {
+			        Persona persona;
+			        if((persona = buscaPersonaPorNIF(nif)) != null)
+			            System.out.println(persona);
+			        else System.out.println("No encontrada");
+			    }
+				</code></pre>
+        </section>
+
+				<section>
+					<p>
+						Luego diste un paso más con los <strong>Null Objects</strong>:
+					</p>
+					<pre><code class="java" data-trim>
+						private static final Persona PERSONA_NO_ENCONTRADA = new Persona();
+
+						private Persona buscaPersonaPorNIFNullObject(String nif) {
+				        for(Persona persona: personas)
+				            if(persona.nif.equalsIgnoreCase(nif))
+				                return persona;
+
+				        return PERSONA_NO_ENCONTRADA;
+				    }
+
+						private void muestraPersonaNullObject(String nif) {
+							System.out.println(buscaPersonaPorNIFNullObject(nif));
+				    }
+					</code></pre>
+					<p>
+						Código que elimina el <strong>if</strong> y minimiza los indeseables <strong>NullPointerException</strong>.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Ahora, nuestros métodos pueden devolver objetos de tipo <strong>Option&lt;T&gt;</strong>, que son objetos que pueden contener un valor o quizás no;
+					</p>
+					<pre><code class="java" data-trim>
+						private Optional&lt;Persona&gt; buscaPersonaOptional(String nif) {
+				        for(Persona persona: personas)
+				            if(persona.nif.equalsIgnoreCase(nif))
+				                return Optional.of(persona);
+
+				        return Optional.empty();
+				    }
+
+						private void muestraPersonaOptional(String nif) {
+							System.out.println(buscaPersonaOptional(nif).orElse(new Persona("", "No encontrada", "")));
+						}
+					</code></pre>
+					<p>
+						Vamos a ver más usos interesantes de <strong>Optional</strong> con <strong>streams</strong>.
+					</p>
+				</section>
+      </section>
+
+      <section id="acceso_sistema_ficheros">
+        <h3>El API NIO para acceso al sistema de ficheros<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <p>
+            En Java 8 tenemos nuevas clases para trabajar más comodamente con el sistema de ficheros.
+          </p>
+          <p>
+            Para definir una ruta en el sistema de ficheros:
+          </p>
+          <pre><code class="java" data-trim>
+            public static final String EL_QUIJOTE_TXT = "src/main/resources/ElQuijote.txt";
+
+            Path ruta = Paths.get(EL_QUIJOTE_TXT);
+          </code></pre>
+          <p>
+            Si nos sigue gustando el viejo <strong>File</strong>, lo recuperamos con el método <strong>File getFile()</strong>.
+          </p>
+          <p>
+            De hecho, todo lo que podíamos hacer con <strong>File</strong> lo podemos hacer con <strong>Path</strong> pero es más eficiente.
+          </p>
+        </section>
+
+        <section>
+          <a href="https://gquintana.github.io/2017/09/02/Java-File-vs-Path.html">Aquí</a> tienes un resumen de equivalencias y, como dice el autor, lo mejor está al final del artículo.
+          <p>
+            Lo intersate del <strong>interface Path</strong> es que se le puede pedir que nos devuelve un <strong>streams</strong> y, a partit de él, obtener todas las líneas de un fichero de texto. Lo veremos con detalle en la sección de <strong>streams</strong> para procesar datos.
+          </p>
+        </section>
+      </section>
+
+      <section id="interfaces">
+        <h3>Interfaces<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+					<p>
+						Como ya sabes, los interfaces son contratos que han de cumplir las clases que los implementan.
+					</p>
+					<p>
+						En Java 8, ha habido tantos cambios que se ha tenido que ampliar lo que puede <strong>contener</strong> un <strong>interface</strong>.
+					</p>
+					<p>
+						Ahora, además de declaración de métodos y constantes, puede haber métodos con implementación por defecto y métodos estáticos.
+					</p>
+				</section>
+
+				<section>
+					<pre><code class="java" data-trim>
+						public interface Interfaz {
+						    Double E = 2.718281; // Definición de una constante
+						    double calculaSuma(); // Declaración de un método
+
+						    default boolean isPar(int numero) {
+						        return numero%2 == 0 ? true : false;
+						    }
+
+						    static boolean isMultiploDeCinco(int numero) {
+						        return numero%5 == 0 ? true : false;
+						    }
+						}
+					</code></pre>
+					<p>
+						Los métodos con implementación por defecto se marcan con <strong>default</strong>.
+					</p>
+					<pre><code class="java" data-trim>
+						public class Utilidad implements Interfaz {
+						    @Override
+						    public double calculaSuma() {
+						        return 0;
+						    }
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<p>
+						Y se utizan así:
+					</p>
+					<pre><code class="java" data-trim>
+						Utilidad utilidad = new Utilidad();
+						System.out.println(utilidad.isPar(3));
+						System.out.println(Interfaz.isMultiploDeCinco(5));
+						System.out.println(utilidad.calculaSuma());
+					</code></pre>
+					<p>
+						Fíjate que el método <strong>static</strong> sólo se puede invocar sobre el tipo del <strong>interface</strong> y no sobre el tipo de la clase que lo implementa.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Ya sabes que en Java los <strong>interface</strong> se pueden extender:
+					</p>
+					<pre><code class="java" data-trim>
+						public interface InterfazHija extends Interfaz {
+						    @Override
+						    default boolean isPar(int numero) {
+						        return isMultiploDe(numero, 2);
+						    }
+
+						    static boolean isMultiploDe(int numero, int divisor) {
+						        return numero%divisor == 0 ? true : false;
+						    }
+						}
+					</code></pre>
+					<p>
+						Y se usa así:
+					</p>
+					<pre><code class="java" data-trim>
+						System.out.println(InterfazHija.isMultiploDe(2,4));
+					</code></pre>
+				</section>
+				<section>
+					<p>
+						Cuidado!!! al igual que con las clases, los métodos <strong>static</strong> de los <strong>interface</strong> pertenecen al <strong>interface</strong>, por lo que no puedes escribir:
+					</p>
+					<pre><code class="java" data-trim>
+						InterfazHija.isMultiploDeCinco(5); // ERROR!!!
+					</code></pre>
+				</section>
+
+				<section>
+					<p>
+						<strong>Recomendación</strong>: No utilices métodos <strong>default</strong> ni <strong>static</strong> salvo que quieras ampliar tu API y tengas código heredado que te lo impide.
+					</p>
+					<p>
+						De hecho, estas nuevas construcciones se crearon precisamente por eso, cuando se quiso ampliar el lenguaje Java en la versión 8.
+					</p>
+				</section>
+
+				<section>
+					<p>
+						¿Te acuerdas del código para definir un escuchador de un botón?
+					</p>
+					<pre><code class="java" data-trim>
+						JButton jButton = new JButton("Botón");
+
+						jButton.addActionListener(new ActionListener() {
+						    @Override
+						    public void actionPerformed(ActionEvent e) {
+						        System.out.println("Pulsaste el botón");
+						    }
+						});
+					</code></pre>
+					<p>
+						La <strong>interface ActionListener</strong> sólo declara un método <strong>public void actionPerformed(ActionEvent e)</strong>.
+					</p>
+					<p>
+						Este tipo de <strong>interface</strong> se llaman <em>Interfaces Funcionales</em>, sólo tienen un método <strong>abstract</strong> aunque pueden tener otros métodos <strong>default</strong> o <strong>static</strong>.
+					</p>
+				</section>
+
+        <section>
+					<p>
+						Este tipo de <strong>interface</strong> se ha vuelto tan importante que se ha creado una anotación <strong>@FunctionalInterface</strong> para marcarlos, y asegurarnos que el <strong>interface</strong> sólo declara un método <strong>abstract</strong>:
+					</p>
+					<pre><code class="java" data-trim>
+						@FunctionalInterface
+						public interface Interfaz {
+						    Double E = 2.718281; // Definición de una constante
+						    double calculaSuma(); // Declaración de un método
+
+						    default boolean isPar(int numero) {
+						        return numero%2 == 0 ? true : false;
+						    }
+
+						    static boolean isMultiploDeCinco(int numero) {
+						        return numero%5 == 0 ? true : false;
+						    }
+						}
+					</code></pre>
+        </section>
+
+        <section>
+          Veremos toda la potencia de los interfaces funcionales en la sección de <strong>streams</strong> para el procesamiento de datos.
+        </section>
+      </section>
+
+      <section id="funciones_lambda">
+        <h3>Funciones lambda<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <p>
+            Volviendo al ejemplo del escuchador del botón:
+          </p>
+          <pre><code class="java" data-trim>
+						JButton jButton = new JButton("Botón");
+
+						jButton.addActionListener(new ActionListener() {
+						    @Override
+						    public void actionPerformed(ActionEvent e) {
+						        System.out.println("Pulsaste el botón");
+						    }
+						});
+					</code></pre>
+					<p>
+						Recuerda que se creaba una clase, sin nombre, que implementaba <strong>intreface ActionListener</strong>.
+					</p>
+        </section>
+
+        <section>
+          <p>
+            Fíjate que la idea es ejecutar un bloque de código, el definido en el método, cuando ocurre el evento. Aquí tienes otro ejemplo:
+          </p>
+          <pre><code class="java" data-trim>
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("Hola desde un hilo.");
+                }
+            })
+            .run();
+          </code></pre>
+          <p>
+            De nuevo, queremos que el Hilo ejecute el bloque de código de la clase interna anónima que implementa la <strong>interface Runnable</strong>.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Lo que nos permiten las funciones lambda es definir bloque de código sin el artificio de las clases internas anónimas. Si sólo hay un método en la interfaz:
+          </p>
+          <ul>
+            <li>
+              Da igual cual sea su nombre, es único, el declarado en la interfaz.
+            </li>
+            <li>
+              No hace falta escribir el tipo de los argumentos, está en la declaración de la interfaz.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            La clase interna anónima:
+          </p>
+          <pre><code class="java" data-trim>
+          jButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  System.out.println("Pulsaste el botón");
+              }
+          });
+        </code></pre>
+        <p>
+          pasa a ser:
+        </p>
+        <pre><code class="java" data-trim>
+          jButton.addActionListener((e) -> System.out.println("Pulsaste el botón"));
+        </code></pre>
+        <p>
+          Y no se crea ninguna clase anónima para contener el código.
+        </p>
+        </section>
+
+        <section>
+          <p>
+            Por su parte:
+          </p>
+          <pre><code class="java" data-trim>
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("Hola desde un hilo.");
+                }
+            })
+            .run();
+          </code></pre>
+          <p>
+            pasa a ser:
+          </p>
+          <pre><code class="java" data-trim>
+            new Thread(() -> System.out.println("Hola desde un hilo."));
+          </code></pre>
+        </section>
+
+				<!-- Usar lambdas para reescribir el ejemplo del patrón Strategy -->
+				<section>
+					<strong>Ejercicio</strong>: Reescribe el conversor de temperaturas unidireccional (sólo desde Celsius), para que trabaje con lambdas.
+				</section>
+      </section>
+
+      <section id="procesar_datos_streams">
+        <h3>Streams para procesar datos<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <p>
+            ¿Cómo contarías las líneas en un fichero de texto?
+          </p>
+          <pre><code class="java" data-trim>
+            public static final String EL_QUIJOTE_TXT = "src/main/resources/ElQuijote.txt";
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
+                int lineas = 0;
+                while((br.readLine()) != null) lineas++;
+                System.out.println("Lineas: " + lineas);
+                br.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          </code></pre>
+          <p>
+            Fíjate que es clara la iteración en el bloque <strong>while</strong>.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            ¿Y cómo contarías las palabras?
+          </p>
+          <pre><code class="java" data-trim>
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
+                int palabras = 0;
+                String linea;
+                while((linea = br.readLine()) != null) {
+                    palabras += linea.split(" ").length;
+                }
+                System.out.println("Palabras: " + palabras);
+                br.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          </code></pre>
+          <p>
+            Ahora es aún más evidente todo el artificio alrededor.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            <strong>Ejercicio</strong>: Escribe el código necesario para encontrar el número de veces que una determinada palabra aparece en el fichero de texto.
+          </p>
+          <pre class="fragment"><code class="java" data-trim>
+            private void cuentaAparicionesPalabraSinStreams(String palabra) {
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
+                    int palabras = 0;
+                    String linea;
+                    while((linea = br.readLine()) != null) {
+                        for(String token: linea.split(" "))
+                            if(palabra.equalsIgnoreCase(token))
+                                palabras++;
+                    }
+                    System.out.println(palabra + ": " + palabras);
+                    br.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Los <strong>streams</strong> se introdujeron en Java para eliminar todo el artificio que impone el trabajar con colecciones de objetos.
+          </p>
+          <p>
+            Este es el código, utilizando <strong>streams</strong> necesario para contar las líneas de un fichero:
+          </p>
+          <pre><code class="java" data-trim>
+            private static Stream&lt;String&gt; texto;
+            try {
+                long lineas = Files.lines(Paths.get(EL_QUIJOTE_TXT))
+                  .count();
+
+                System.out.println("Lineas: " + lineas);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          </code></pre>
+          <p>
+            <strong>Files.lines(Path)</strong> devuelve un <strong>Stream&lt;String&gt;</strong>, un <strong>stream</strong> de cadenas de caracteres.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Compara las dos versiones:
+          </p>
+          <pre><code class="java" data-trim>
+            BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
+            int lineas = 0;
+            while((br.readLine()) != null) lineas++;
+            System.out.println("Lineas: " + lineas);
+            br.close();
+          </code></pre>
+          <pre><code class="java" data-trim>
+            long lineas = Files.lines(Paths.get(EL_QUIJOTE_TXT))
+              .count();
+            System.out.println("Lineas: " + lineas);
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Las <strong>colecciones</strong> almacenan datos, los <strong>streams</strong> realizan operaciones sobre los datos de las colecciones.
+          </p>
+          <p>
+            Existen dos operaciones con <strong>streams</strong>:
+          </p>
+          <ul>
+            <li>
+              Intermedias &rarr; producen otros <strong>streams</strong>.
+            </li>
+            <li>
+              Terminales &rarr; acaban la computación devolviendo un resultado.
+            </li>
+          </ul>
+          <p>
+            Las operaciones intermedias son <strong>lazy</strong>, sólo se ejecutan antes de ejecutar una terminal.
+          </p>
+          <p>
+            Una vez realizada una operación terminal, no podemos reutilizar el <strong>stream</strong>.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Funciones <strong>no terminales</strong> de filtrado:
+          </p>
+          <ul>
+            <li>
+              <strong>Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate)</strong> genera un <strong>stream</strong> sólo con los elementos que satisfacen el predicado.
+            </li>
+            <li>
+              <strong>Stream&lt;T&gt; distinct()</strong>: genera un <strong>stream</strong> con elementos no repetidos.
+            </li>
+            <li>
+              <strong>Stream&lt;T&gt; limit(long n)</strong>: genera un <strong>stream</strong> con los n primeros elementos.
+            </li>
+            <li>
+              <strong>Stream&lt;T&gt; skip(long n)</strong>: genera un <strong>stream</strong> sin los n primeros elementos.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            Funciones <strong>terminales</strong> de búsqueda:
+          </p>
+          <ul>
+            <li>
+              <strong>boolean anyMatch(Predicate&lt;? super T&gt; predicate)</strong>: devuelve <strong>true</strong> si algún elemento cumple el predicado.
+            </li>
+            <li>
+              <strong>boolean allMatch(Predicate&lt;? super T&gt; predicate)</strong>: devuelve <strong>true</strong> si todos los elementos cumplen el predicado.
+            </li>
+            <li>
+              <strong>boolean noneMatch(Predicate&lt;? super T&lt; predicate)</strong>: devuelve <strong>true</strong> si ningún elemento cumple el predicado.
+            </li>
+            <li>
+              <strong>Optional&lt;T&gt; findFirst()</strong>: devuelve <strong>Optional</strong> con el primer elemento del <strong>stream</strong> si lo hay.
+            </li>
+            <li>
+              <strong>Optional&lt;T&gt; findAny()</strong>: devuelve <strong>Optional</strong> con algún elemento del <strong>stream</strong> si lo hay.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            Funciones <strong>no terminales</strong> de mapeo:
+          </p>
+          <ul>
+            <li>
+              <strong>&lt;R&gt; Stream&lt;R&gt; map(Function&lt;? super T,? extends R&gt; mapper)</strong>: devuelve un <strong>stream</strong> en el que cada elemento es el resultado de aplicar sobre él le mapper.
+            </li>
+            <li>
+              <strong><R> Stream&lt;R&gt; flatMap(Function&lt;? super T,? extends Stream&lt;? extends R&gt;&gt; mapper)</strong>: devuelve un <strong>stream</strong> en el que cada elemento es el resultado de aplicar un mapper sobre los elementos de un <strong>stream</strong> intermedio.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            Funciones <strong>terminales</strong> de mapeo:
+            <ul>
+              <li>
+                <strong>T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)</strong>: aplica la operación binaria sobre cada elemento acumulando el resultado. El primer argumento es el valor inicial acumulado.
+              </li>
+            </ul>
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Otras funciones <strong>terminales</strong> útiles:
+          </p>
+          <ul>
+            <li>
+              <strong>long count()</strong>: devuelve el número de elementos en el <strong>stream</strong>.
+            </li>
+            <li>
+              <strong><R,A> R 	collect(Collector&lt;? super T,A,R&gt; collector)</strong>: recolecta el resultado en una colección.
+            </li>
+            <li>
+              <strong>Optional&lt;T&gt; max(Comparator&lt;? super T&gt; comparator)</strong>: devuelve, si está presente, el máximo según un criterio de comparación.
+            </li>
+            <li>
+              <strong>Optional&lt;T&gt; min(Comparator&lt;? super T&gt; comparator)</strong>: devuelve, si está presente, el mínimo según un criterio de comparación.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            Veámoslo mejor con ejemplos.
+          </p>
+          <p>
+            Contar las palabras de un fichero de texto:
+          </p>
+          <pre><code class="java" data-trim>
+            long palabras = texto
+                    .map(s -> s.split(" "))
+                    .flatMap(a -> Arrays.stream(a))
+                    .count();
+
+            System.out.println("Palabras: " + palabras);
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            <strong>Ejercicio</strong>: Usa <strong>streams</strong> para contar el número de veces que una palabra aparece en un fichero.
+          </p>
+          <p>
+            Pista: usa un filtro.
+          </p>
+          <pre class="fragment"><code class="java" data-trim>
+            private void cuentaAparicionesPalabra(String palabra) {
+                    long palabras = texto
+                            .map(s -> s.split(" "))
+                            .flatMap(a -> Arrays.stream(a))
+                            .filter(p -> palabra.equalsIgnoreCase(p))
+                            .count();
+
+                    System.out.println(palabra + ": " + palabras);
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Crear un diccionario con la frecuencia de palabras:
+          </p>
+          <pre><code class="java" data-trim>
+            private void diccionarioDePalabras() {
+                Map&lt;String, Long&gt; diccionario = texto
+                        .map(s -> s.split(" "))
+                        .flatMap(a -> Arrays.stream(a))
+                        .map(s -> s.toUpperCase())
+                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+                System.out.println(diccionario);
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Calcula qué palabra se repite más veces.
+          </p>
+          <pre class="fragment"><code class="java" data-trim>
+            private void palabraMasRepetida() {
+                Map&lt;String, Long&gt; diccionario = texto
+                        .map(s -> s.split(" "))
+                        .flatMap(a -> Arrays.stream(a))
+                        .map(s -> s.toUpperCase())
+                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+                Entry&lt;String, Long&gt; maximo = diccionario.entrySet()
+                        .stream()
+                        .max(Entry.comparingByValue(Comparator.naturalOrder())) // No es necesario Comparator.naturalOrder()
+                        .get();
+
+                System.out.println(maximo);
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Un ejemplo con optional. Para ello vamos a utilizar un biblioteca que genera datos aleatorios.
+          </p>
+          <pre><code class="xml" data-trim>
+            &lt;repositories&gt;
+                &lt;repository&gt;
+                    &lt;id&gt;jitpack.io&lt;/id&gt;
+                    &lt;url&gt;https://jitpack.io&lt;/url&gt;
+                &lt;/repository&gt;
+            &lt;/repositories&gt;
+
+            &lt;dependencies&gt;
+                &lt;dependency&gt;
+                    &lt;groupId&gt;com.github.CursoJRD&lt;/groupId&gt;
+                    &lt;artifactId&gt;GeneradorDatosINE&lt;/artifactId&gt;
+                    &lt;version&gt;0.0.4&lt;/version&gt;
+                &lt;/dependency&gt;
+            &lt;/dependencies&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Crea una clase con el siguiente código.
+          </p>
+          <pre><code class="java" data-trim>
+            public class ProcesaPersonas {
+                public static void main(String[] args) {
+                    ProcesaPersonas procesaPersonas = new ProcesaPersonas();
+                    procesaPersonas.personasEnProvincia("Castellón");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                private void personasEnProvincia(String provincia) {
+                    List&lt;Persona&gt; personas = Persona.aleatorias(100);
+
+                    personas.stream()
+                            .filter(p -> provincia.equalsIgnoreCase(p.getProvincia()))
+                            .findFirst()
+                            .ifPresent(System.out::println);
+
+                    System.out.println(personas);
+                }
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Y este es el código para la clase de ayuda, <strong>Persona</strong>.
+          </p>
+          <pre><code class="java" data-trim>
+            public class Persona {
+                private static final GeneradorDatosINE generador = new GeneradorDatosINE();
+                private String nombre;
+                private String apellidos;
+                private int edad;
+                private String nif;
+                private String provincia;
+                private String poblacion;
+
+                private Persona(String nombre, String apellidos, int edad, String nif, String provincia, String poblacion) {
+                    this.nombre = nombre;
+                    this.apellidos = apellidos;
+                    this.edad = edad;
+                    this.nif = nif;
+                    this.provincia = provincia;
+                    this.poblacion = poblacion;
+                }
+
+                public String getProvincia() {
+                    return provincia;
+                }
+
+                public static Persona aleatoria() {
+
+                    String nombre = generador.getNombre();
+                    String apellidos = generador.getApellido() + " " + generador.getApellido();
+                    int edad = generador.getEdad();
+                    String provincia = generador.getProvincia();
+                    String poblacion = generador.getPoblacion(provincia);
+                    String nif = generador.getNIF();
+
+                    return new Persona(nombre, apellidos, edad, nif, provincia, poblacion);
+                }
+
+                public static List&lt;Persona&gt; aleatorias(int cuantas) {
+                    List&lt;Persona&gt; personas = new ArrayList&ld;&gt;();
+
+                    for(int i = 0; i <  cuantas; i++)
+                        personas.add(aleatoria());
+
+                    return personas;
+                }
+
+                @Override
+                public String toString() {
+                    final StringBuilder sb = new StringBuilder("Persona{");
+                    sb.append("nombre='").append(nombre).append('\'');
+                    sb.append(", apellidos='").append(apellidos).append('\'');
+                    sb.append(", edad=").append(edad);
+                    sb.append(", nif='").append(nif).append('\'');
+                    sb.append(", provincia='").append(provincia).append('\'');
+                    sb.append(", poblacion='").append(poblacion).append('\'');
+                    sb.append('}');
+                    return sb.toString();
+                }
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Lo interesante es este bloque de código:
+          </p>
+          <pre><code class="java" data-trim>
+            personas.stream()
+                    .filter(p -> provincia.equalsIgnoreCase(p.getProvincia()))
+                    .findFirst()
+                    .ifPresent(System.out::println);
+          </code></pre>
+          <p>
+            <strong>findFirst()</strong> devuelve un <strong>Optional</strong> que si está presente, se lo enviamos al consumidor <strong>System.out::println</strong>.
+          </p>
+
+        </section>
+
+      </section>
+
+      <!-- http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html -->
+      <section id="date_api">
+        <h3>API para trabajo con fechas<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+        <section>
+          <p>
+            Las clases <strong>Date</strong> y <strong>Time</strong> siempre han sido <em>complidas</em> de usar y poco intuitivas.
+          </p>
+          <p>
+            Las dos clases anteriores han sido sustituidas por <strong>LocalDate</strong> y <strong>LocalTime</strong>, y la composición de las dos <strong>LocalDateTime</strong>.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Para las horas dentro de un día usamos <strong>LocalTime</strong>:
+          </p>
+          <pre><code class="java" data-trim>
+            LocalTime ahora = LocalTime.now();
+            LocalTime instante = LocalTime.of(10,10);
+            LocalTime cincoDeLaTarde = LocalTime.parse("17:00:00");
+          </code></pre>
+          <p>
+            Tenemos una interfaz fluída para ajustar hora, minutos y segundos:
+          </p>
+          <pre><code class="java" data-trim>
+            LocalTime hora = LocalTime.now()
+                    .withMinute(0)
+                    .withHour(22)
+                    .withSecond(10);
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Para las fechas usamos <strong>LocalDate</strong>:
+          </p>
+          <pre><code class="java" data-trim>
+            LocalDate hoy = LocalDate.now();
+            LocalDate cumpleanyos = LocalDate.parse("1969-07-05");
+            LocalDate hombreEnLaLuna = LocalDate.of(1969, 7, 20);
+          </code></pre>
+          <p>
+            Y también tenemos una interfaz fluida para ajustar año, mes y día.
+          </p>
+          <pre><code class="java" data-trim>
+            LocalDate dia = LocalDate.now()
+                    .withYear(2000)
+                    .withMonth(1)
+                    .withDayOfMonth(29);
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            Si necesitamos un instante en el calendario usamos <strong>LocalDateTime</strong>, clase de la que podemos extraer bien sólo la fecha, bien sólo la hora:
+          </p>
+          <pre><code class="java" data-trim>
+            LocalDateTime ahora = LocalDateTime.now();
+            LocalDate fecha = ahora.toLocalDate();
+            LocalTime hora = ahora.toLocalTime();
+          </code></pre>
+          <p>
+            Además, podemos hacer algún tipo de cálculo:
+          </p>
+          <pre><code class="java" data-trim>
+            LocalDateTime haceTresAnyos = ahora.plusYears(-3);
+            LocalDateTime manayana = ahora.plusDays(1);
+            LocalDateTime enDiezMinutos = ahora.plusMinutes(10);
+          </code></pre>
+        </section>
+
+        <section>
+          <p>
+            También tenemos intervalos temporales, si son entre fechas las representamos con <strong>Period</strong>, si son entre horas las representamos con <strong>Duration</strong>.
+          </p>
+          <pre><code class="java" data-trim>
+            Period entreFechas = Period.between(LocalDate.now().withYear(2000).withMonth(3), LocalDate.now());
+            Duration entreHoras = Duration.between(LocalTime.now().withHour(10), LocalTime.now());
+          </code></pre>
+          <p>
+            Los intervalos se pueden sumar a tiempos y fechas:
+          </p>
+          <pre><code class="java" data-trim>
+            Duration diezMinutos = Duration.ofMinutes(10);
+            LocalTime enDiezMinutos = LocalTime.now().plus(diezMinutos);
+
+            Period cincoDias = Period.ofDays(5);
+            LocalDate enCincoDias = LocalDate.now().plus(cincoDias);
+          </code></pre>
+          <p>
+            Como ves, bastante más como que con la antigua API de tiempo/fechas.
+          </p>
+        </section>
+
+      </section>
+
+			<section id="recursos">
+				<h3>Recursos<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
+				<section>
+            <div>
+              <img class="centrado" src="https://images-na.ssl-images-amazon.com/images/I/51JNZZSTmFL._SX397_BO1,204,203,200_.jpg" width="300px"
+            </div>
+          <ul>
+            <li>
+              Charla de David Gómez sobre <a href="http://www.decharlas.uji.es/es/streams-en-java-8">Streams en Java 8</a>.
+            </li>
+          </ul>
+				</section>
+			</section>
+
+    </div>
+
+
+    <!-- Recursos
+		http://www.oracle.com/technetwork/articles/java/architect-lambdas-part1-2080972.html
+		http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html
+		https://www.adictosaltrabajo.com/tutoriales/expresiones-lambda-con-java-8/ -->
+  </div>
+
+  <!--<script src="../reveal/lib/js/head.min.js"></script>-->
+  <!--<script src="../reveal/js/reveal.js"></script>-->
+  <script src="../reveal-js/lib/js/head.min.js"></script>
+  <script src="../reveal-js/js/reveal.js"></script>
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: false,
+      width: 1366,
+      hight: 768,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [{
+          src: '../reveal-js/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../reveal-js/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../reveal-js/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../reveal-js/plugin/highlight/highlight.js',
+          async: true,
+          condition: function() {
+            return !!document.querySelector('pre code');
+          },
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        {
+          src: '../reveal-js/plugin/zoom-js/zoom.js',
+          async: true
+        },
+        {
+          src: '../reveal-js/plugin/notes/notes.js',
+          async: true
+        }
+      ]
+    });
+  </script>
+
+</body>
+
+</html>

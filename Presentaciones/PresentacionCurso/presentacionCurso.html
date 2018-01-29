@@ -58,14 +58,14 @@ URL: https://code.google.com/p/io-2012-slides
       </hgroup>
       <article>
         <p>Óscar Belmonte Fernández.</p>
-        <p>Despacho TI1002DD.</p>
+        <p>Despacho TI1202DD.</p>
         <p>Página web: <a href="http://www3.uji.es/~belfern">http://www3.uji.es/~belfern</a></p>
         <p>Blog: <a href="http://blogs.uji.es/encuentrosjava/">http://blogs.uji.es/encuentrosjava/</a></p>
         <p>Encuentros Java: <a href="http://encuentrosjava.uji.es/">http://encuentrosjava.uji.es/</a></p>
         <p>Correo electrónico: <a href="mailto:oscar.belmonte@uji.es">oscar.belmonte@uji.es</a></p>
         <p><b>Tutorías</b></p>
-        <p>Lunes: 12:00 a 13:30</p>
-        <p>Miércoles: 15:00 a 14:30</p>
+        <p>Lunes: 15:00 a 16:30</p>
+        <p>Jueves: 12:00 a 13:30</p>
       </article>
     </slide>
 
@@ -84,20 +84,15 @@ URL: https://code.google.com/p/io-2012-slides
     <!-- Horario -->
     <slide>
       <hgroup>
-        <h2>Horario</h2>
+        <h2>Horario y Profesores</h2>
       </hgroup>
       <article>
-        <p><b>Tal y como aparece en el lleu</b></p>
-        <p>LA1 Dimarts 10:30-12:30: excepte: 14/02, 16/05, 23/05. - TD0209AI</p>
-        <p>TE1 Dimarts 08:30-10:00: excepte: 16/05, 23/05. - TD1201AA</p>
-        <p>TE1 Dimecres 11:00-12:00: excepte: 17/05, 24/05. - TD1201AA</p>
-        <p>LA2 Dimarts 10:30-12:30: excepte: 14/02, 16/05, 23/05. - TD0208AI</p>
-        <p>LA3 Dimarts 12:30-14:30: excepte: 14/02, 16/05, 23/05. - TD0209AI</p>
-        <p>LA4 Dimarts 17:30-19:30: excepte: 14/02, 16/05, 23/05. - TD0207AI</p>
+        <p><b>Tal y como aparece en el <a href="http://ujiapps.uji.es/sia/rest/publicacion/2017/estudio/225/asignatura/EI1017" target="_blank">sia</a></b></p>
+
       </article>
     </slide>
     <!-- Profesores -->
-    <slide>
+    <!-- <slide>
       <hgroup>
         <h2>Profesores</h2>
       </hgroup>
@@ -110,7 +105,7 @@ URL: https://code.google.com/p/io-2012-slides
         <p>LA2, LA3 &rarr; Jorge Badenas Carpio.</p>
         <p>LA4 &rarr; Guillermo Peris Ripollés.</p>
       </article>
-    </slide>
+    </slide> -->
 
     <!-- Como se relaciona con otras asignaturas -->
     <slide>
@@ -322,11 +317,13 @@ int[] res() {
 <pre class="prettyprint" data-lang="Java">
 ContadorSexos cuentaPersonaPorSexo() {
   ContadorSexos contador = new ContadorSexos();
-  for(Persona persona: personas)
-  if(persona.isHombre())
-    contador.incrementaHombres();
-  else if(persona.isMujer())
-    contador.incrementaMujeres();
+  for(Persona persona: personas) {
+    if(persona.isHombre())
+      contador.incrementaHombres();
+    else if(persona.isMujer())
+      contador.incrementaMujeres();
+  }
+
   return contador;
 }
 </pre>
@@ -528,7 +525,7 @@ ContadorSexos cuentaPersonaPorSexo() {
                                   <h2>Preguntas</h2>
                                 </hgroup>
                                 <article class="flexbox vcenter">
-                                  <p><b>Recuerda!!! la primera sesión de práctica mañana.</b></p>
+                                  <p><b>Recuerda!!! la primera sesión de práctica después de teoría.</b></p>
                                   <p class="centrado"><img src="imagenes/question.jpg"></p>
                                 </article>
                               </slide>

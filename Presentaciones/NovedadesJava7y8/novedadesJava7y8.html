@@ -459,7 +459,9 @@
             try {
                 BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
                 int lineas = 0;
-                while((br.readLine()) != null) lineas++;
+                while((br.readLine()) != null) {
+                  lineas++;
+                }
                 System.out.println("Lineas: " + lineas);
                 br.close();
             } catch (FileNotFoundException e) {
@@ -529,12 +531,13 @@
             Los <strong>streams</strong> se introdujeron en Java para eliminar todo el artificio que impone el trabajar con colecciones de objetos.
           </p>
           <p>
-            Este es el código, utilizando <strong>streams</strong> necesario para contar las líneas de un fichero:
+            Este es el código, utilizando <strong>streams</strong> para contar las líneas de un fichero:
           </p>
           <pre><code class="java" data-trim>
             private static Stream&lt;String&gt; texto;
             try {
-                long lineas = Files.lines(Paths.get(EL_QUIJOTE_TXT))
+                long lineas = Files
+                  .lines(Paths.get(EL_QUIJOTE_TXT))
                   .count();
 
                 System.out.println("Lineas: " + lineas);
@@ -554,12 +557,15 @@
           <pre><code class="java" data-trim>
             BufferedReader br = new BufferedReader(new FileReader(EL_QUIJOTE_TXT));
             int lineas = 0;
-            while((br.readLine()) != null) lineas++;
+            while((br.readLine()) != null) {
+              lineas++;
+            }
             System.out.println("Lineas: " + lineas);
             br.close();
           </code></pre>
           <pre><code class="java" data-trim>
-            long lineas = Files.lines(Paths.get(EL_QUIJOTE_TXT))
+            long lineas = Files
+              .lines(Paths.get(EL_QUIJOTE_TXT))
               .count();
             System.out.println("Lineas: " + lineas);
           </code></pre>
@@ -891,7 +897,7 @@
         <h3>API para trabajo con fechas<a class="contenidos" href="#/contenidos">Contenidos</a></h3>
         <section>
           <p>
-            Las clases <strong>Date</strong> y <strong>Time</strong> siempre han sido <em>complidas</em> de usar y poco intuitivas.
+            Las clases <strong>Date</strong> y <strong>Time</strong> siempre han sido <em>complicadas</em> de usar y poco intuitivas.
           </p>
           <p>
             Las dos clases anteriores han sido sustituidas por <strong>LocalDate</strong> y <strong>LocalTime</strong>, y la composición de las dos <strong>LocalDateTime</strong>.

@@ -231,7 +231,7 @@
 					<pre><code class="xml" data-trim>
 						&lt;dependency&gt;
 						    &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
-						    &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+						    &lt;artifactId&gt;junit-jupiter-engine&lt;/artifactId&gt;
 						    &lt;version&gt;${junit.jupiter.version}&lt;/version&gt;
 						    &lt;scope&gt;test&lt;/scope&gt;
 						&lt;/dependency&gt;
@@ -246,7 +246,7 @@
 					</p>
 					<pre>
 						<code class="xml" data-trim>
-&lt;junit.jupiter.version&gt;5.0.1&lt;/junit.jupiter.version&gt;
+&lt;junit.jupiter.version&gt;5.0.3&lt;/junit.jupiter.version&gt;
 &lt;hamcrest.version&gt;1.3&lt;/hamcrest.version&gt;</code>
 					</pre>
 				</section>
@@ -260,7 +260,7 @@
 &lt;plugin&gt;
   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-  &lt;version&gt;2.19.1&lt;/version&gt;
+  &lt;version&gt;2.20.1&lt;/version&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.junit.platform&lt;/groupId&gt;
@@ -270,7 +270,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
       &lt;artifactId&gt;junit-jupiter-engine&lt;/artifactId&gt;
-      &lt;version&gt;5.0.1&lt;/version&gt;
+      &lt;version&gt;${junit.jupiter.version}&lt;/version&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
 &lt;/plugin&gt;
@@ -617,9 +617,9 @@ public void restaCincoMenosCincoHamcrest() {
 					<pre>
 						<code class="xml" data-trim>
 &lt;dependency&gt;
-    &lt;groupId&gt;org.JUnit.jupiter&lt;/groupId&gt;
-    &lt;artifactId&gt;JUnit-jupiter-params&lt;/artifactId&gt;
-    &lt;version&gt;${JUnit.jupiter.version}&lt;/version&gt;
+    &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+    &lt;artifactId&gt;junit-jupiter-params&lt;/artifactId&gt;
+    &lt;version&gt;${junit.jupiter.version}&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 						</code>
@@ -628,18 +628,16 @@ public void restaCincoMenosCincoHamcrest() {
 
 				<section>
 					<p>
-						Lo siguiente es definir un método <strong>static</strong> que proporcionará las tubplas para cada prueba:
+						Lo siguiente es definir un método <strong>static</strong> que proporcionará las tuplas para cada prueba:
 					</p>
-					<pre>
-						<code class="java" data-trim>
+					<pre><code class="java" data-trim>
 static Stream&lt;Arguments&gt; datos() {
     return Stream.of(
             Arguments.of(1.0, 1.0, 2.0),
             Arguments.of(2.0, 2.0, 4.0)
     );
 }
-						</code>
-					</pre>
+						</code></pre>
 					<p>
 						Finalmente, definimos el método parametrizado indicando quien es el método que le proporciona las tuplas de datos:
 					</p>

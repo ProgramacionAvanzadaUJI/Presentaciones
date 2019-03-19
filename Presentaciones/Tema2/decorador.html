@@ -58,7 +58,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>La herencia extiende el comportamiento de una nueva clase hija
-                ligándola fuertemente con su clase padre.</p>
+                ligándola fuertemente con su clase madre.</p>
             <p>A veces, necesitamos un mecanismo más flexible que la herencia
                 para ampliar el comportamiento de una clase. De hecho, se recomienda utilizar la composición frente a la herencia.</p>
             <p>El patrón de diseño <b>Decorador</b> nos ofrece una solución para añadir
@@ -501,7 +501,8 @@ public abstract class Extra extends Vehiculo {
     public float getPrecio() {
         return vehiculo.getPrecio() + super.getPrecio();
     }
-    public String descripcionVehiculo() {
+    @Override
+    public String descripcion() {
         return vehiculo.descripcion();
     }
 }</pre>
@@ -521,7 +522,7 @@ public class ConAireAcondicionado extends Extra {
     }
     @Override
     public String descripcion() {
-        return descripcionVehiculo() + ", con aire acondicionado";
+        return super.descripcion() + ", con aire acondicionado";
     }
 }</pre>
 <pre class="prettyprint" data-lang="Java">
@@ -531,7 +532,7 @@ public class ConPinturaMetalizada extends Extra {
     }
     @Override
     public String descripcion() {
-        return descripcionVehiculo() + ", con pintura metalizada";
+        return super.descripcion() + ", con pintura metalizada";
     }
 }</pre>
         </article>

@@ -215,7 +215,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Primera idea.</p>
             <p>Escribo una clase para cada vehículo y luego creo clases hijas de cada
                 uno de los vehículos añadiendo los extras.</p>
-            <p>Por ejemplo, tendré: Utilitario como clase padre, y después una clase hija que
+            <p>Por ejemplo, tendré: Utilitario como clase madre, y después una clase hija que
                 sea UtilitarioAireAcondicionado, otra que sea UtilitarioPinturaMetalizada,...</p>
             <p>Y si quiero un Utilitario con aire acondicionado y pintura metalizada tendré
                 UtilitarioAireAcondicionadoPinturaMetalizada,... uy!, esto no va por buen camino.</p>
@@ -313,7 +313,7 @@ public class Familiar {
         </hgroup>
         <article>
             <p>Si, efectivamente, mucho código duplicado.
-                Extraigámoslo a una clase padre.</p>
+                Extraigámoslo a una clase madre.</p>
 <pre class="prettyprint" data-lang="Java">
 public abstract class Vehiculo {
     private float precio;
@@ -403,7 +403,7 @@ public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
     private Vehiculo vehiculo; //Aquí se recubre al vehículo original
 
     public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
-        super(precioExtra); //El padre guarda el precio del extra
+        super(precioExtra); //La madre guarda el precio del extra
         this.vehiculo = vehiculo; //Nos quedamos con una referencia
                                   // al vehículo que decoramos.
     }</pre>
@@ -424,12 +424,12 @@ public String descripcion() {
            ", con aire acondicionado"; // Mi descripción como extra
 }</pre>
             <p>Añadimos al precio del vehículo, el precio del extra que
-                está guardado en la clase padre.</p>
+                está guardado en la clase madre.</p>
 <pre class="prettyprint" data-lang="Java">
 @Override
 public float getPrecio() {
     return vehiculo.getPrecio() + // Precio de vehículo que recubro.
-           super.getPrecio();     // Mi precio como extra, lo guarda el padre.
+           super.getPrecio();     // Mi precio como extra, lo guarda la madre.
 }</pre>
         </article>
         </slide>

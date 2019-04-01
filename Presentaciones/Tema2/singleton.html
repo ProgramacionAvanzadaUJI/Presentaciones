@@ -282,17 +282,11 @@ public class Singleton {
 public class TestSingleton {
     private void ejecuta() {
         for(int i = 0; i &lt; 100; i++)
-            new Thread(new Hilo()).start();
-        Singleton.saludo();
+            new Thread(() -> Singleton.getInstance()).start();
+        Singleton.instanciasConcurrentes();
     }
     public static void main(String[] args) {
         new TestSingleton().ejecuta();
-    }
-    private class Hilo implements Runnable {
-        @Override
-        public void run() {
-            Singleton.getInstance();
-        }
     }
 }</pre>
             <p>Estamos creando 100 hilos que piden la
@@ -307,13 +301,8 @@ public class TestSingleton {
         </hgroup>
         <article>
 <pre class="prettyprint" data-lang="Java">
-private class Hilo implements Runnable {
-    @Override
-    public void run() {
-        Singleton.getInstance();
-    }
-}</pre>
-            <p>Fíjate que ahora, la clase cliente <b>Hilo</b> no hace
+new Thread(() -> Singleton.getInstance()).start();</pre>
+            <p>Fíjate que ahora, no se hace
                 uso de <b>new </b> para obtener una instancia
                 de <b>Singleton</b>, hace uso de un método
                 <b>static</b> que le proporciona la instancia.</p>

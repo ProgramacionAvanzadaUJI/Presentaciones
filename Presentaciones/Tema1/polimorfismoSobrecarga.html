@@ -345,12 +345,8 @@ class Ejemplo {
 			<div class="build">
 				<div>Es un constructor de la clase.</div>
 				<div>¿Cómo lo sé?</div>
-				<div>Tiene el mismo nombre que la clase y sin tipo de retorno.</div>
-				<div>Al constructor sin argumentos, ¿cómo se le llama?</div>
-				<div>Constructor por defecto.</div>
-				<div>¿Por qué este nombre?</div>
-				<div>Si no has visto herencia (y se supone que no la has visto) no lo sabrás.</div>
-				<div>...ya lo veremos.</p>
+        <div>Tiene el mismo nombre que la clase y sin tipo de retorno.</div>
+        <div>A este constructor se le llama construtor sin argumentos.</div>
 			</div>
 		</article>
         </slide>
@@ -404,7 +400,7 @@ class Perona {
   private String apellidos;
   private String nif;
 
-  public Persona() { // Constructor por defecto
+  public Persona() { // Constructor sin argumentos
     super();
   }
 
@@ -477,12 +473,12 @@ class Perona {
           </hgroup>
           <article>
             <p>
-              Lo más aconsejado es definir únicamente el constructor por defecto y el que recibe todos los atributos de la clase:
+              Lo más aconsejado es definir únicamente el constructor sin argumentos y el que recibe todos los atributos de la clase:
             </p>
             <pre class="prettyprint" data-lang="Java" data-trim>
 public class Persona {
   ....
-  public Persona() { // Constructor por defecto
+  public Persona() { // Constructor sin argumentos
     super();
   }
   public Persona(String nombre, String apellidos, String nif) {

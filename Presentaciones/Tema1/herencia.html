@@ -444,11 +444,11 @@ public Punto3D(double x, double y, double z) {
         </slide>
 
 
-        <!-- Extensión de una clase. El constructor por defecto -->
+        <!-- Extensión de una clase. El constructor sin argumentos -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
-			<h2>El constructor por defecto</h2>
+			<h2>El constructor sin argumentos</h2>
         </hgroup>
 		<article>
             <p>Cuando se crea un objeto de una clase hija, se debe incluir
@@ -458,37 +458,36 @@ public Punto3D(double x, double y, double z) {
                 clase hija.</p> -->
 <pre class="prettyprint" data-lang="Java">
 public Punto2D() {
-    System.out.println("Constructor por defecto Punto2D");
+    System.out.println("Constructor sin argumentos Punto2D");
 }
 ...
 public Punto3D() {
     //debe iniciar la funcionalidad de la clase madre, ¿cómo?
-    System.out.println("Constructor por defecto clase Punto3D");
+    System.out.println("Constructor sin argumentos clase Punto3D");
 }
 ...
 // En algún lugar de nuestro código
 Punto3D p = new Punto3D();
-// Muestra: Constructor por defecto Punto2D
-//          Constructor por defecto clase Punto3D</pre>
+// Muestra: Constructor sin argumentos Punto2D
+//          Constructor sin argumentos clase Punto3D</pre>
         		        </article>
         </slide>
 
 
-        <!-- Extensión de una clase. El constructor por defecto -->
+        <!-- Extensión de una clase. El constructor sin argumentos -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
-			<h2>El constructor por defecto</h2>
+			<h2>El constructor sin argumentos</h2>
         </hgroup>
 		<article>
             <p>Aunque no escribamos explícitamente, cuando se crea un objeto de la clase
-                <b>Punto3D</b> se llama <b>por defecto</b> al constructor
+                <b>Punto3D</b> se llama al constructor
                 sin argumentos de la clase madre <b>Punto2D</b>.</p>
-            <p>Por eso, al constructor sin argumentos se le llama
-                <span class='green'><b>constructor por defecto</b></span>.</p>
             <p>Un detalle importante es que, si cuando definimos una clase
-                no definimos ningún construtor, Java definirá por nosotros el
-                constructor por defecto. Pero, si definimos un constructor
+                no definimos ningún construtor, Java definirá por nosotros un 
+                constructor sin argumentos por defecto (al que se llama constructor por defecto). 
+                Pero, si definimos un constructor
                 con argumentos, Java no definirá el constructor por defecto.</p>
             <p>Este mecanismo es un modo de asegurar que podemos crear
                 instancias de una clase aunque no definamos ningún constructor
@@ -497,15 +496,15 @@ Punto3D p = new Punto3D();
         </slide>
 
 
-        <!-- Extensión de una clase. El constructor por defecto -->
+        <!-- Extensión de una clase. El constructor sin argumentos -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
-			<h2>El constructor por defecto</h2>
+			<h2>El constructor sin argumentos</h2>
         </hgroup>
 		<article>
             <p>Peligros de olvidar qué significa el
-                <span class='green'><b>construtor por defecto</b></span>.</p>
+                <span class='green'><b>construtor sin argumentos</b></span>.</p>
             <p>Observa este sencillo ejemplo:</p>
 <pre class="prettyprint" data-lang="Java">
 public class Madre {
@@ -523,19 +522,19 @@ public class Hija extends Madre {
         </slide>
 
 
-        <!-- Extensión de una clase. El constructor por defecto -->
+        <!-- Extensión de una clase. El constructor sin argumentos -->
             <slide>
         <hgroup>
 			<h2>Extensión de una clase</h2>
-			<h2>El constructor por defecto</h2>
+			<h2>El constructor sin argumentos</h2>
         </hgroup>
 		<article>
-            <p>Regla a seguir: <span class='green'><b>Define siempre el
-                constructor por defecto en tus clases</b></span>.</p>
-            <p>Regla a seguir: <span class='green'><b>Si desde un constructor de
+            <p>Buena práctica: <span class='green'><b>Define siempre el
+                constructor sin argumentos en tus clases</b></span>.</p>
+            <p>Buena práctica: <span class='green'><b>Si desde un constructor de
                 una clase hija no tienes otro
                 constructor mejor al que llamar, llama al menos al
-                constructor por defecto de la clase madre</b></span>.</p>
+                constructor sin argumentos de la clase madre</b></span>.</p>
         		        </article>
         </slide>
 

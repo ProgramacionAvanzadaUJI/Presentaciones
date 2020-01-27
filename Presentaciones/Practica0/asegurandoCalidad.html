@@ -102,7 +102,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>¿Qué son las pruebas unitarias?</li>
                 <li>Los principios FIRST.</li>
                 <li>El framework JUnit.</li>
-                <li>Crear pruebas unitarias en Eclipse.</li>
+                <li>Crear pruebas unitarias.</li>
                 <li>Definir una prueba con la etiqueta @Test</li>
                 <li>Otras etiquetas de JUnit.</li>
                 <li>La biblioteca <b>hamcrest</b>.</li>
@@ -170,29 +170,6 @@ URL: https://code.google.com/p/io-2012-slides
             </article>
         </slide>
 
-
-<!--         <slide>
-            <hgroup>
-                <h2>Construcción de proyectos con Maven</h2>
-            </hgroup>
-            <article>
-                <p>Selecciona la casilla <b>Create a simple project</b>:</p>
-                <p class="centrado"><img src="imagenes/maven2.png" style="width: 360px"></p>
-            </article>
-        </slide>
-
-
-        <slide>
-            <hgroup>
-                <h2>Construcción de proyectos con Maven</h2>
-            </hgroup>
-            <article>
-                <p>Ahora debes introducir <b>Group Id</b> y <b>Artifact Id</b>. El primero es el nombre el paquete base, el segundo el nombre de tu proyecto:</p>
-                <p class="centrado"><img src="imagenes/maven3.png" style="width: 360px"></p>
-            </article>
-        </slide>
- -->
-
         <slide>
             <hgroup>
                 <h2>Construcción de proyectos con Maven</h2>
@@ -251,15 +228,15 @@ URL: https://code.google.com/p/io-2012-slides
         </article>
         </slide>
 
-        <!-- Crear pruebas unitarias en Eclipse -->
+        <!-- Crear pruebas unitarias -->
         <slide>
         <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
+			<h2>Crear pruebas unitarias</h2>
         </hgroup>
 		<article>
             <p>Lo primero que hay que saber es que JUnit ya está integrado
-                en Eclipse. Cuando te descargas Eclipse también te estás
-                descargando JUnit y los plug-ins de Eclipse para el trabajo
+                en IntelliJ. Cuando te descargas IntelliJ también te estás
+                descargando JUnit y los plug-ins de IntelliJ para el trabajo
                 con este framework.</p>
             <p>No obstante, nosotros vamos a utilizar <b>Maven</b> para añadir la biblioteca <b>Junit</b>.</p>
             <!--<p>Es una buena práctica, crear paquetes que contengan a las -->
@@ -267,10 +244,10 @@ URL: https://code.google.com/p/io-2012-slides
         </article>
         </slide>
 
-        <!-- Crear pruebas unitarias en Eclipse -->
+        <!-- Crear pruebas unitarias -->
         <slide>
             <hgroup>
-                <h2>Crear pruebas unitarias en Eclipse</h2>
+                <h2>Crear pruebas unitarias</h2>
             </hgroup>
             <article>
             <p>Añade, en el fichero <b>pom.xml</b> las siguiente líneas de declaración:</p>
@@ -280,28 +257,16 @@ URL: https://code.google.com/p/io-2012-slides
     &lt;junit.jupiter.version&gt;5.0.2&lt;/junit.jupiter.version&gt;
     &lt;junit.platform.version&gt;1.0.2&lt;/junit.platform.version&gt;
     &lt;maven.compiler.plugin.version&gt;3.8.1&lt;/maven.compiler.plugin.version&gt;
-&lt;/properties&gt;        
-                <!--   &lt;properties&gt;
-  	&lt;java.version&gt;1.8&lt;/java.version&gt;
-  &lt;/properties&gt;
-
-  &lt;dependencies&gt;
-  	&lt;dependency&gt;
-  		&lt;groupId&gt;junit&lt;/groupId&gt;
-  		&lt;artifactId&gt;junit&lt;/artifactId&gt;
-  		&lt;version&gt;4.12&lt;/version&gt;
-  		&lt;scope&gt;test&lt;/scope&gt;
-  	&lt;/dependency&gt;
- -->            </pre>
+&lt;/properties&gt;</pre>
             <!--<p>La traducción de <i>JUnit Test Case</i> es <i>Clase de prueba</i>.</p>-->
         </article>
         </slide>
 
 
-        <!-- Crear pruebas unitarias en Eclipse -->
+        <!-- Crear pruebas unitarias -->
         <slide>
             <hgroup>
-                <h2>Crear pruebas unitarias en Eclipse</h2>
+                <h2>Crear pruebas unitarias</h2>
             </hgroup>
             <article>
                 <p>Las siguientes líneas de dependencias del compilador:</p>
@@ -318,22 +283,14 @@ URL: https://code.google.com/p/io-2012-slides
             &lt;artifactId&gt;junit-jupiter-engine&lt;/artifactId&gt;
             &lt;version&gt;${junit.jupiter.version}&lt;/version&gt;
         &lt;/dependency&gt;
-&lt;/dependencies&gt;            
-            <!--         &lt;dependency&gt;
-			&lt;groupId&gt;org.hamcrest&lt;/groupId&gt;
-			&lt;artifactId&gt;hamcrest-core&lt;/artifactId&gt;
-			&lt;version&gt;1.3&lt;/version&gt;
-			&lt;scope&gt;test&lt;/scope&gt;
-		&lt;/dependency&gt;
-  &lt;/dependencies&gt;
- -->        </pre>
+&lt;/dependencies&gt;</pre>
                 </article>
             </slide>
 
-        <!-- Crear pruebas unitarias en Eclipse -->
+        <!-- Crear pruebas unitarias en -->
         <slide>
             <hgroup>
-                <h2>Crear pruebas unitarias en Eclipse</h2>
+                <h2>Crear pruebas unitarias</h2>
             </hgroup>
             <article>
             <p>Estas líneas para la versión del compilador de java:</p>
@@ -355,21 +312,10 @@ URL: https://code.google.com/p/io-2012-slides
             </article>
         </slide>
 
-        <!-- Crear pruebas unitarias en Eclipse -->
-<!--         <slide>
-            <hgroup>
-                <h2>Crear pruebas unitarias en Eclipse</h2>
-            </hgroup>
-            <article>
-            <p>Este es el aspecto final del fichero:</p>
-                <p class="centrado"><img src="imagenes/finalPom.png" style="width: 650px"></p>
-            </article>
-        </slide>
- -->
-        <!-- Crear pruebas unitarias en Eclipse -->
+        <!-- Crear pruebas unitarias -->
         <slide>
         <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
+			<h2>Crear pruebas unitarias</h2>
         </hgroup>
 		<article>
             <p>Supongamos que queremos crear un test para esta clase.</p>
@@ -396,88 +342,6 @@ public class Aritmetica {
         </article>
         </slide>
 
-        <!-- Crear pruebas unitarias en Eclipse -->
-<!--         <slide>
-        <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
-        </hgroup>
-		<article>
-            <p>Haz click con el botón derecho del ratón sobre el paquete donde
-                quieres añadir la nueva clase de prueba.</p>
-            <p>En el menú emergente selecciona  <i>New &rarr; JUnit Test Case</i>
-                se abrirá una ventana como la siguiente.</p>
-             <p class="centrado"><img src='imagenes/creacionTestCase.png' style='height: 370px'></p>
-        </article>
-        </slide>
- -->
-        <!-- Crear pruebas unitarias en Eclipse -->
-<!--         <slide>
-        <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
-        </hgroup>
-		<article>
-            <p>En la siguiente ventana selecciona todos los métodos de la clase
-                que vamos a probar.</p>
-            <p class="centrado">
-                <img src='imagenes/creacionTestCase2.png' style='height: 430px'>
-            </p>
-        </article>
-        </slide>
- -->
-        <!-- Crear pruebas unitarias en Eclipse -->
-        <!--<slide>-->
-        <!--<hgroup>-->
-			<!--<h2>Crear pruebas unitarias en Eclipse</h2>-->
-        <!--</hgroup>-->
-		<!--<article>-->
-            <!--<p>En la nueva ventana selecciona la última opción.</p>-->
-            <!--<p class="centrado">-->
-                <!--<img src='imagenes/creacionTestCase3.png' style='width: 430px'>-->
-            <!--</p>-->
-        <!--</article>-->
-        <!--</slide>-->
-
-        <!-- Crear pruebas unitarias en Eclipse -->
-<!--         <slide>
-        <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
-        </hgroup>
-		<article>
-            <p>Este es el código de pruebas generado.</p>
-<pre class="prettyprint" data-lang="Java">
-public class AritmeticaTest {
-    @Test
-    public void testSuma() {
-        fail("Not yet implemented");
-    }
-    @Test
-    public void testResta() {
-       fail("Not yet implemented");
-    }
-    @Test
-    public void testMultiplicacion() {
-        fail("Not yet implemented");
-    }
-    @Test
-    public void testDivision() {
-        fail("Not yet implemented");
-    }
-}</pre>
-        </article>
-        </slide>
- -->
-
-        <!-- Crear pruebas unitarias en Eclipse -->
-<!--         <slide>
-        <hgroup>
-			<h2>Crear pruebas unitarias en Eclipse</h2>
-        </hgroup>
-		<article>
-            <p>En el paquete <b>test</b> crea la clase <b>AritmeticaTest</b>.</p>
-        </article>
-        </slide>
- -->
-
  <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -494,7 +358,7 @@ public void testSuma() {
     fail("Not yet implemented");
 }</pre>
             <p>El método <b>fail(String)</b> hace fallar el test.</p>
-            <p>Ejecuta el método situando el curso sobre su nombre y pulsado Shift+Ctrl+F10, verá como falla el test.</p>
+            <p>Ejecuta el método situando el curso sobre su nombre y pulsado Shift+Ctrl+F10, verás como falla el test.</p>
 <!--             <p>Escribamos el código de prueba.</p> -->
         </article>
         </slide>
@@ -527,11 +391,6 @@ public void testSuma() {
 			<h2>La etiqueta @Test</h2>
         </hgroup>
 		<article>
-<!--             <p class="centrado">
-                <img src='imagenes/resultadoTest.png'>
-            </p>
-            <p>El primer test pasa, los otros tres no.</p>
- -->
         <p>Ejecuta de nuevo el test y verás como pasa.</p>
         <p>Ahora escribe los tests de la página siguiente.</p>
         </article>
@@ -560,26 +419,12 @@ public void testDivision() {
     Aritmetica aritmetica = new Aritmetica();
     assertEquals(5, aritmetica.division(10, 2));
 }</pre>
-        <p>Ejecútalos todos sitiando el cursor del ratón sobre el nombre de la clase
+        <p>Ejecútalos todos tests situando el cursor del ratón sobre el nombre de la clase
             y pulsando Shift+Crtl+F10.
         </p>
         </article>
         </slide>
 
-        <!-- La etiqueta @Test -->
-<!--         <slide>
-        <hgroup>
-			<h2>La etiqueta @Test</h2>
-        </hgroup>
-		<article>
-            <p class="centrado">
-                <img src='imagenes/resultadoTest2.png'>
-            </p>
-            <p>Ya tenemos todos nuestros test, y todos pasan.</p>
-            <p>¿Existe redundancia en el código de los test?</p>
-        </article>
-        </slide>
- -->
         <!-- La etiqueta @Test -->
         <slide>
         <hgroup>
@@ -873,57 +718,6 @@ public void testSuma() {
           </article>
         </slide>
 
-        <!-- Pruebas parametrizadas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Pruebas parametrizadas</h2>
-        </hgroup>
-		      <article>
-            <p>
-              Primero creamos una nueva clase de Prueba y
-              le añadimos la anotación <strong>@RunWith(Parameterized.class)</strong>
-            </p>
-            <pre class="prettyprint" data-lang="Java">
-@RunWith(Parameterized.class)
-public class AritmeticaRestaParametrizadaTest {
-...
-}
-            </pre>
-          </article>
-        </slide>
- -->
-        <!-- Pruebas parametrizadas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Pruebas parametrizadas</h2>
-        </hgroup>
-		      <article>
-            <p>
-              Ahora creamos tres atributos en la clase, uno para el minuendo,
-              otro para el sustraendo y el último para el resultado.
-              Además creamos un constructor que reciba estos tres parámetros como argumento:
-            </p>
-            <pre class="prettyprint" data-lang="Java">
-@RunWith(Parameterized.class)
-public class AritmeticaRestaParametrizadaTest {
-    private static Aritmetica aritmetica;
-    private float minuendo;
-    private float sustraendo;
-    private float resultado;
-
-    public AritmeticaRestaParametrizadaTest(float minuendo, float sustraendo,
-     float resultado) {
-        this.minuendo = minuendo;
-        this.sustraendo = sustraendo;
-        this.resultado = resultado;
-    }
-...
-}
-            </pre>
-          </article>
-        </slide>
- -->
-
 
         <!-- Pruebas parametrizadas -->
         <slide>
@@ -992,58 +786,6 @@ public void restasTest(float minuendo, float sustraendo, float resultado) {
             </slide>
     
 
-        <!-- Pruebas parametrizadas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Pruebas parametrizadas</h2>
-        </hgroup>
-		      <article>
-            <p>
-              Ahora creamos un método que devolverá, como una <strong>Collection</strong>
-              las tuplas de nuestra prueba. Fíjate que lo marcamos con la anotación <strong>Parameters</strong>:
-            </p>
-            <pre class="prettyprint" data-lang="Java">
-@Parameters
-public static Collection&lt;Object[]&gt; parametros() {
-    return Arrays.asList(new Object[][]{
-            {1, 1, 0},
-            {2, 1, 1},
-            {1, 2, -1},
-            {1001, 1, 1000}
-    });
-}
-            </pre>
-          </article>
-        </slide>
- -->
-        <!-- Pruebas parametrizadas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Pruebas parametrizadas</h2>
-        </hgroup>
-		      <article>
-            <p>
-              Ahora sólo nos queda crear una instancia de la clase <strong>Aritmetica</strong>, y un único método de prueba:
-            </p>
-            <pre class="prettyprint" data-lang="Java">
-@BeforeAll
-public static void setUp() {
-    aritmetica = new Aritmetica();
-}
-
-@Test
-public void restasTest() {
-    assertThat(aritmetica.resta(minuendo, sustraendo), is(resultado));
-}
-            </pre>
-            <p>
-              Cuando ejecutes la clase de prueba verás que el método de prueba
-              se llamará una vez por cada caso definido en el método marcado
-              con la anotación <strong>@Parameters</strong>.
-            </p>
-          </article>
-        </slide>
- -->
 
         <!-- Las suites de pruebas -->
         <slide>
@@ -1095,200 +837,13 @@ public class TestSuite {
                 <p>Si ejecutas esta clase, se ejecutarán todas las clases de pruebas
                     del paquete <strong>aritmetica</strong>.
                 </p>
+                <p>IntelliJ también permite la ejecución de todos los tests dentro de un paquete.
+                    Para ello, selecciona el paquete en la solapa <b>Project</b>, haz click con el
+                    botón derecho en el paquete, y selecciona <b>Run Tests in...</b>
+                </p>
             </article>
         </slide>
             
-            <!-- Las suites de pruebas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Las suites de pruebas</h2>
-        </hgroup>
-		<article>
-            <p>Para crear una <b>Test Suite</b> selecciona el paquete donde la
-                quieres crear pulsado el botón derecho de tu ratón, luego
-                <i>New &rarr; Other...</i> despliega la sección Java y
-                se abrirá la siguiente ventana.</p>
-            <p class="centrado"><img src='imagenes/testSuite.png' style='height: 330px'></p>
-            <p>Selecciona <b>JUnit Test Suite</b> y pulsa <i>Next</i>.</p>
-        </article>
-        </slide>
- -->
-        <!-- Las suites de pruebas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Las suites de pruebas</h2>
-        </hgroup>
-		<article>
-            <p>En la siguiente ventana verás todas las clases de prueba que se
-                añaden automáticamente a la <b>Suite</b>, si necesitas alguna más
-                añádela y pulsa <i>Finish</i>.</p>
-                <p class="centrado"><img src='imagenes/testSuite2.png' style='height: 400px'></p>
-        </article>
-        </slide>
- -->
-        <!-- Las suites de pruebas -->
-<!--         <slide>
-        <hgroup>
-			<h2>Las suites de pruebas</h2>
-        </hgroup>
-		<article>
-            <p>Finalmente verás el siguiente código para la <b>Suite</b>.</p>
-<pre class="prettyprint" data-lang="Java">
-@RunWith(Suite.class)
-@SuiteClasses({ AritmeticaTest.class })
-public class AllTests {
-
-}
-</pre>
-            <p>En la anotación <b>@SuiteClasses</b> tienes un array con todas
-                las clases que forman la <b>Suite</b>.</p>
-            <p>La <b>Suite</b> se ejecuta en Eclipse como cualquier clase
-                de pruebas.</p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in infinitest -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in infinitest</h2>
-        </hgroup>
-		<article>
-            <p>Como ya sabes, Eclipse es un fantástico IDE para el desarrrollo
-                en Java. Una de las valiosas posibilidades de Eclipse es que
-                podemos extender su funcionalidad añadiendo nuevos plug-ins.</p>
-            <p>Existe una enorme cantidad de plug-ins, en esta práctica vamos
-                a ver algunos muy útiles relacionados con las pruebas unitarias.</p>
-            <p>El primero de ellos es <a href='http://infinitest.github.com'>
-                infinitest</a>.</p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in infinitest -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in infinitest</h2>
-        </hgroup>
-		<article>
-            <p>El proceso de instalación del plug-in es muy
-                sencillo. Selecciona del menú la opción <i>Help &rarr; Install
-                New Software...</i> se abrirá la siguiente ventana:</p>
-            <p class="centrado"><img src='imagenes/instalarPluginInfinitest.png' style='width: 400px'></p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in infinitest -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in infinitest</h2>
-        </hgroup>
-		<article>
-            <p>Copia desde la página de infinitest la url que se indica y pégala
-                en el campo <i>Work with</i> la ventana se actualizará así:</p>
-            <p class="centrado"><img src='imagenes/instalarPluginInfinitest2.png' style='width: 400px'></p>
-            <p>Pulsa <i>Next</i> y sigue con los siguientes pasos de la instalación.</p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in infinitest -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in infinitest</h2>
-        </hgroup>
-		<article>
-            <p>A partir de ahora verás en la ventana de Eclipse, abajo a la derecha, el resultado
-                de la última ejecución de los test. Los test serán ejecutados cada vez que cambies
-                bien el código de producción o bien el código de los test.</p>
-            <p>La ejecución automática de los test se puede desactivar desde la opción de menú
-                <i>Window &rarr; Preferences &rarr; Infinitest &rarr; Continously Test.</i>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in Ecl-Emma y la cobertura de los test -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in Ecl-Emma</h2>
-        </hgroup>
-		<article>
-            <p>Cuando realizamos test, resulta valioso saber cuántas líneas
-                de nuestro código de producción se han ejecutado. A esta
-                magnitud se le llama cobertura de los test. Cuanto mayor sea
-                la cobertura de nuestros test mayor número de problemas
-                descubriremos.</p>
-            <p>Esto no implica que tener una cobertura del 100% de nuestro
-                código signifique que está libre de errores, ya que puede que
-                haya casos que generen un error y no tenemos un test que
-                ejecute ese caso.</p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in Ecl-Emma y la cobertura de los test -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in Ecl-Emma</h2>
-        </hgroup>
-		<article>
-            <p>El plug-in para Eclipse <a href=http://www.eclemma.org>Ecl-Emma</a>
-                es excelente para esto.</p>
-            <p>Puedes instalarlo como un plug-in de Eclipse utilizando
-                esta url <i>update.eclemma.org</i></p>
-            <p>Al acabar la instalación y reiniciar Eclipse, verás un nuevo botón
-                en el grupo de botones de ejecución:</p>
-            <p class="centrado"> <img src='imagenes/botonEclemma.png'> </p>
-            <p>El primer botón de este grupo lanza el cálculo de cobertura
-                de los test.</p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in Ecl-Emma y la cobertura de los test -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in Ecl-Emma</h2>
-        </hgroup>
-		<article>
-                <p>Para ejecutar el cálculo de cobertura, abre una clase de test
-                    y pulsa el primer botón de este grupo,
-                    el resultado será parecido al de
-                    la siguiente imagen.</p>
-                <p class="centrado"> <img src='imagenes/ejecucionEclemma.png'> </p>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in Ecl-Emma y la cobertura de los test -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in Ecl-Emma</h2>
-        </hgroup>
-		<article>
-            <p>Verás que aparece un código de color para cada línea:</p>
-            <ul>
-                <li>Si la línea tiene fondo verde es que ha sido cubierta
-                    totalmente por los test.</li>
-                <li>Si la línea tiene fondo amarillo es que ha sido cubierta
-                    parcialmente, por ejemplo en el caso de un <b>if</b> se
-                    ha probado para el caso en que la expresión booleana se evalúa a
-                    <b>true</b> pero no para el caso en que se evalúa a
-                    <b>false</b>.</li>
-                <li>Si la línea tiene fondo rojo es que no ha sido cubierta por
-                    los test.</li>
-            </ul>
-        </article>
-        </slide>
- -->
-        <!-- El plug-in Ecl-Emma y la cobertura de los test -->
-<!--         <slide>
-        <hgroup>
-			<h2>El plug-in Ecl-Emma</h2>
-        </hgroup>
-		<article>
-            <p>Además, en la <i>Vista Coverage</i> verás un detalle en
-                porcentajes de la cobertura de los test para todas las
-                clases de tu proyecto, tal y como muestra la siguiente
-                figura:</p>
-            <p class="centrado"> <img src='imagenes/ejecucionEclemma2.png'
-                style='width: 800px'> </p>
-        </article>
-        </slide>
- -->
         <!-- Resumen -->
         <slide>
         <hgroup>

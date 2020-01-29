@@ -272,19 +272,19 @@ public class LubinaAlHorno {
 
 
 		<!--  Ejemplo introductorio -->
-		        <slide>
+		<slide>
         <hgroup>
 			<h2>Ejemplo introductorio</h2>
         </hgroup>
 		<article>
 			<p>¿Cómo nos queda la elaboración de las recetas ahora?</p>
 			<pre class="prettyprint" data-lang="Java">
-    <b>private void preparaReceta(Paella receta)</b> {
+    <b>private void preparaReceta(Paella receta) {
         receta.preparaReceta();
     }
-    <b>private void preparaReceta(LubinaAlHorno receta)</b> {
+    private void preparaReceta(LubinaAlHorno receta) {
         receta.preparaReceta();
-    }
+    }</b>
 
     private void aCocinar() {
         <b>Paella paella = new Paella();</b>
@@ -354,7 +354,13 @@ public class LubinaAlHorno {
 			<h2>Ejemplo introductorio</h2>
         </hgroup>
 		<article>
-			<p>
+<pre class="prettyprint" data-lang="Java">
+<b>public class Paella implements Receta</b> {
+    <b>@Override
+    public void preparaReceta()</b> {
+        System.out.println("Lava y trocea la verdura.");
+        ...</pre>
+            <p>
 				Hagamos que <b>LubinaAlHorno</b> también implemente el <b>interface</b>.
 			</p>
 <pre class="prettyprint" data-lang="Java">
@@ -389,6 +395,9 @@ private void aCocinar() {
     preparaReceta(receta);
 }
 </pre>
+            <p>Fíjate que ahora sólo necesitamos un método para concinar
+                todas las recetas.
+            </p>
 		        </article>
         </slide>
 
@@ -433,10 +442,15 @@ private void aCocinar() {
 				usando la anotación <b>@Override</b>.
 			</p>
 			<p>Veamos ahora por qué es tan útil.</p>
-			<p>
+			<!-- <p>
 				Supón que nos despistamos y que definimos un método <b>preparaLaReceta()</b>
 				en vez de <b>preparaReceta()</b> en la clase <b>Paella</b>.
-			</p>
+            </p> -->
+            <p>
+                Supón que nos despistamos y el método <b>preparaLaReceta</b> no está declarado
+                en la interfaz. Si escribimos el método en la clase, podemos pensar qued
+                estamos definiendo el método declarado en la interfaz, pero no sería así.
+            </p>
 			<p>
 				Si no utilizamos la anotación <b>@Override</b> no hubiésemos
 				obtenido ningún error en la clase <b>Paella</b>.

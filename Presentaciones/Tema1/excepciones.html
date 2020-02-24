@@ -439,9 +439,9 @@ int metodo() throws IOException {
 			<p>Para definir una excepción basta con crear
 				una clase hija de <b>Exception</b>:</p>
 <pre class="prettyprint" data-lang="Java">
-<b>public class MiExcepcion extends Exception {</b>
-    public MiExcepcion() {
-        super("Texto de la excepcion");
+<b>public class TemperaturaNoValidaException extends Exception {</b>
+    public TemperaturaNoValidaException() {
+        super("La temperatura no puede ser inferior a -273º Celsius");
     }
 }
 </pre>
@@ -493,7 +493,7 @@ try {
             <p>Lo que veremos por consola será:</p>
 <pre class="prettyprint">
 conversor.TemperaturaNoValidaException: La temperatura no puede
-ser inferior a -273º Kelvin
+ser inferior a -273º Celsius
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:6)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
@@ -511,11 +511,11 @@ ser inferior a -273º Kelvin
 <pre class="prettyprint" data-lang="Java">
 public class TemperaturaNoValidaException extends Exception {
     public TemperaturaNoValidaException() {
-        super("La temperatura no puede ser inferior a -273º Kelvin");
+        super("La temperatura no puede ser inferior a -273º Celsius");
     }
 
     public TemperaturaNoValidaException(double temperaturaActual) {
-        super("La temperatura no puede ser inferior a -273º Kelvin " +
+        super("La temperatura no puede ser inferior a -273º Celsius " +
                 "la actual es " + temperaturaActual);
     }
 }
@@ -561,7 +561,7 @@ try {
             <p>Y la información de la excepción más detallada:</p>
 <pre class="prettyprint">
 conversor.TemperaturaNoValidaException: La temperatura no puede
-ser inferior a -273º Kelvin la actual es -300.0
+ser inferior a -273º Celsius la actual es -300.0
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:11)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
@@ -589,7 +589,7 @@ public class Conversor {
     throws IllegalArgumentException {
         if(celsius < -273) throw new
             IllegalArgumentException("La temperatura no puede " +
-            "ser inferior a -273º Kelvin la actual es " + celsius);
+            "ser inferior a -273º Celsius la actual es " + celsius);
         return 9.0/5.0*celsius + 32;
     }
 }

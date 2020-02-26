@@ -148,7 +148,7 @@ public void muestra(Empresa empresa) {
             <h2>Métodos genéricos</h2>
         </hgroup>
         <article>
-            <p>De acuerdo, este caso ya lo sabemos resolver, basta utilizar la clase padre de ambas. Polimorfismo al rescate:</p>
+            <p>De acuerdo, este caso ya lo sabemos resolver, basta utilizar la clase madre de ambas. Polimorfismo al rescate:</p>
 <pre class="prettyprint" data-lang="Java">
 public void muestra(Cliente cliente) {
     System.out.println(cliente.toString() +
@@ -922,7 +922,7 @@ public class CanicheSudafricano extends Caniche {
 
 List< ? super Caniche > perros = new ArrayList< CanicheSudafricano >(); // Error
 </pre>
-            <p>porque <b>CanicheSudafricano</b> no es padre de <b>Caniche</b>, sino una de sus hijas.</p>
+            <p>porque <b>CanicheSudafricano</b> no es madre de <b>Caniche</b>, sino una de sus hijas.</p>
         </article>
         </slide>
 

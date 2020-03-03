@@ -439,9 +439,9 @@ int metodo() throws IOException {
 			<p>Para definir una excepción basta con crear
 				una clase hija de <b>Exception</b>:</p>
 <pre class="prettyprint" data-lang="Java">
-<b>public class MiExcepcion extends Exception {</b>
-    public MiExcepcion() {
-        super("Texto de la excepcion");
+<b>public class TemperaturaNoValidaException extends Exception {</b>
+    public TemperaturaNoValidaException() {
+        super("La temperatura no puede ser inferior a -273º Celsius");
     }
 }
 </pre>
@@ -493,7 +493,7 @@ try {
             <p>Lo que veremos por consola será:</p>
 <pre class="prettyprint">
 conversor.TemperaturaNoValidaException: La temperatura no puede
-ser inferior a -273º Kelvin
+ser inferior a -273º Celsius
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:6)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
@@ -511,11 +511,11 @@ ser inferior a -273º Kelvin
 <pre class="prettyprint" data-lang="Java">
 public class TemperaturaNoValidaException extends Exception {
     public TemperaturaNoValidaException() {
-        super("La temperatura no puede ser inferior a -273º Kelvin");
+        super("La temperatura no puede ser inferior a -273º Celsius");
     }
 
     public TemperaturaNoValidaException(double temperaturaActual) {
-        super("La temperatura no puede ser inferior a -273º Kelvin " +
+        super("La temperatura no puede ser inferior a -273º Celsius " +
                 "la actual es " + temperaturaActual);
     }
 }
@@ -561,7 +561,7 @@ try {
             <p>Y la información de la excepción más detallada:</p>
 <pre class="prettyprint">
 conversor.TemperaturaNoValidaException: La temperatura no puede
-ser inferior a -273º Kelvin la actual es -300.0
+ser inferior a -273º Celsius la actual es -300.0
     at conversor.Conversor.celsiusAFharenheit(Conversor.java:11)
     at temperatura.Principal.main(Principal.java:10)
 </pre>
@@ -589,7 +589,7 @@ public class Conversor {
     throws IllegalArgumentException {
         if(celsius < -273) throw new
             IllegalArgumentException("La temperatura no puede " +
-            "ser inferior a -273º Kelvin la actual es " + celsius);
+            "ser inferior a -273º Celsius la actual es " + celsius);
         return 9.0/5.0*celsius + 32;
     }
 }
@@ -599,54 +599,22 @@ public class Conversor {
 
         <!-- Pruebas unitarias sobre excepciones -->
         <slide>
-        <hgroup>
-			<h2>Pruebas unitarias sobre excepciones</h2>
-        </hgroup>
-		<article>
-            <p>También debemos probar nuestras excepciones con
-                JUnit. Debemos probar que las excepciones se producen
-                en las situaciones que hemos definido como anómalas.</p>
-            <p>JUnit nos proporciona un modo de hacerlo:</p>
-<pre class="prettyprint" data-lang="Java">
-<b>@Test(expected=TemperaturaNoValidaException.class)
-public void test() throws TemperaturaNoValidaException</b> {
-    Conversor conversor = new Conversor();
-    conversor.celsiusAFharenheit(-300);
-}
-</pre>
-            <p>En el atributo <b>expected</b> indicamos cual
-                es la excepción que esperamos. Si el test pasa,
-                significa que la excepción se ha generado. Si el test
-                no pasa, significa que la excepción que esperábamos
-                no se ha producido y algo ha ido mal.</p>
-		</article>
-		</slide>
-
-        <!-- Pruebas unitarias sobre excepciones -->
-        <slide>
-        <hgroup>
-			<h2>Pruebas unitarias sobre excepciones</h2>
-        </hgroup>
-		<article>
-            <p>Otro método utilizado de probar excepciones con
-                JUnit que no utiliza el atributo <b>expected</b>
-                es el siguiente:</p>
+            <hgroup>
+                <h2>Pruebas unitarias sobre excepciones</h2>
+            </hgroup>
+            <article>
+                <p>En JUnit 5 disponemos de un nuevo modo de probar que se producen excepciones, distinto de JUnit 4.</p>
 <pre class="prettyprint" data-lang="Java">
 @Test
-public void testSinAtributo() {
-    try {
-        Conversor conversor = new Conversor();
-        conversor.celsiusAFharenheit(-300);
-        <b>fail("No se produjo la excepción TemperaturaNoValidaException");</b>
-    } catch (TemperaturaNoValidaException e) {
-        // Si se llega al catch es que todo ha ido bien
-    }
+public void test() {
+    Conversor conversor = new Conversor();
+    assertThrows(TemperaturaNoValidaException.class, 
+        () -> conversor.celsiusAFharenheit(-300));
+}
 </pre>
-            <p>El «truco» es que hacemos fallar el test si no se
-                produce la excepción. Si se produce, se saltará al
-                interior del catch, que no hace nada.</p>
-		</article>
-		</slide>
+                <p>Pero ten en cuenta que cualquier otra excepción hija de <b>TemperaturaNoValidaException</b> también pasará el test.</p>
+            </article>
+        </slide>
 
         <!-- Resumen -->
         <slide>

@@ -132,7 +132,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Los contenedores también generan eventos, pero no nos ocuparemos 
                 de ellos.</p>
             <p>Si queremos <i>escuchar</i> un determinado tipo de eventos, 
-                debemos definir una clase especializada en ello.</p>
+                debemos definir una clase especializada para ello.</p>
         </article>
         </slide>
 
@@ -148,7 +148,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>El componente envía el evento a todos los 
                     escuchadores registrados.</li>
                 <li>Un escuchador es un objeto de una clase 
-                    que implementa un <b>interface</b> concreto.</li>
+                    que implementa una <b>interface</b> concreta.</li>
             </ol>
         </article>
         </slide>
@@ -269,7 +269,7 @@ ventana.setVisible(true);
                 <li>Decide qué componente, o contenedor, quieres utilizar en la 
                     interface gráfica.</li>
                 <li>Busca los eventos y escuchadores que se le pueden registrar.</li>
-                <li>De entre todos, elige el, o los, que te interese.</li>
+                <li>De entre todos, elige el evento, o los eventos, que te interese.</li>
                 <li>Escribe una clase que implemente los escuchadores que has elegido 
                     -recuerda, esto implica que tu clase implemente algunas <b>interface</b>-</li>
                 <li>Tu código de respuesta lo escribirás al definir los métodos que 
@@ -324,7 +324,7 @@ ventana.setVisible(true);
         </hgroup>
         <article>
            <p><strong>4.</strong> Escribe una clase que implemente los escuchadores que has elegido 
-                    -recuerda, esto implica que tu clase implemente algunos <b>interface</b>-</p>
+                    -recuerda, esto implica que tu clase implemente algunas <b>interface</b>-</p>
 <pre class="prettyprint" data-lang="Java">
 public class EscuchadorVentana implements WindowListener {
     @Override
@@ -353,7 +353,7 @@ public class EscuchadorVentana implements WindowListener {
         </hgroup>
         <article>
            <p><strong>5.</strong> Tu código de respuesta lo escribirás al definir los métodos que 
-                    declara el <b>interface</b>.</p>
+                    declara la <b>interface</b>.</p>
 <pre class="prettyprint" data-lang="Java">
 @Override
 public void windowClosing(WindowEvent e) {
@@ -399,7 +399,7 @@ public class VentanaQueSeCierra {
                 declaran un gran número de métodos, dejando la definición 
                 de los métodos vacía.</p>
             <p>Ahora, en vez de hacer que nuestra clase escuchadora <b>implements</b>
-                un <b>interface</b>, haremos que <b>extends</b> la clase 
+                una <b>interface</b>, haremos que <b>extends</b> la clase 
                 adaptadora.</p>
         </article>
         </slide>
@@ -449,7 +449,7 @@ public class EscuchadorVentanaAdaptado extends WindowAdapter {
             <p>Existe una tercera técnica, muy sencilla, que consiste en 
                 utilizar un método de la clase <b>JFrame</b>:</p>
 <pre class="prettyprint" data-lang="Java">ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</pre>
-            <p>Querer acabar la ejecución de la aplicación al cerrar la 
+            <p>Acabar la ejecución de la aplicación al cerrar la 
                 ventana principal es algo tan habitual, que la clase 
                 <b>JFrame</b> nos ofrece un método para conseguirlo.</p>
         </article>
@@ -563,7 +563,7 @@ public class EscuchadorVentanaAdaptado extends WindowAdapter {
                 las van a utilizar.</p>
             <p>¿Me proporciona Java algún mecanismo para poder 
                 <i>encapsular</i> la definición de una clase dentro de otra?</p>
-            <p>La respuesta es si: <i>las clases internas</i>.</p> 
+            <p>La respuesta es sí: <i>las clases internas</i>.</p> 
         </article>
         </slide>
         

@@ -802,7 +802,7 @@ punto.getZ();</pre>
 		<article>
             <p>Hasta ahora, al definir una clase hemos dado la implementación
                 de todos sus métodos.</p>
-            <p>Por otro lado, hemos visto los <b>interface</b> que nos
+            <p>Por otro lado, hemos visto las <b>interface</b> que nos
                 permiten declarar métodos sin definirlos, justo al contrario
                 que las clases.</p>
             <p>¿Existe algún camino intermedio? ¿Puedo definir una clase
@@ -1059,7 +1059,7 @@ Soy un pájaro y hago: Pio-pio</samp>
 		<article>
             <p>Me alegro que te guste porque hay que pagar un precio.</p>
             <p class='green'><b>Las clases abstractas no se pueden
-                intanciar.</b></p>
+                instanciar.</b></p>
             <p class= 'green'><b>No podemos crear un objeto de una clase
                 abstracta</b>.</p>
             <p>Bueno, no es mucho precio, al fin y al cabo ¿quien metería un
@@ -1135,7 +1135,10 @@ System.out.println(animalRuidoso.hazSonido());
 			<h2>Polimorfismo con herencia</h2>
         </hgroup>
 		<article>
-            <p>Al utilizar <i>Herencia</i> el polimorfismo significa
+            <p>El polimorfismo con <i>Herencia</i> significa lo mismo que con <i>interfaces</i>
+                un mismo método puede tener implementaciones distintas en su clase madre 
+                y alguna de sus clases hijas.</p>
+            <p>Además, al utilizar <i>Herencia</i> el polimorfismo significa
                 que donde se puede utilizar una clases madre también
                 se puede utilizar una clase hija.</p>
             <p>Si un método tiene un argumento de tipo una determinada
@@ -1339,7 +1342,7 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
             <p>Cuidado!!, no escribir modificador de acceso
                 tiene un significado bien definido en Java:
                 modificador de acceso de ámbito el <b>package</b>.</p>
-            <p>El <b>package</b> debería ser el lugar, por defecto, donde creasemos
+            <p>El <b>package</b> debería ser el lugar, por defecto, donde creemos
               nuestras clases.</b>
         		        </article>
         </slide>

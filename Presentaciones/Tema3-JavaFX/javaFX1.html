@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Tema 3</title>
+
+	<meta name="description" content="Difusión de resultados de la investigación en presentaciones audiovisuales">
+	<meta name="author" content="Gregorio Quintana & Oscar Belmonte Fernandez">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="../reveal.js-master/dist/reveal.css">
+	<link rel="stylesheet" href="../reveal.js-master/dist/theme/simple.css" id="theme">
+
+	<!-- Mis ajustes de css -->
+	<link rel="stylesheet" href="../css/my.css">
+
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<!--[if lt IE 9]>
+        <script src="../reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section class="center">
+                <h3>Programación Avanzad</h3>
+                <h4>Interfaces Gráficas de Usuario</h4>
+				<h4>Contenedores y Componentes</h4>
+                <h5>Óscar Belmonte & Gregorio Quintana</h5>
+            </section>
+
+			<section id="introduccion">
+				<h3>Introducción</h3>
+				<section>
+
+				</section>
+			</section>
+
+			<section id="bibliografia">
+				<h3>Bibliografía</h3>
+				<section>
+
+				</section>
+			</section>
+            
+            <section id="contenidos">
+                <h3>Contenidos</h3>
+				<section>
+					<ol>
+						<li><a href="#/que-es-javafx">Qué es JavaFX.</a></li>
+						<li><a href="#/controles-gestores">Controles y Gestores de posicionamiento.</a></li>
+					</ol>
+				</section>
+            </section>
+
+            <section id="que-es-javafx">
+				<h3>Qué es JavaFX</h3>
+            	<section>
+					<p>JavaFX es una biblioteca Java para crear Interfaces Gráficas de Usuario (Graphical User Interface - GUI).</p>
+				</section>
+            </section>
+
+			<section id="controles-gestores">
+				<h3>Controles y Gestores de posicionamiento</h3>
+				<section>
+					<p>Entre otras muchas cosas, JavaFX proporciona un conjunto de Controles, tales como botones, listas, tablas, etcétera, con los que crear GUIs. </p>
+					<p>Por su parte, los gestores de posicionamiento ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
+				</section>
+			</section>
+
+		</div>
+	</div>
+
+	<script src="../reveal.js-master/dist/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				center: true,
+				history: true,
+				slideNumber: 'c/t',
+
+
+				// transition: 'slide',
+				// transitionSpeed: 'slow',
+				// backgroundTransition: 'slide'
+			});
+		</script>
+
+</body>
+
+</html>

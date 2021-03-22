@@ -538,6 +538,7 @@ public class ImplementacionControlador implements Controlador {
             <p>Por lo tanto, si nos interesa, podemos usar el mismo Observador 
                 para más de un componente, ya que a la recepción del 
                 <i>Evento</i> podemos conocer el componente que lo lanzó.</p>
+            <p>Pero, como veremos, es más útil utilizar funciones lambda.</p>
         </article>
         </slide>
 
@@ -560,24 +561,28 @@ public class ImplementacionControlador implements Controlador {
         </hgroup>
         <article>
             <p><b>(1) Acción del usuario</b></p>
-<pre class="prettyprint" data-lang="Java">
-class Escuchador implements ActionListener {
-    public void actionPerformed(ActionEvent e) {
-        JButton boton = (JButton)e.getSource();
-        String texto = boton.getText();
-        if(texto.equals("Nuevo"))
-            controlador.anyadeEntrada();
-        else if(texto.equals("Atras"))
-            controlador.atras();
-        else if(texto.equals("Adelante"))
-            controlador.adelante();
-    }
-}</pre>
             <p>Recuerda que en el patrón Observador/Observable, 
                 un <b>Escuchador</b> debe implementar cierto <b>interface</b>.
                 En nuestros caso este <b>interface</b> es 
                 <b>ActionListener</b>.</p>
-        </article>
+
+<pre class="prettyprint" data-lang="Java">
+Button bNuevo = new Button("Nuevo");
+bNuevo.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        controlador.anyadeEntrada();
+    }
+});</pre>
+
+            <p>Si se utilizan funciones lambda el código es más legible.</p>
+
+<pre class="prettyprint" data-lang="Java">
+Button bNuevo = new Button("Nuevo");
+bNuevo.setOnAction(actionEvent -> controlador.anyadeEntrada());</pre>
+
+
+</article>
         </slide>
         
         <!-- Un ejemplo de aplicación que implementa MVC -->

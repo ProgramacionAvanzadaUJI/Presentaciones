@@ -42,23 +42,30 @@
 		<!-- Any section element inside of this container is displayed as a slide -->
 		<div class="slides">
 			<section class="center">
-                <h3>Programación Avanzad</h3>
-                <h4>Interfaces Gráficas de Usuario</h4>
-				<h4>Contenedores y Componentes</h4>
-                <h5>Óscar Belmonte & Gregorio Quintana</h5>
+                <h2>Programación Avanzada</h2>
+                <h3>Interfaces Gráficas de Usuario</h3>
+				<h3>Contenedores y Componentes</h3>
+                <h5>Óscar Belmonte</h5>
             </section>
 
 			<section id="introduccion">
 				<h3>Introducción</h3>
 				<section>
+					<p>Java proporciona tres bibliotecas para crear Interfaces Gráficas de Usuario (GUI): AWT, Swing y JavaFX.</p>
 
+					<p>Las dos primeras están obsoletas. <a href="https://openjfx.io">JavaFX</a> es la biblioteca recomendada para crear GUIs.</p>
 				</section>
 			</section>
 
 			<section id="bibliografia">
 				<h3>Bibliografía</h3>
 				<section>
-
+					<ol>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991001602689706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,head%20first%20design%20patterns&offset=0">Head first design patterns.</a></li>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991004409771806336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,javafx&offset=0">The Definitive Guide to Modern Java Clients with JavaFX : Cross-Platform Mobile and Cloud Development.</a></li>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=cdi_safari_books_1_9781788293822&context=PC&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Primo%20Central&tab=Everything&query=any,contains,javafx&offset=0">Mastering JavaFX 10</a></li>
+					</ol>
+					<p>Al último, tienes acceso desde la web de la biblioteca.</p>
 				</section>
 			</section>
             
@@ -75,7 +82,8 @@
             <section id="que-es-javafx">
 				<h3>Qué es JavaFX</h3>
             	<section>
-					<p>JavaFX es una biblioteca Java para crear Interfaces Gráficas de Usuario (Graphical User Interface - GUI).</p>
+					<p>JavaFX es una biblioteca Java <strong>ligera</strong> para crear Interfaces Gráficas de Usuario (Graphical User Interface - GUI).</p>
+					<p>Ligera significa tanto el dibujo de los componentes, como la detección de los eventos, nos los proporciona JavaFX, sin llamadas al sistema operativo.</p>
 				</section>
             </section>
 

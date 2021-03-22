@@ -568,7 +568,7 @@ public class ImplementacionControlador implements Controlador {
 
 <pre class="prettyprint" data-lang="Java">
 Button bNuevo = new Button("Nuevo");
-bNuevo.setOnAction(new EventHandler<ActionEvent>() {
+bNuevo.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
     @Override
     public void handle(ActionEvent actionEvent) {
         controlador.anyadeEntrada();
@@ -592,9 +592,9 @@ bNuevo.setOnAction(actionEvent -> controlador.anyadeEntrada());</pre>
         </hgroup>
         <article>
             <p><b>(1) Acción del usuario</b></p>
-            <p>El interface <b>ActionListener</b> declara un único método: 
-                <b>public void actionPerformed(ActionEvent e)</b>.</p>
-            <p>La notificación invoca al método <b>actionPerformed</b> que 
+            <p>El interface <b>EventHandler&lt;ActionEvent&gt;</b> declara un único método: 
+                <b>public void handle(ActionEvent actionEvent)</b>.</p>
+            <p>La notificación invoca al método <b>handle</b> que 
                 recibe como argumento una referencia de tipo <b>ActionEvent</b>, 
                 quien, como ya hemos comentado, transporta información 
                 sobre lo ocurrido.</p>
@@ -615,18 +615,9 @@ e.getSource();</pre>
             <p>La <i>Vista</i>, notifica al <b>Controlador</b> de la acción 
                 del usuario:</p>
 <pre class="prettyprint" data-lang="Java">
-class Escuchador implements ActionListener {
-    public void actionPerformed(ActionEvent e) {
-        JButton boton = (JButton)e.getSource();
-        String texto = boton.getText();
-        if(texto.equals("Nuevo"))
-            controlador.anyadeEntrada(); // &larr; Notificación
-        else if(texto.equals("Atras"))
-            controlador.atras(); // &larr; Notificación
-        else if(texto.equals("Adelante"))
-            controlador.adelante(); // &larr; Notificación
-    }
-}</pre>
+Button bNuevo = new Button("Nuevo");
+bNuevo.setOnAction(actionEvent -> controlador.anyadeEntrada());</pre>
+
         </article>
         </slide>
         
@@ -782,20 +773,23 @@ public class ImplementacionVista implements Vista {
         </hgroup>
         <article>
             <p><b>Conectémoslo todo</b></p>
-            <p>En nuestro método <b>main</b> es donde hacemos las conexiones 
-                (<i>wiring</i>).</p>
+            <p>En nuestro método <b>main</b> es donde hacemos las conexiones.</p>
 <pre class="prettyprint" data-lang="Java">
-public static void main(String args[]) {
-	ImplementacionControlador controlador = 
-	                      new ImplementacionControlador();
-	ImplementacionVista vista = new ImplementacionVista();
-	ImplementacionModelo modelo = new ImplementacionModelo();
-	modelo.setVista(vista);
-	controlador.setVista(vista);
-	controlador.setModelo(modelo);
-	vista.setModelo(modelo);
-	vista.setControlador(controlador);
-    ...
+public class Principal extends Application {
+    public static void main(String[] args) { launch(args); }
+
+    @Override
+    public void start(Stage stage) {
+        ImplementacionControlador controlador = new ImplementacionControlador();
+        ImplementacionModelo modelo = new ImplementacionModelo();
+        ImplementacionVista vista = new ImplementacionVista(stage);
+        modelo.setVista(vista);
+        controlador.setVista(vista);
+        controlador.setModelo(modelo);
+        vista.setModelo(modelo);
+        vista.setControlador(controlador);
+        vista.creaGUI();
+    }
 }</pre>
         </article>
         </slide>
@@ -999,9 +993,8 @@ public class ImplementacionControlador implements Controlador {
             <p>Ahora sí que hemos acabado.</p>
             <div class="build">
                 <p>... o quizás no...</p>
-                <p>Tienes una implementación aquí 
-                    <a href="fuentes/ejemploMVC.zip">ejemploMVC.zip</a> 
-                    para que sigas jugando con él.</p>
+                <p>Tienes una implementación en el github de la asignatura
+                    <a href="https://github.com/ProgramacionAvanzadaUJI/EjemploMVC">EjemploMVC</a> para que sigas jugando con él.</p>
             </div>
         </article>
         </slide>

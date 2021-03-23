@@ -44,7 +44,7 @@
 			<section class="center">
                 <h2>Programación Avanzada</h2>
                 <h3>Interfaces Gráficas de Usuario</h3>
-				<h3>Contenedores y Componentes</h3>
+				<h3>Layouts y Controles</h3>
                 <h5>Óscar Belmonte</h5>
             </section>
 
@@ -87,11 +87,41 @@
 				</section>
             </section>
 
+			<section id="grafo-de-escena">
+				<h3>El grafo de escena</h3>
+				<section>
+					<p>Las GUIs se crean en JavaFX construyendo un grafo de escena</p>
+					<img class="centrado" style="height: 500px;" src="./NuevasImagenes/JavaFX grafo escena.png" alt="Grafo de escena">
+				</section>
+
+				<section>
+					<img class="centrado" style="height: 300px;" src="./NuevasImagenes/escenario-escena.png" alt="Escenario y escena">
+					<p>El escenario (stage) se corresponde con una ventana.</p>
+					<p>Nuestra aplicación puede tener todas las ventanas que necesitemos.</p>
+					<p>La escena (scene) se corresponde con el contenido del escenario.</p>
+					<p>Un escenario sólo puede tener asociada una escena, y una escena sólo puede estar asignada a un escenario.</p>
+				</section>
+
+				<section>
+					<img class="centrado" style="height: 400px;" src="./NuevasImagenes/grafo-escena.png" alt="Grafo de escena">
+					<p>El grafo de escena está formado por todos los nodos que contiene la escena.</p>
+				</section>
+
+				<section>
+					<img class="centrado" style="height: 250px;" src="./NuevasImagenes/nodos.png" alt="Nodos de la escena">
+					<p>Los nodos que forman parte de una escena pueden ser de dos tipos:</p>
+					<ul>
+						<li>Nodos de layout: gestionan la colocación de los controles.</li>
+						<li>Nodos son componentes de la interfaz: botones, listas, etc.</li>
+					</ul>
+				</section>
+			</section>
+
 			<section id="controles-gestores">
 				<h3>Controles y Gestores de posicionamiento</h3>
 				<section>
 					<p>Entre otras muchas cosas, JavaFX proporciona un conjunto de Controles, tales como botones, listas, tablas, etcétera, con los que crear GUIs. </p>
-					<p>Por su parte, los gestores de posicionamiento ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
+					<p>Por su parte, los gestores de posicionamiento (layouts) ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
 				</section>
 			</section>
 

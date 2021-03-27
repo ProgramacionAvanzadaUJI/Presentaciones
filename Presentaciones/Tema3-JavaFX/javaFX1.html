@@ -26,9 +26,12 @@
 		var link = document.createElement('link');
 		link.rel = 'stylesheet';
 		link.type = 'text/css';
-		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js-master/css/print/pdf.css' : '../reveal-js-master/css/print/paper.css';
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
+
+	<link rel="stylesheet" href="../reveal.js-master/plugin/highlight/darcula.css">
+	<script src="../reveal.js-master/plugin/highlight/highlight.js"></script>
 
 	<!--[if lt IE 9]>
         <script src="../reveal-js/lib/js/html5shiv.js"></script>
@@ -74,6 +77,8 @@
 				<section>
 					<ol>
 						<li><a href="#/que-es-javafx">Qué es JavaFX.</a></li>
+						<li><a href="#/estructura-aplicacion-javafx">Estructura de una aplicación JavaFX.</a></li>
+						<li><a href="#/grafo-de-escena">El grafo de escena.</a></li>
 						<li><a href="#/controles-gestores">Controles y Gestores de posicionamiento.</a></li>
 					</ol>
 				</section>
@@ -86,6 +91,40 @@
 					<p>Ligera significa tanto el dibujo de los componentes, como la detección de los eventos, nos los proporciona JavaFX, sin llamadas al sistema operativo.</p>
 				</section>
             </section>
+
+			<section id="estructura-aplicacion-javafx">
+				<h3>El plugin para JavaFX</h3>
+				<section>
+					<p>La manera recomendada de crear aplicaciones JavaFX, y ejecutarlas, es mediante la correspondiente dependencia, y el plugin para ejecutar la aplicación.</p>
+					<p>Tienes un ejemplo en el github de asignatura, proyecto <a href="https://github.com/ProgramacionAvanzadaUJI/HolaJavaFX">HolaJavaFX</a>.</p>
+				</section>
+
+				<section>
+					<p>Este es el ejemplo:</p>
+					<pre><code data-trim data-noescape>
+public class Main extends Application {
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		Label label = new Label("Hola, JavaFX");
+		Scene scene = new Scene(label, 400, 300);
+		stage.setScene(scene);
+		stage.show();
+	}
+}
+					</code></pre>
+					<p>La clase que contenga el método <strong>main</strong> debe extender a la clase <strong>Application</strong>.</p>
+				</section>
+
+				<section>
+					<p>Y este es el resultado:</p>
+					<img class="centrado" src="./NuevasImagenes/holaJavaFX.png" alt="Hola JavaFX">
+					<p>De momento no es muy emocionante.</p>
+				</section>
+			</section>
 
 			<section id="grafo-de-escena">
 				<h3>El grafo de escena</h3>
@@ -108,20 +147,76 @@
 				</section>
 
 				<section>
-					<img class="centrado" style="height: 250px;" src="./NuevasImagenes/nodos.png" alt="Nodos de la escena">
+					<img class="centrado" style="height: 25	0px;" src="./NuevasImagenes/nodos.png" alt="Nodos de la escena">
 					<p>Los nodos que forman parte de una escena pueden ser de dos tipos:</p>
 					<ul>
-						<li>Nodos de layout: gestionan la colocación de los controles.</li>
-						<li>Nodos son componentes de la interfaz: botones, listas, etc.</li>
+						<li><strong>Nodos de layout</strong>: gestionan la colocación de los controles.</li>
+						<li><strong>Nodos control</strong>: botones, listas, etc.</li>
 					</ul>
+				</section>
+
+				<section>
+					<strong>Reglas a tener en cuenta:</strong>
+					<ul>
+						<li>Un escenario sólo puede contener una escena.</li>
+						<li>Una escena sólo puede estar contenida dentro de un escenario.</li>
+						<li>Un nodo sólo puede estar en un grafo de escena.</li>
+						<li>Un nodo sólo se puede añadir una única vez a un grafo de escena.</li>
+						<li>Un nodo layout puede contener otros nodos, tanto layout como componentes.</li>
+						<li>Un nodo control no puede contener otros nodos.</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>Aquí tienes todos los ingredientes juntos:</p>
+					<pre><code data-trim data-noescape>
+@Override
+public void start(Stage stage) throws Exception {
+	Label label = new Label("Hola, JavaFX");
+	Scene scene = new Scene(label);
+	stage.setScene(scene);
+	stage.show();
+}
+					</code></pre>
+					<p>El escenario (<strong>Stage</strong>) llega como argumento al método <strong>start</strong>. Creamos una etiqueta <strong>Label</strong> que añadimos a la escena <strong>Scene</strong>. Y finalmente mostramos el escenario con <strong>show()</strong>.</p>
+					<p>Vamos a verlo todo con más detalles en las siguientes transparencias.</p>
 				</section>
 			</section>
 
 			<section id="controles-gestores">
 				<h3>Controles y Gestores de posicionamiento</h3>
 				<section>
-					<p>Entre otras muchas cosas, JavaFX proporciona un conjunto de Controles, tales como botones, listas, tablas, etcétera, con los que crear GUIs. </p>
-					<p>Por su parte, los gestores de posicionamiento (layouts) ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
+					<p>Entre otras muchas cosas, JavaFX proporciona un conjunto de nodos control, tales como botones, listas, tablas, etcétera, con los que crear GUIs. </p>
+					<p>Por su parte, los gestores de posicionamiento (nodos layout) ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
+				</section>
+
+				<section>
+					<p>Vamos a empezar viendo los gestores de posicionamiento primero.</p>
+					<p>El más sencillo es <strong>Panel</strong>, que no tiene ninguna política de distribución de los componentes que se le añaden, símplemente los añade donde ellos se lo indican.</p>
+				</section>
+
+				<section>
+					<p>Este es un ejemplo:</p>
+					<pre><code data-trim data-noescape>
+Label label = new Label("Hola, JavaFX");
+label.setLayoutX(100);
+label.setLayoutY(250);
+Pane panel = new Pane(label);
+Scene scene = new Scene(panel, 400, 300);
+stage.setScene(scene);
+stage.show();
+					</code></pre>
+					<img class="centrado left" style="width: 40%;" src="./NuevasImagenes/panel.png" alt="Panel JavaFX">
+					<div class="right" style="width: 60%;">
+						<p><strong>Label</strong> tiene su propia posición en.</p>
+						<p>Indicar la posición no suele ser buena idea, es mejor dejar que el gestor haga su trabajo.</p>
+						<p>El origen esta arriba a la izquierda.</p>
+					</div>
+				</section>
+
+				<section>
+					<div class="left">Uno</div>
+					<div class="rigth">Dos</div>
 				</section>
 			</section>
 
@@ -135,6 +230,8 @@
 				center: true,
 				history: true,
 				slideNumber: 'c/t',
+				plugins: [ RevealHighlight ]
+
 
 
 				// transition: 'slide',

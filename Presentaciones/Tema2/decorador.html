@@ -102,6 +102,8 @@ URL: https://code.google.com/p/io-2012-slides
                 <li>Programemos la solución.</li>
                 <li>Definición del patrón de diseño <b>Decorador</b>.</li>
                 <li>El patrón <b>Decorador</b> en el paquete estándar de Java.</li>
+                <li>Resumen.</li>
+                <li>Recursos en Internet.</li>
             </ol>
         </article>
         </slide>
@@ -150,15 +152,15 @@ URL: https://code.google.com/p/io-2012-slides
         <article>
             <p>Armado de lápiz y papel el vendedor calcula:</p>
             <ul>
-                <li>El precio se le queda en: 15.000 del vehículo mas
+                <li>El precio se le queda en: 15.000 del vehículo más
                     600 del aire acondicionado y 600 de la pintura metalizada...
                     16.200 euros precio final.</li>
                 <li>¿Y cuanto vale un familiar?</li>
                 <li>19.000 euros.</li>
                 <li>Si le ponemos aire acondicionado y techo solar, pero sin
                     pintura metalizada.</li>
-                <li>Veamos, en ese caso tenemos los 19.000 del familiar mas
-                    los 600 del aire acondicionado mas 1.000 del techo solar,
+                <li>Veamos, en ese caso tenemos los 19.000 del familiar más
+                    los 600 del aire acondicionado más 1.000 del techo solar,
                     en total 20.600 euros.</li>
             </ul>
         </article>
@@ -312,7 +314,7 @@ public class Familiar {
 			<h2>Programemos la solución</h2>
         </hgroup>
         <article>
-            <p>Si, efectivamente, mucho código duplicado.
+            <p>Sí, efectivamente, mucho código duplicado.
                 Extraigámoslo a una clase madre.</p>
 <pre class="prettyprint" data-lang="Java">
 public abstract class Vehiculo {
@@ -403,7 +405,7 @@ public class ConAireAcondicionado extends Vehiculo { //Sigue siendo
     private Vehiculo vehiculo; //Aquí se recubre al vehículo original
 
     public ConAireAcondicionado(Vehiculo vehiculo, float precioExtra) {
-        super(precioExtra); //La madre guarda el precio del extra
+        super(precioExtra); //La clase madre guarda el precio del extra
         this.vehiculo = vehiculo; //Nos quedamos con una referencia
                                   // al vehículo que decoramos.
     }</pre>
@@ -429,7 +431,7 @@ public String descripcion() {
 @Override
 public float getPrecio() {
     return vehiculo.getPrecio() + // Precio de vehículo que recubro.
-           super.getPrecio();     // Mi precio como extra, lo guarda la madre.
+           super.getPrecio();     // Mi precio como extra, lo guarda la clase madre.
 }</pre>
         </article>
         </slide>
@@ -652,6 +654,18 @@ public void testFamiliar() {
         </article>
         </slide>
 
+        <!-- Definición del patrón de diseño Decorador -->
+        <slide>
+            <hgroup>
+                <h2>Definición del patrón de diseño Decorador</h2>
+            </hgroup>
+            <article>
+                <p>El patrón de diseño decorador pertenece a la familia de los patrones <b>Estructurales</b>.</p>
+                <p>El patrón de diseño Decorador nos permite añadir nuevas características a los objetos en tiempo de ejecución.</p>
+                <p>Lo que hemos encapsulado dentro de nuevas clases (los decoradores), es la sobrecarga de los métodos de la clase madre.</p>
+            </article>
+        </slide>
+
         <!-- El patrón Decorador en el paquete estándar de Java -->
         <slide>
         <hgroup>
@@ -740,6 +754,22 @@ ois.close();</pre>
         </article>
         </slide>
 
+
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>El patrón de diseño Decorador pertenece a la familia de patrones estructurales.</p>
+                <p>El patrón de diseño Decorador nos permite componer nuevos objetos a partir de objetos ya existentes sin utilizar directamente la herencia.</p>
+                <p>La solución es muy flexible ya que se pueden decorar familias de objetos.</p>
+                <p>Es una alternativa más flexible que la herencia.</p>
+                <p>De alguna manera, lo que hemos encapsulado es la sobrecarga de métodos, para que resulte más flexible.</p>
+                <p></p>
+            </article>
+            </slide>
+    
 
         <!-- Recursos en Internet -->
         <slide>

@@ -113,19 +113,19 @@
 				<section>
 					<p>Este es el ejemplo:</p>
 					<pre><code data-trim data-noescape>
-public class Main extends Application {
-	public static void main(String[] args) {
-		launch(args);
-	}
+						public class Main extends Application {
+							public static void main(String[] args) {
+								launch(args);
+							}
 
-	@Override
-	public void start(Stage stage) throws Exception {
-		Label label = new Label("Hola, JavaFX");
-		Scene scene = new Scene(label, 400, 300);
-		stage.setScene(scene);
-		stage.show();
-	}
-}
+							@Override
+							public void start(Stage stage) throws Exception {
+								Label label = new Label("Hola, JavaFX");
+								Scene scene = new Scene(label, 400, 300);
+								stage.setScene(scene);
+								stage.show();
+							}
+						}
 					</code></pre>
 					<p>La clase que contenga el método <strong>main</strong> debe extender a la clase <strong>Application</strong>.</p>
 				</section>
@@ -185,13 +185,13 @@ public class Main extends Application {
 				<section>
 					<p>Aquí tienes todos los ingredientes juntos:</p>
 					<pre><code data-trim data-noescape>
-@Override
-public void start(Stage stage) throws Exception {
-	Label label = new Label("Hola, JavaFX");
-	Scene scene = new Scene(label);
-	stage.setScene(scene);
-	stage.show();
-}
+						@Override
+						public void start(Stage stage) throws Exception {
+							Label label = new Label("Hola, JavaFX");
+							Scene scene = new Scene(label);
+							stage.setScene(scene);
+							stage.show();
+						}
 					</code></pre>
 					<p>El escenario (<strong>Stage</strong>) llega como argumento al método <strong>start</strong>. Creamos una etiqueta <strong>Label</strong> que añadimos a la escena <strong>Scene</strong>. Y finalmente mostramos el escenario con <strong>show()</strong>.</p>
 					<p>Vamos a verlo todo con más detalles en las siguientes transparencias.</p>
@@ -211,22 +211,22 @@ public void start(Stage stage) throws Exception {
 
 				<section>
 					<p>Vamos a empezar viendo primero los gestores de posicionamiento.</p>
-					<p>El más sencillo es <strong>Panel</strong>, que no tiene ninguna política de distribución de los componentes que se le añaden, símplemente los añade donde ellos se lo indican.</p>
-					<p><strong>Panel</strong> se suele utilizar como contenedor de otros componentes y gestores de posicionamiento.</p>
+					<p>El más sencillo es <strong>Pane</strong>, que no tiene ninguna política de distribución de los componentes que se le añaden, símplemente los añade donde ellos se lo indican.</p>
+					<p><strong>Pane</strong> se suele utilizar como contenedor de otros componentes y gestores de posicionamiento.</p>
 				</section>
 
 				<section>
 					<p>Este es un ejemplo:</p>
 					<pre><code data-trim data-noescape>
-Label label = new Label("Hola, JavaFX");
-label.setLayoutX(100);
-label.setLayoutY(250);
-Pane panel = new Pane(label);
-Scene scene = new Scene(panel, 400, 300);
-stage.setScene(scene);
-stage.show();
+						Label label = new Label("Hola, JavaFX");
+						label.setLayoutX(100);
+						label.setLayoutY(250);
+						Pane panel = new Pane(label);
+						Scene scene = new Scene(panel, 400, 300);
+						stage.setScene(scene);
+						stage.show();
 					</code></pre>
-					<img class="centrado left" style="width: 40%;" src="./NuevasImagenes/panel.png" alt="Panel JavaFX">
+					<img class="centrado left" style="width: 40%;" src="./NuevasImagenes/panel.png" alt="Pane JavaFX">
 					<div class="right" style="width: 60%;">
 						<p><strong>Label</strong> tiene su propia posición en X e Y.</p>
 						<p>Indicar la posición no suele ser buena idea, es mejor dejar que el gestor haga su trabajo.</p>
@@ -239,6 +239,85 @@ stage.show();
 					<img class="centrado" src="./NuevasImagenes/sin_tamaño_inicial.png" alt="Ventana sin tamaño inicial">
 					<p>Esta opción es la más útil, JavaFX calcula el tamaño óptimo de la ventana por nosotros.</p>
 				</section>
+
+				<section>
+					<p><strong>HBox</strong> es un gestor de posicionamiento que coloca los componentes que a él se añaden en horizontal.</p>
+					<pre><code data-trim data-noescape>
+						Label uno = new Label("Uno");
+						Label dos = new Label("Dos");
+						Label tres = new Label("Tres");
+						Label cuatro = new Label("Cuatro");
+						HBox hBox = new HBox(uno, dos, tres, cuatro);
+					</code></pre>
+					<p>Fíjate que el argumento del constructor de <strong>HBox</strong> admite un número variable de argumentos.</p>
+					<img class="centrado" src="./NuevasImagenes/hbox.png" alt="HBox">
+				</section>
+
+				<section>
+					<p>El espaciado entre los componentes que hay dentro de <strong>HBox</strong> lo podemos definir con <strong>setSpacing(double)</strong></p>
+					<pre><code data-trim data-noescape>
+						Label uno = new Label("Uno");
+						Label dos = new Label("Dos");
+						Label tres = new Label("Tres");
+						Label cuatro = new Label("Cuatro");
+						HBox hBox = new HBox(uno, dos, tres, cuatro);
+						hBox.setSpacing(10);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/hbox_spacing.png" alt="Espaciado en HBox">
+				</section>
+
+				<section>
+					<p>Para la distribución en vertical podemos usar el gestor de posicionamiento <strong>VBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+						Label uno = new Label("Uno");
+						Label dos = new Label("Dos");
+						Label tres = new Label("Tres");
+						Label cuatro = new Label("Cuatro");
+						VBox vBox = new VBox(uno, dos, tres, cuatro);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/vbox.png" alt="VBox">
+				</section>
+
+				<section>
+					<p>Y también puedo definir el espacio entre los componentes, y su alineamiento:</p>
+					<pre><code data-trim data-noescape>
+						Label uno = new Label("Uno");
+						Label dos = new Label("Dos");
+						Label tres = new Label("Tres");
+						Label cuatro = new Label("Cuatro");
+						VBox vBox = new VBox(uno, dos, tres, cuatro);
+						vBox.setSpacing(10);
+						vBox.setAlignment(Pos.CENTER);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/vbox_aligned.png" alt="VBox alineado">
+				</section>
+
+				<section>
+					<p>Podemos <strong>componer</strong> la escena anidando gestores dentro de gestores:</p>
+					<pre><code data-trim data-noescape>
+						Label uno = new Label("Uno");
+						Label dos = new Label("Dos");
+						Label tres = new Label("Tres");
+						Label cuatro = new Label("Cuatro");
+						VBox vBox = new VBox(uno, dos, tres, cuatro);
+						vBox.setSpacing(10);
+						vBox.setAlignment(Pos.CENTER);
+				
+						Label cinco = new Label("Cinco");
+						Label seis = new Label("Seis");
+						Label siete = new Label("Siete");
+						Label ocho = new Label("Ocho");
+						HBox hBox = new HBox(cinco, seis, siete, ocho);
+						hBox.setSpacing(10);
+				
+						HBox composicion = new HBox(vBox, hBox);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/composicion.png" alt="Composición vertical-horizontal">
+				</section>
+
+
+
+
 			</section>
 
 			<section class="center" id="controles">

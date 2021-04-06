@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>JavaFX componentes sencillos</title>
+
+	<meta name="description" content="JavaFX componentes sencillos">
+	<meta name="author" content="Óscar Belmonte Fernández">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="../reveal.js-master/dist/reveal.css">
+	<link rel="stylesheet" href="../reveal.js-master/dist/theme/simple.css" id="theme">
+
+	<!-- Mis ajustes de css -->
+	<link rel="stylesheet" href="../css/my.css">
+
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<link rel="stylesheet" href="../reveal.js-master/plugin/highlight/darcula.css">
+	<script src="../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+<!--[if lt IE 9]>
+        <script src="../reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section class="center">
+                <h2>Programación Avanzada</h2>
+                <h3>Interfaces Gráficas de Usuario</h3>
+				<h3>Componentes sencillos</h3>
+                <h5>Óscar Belmonte Fernández</h5>
+            </section>
+            
+			<section id="introduccion">
+				<h3>Introducción</h3>
+				<section>
+					<p>Ahora ya conocemos qué es el grafo de escena en JavaFX. También hemos visto cuál es el modelo de programación, basado en el patrón de diseño Observador/Observable. También hemos visto cómo debemos construir la arquitectura de la aplicación basándonos en el meta-patrón de diseño MVC.</p>
+					<p>Lo que vamos a ver en esta presentación son los controles más sencillos de programar.</p>
+					<p>Estos controles son sencillos, pero nos ofrecen una gran cantidad de posibilidades para trabajar con ellos.</p>
+				</section>
+			</section>
+
+			<section id="bibliografia">
+				<h3>Bibliografía</h3>
+				<section>
+					<ol>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991004409771806336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,javafx&offset=0">The Definitive Guide to Modern Java Clients with JavaFX : Cross-Platform Mobile and Cloud Development.</a></li>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=cdi_safari_books_1_9781788293822&context=PC&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Primo%20Central&tab=Everything&query=any,contains,javafx&offset=0">Mastering JavaFX 10</a></li>
+					</ol>
+					<p>Al último, tienes acceso desde la web de la biblioteca.</p>
+				</section>
+			</section>
+
+			<section id="contenidos">
+                <h3>Contenidos</h3>
+				<section>
+					<ol>
+						<li><a href="#/botones">Botones.</a></li>
+						<ol>
+							<li><a href="#/botones_sin_estado">Botones sin estado.</a></li>
+							<li><a href="#/botones_con_estado">Botones con estado.</a></li>
+						</ol>
+					</ol>
+				</section>
+            </section>
+
+            <section class="center" id="botones">
+				<h2>Botones</h2>
+            </section>
+
+			<section>
+				<h3>Botones</h3>
+				<section id="botones_sin_estado">
+					<p>El botón más sencillo es un botón sin estado:</p>
+					<pre><code data-trim data-noescape>
+						Button boton = new Button("Hola");
+					</code></pre>
+					<p>La cadena que se pasa como argumento en el constructor es el texto que aparece escrito sobre el botón.</p>
+					<img class="centrado" src="./NuevasImagenes/botonSinEstado.png" alt="Botón sin estado">
+					<p>El botón ocupa todo el área de la ventana.</p>
+					<p>Se comporta como un botón, pero al pulsarlo no hace nada.</p>
+				</section>
+
+				<section>
+					<p>¿Cómo detectamos la pulsación sobre el botón?</p>
+					<p>Necesitamos un escuchador, que es una clase que extiende a la clase <strong>EventHandler</strong>.</p>
+					<pre><code data-trim data-noescape>
+					private class Escuchadora implements EventHandler&lt;ActionEvent&gt; {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					}
+					</code></pre>
+					<p>Fíjate que la interfaz <strong>EventHandler</strong> sólo tiene un método declarado.</p>
+					<p>Y una vez que lo tenemos, registramos una instancia de esta clase como escuchador del botón.</p>
+					<pre><code data-trim data-noescape>
+					boton.setOnAction(new Escuchadora());
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Si la clase escuchadora sólo la vamos a utilizar con un único botón, hay otro modo de hacerlo que no pasa por la creación <strong>explícita</strong> de una clase:</p>
+					<pre><code data-trim>
+					Button boton = new Button("Hola");
+					boton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					});
+					</code></pre>
+					<p>Fíjate que parece que estamos instanciando una interfaz, pero lo que está ocurriendo realmente es que se está creando una nueva clase <strong>sin nombre</strong> que implementa la interfaz <strong>EventHandler</strong>.</p>
+					<p>A estas clases se les llama clases <strong>internas, anónimas</strong>.</p>
+					<p>Son internas porque se definen dentro de otras. Ya anónimas porque no tienen ningún nombre.</p>
+					<p>Además, con <strong>new</strong> la estamos instanciando en el momento de su definición.</p>
+				</section>
+
+				<section>
+					<p>Aún existe otra posibilidad para definir escuchadores.</p>
+					<p>Si recuerdas de la presentación de las novedades de Java 7 y 8, vimos que en Java 8 se introdujo la programación funcional en Java, lo que nos permite definir <strong>funciones</strong> que podemos enviar como parámetros en las llamadas a métodos. Ahora podemos hacer uso de esta técnica:</p>
+					<pre><code data-trim>
+					Button boton = new Button("Hola");
+					boton.setOnAction(actionEvent -> System.out.println("Me pulsaste"));
+					</code></pre>
+					<p>Compárala con:</p>
+					<pre><code data-trim>
+					boton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					});
+					</code></pre>
+					<p>Esta es la opción recomendada en JavaFX.</p>
+				</section>
+
+				<section>
+					p
+				</section>
+
+				<section id="botones_con_estado">
+
+				</section>
+
+			</section>
+
+		</div>
+	</div>
+
+	<script src="../reveal.js-master/dist/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				center: true,
+				history: true,
+				slideNumber: 'c/t',
+				plugins: [ RevealHighlight ]
+
+
+				// transition: 'slide',
+				// transitionSpeed: 'slow',
+				// backgroundTransition: 'slide'
+			});
+		</script>
+
+</body>
+
+</html>

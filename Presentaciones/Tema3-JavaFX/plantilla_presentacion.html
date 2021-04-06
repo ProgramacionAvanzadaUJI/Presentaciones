@@ -30,7 +30,10 @@
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
 
-	<!--[if lt IE 9]>
+	<link rel="stylesheet" href="../reveal.js-master/plugin/highlight/darcula.css">
+	<script src="../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+<!--[if lt IE 9]>
         <script src="../reveal-js/lib/js/html5shiv.js"></script>
 		<![endif]-->
 </head>
@@ -71,6 +74,7 @@
 				center: true,
 				history: true,
 				slideNumber: 'c/t',
+				plugins: [ RevealHighlight ]
 
 
 				// transition: 'slide',

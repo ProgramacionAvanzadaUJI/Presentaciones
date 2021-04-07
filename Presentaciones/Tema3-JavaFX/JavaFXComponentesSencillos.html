@@ -84,6 +84,8 @@
 						<li><a href="#/texto">Texto.</a></li>
 						<ol>
 							<li><a href="#/labels">Label.</a></li>
+							<li><a href="#/text_field">TextFfield.</a></li>
+							<li><a href="#/text_area">TextArea.</a></li>
 						</ol>
 					</ol>
 				</section>
@@ -238,9 +240,60 @@
 			<section>
 				<h3>Texto</h3>
 				<section id="labels">
-
+					<p>El componente de texto más sencillo es <strong>Label</strong>, con el que podemos mostrar un texto en la GUI que el usuario no puede modificar:</p>
+					<pre><code data-trim data-noescape>
+						Label label = new Label("Pulsa en el botón: ");
+						Button boton = new Button("Hola");
+						HBox hBox = new HBox(label, boton);
+						hBox.setAlignment(Pos.BASELINE_CENTER);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/label.png" alt="Label">
+					<p>El texto que se muestra en el <strong>Label</strong> se puede cambiar con el método <strong>setText(String)</strong>.</p>
+					<p>Los distintos gestores de posicionamiento, como <strong>HBox</strong> y como usarlos lo veremos en las siguientes presentaciones.</p>
 				</section>
 
+				<section id="text_field">
+					<p>Si lo que necesitas es un campo de texto que rellene el usuario, puedes utilizar el componente <strong>TextField</strong>:</p>
+					<pre><code data-trim data-noescape>
+					String texto = "Texto introducido: ";
+					Label prompt = new Label("Introduce un texto: ");
+					TextField textField = new TextField();
+					Button aceptar = new Button("Aceptar");
+					HBox hBox = new HBox(prompt, textField, aceptar);
+					hBox.setAlignment(Pos.BASELINE_CENTER);
+					Label entrada = new Label(texto);
+					VBox vBox = new VBox(hBox, entrada);
+					aceptar.setOnAction(e -> entrada.setText(texto + textField.getText()));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/textField.png" alt="Text Field">
+					<p>Cada vez que pulsamos el botón <strong>Aceptar</strong> se lee el contenido del <strong>TextField</strong> con el método <strong>getText()</strong> y con el método <strong>setText(String)</strong> cambiamos el texto del <strong>TextField</strong>.</p>
+				</section>
+
+				<section>
+					<p>También podemos cambiar el texto que muestra un <strong>TextField</strong> con el método <strong>setText(String)</strong>.</p>
+					<p>Por otro lado, si nos interesa deshabilitar un <strong>TextField</strong> para que el usuario no pueda introducir texto, lo podemos hacer con el método <strong>setDisable(boolean)</strong>.</p>
+				</section>
+
+				<section>
+					<p>El componente <strong>PasswordField</strong> funciona igual que el componente <strong>TextField</strong> pero el texto que el usuario introduce no se muestra en el componente: </p>
+					<pre><code data-trim data-noescape>
+					Label labelUsuario = new Label("Usuario: ");
+					TextField usuario = new TextField("usuario");
+					HBox hUsuario = new HBox(labelUsuario, usuario);
+					hUsuario.setAlignment(Pos.BASELINE_CENTER);
+					Label labelClave = new Label("Clave: ");
+					PasswordField clave = new PasswordField();
+					HBox hClave = new HBox(labelClave, clave);
+					hClave.setAlignment(Pos.BASELINE_CENTER);
+					VBox vBox = new VBox(hUsuario, hClave);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/passwordField.png" alt="Password field">
+					<p>La lectura del texto introducido por el usuario la puedes hacer con el método <strong>getText()</strong>.</p>
+				</section>
+
+				<section id="text_area">
+
+				</section>
 
 			</section>
 

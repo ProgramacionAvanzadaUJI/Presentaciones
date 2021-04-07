@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>JavaFX componentes sencillos</title>
+
+	<meta name="description" content="JavaFX componentes sencillos">
+	<meta name="author" content="Óscar Belmonte Fernández">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="../reveal.js-master/dist/reveal.css">
+	<link rel="stylesheet" href="../reveal.js-master/dist/theme/simple.css" id="theme">
+
+	<!-- Mis ajustes de css -->
+	<link rel="stylesheet" href="../css/my.css">
+
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? '../reveal-js/css/print/pdf.css' : '../reveal-js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<link rel="stylesheet" href="../reveal.js-master/plugin/highlight/darcula.css">
+	<script src="../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+<!--[if lt IE 9]>
+        <script src="../reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section class="center">
+                <h2>Programación Avanzada</h2>
+                <h3>Interfaces Gráficas de Usuario</h3>
+				<h3>Componentes sencillos</h3>
+                <h5>Óscar Belmonte Fernández</h5>
+            </section>
+            
+			<section id="introduccion">
+				<h3>Introducción</h3>
+				<section>
+					<p>Ahora ya conocemos qué es el grafo de escena en JavaFX. También hemos visto cuál es el modelo de programación, basado en el patrón de diseño Observador/Observable. También hemos visto cómo debemos construir la arquitectura de la aplicación basándonos en el meta-patrón de diseño MVC.</p>
+					<p>Lo que vamos a ver en esta presentación son los controles más sencillos de programar.</p>
+					<p>Estos controles son sencillos, pero nos ofrecen una gran cantidad de posibilidades para trabajar con ellos.</p>
+				</section>
+			</section>
+
+			<section id="bibliografia">
+				<h3>Bibliografía</h3>
+				<section>
+					<ol>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991004409771806336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,javafx&offset=0">The Definitive Guide to Modern Java Clients with JavaFX : Cross-Platform Mobile and Cloud Development.</a></li>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=cdi_safari_books_1_9781788293822&context=PC&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Primo%20Central&tab=Everything&query=any,contains,javafx&offset=0">Mastering JavaFX 10</a></li>
+					</ol>
+					<p>Al último, tienes acceso desde la web de la biblioteca.</p>
+				</section>
+			</section>
+
+			<section id="contenidos">
+                <h3>Contenidos</h3>
+				<section>
+					<ol>
+						<li><a href="#/botones">Botones.</a></li>
+						<ol>
+							<li><a href="#/botones_sin_estado">Botones sin estado.</a></li>
+							<li><a href="#/botones_con_estado">Botones con estado.</a></li>
+							<li><a href="#/botones_excluyentes">Botones con estado y excluyentes.</a></li>
+						</ol>
+						<li><a href="#/texto">Texto.</a></li>
+						<ol>
+							<li><a href="#/labels">Label.</a></li>
+							<li><a href="#/text_field">TextFfield.</a></li>
+							<li><a href="#/text_area">TextArea.</a></li>
+						</ol>
+						<li><a href="#barras_desplazamiento">Barras de desplazamiento.</a></li>
+					</ol>
+				</section>
+            </section>
+
+            <section class="center" id="botones">
+				<h2>Botones</h2>
+            </section>
+
+			<section>
+				<h3>Botones</h3>
+				<section id="botones_sin_estado">
+					<p>El botón más sencillo es un botón sin estado:</p>
+					<pre><code data-trim data-noescape>
+						Button boton = new Button("Hola");
+					</code></pre>
+					<p>La cadena que se pasa como argumento en el constructor es el texto que aparece escrito sobre el botón.</p>
+					<img class="centrado" src="./NuevasImagenes/botonSinEstado.png" alt="Botón sin estado">
+					<p>El botón ocupa todo el área de la ventana.</p>
+					<p>Se comporta como un botón, pero al pulsarlo no hace nada.</p>
+				</section>
+
+				<section>
+					<p>¿Cómo detectamos la pulsación sobre el botón?</p>
+					<p>Necesitamos un escuchador, que es una clase que extiende a la clase <strong>EventHandler</strong>.</p>
+					<pre><code data-trim data-noescape>
+					private class Escuchadora implements EventHandler&lt;ActionEvent&gt; {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					}
+					</code></pre>
+					<p>Fíjate que la interfaz <strong>EventHandler</strong> sólo tiene un método declarado.</p>
+					<p>Y una vez que lo tenemos, registramos una instancia de esta clase como escuchador del botón.</p>
+					<pre><code data-trim data-noescape>
+					boton.setOnAction(new Escuchadora());
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Si la clase escuchadora sólo la vamos a utilizar con un único botón, hay otro modo de hacerlo que no pasa por la creación <strong>explícita</strong> de una clase:</p>
+					<pre><code data-trim>
+					Button boton = new Button("Hola");
+					boton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					});
+					</code></pre>
+					<p>Fíjate que parece que estamos instanciando una interfaz, pero lo que está ocurriendo realmente es que se está creando una nueva clase <strong>sin nombre</strong> que implementa la interfaz <strong>EventHandler</strong>.</p>
+					<p>A estas clases se les llama clases <strong>internas, anónimas</strong>.</p>
+					<p>Son internas porque se definen dentro de otras. Ya anónimas porque no tienen ningún nombre.</p>
+					<p>Además, con <strong>new</strong> la estamos instanciando en el momento de su definición.</p>
+				</section>
+
+				<section>
+					<p>Aún existe otra posibilidad para definir escuchadores.</p>
+					<p>Si recuerdas de la presentación de las novedades de Java 7 y 8, vimos que en Java 8 se introdujo la programación funcional en Java, lo que nos permite definir <strong>funciones</strong> que podemos enviar como parámetros en las llamadas a métodos. Ahora podemos hacer uso de esta técnica:</p>
+					<pre><code data-trim>
+					Button boton = new Button("Hola");
+					boton.setOnAction(actionEvent -> System.out.println("Me pulsaste"));
+					</code></pre>
+					<p>Compárala con:</p>
+					<pre><code data-trim>
+					boton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+						@Override
+						public void handle(ActionEvent actionEvent) {
+							System.out.println("Me pulsaste.");
+						}
+					});
+					</code></pre>
+					<p>Esta es la opción recomendada en JavaFX.</p>
+				</section>
+
+				<section id="botones_con_estado">
+					<p>Veamos ahora botones con estados. El primero es <strong>CheckBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+					CheckBox cafe = new CheckBox("Café.");
+					CheckBox cortado = new CheckBox("Cortado.");
+					CheckBox cafeConLeche = new CheckBox("Café con leche.");
+					VBox vBox = new VBox(cafe, cortado, cafeConLeche);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/checkBox.png" alt="Botones con estado">
+					<p>Cada uno de los botones puede estar seleccionado o no seleccionado.</p>
+					<p>Para conocer el estado actual el método <strong>isSelected()</strong> nos devuelve <strong>true</strong> o <strong>false</strong>.</p>
+				</section>
+
+				<section>
+					<p>Si nos interesa reaccionar ante la pulsación de uno de estos botones, lo podemos hacer igual que en el caso de los <strong>Button</strong>:</p>
+					<pre><code data-trim>
+					CheckBox cafe = new CheckBox("Café.");
+					cafe.setOnAction(e -> System.out.println("Seleccionaste café."));
+					CheckBox cortado = new CheckBox("Cortado.");
+					cortado.setOnAction(e -> System.out.println("Seleccionaste cortado"));
+					CheckBox cafeConLeche = new CheckBox("Café con leche.");
+					cafeConLeche.setOnAction(e -> System.out.println("Seleccionaste café con leche."));
+					</code></pre>
+				</section>
+
+				<section id="botones_excluyentes">
+					<p>Si lo que necesitamos es proporcionar al usuario la posibilidad de tener opciones excluyentes, podemos utilizar los <strong>RadioButton</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ToggleGroup grupo = new ToggleGroup();
+					RadioButton manyana = new RadioButton("Mañana.");
+					manyana.setOnAction(e -> System.out.println("Seleccionada opción mañana."));
+					RadioButton tarde = new RadioButton("Tarde.");
+					tarde.setOnAction(e -> System.out.println("Seleccionada opción tarde"));
+					RadioButton noche = new RadioButton("Noche.");
+					noche.setOnAction(e -> System.out.println("Seleccionada opción noche"));
+					manyana.setToggleGroup(grupo);
+					tarde.setToggleGroup(grupo);
+					noche.setToggleGroup(grupo);
+					</code></pre>
+					<p>Los botones son excluyentes porque se han añadido a un <strong>ToggleGroup</strong> con el método <strong>componente.setToggleGroup(ToggleGroup)</strong>.</p>
+					<p>Si los botones no se añaden a un <strong>ToggleGroup</strong>, funcionan igual que los <strong>CheckBox</strong>.</p>
+				</section>
+
+				<section>
+					<p>Otro tipo de botones excluyentes son los <strong>ToggleButton</strong>. Si nos los añades a un <strong>ToggleGroup</strong> funcionan como los <strong>CheckBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ToggleButton manyana = new ToggleButton("Mañana");
+					ToggleButton tarde = new ToggleButton("Tarde");
+					ToggleButton noche = new ToggleButton("Noche");
+					HBox hBox = new HBox(manyana, tarde, noche);
+					hBox.setSpacing(5);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/toggleButtons.png" alt="ToggleButtons">
+				</section>
+
+				<section>
+					<p>Si los añades a un <strong>ToggleGroup</strong> son excluyentes</p>
+					<pre><code data-trim data-noescape>
+					ToggleGroup grupo = new ToggleGroup();
+					ToggleButton manyana = new ToggleButton("Mañana");
+					manyana.setToggleGroup(grupo);
+					ToggleButton tarde = new ToggleButton("Tarde");
+					tarde.setToggleGroup(grupo);
+					ToggleButton noche = new ToggleButton("Noche");
+					noche.setToggleGroup(grupo);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/toggleButons2.png" alt="ToggleButtons excluyentes">
+					<p>La detección de botón presionado se hace como en los casos anteriores, con el método <strong>boton.setOnAction(EventHandler)</strong></p>
+				</section>
+			</section>
+
+			<section id="texto">
+				<h2 class="center">Texto</h2>
+			</section>
+
+			<section>
+				<h3>Texto</h3>
+				<section id="labels">
+					<p>El componente de texto más sencillo es <strong>Label</strong>, con el que podemos mostrar un texto en la GUI que el usuario no puede modificar:</p>
+					<pre><code data-trim data-noescape>
+						Label label = new Label("Pulsa en el botón: ");
+						Button boton = new Button("Hola");
+						HBox hBox = new HBox(label, boton);
+						hBox.setAlignment(Pos.BASELINE_CENTER);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/label.png" alt="Label">
+					<p>El texto que se muestra en el <strong>Label</strong> se puede cambiar con el método <strong>setText(String)</strong>.</p>
+					<p>Los distintos gestores de posicionamiento, como <strong>HBox</strong> y como usarlos lo veremos en las siguientes presentaciones.</p>
+				</section>
+
+				<section id="text_field">
+					<p>Si lo que necesitas es un campo de texto que rellene el usuario, puedes utilizar el componente <strong>TextField</strong>:</p>
+					<pre><code data-trim data-noescape>
+					String texto = "Texto introducido: ";
+					Label prompt = new Label("Introduce un texto: ");
+					TextField textField = new TextField();
+					Button aceptar = new Button("Aceptar");
+					HBox hBox = new HBox(prompt, textField, aceptar);
+					hBox.setAlignment(Pos.BASELINE_CENTER);
+					Label entrada = new Label(texto);
+					VBox vBox = new VBox(hBox, entrada);
+					aceptar.setOnAction(e -> entrada.setText(texto + textField.getText()));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/textField.png" alt="Text Field">
+					<p>Cada vez que pulsamos el botón <strong>Aceptar</strong> se lee el contenido del <strong>TextField</strong> con el método <strong>getText()</strong> y con el método <strong>setText(String)</strong> cambiamos el texto del <strong>TextField</strong>.</p>
+				</section>
+
+				<section>
+					<p>También podemos cambiar el texto que muestra un <strong>TextField</strong> con el método <strong>setText(String)</strong>.</p>
+					<p>Por otro lado, si nos interesa deshabilitar un <strong>TextField</strong> para que el usuario no pueda introducir texto, lo podemos hacer con el método <strong>setDisable(boolean)</strong>.</p>
+				</section>
+
+				<section>
+					<p>El componente <strong>PasswordField</strong> funciona igual que el componente <strong>TextField</strong> pero el texto que el usuario introduce no se muestra en el componente: </p>
+					<pre><code data-trim data-noescape>
+					Label labelUsuario = new Label("Usuario: ");
+					TextField usuario = new TextField("usuario");
+					HBox hUsuario = new HBox(labelUsuario, usuario);
+					hUsuario.setAlignment(Pos.BASELINE_CENTER);
+					Label labelClave = new Label("Clave: ");
+					PasswordField clave = new PasswordField();
+					HBox hClave = new HBox(labelClave, clave);
+					hClave.setAlignment(Pos.BASELINE_CENTER);
+					VBox vBox = new VBox(hUsuario, hClave);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/passwordField.png" alt="Password field">
+					<p>La lectura del texto introducido por el usuario la puedes hacer con el método <strong>getText()</strong>.</p>
+				</section>
+
+				<section id="text_area">
+					<p>Si necesitas que el usurio introduzca varias líneas de texto puedes utilizar un <strong>TextArea</strong>:</p>
+					<pre><code data-trim data-noescape>
+					Label label = new Label("Escribe un texto:");
+					TextArea textArea = new TextArea();
+					VBox vBox = new VBox(label, textArea);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/textField.png" alt="Text Area">
+					<p>Como en el caso de los componentes de texto anteriores, puedes leer el texto que hay escrito en la <strong>TextArea</strong> con el método <strong>getText()</strong>, y puedes escribir texto con el método <strong>setText(String)</strong>.</p>
+				</section>
+			</section>
+
+			<section id="barras_desplazamiento"></section>
+
+		</div>
+	</div>
+
+	<script src="../reveal.js-master/dist/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				center: true,
+				history: true,
+				slideNumber: 'c/t',
+				plugins: [ RevealHighlight ]
+
+
+				// transition: 'slide',
+				// transitionSpeed: 'slow',
+				// backgroundTransition: 'slide'
+			});
+		</script>
+
+</body>
+
+</html>

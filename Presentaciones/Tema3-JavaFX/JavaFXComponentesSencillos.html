@@ -155,12 +155,33 @@
 					<p>Esta es la opción recomendada en JavaFX.</p>
 				</section>
 
-				<section>
-					p
+				<section id="botones_con_estado">
+					<p>Veamos ahora botones con estados. El primero es <strong>CheckBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+					CheckBox cafe = new CheckBox("Café.");
+					CheckBox cortado = new CheckBox("Cortado.");
+					CheckBox cafeConLeche = new CheckBox("Café con leche.");
+					VBox vBox = new VBox(cafe, cortado, cafeConLeche);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/checkBox.png" alt="Botones con estado">
+					<p>Cada uno de los botones puede estar seleccionado o no seleccionado.</p>
+					<p>Para conocer el estado actual el método <strong>isSelected()</strong> nos devuelve <strong>true</strong> o <strong>false</strong>.</p>
 				</section>
 
-				<section id="botones_con_estado">
+				<section>
+					<p>Si nos interesa reaccionar ante la pulsación de uno de estos botones, lo podemos hacer igual que en el caso de los <strong>Button</strong>:</p>
+					<pre><code data-trim>
+					CheckBox cafe = new CheckBox("Café.");
+					cafe.setOnAction(e -> System.out.println("Seleccionaste café."));
+					CheckBox cortado = new CheckBox("Cortado.");
+					cortado.setOnAction(e -> System.out.println("Seleccionaste cortado"));
+					CheckBox cafeConLeche = new CheckBox("Café con leche.");
+					cafeConLeche.setOnAction(e -> System.out.println("Seleccionaste café con leche."));
+					</code></pre>
+				</section>
 
+				<section>
+					<p>Si lo que necesitamos es proporcionar al usuario la posibilidad de tener opciones excluyentes, podemos utilizar los <strong>RadioButton</strong>:</p>
 				</section>
 
 			</section>

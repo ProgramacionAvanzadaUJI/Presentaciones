@@ -79,6 +79,11 @@
 						<ol>
 							<li><a href="#/botones_sin_estado">Botones sin estado.</a></li>
 							<li><a href="#/botones_con_estado">Botones con estado.</a></li>
+							<li><a href="#/botones_excluyentes">Botones con estado y excluyentes.</a></li>
+						</ol>
+						<li><a href="#/texto">Texto.</a></li>
+						<ol>
+							<li><a href="#/labels">Label.</a></li>
 						</ol>
 					</ol>
 				</section>
@@ -180,9 +185,62 @@
 					</code></pre>
 				</section>
 
-				<section>
+				<section id="botones_excluyentes">
 					<p>Si lo que necesitamos es proporcionar al usuario la posibilidad de tener opciones excluyentes, podemos utilizar los <strong>RadioButton</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ToggleGroup grupo = new ToggleGroup();
+					RadioButton manyana = new RadioButton("Mañana.");
+					manyana.setOnAction(e -> System.out.println("Seleccionada opción mañana."));
+					RadioButton tarde = new RadioButton("Tarde.");
+					tarde.setOnAction(e -> System.out.println("Seleccionada opción tarde"));
+					RadioButton noche = new RadioButton("Noche.");
+					noche.setOnAction(e -> System.out.println("Seleccionada opción noche"));
+					manyana.setToggleGroup(grupo);
+					tarde.setToggleGroup(grupo);
+					noche.setToggleGroup(grupo);
+					</code></pre>
+					<p>Los botones son excluyentes porque se han añadido a un <strong>ToggleGroup</strong> con el método <strong>componente.setToggleGroup(ToggleGroup)</strong>.</p>
+					<p>Si los botones no se añaden a un <strong>ToggleGroup</strong>, funcionan igual que los <strong>CheckBox</strong>.</p>
 				</section>
+
+				<section>
+					<p>Otro tipo de botones excluyentes son los <strong>ToggleButton</strong>. Si nos los añades a un <strong>ToggleGroup</strong> funcionan como los <strong>CheckBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ToggleButton manyana = new ToggleButton("Mañana");
+					ToggleButton tarde = new ToggleButton("Tarde");
+					ToggleButton noche = new ToggleButton("Noche");
+					HBox hBox = new HBox(manyana, tarde, noche);
+					hBox.setSpacing(5);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/toggleButtons.png" alt="ToggleButtons">
+				</section>
+
+				<section>
+					<p>Si los añades a un <strong>ToggleGroup</strong> son excluyentes</p>
+					<pre><code data-trim data-noescape>
+					ToggleGroup grupo = new ToggleGroup();
+					ToggleButton manyana = new ToggleButton("Mañana");
+					manyana.setToggleGroup(grupo);
+					ToggleButton tarde = new ToggleButton("Tarde");
+					tarde.setToggleGroup(grupo);
+					ToggleButton noche = new ToggleButton("Noche");
+					noche.setToggleGroup(grupo);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/toggleButons2.png" alt="ToggleButtons excluyentes">
+					<p>La detección de botón presionado se hace como en los casos anteriores, con el método <strong>boton.setOnAction(EventHandler)</strong></p>
+				</section>
+			</section>
+
+			<section id="texto">
+				<h2 class="center">Texto</h2>
+			</section>
+
+			<section>
+				<h3>Texto</h3>
+				<section id="labels">
+
+				</section>
+
 
 			</section>
 

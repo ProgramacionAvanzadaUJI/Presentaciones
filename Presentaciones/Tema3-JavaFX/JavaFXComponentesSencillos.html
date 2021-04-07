@@ -87,6 +87,7 @@
 							<li><a href="#/text_field">TextFfield.</a></li>
 							<li><a href="#/text_area">TextArea.</a></li>
 						</ol>
+						<li><a href="#barras_desplazamiento">Barras de desplazamiento.</a></li>
 					</ol>
 				</section>
             </section>
@@ -292,10 +293,18 @@
 				</section>
 
 				<section id="text_area">
-
+					<p>Si necesitas que el usurio introduzca varias líneas de texto puedes utilizar un <strong>TextArea</strong>:</p>
+					<pre><code data-trim data-noescape>
+					Label label = new Label("Escribe un texto:");
+					TextArea textArea = new TextArea();
+					VBox vBox = new VBox(label, textArea);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/textField.png" alt="Text Area">
+					<p>Como en el caso de los componentes de texto anteriores, puedes leer el texto que hay escrito en la <strong>TextArea</strong> con el método <strong>getText()</strong>, y puedes escribir texto con el método <strong>setText(String)</strong>.</p>
 				</section>
-
 			</section>
+
+			<section id="barras_desplazamiento"></section>
 
 		</div>
 	</div>

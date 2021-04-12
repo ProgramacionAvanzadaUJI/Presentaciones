@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>JavaFX</title>
+	<title>JavaFX: introducción</title>
 
 	<meta name="description" content="Introducción a JavaFX">
 	<meta name="author" content="Óscar Belmonte Fernández">
@@ -79,8 +79,7 @@
 						<li><a href="#/que-es-javafx">Qué es JavaFX.</a></li>
 						<li><a href="#/plugin-javafx">El plugin para una aplicación JavaFX.</a></li>
 						<li><a href="#/grafo-de-escena">El grafo de escena.</a></li>
-						<li><a href="#/gestores">Gestores de posicionamiento.</a></li>
-						<li><a href="#/controles">Controles.</a></li>
+						<li><a href="#/resumen">Resumen.</a></li>
 					</ol>
 				</section>
             </section>
@@ -198,134 +197,14 @@
 				</section>
 			</section>
 
-			<section class="center" id="gestores">
-				<h2>Gestores de posicionamiento</h2>
-			</section>
-
-			<section>
-				<h3>Gestores de posicionamiento</h3>
-				<section>
-					<p>Entre otras muchas cosas, JavaFX proporciona un conjunto de nodos control, tales como botones, listas, tablas, etcétera, con los que crear GUIs. </p>
-					<p>Por su parte, los gestores de posicionamiento (nodos layout) ubican los controles dentro de la ventana, liberándonos de la tarea de hacerlo componente a componente.</p>
-				</section>
-
-				<section>
-					<p>Vamos a empezar viendo primero los gestores de posicionamiento.</p>
-					<p>El más sencillo es <strong>Pane</strong>, que no tiene ninguna política de distribución de los componentes que se le añaden, símplemente los añade donde ellos se lo indican.</p>
-					<p><strong>Pane</strong> se suele utilizar como contenedor de otros componentes y gestores de posicionamiento.</p>
-				</section>
-
-				<section>
-					<p>Este es un ejemplo:</p>
-					<pre><code data-trim data-noescape>
-						Label label = new Label("Hola, JavaFX");
-						label.setLayoutX(100);
-						label.setLayoutY(250);
-						Pane panel = new Pane(label);
-						Scene scene = new Scene(panel, 400, 300);
-						stage.setScene(scene);
-						stage.show();
-					</code></pre>
-					<img class="centrado left" style="width: 40%;" src="./NuevasImagenes/panel.png" alt="Pane JavaFX">
-					<div class="right" style="width: 60%;">
-						<p><strong>Label</strong> tiene su propia posición en X e Y.</p>
-						<p>Indicar la posición no suele ser buena idea, es mejor dejar que el gestor haga su trabajo.</p>
-						<p>El origen de coordenadas está en la parte superior izquierda.</p>
-					</div>
-				</section>
-
-				<section>
-					<p>Si no indicamos el tamaño inicial de la ventana, esta se ajusta para poder mostrar todos los componentes que hay en el grafo de escena.</p>
-					<img class="centrado" src="./NuevasImagenes/sin_tamaño_inicial.png" alt="Ventana sin tamaño inicial">
-					<p>Esta opción es la más útil, JavaFX calcula el tamaño óptimo de la ventana por nosotros.</p>
-				</section>
-
-				<section>
-					<p><strong>HBox</strong> es un gestor de posicionamiento que coloca los componentes que a él se añaden en horizontal.</p>
-					<pre><code data-trim data-noescape>
-						Label uno = new Label("Uno");
-						Label dos = new Label("Dos");
-						Label tres = new Label("Tres");
-						Label cuatro = new Label("Cuatro");
-						HBox hBox = new HBox(uno, dos, tres, cuatro);
-					</code></pre>
-					<p>Fíjate que el argumento del constructor de <strong>HBox</strong> admite un número variable de argumentos.</p>
-					<img class="centrado" src="./NuevasImagenes/hbox.png" alt="HBox">
-				</section>
-
-				<section>
-					<p>El espaciado entre los componentes que hay dentro de <strong>HBox</strong> lo podemos definir con <strong>setSpacing(double)</strong></p>
-					<pre><code data-trim data-noescape>
-						Label uno = new Label("Uno");
-						Label dos = new Label("Dos");
-						Label tres = new Label("Tres");
-						Label cuatro = new Label("Cuatro");
-						HBox hBox = new HBox(uno, dos, tres, cuatro);
-						hBox.setSpacing(10);
-					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/hbox_spacing.png" alt="Espaciado en HBox">
-				</section>
-
-				<section>
-					<p>Para la distribución en vertical podemos usar el gestor de posicionamiento <strong>VBox</strong>:</p>
-					<pre><code data-trim data-noescape>
-						Label uno = new Label("Uno");
-						Label dos = new Label("Dos");
-						Label tres = new Label("Tres");
-						Label cuatro = new Label("Cuatro");
-						VBox vBox = new VBox(uno, dos, tres, cuatro);
-					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/vbox.png" alt="VBox">
-				</section>
-
-				<section>
-					<p>Y también puedo definir el espacio entre los componentes, y su alineamiento:</p>
-					<pre><code data-trim data-noescape>
-						Label uno = new Label("Uno");
-						Label dos = new Label("Dos");
-						Label tres = new Label("Tres");
-						Label cuatro = new Label("Cuatro");
-						VBox vBox = new VBox(uno, dos, tres, cuatro);
-						vBox.setSpacing(10);
-						vBox.setAlignment(Pos.CENTER);
-					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/vbox_aligned.png" alt="VBox alineado">
-				</section>
-
-				<section>
-					<p>Podemos <strong>componer</strong> la escena anidando gestores dentro de gestores:</p>
-					<pre><code data-trim data-noescape>
-						Label uno = new Label("Uno");
-						Label dos = new Label("Dos");
-						Label tres = new Label("Tres");
-						Label cuatro = new Label("Cuatro");
-						VBox vBox = new VBox(uno, dos, tres, cuatro);
-						vBox.setSpacing(10);
-						vBox.setAlignment(Pos.CENTER);
-				
-						Label cinco = new Label("Cinco");
-						Label seis = new Label("Seis");
-						Label siete = new Label("Siete");
-						Label ocho = new Label("Ocho");
-						HBox hBox = new HBox(cinco, seis, siete, ocho);
-						hBox.setSpacing(10);
-				
-						HBox composicion = new HBox(vBox, hBox);
-					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/composicion.png" alt="Composición vertical-horizontal">
-				</section>
-
-
-
-
 			</section>
 
 			<section class="center" id="controles">
-				<h2>Controles</h2>
+				<h2>Resumen</h2>
 			</section>
 
 			<section>
-				<h3>Controles</h3>
+				<h3>Resumen</h3>
 				<section></section>
 			</section>
 

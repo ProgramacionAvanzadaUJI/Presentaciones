@@ -108,14 +108,29 @@
 						<li>Se genera un evento que describe lo ocurrido.</li>
 						<li>El evento llega a todos las instancias/expresiones lambda registradas.</li>
 						<li>Dentro de la clase, o expresión lambda, escribimos el código de respuesta.</li>
-						<li>Si utilizas una clase, esta debe implementar la interface <strong>EventHandler</strong>.</li>
+						<li>Si utilizas una clase, esta debe implementar la interface <strong>EventHandler&lt;T extends Event&gt;</strong>.</li>
 					</ol>
 				</section>
 
-				<section id="respuesta_eventos">
-					<h2 class="center"></h2>
+				<section>
+					<p>La interface funcional <strong>EventHandler&lt;T extends Event&gt;</strong> sólo declara un método:</p>
+					<pre><code data-trim data-noescape>
+					@FunctionalInterface
+					public interface EventHandler&lt;T extends Event&gt; extends EventListener {
+						void handle(T var1);
+					}
+					</code></pre>
+					<p>Fíjate en la anotación <strong>@FunctionalInterface</strong> que sirve para indicarla a Java que el método de la interface se puede utilizar como una expersión lambda.</p>
+					<p>Fíjate, que con esta interface vamos a poder gestionar cualquier tipo de evento, el tipo concreto de evento lo fijaremos cuando instanciemos la clase que implementa esta interface. JavaFX ya te proporciona un conjunto de eventos, no es necesario que los crees tú.</p>
 				</section>
+			</section>
 
+			<section id="respuesta_eventos">
+				<h2 class="center">Cómo responder a los eventos</h2>
+			</section>
+
+			<section>
+				<h3>Cómo responder a los eventos</h3>
 				<section>
 					<p>Veamos cómo escribir la respuesta en el caso de interacción con un botón y una clase escuchadora.</p>
 					<p>Definimos la clase escuchadora:</p>
@@ -123,7 +138,7 @@
 					private class Escuchadora implements EventHandler&lt;ActionEvent&gt; {
 						@Override
 						public void handle(ActionEvent actionEvent) {
-							System.out.println("Me pulsaste.");
+							System.out.println("Botón pulsada.");
 						}
 					}
 					</code></pre>
@@ -137,6 +152,7 @@
 					boton.setOnAction(new Escuchadora());
 					</code></pre>
 					<p>Cada vez que se pulse el botón, aparecerá en consola el texto "Me pulsaste".</p>
+					<img class="centrado" src="./NuevasImagenes/boton_pulsado.png" alt="Botón pulsado">
 				</section>
 
 				<section>
@@ -162,6 +178,23 @@
 					<p>Las expresiones lambda son el mecanismo recomendado al definir escuchadoras en JavaFX.</p>
 				</section>
 
+				<section>
+					<p>Cuando utilizar cada una de ellas:</p>
+					<ul>
+						<li>Si necesitas el mismo comportamiento para varios componentes de la GUI quizás lo más sencillo sea definir clases escuchadoras.</li>
+						<li>JavaFX está orientada al uso de expresiones lambda.</li>
+					</ul>
+					<p>¿Cómo hago para reutilizar una expresión lambda con varios componentes?</p>
+					<pre><code data-trim data-noescape>
+					Button boton = new Button("Hola");
+					EventHandler&lt;ActionEvent&gt; lambda; // Me guardo la referencia.
+					boton.setOnAction(lambda = (e -> System.out.println("Botón pulsado.")));
+					Button adios = new Button("Adios");
+					adios.setOnAction(lambda);
+					</code></pre>
+					<p>Me guardo la referencia y la usan el resto de objetos que lo necesiten.</p>
+				</section>
+
 			</section>
 
 			<section>
@@ -171,7 +204,9 @@
             <section id="resumen">
 				<h3>Resumen</h3>
             	<section>
-					<p>El resumen va aquí.</p>
+					<p>El modelo de programación de JavaFX se basa en el patrón de diseño Observador.</p>
+					<p>Los componentes gráficos generan eventos cuando la persona usuaria interacciona con ellos.</p>
+					<p>Escribimos clases escuchadoras, o mejor, funciones lambda, que sean capaces de recibir notificaciones cuando se producen los eventos que nos interesan.</p>
 				</section>
             </section>
 

@@ -87,7 +87,7 @@
 							<li><a href="#/text_field">TextFfield.</a></li>
 							<li><a href="#/text_area">TextArea.</a></li>
 						</ol>
-						<li><a href="#barras_desplazamiento">Barras de desplazamiento.</a></li>
+						<li><a href="#barras_desplazamiento">Paneles con barras de desplazamiento.</a></li>
 					</ol>
 				</section>
             </section>
@@ -305,7 +305,40 @@
 			</section>
 
 			<section id="barras_desplazamiento">
-				
+				<h2>Paneles con barras de desplazamiento</h2>
+			</section>
+
+			<section>
+				<h3>Paneles con barras de desplazamiento</h3>
+				<section>
+					<p>Los paneles con barras de desplazamiento pueden contener otros controles a los que añaden barras de desplazamiento.</p>
+					<p>Están programados siguiendo el patrón de diseño <strong>Decorator</strong>.</p>
+					<pre><code data-trim data-noescape>
+					ScrollPane pane = new ScrollPane(new TextArea());
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/scroll_pane.png" alt="Scroll pane">
+					<p>Por defecto, las barras de desplazamiento aparecen cuando son necesarias.</p>
+				</section>
+
+				<section>
+					<p>Podemos controlar la política de aparición de las barras de desplazamiento:</p>
+					<pre><code data-trim data-noescape>
+					ScrollPane pane = new ScrollPane(new TextArea());
+					pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+					pane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/scroll_pane_policy.png" alt="Política de ajuste de barras de desplazamiento">
+					<p>En esta caso estamos indicando que las barras de desplazamiento deben aparecer siempre.</p>
+				</section>
+
+				<section>
+					<p>Otras opciones de políticas disponibles son:</p>
+					<ul>
+						<li>AS_NEDED, que es la opción por defecto.</li>
+						<li>NEVER</li>
+					</ul>
+					<p>Las tres opciones son elementos de la enumeración <strong>ScrollPane.ScrollBarPolicy</strong>.</p>
+				</section>
 			</section>
 
 		</div>

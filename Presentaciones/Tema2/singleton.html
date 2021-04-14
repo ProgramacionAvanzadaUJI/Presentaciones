@@ -171,10 +171,10 @@ class Conexion {
             <h2>Controlar la creación de instancias</h2>
         </hgroup>
         <article>
-            <p>Los objetivos son:</p>
+            <p>Los objetivos del patrón de diseño Singleton son:</p>
             <ol>
                 <li>Prohibir que se puedan crear instancias de una clase con <b>new</b>.</li>
-                <li>Que la clase «Única» mantenga una única instancia de si misma.</li>
+                <li>Que la clase «Única» mantenga una única instancia de sí misma.</li>
                 <li>Ofrecer la posibilidad de obtener esa referencia, que es única,
                     a todos los clientes de la clase.</li>
             </ol>
@@ -291,6 +291,7 @@ public class TestSingleton {
 }</pre>
             <p>Estamos creando 100 hilos que piden la
                 instancia.</p>
+                <p>Para la creación utilizamos una expresión lambda.</p>
         </article>
         </slide>
 
@@ -304,7 +305,7 @@ public class TestSingleton {
 new Thread(() -> Singleton.getInstance()).start();</pre>
             <p>Fíjate que ahora, no se hace
                 uso de <b>new </b> para obtener una instancia
-                de <b>Singleton</b>, hace uso de un método
+                de <b>Singleton</b>. Se hace uso de un método
                 <b>static</b> que le proporciona la instancia.</p>
             <p>Sólo leyendo este código, ¿Por qué sé que el método
                 <b>getInstance()</b> es estático?</p>
@@ -343,6 +344,8 @@ new Thread(() -> Singleton.getInstance()).start();</pre>
                 pero cuando tenemos muchos clientes que piden
                 la instancia, como has visto, puede que se
                 creen, sin control, varias de ellas.</p>
+                <p>Afortunadamente los hilos, y su gestión, son nativos en Java. No necesitamos añadir ninguna biblioteca para trabajar con ellos.</p>
+                <p>Veamos cómo hacerlo.</p>
         </article>
         </slide>
 
@@ -352,8 +355,8 @@ new Thread(() -> Singleton.getInstance()).start();</pre>
 			<h2>Sincroniza el acceso a los recursos compartidos</h2>
         </hgroup>
         <article>
-            <p>Afortunadamente, la programación de hilos, y su
-                sincronización, es nativa en Java.</p>
+            <!-- <p>Afortunadamente, la programación de hilos, y su
+                sincronización, es nativa en Java.</p> -->
 <pre class="prettyprint" data-lang="Java">
 public class SingletonConcurrente {
     private static SingletonConcurrente instancia = null;
@@ -368,6 +371,7 @@ public class SingletonConcurrente {
         return instancia;
     }
 }</pre>
+            <p>Fíjate en el uso de la nueva palabra reservada <b>synchronized</b>.</p>
         </article>
         </slide>
 

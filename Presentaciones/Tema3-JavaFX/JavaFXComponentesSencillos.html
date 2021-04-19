@@ -87,7 +87,9 @@
 							<li><a href="#/text_field">TextFfield.</a></li>
 							<li><a href="#/text_area">TextArea.</a></li>
 						</ol>
-						<li><a href="#barras_desplazamiento">Paneles con barras de desplazamiento.</a></li>
+						<li><a href="#/barras_desplazamiento">Paneles con barras de desplazamiento.</a></li>
+						<li><a href="#/listas">Listas.</a></li>
+						<li><a href="#/combobox">ComboBox.</a></li>
 					</ol>
 				</section>
             </section>
@@ -338,6 +340,104 @@
 						<li>NEVER</li>
 					</ul>
 					<p>Las tres opciones son elementos de la enumeración <strong>ScrollPane.ScrollBarPolicy</strong>.</p>
+				</section>
+			</section>
+
+			<section id="listas">
+				<h2 class="center">Listas</h2>
+			</section>
+
+			<section>
+				<h3>Listas</h3>
+				<section>
+					<p>Para mostrar elementos en una lista, puedes utilizar el componente <strong>ListView</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ObservableList<String> meses = FXCollections.observableArrayList("Enero", "Febrero", "Marzo", 
+						"Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
+						"Noviembre", "Diciembre");
+						ListView<String> lista = new ListView<>(meses);
+					</code></pre>
+					<img class="centrado" style="height: 280px;" src="./NuevasImagenes/lista.png" alt="List View">
+					<p>Fíjate que los elementos de la lista deben estar dentro de una <strong>ObservableList</strong>.</p>
+				</section>
+
+				<section>
+					<p>También podemos añadir elementos a lista en nuestro código con el método <strong>add(elemento)</strong>:</p>
+					<pre><code data-trim data-noescape>
+					lista.getItems().add("Otro mes");
+					</code></pre>
+					<p>Si el espacio que ocupa la lista es mayor que el tamaño de la ventana, se añadirán barras de scroll de manera automática:</p>
+					<img class="centrado" src="./NuevasImagenes/lista2.png" alt="List View">
+				</section>
+
+				<section>
+					<p>Por defecto sólo podemos seleccionar un único elemento de la lista.</p>
+					<p>Si queremos escuchar la selección de los elementos de la lista, el modelo de selección:</p>
+					<pre><code data-trim data-noescape>
+					lista.getSelectionModel().selectedItemProperty().addListener((item,
+							valorInicial,
+							valorActual) -> {
+						System.out.println(valorInicial);
+						System.out.println(valorActual);
+					});				
+					</code></pre>
+					<p><strong>valorInicial</strong> es el valor del item antes de la selección, <strong>valorActual</strong> es el valor del item seleccionado.</p>
+				</section>
+
+				<section>
+					<p>El modo de selección lo podemos cambiar con:</p>
+					<pre><code data-trim data-noescape>
+					lista.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+					</code></pre>
+					<p>En este caso podrás seleccionar varios elementos, incluso salteados, de la lista:</p>
+					<img class="centrado" style="height: 350px;" src="./NuevasImagenes/lista3.png" alt="Lista multiple selección">
+				</section>
+
+				<section>
+					<p>Si lo que necesitamos es conocer, en cualquier momento, cuales son los item seleccionados, lo hacemos a través del <strong>MultipleSelectionModel</strong> que nos devuelve la <strong>ListView:</strong></p>
+					<pre><code data-trim data-noescape>
+					Button boton = new Button("Selección");
+					boton.setOnAction(e -> {
+						for (String mes: lista.getSelectionModel().getSelectedItems())
+							System.out.println(mes);
+					});
+					</code></pre>
+					<div>
+						<div>
+							<img class="left" style="height: 300px; width: 200px;" src="./NuevasImagenes/lista4.png" alt="Lista múltiple">
+						</div>
+						<div class="right">
+							<p>Mostrá por consola: Enero, Marzo y Mayo.</p>
+						</div>
+					</div>
+				</section>
+
+			</section>
+
+			<section id="combobox">
+				<h2 class="center">ComboBox</h2>
+			</section>
+
+			<section>
+				<h3>ComboBox</h3>
+				<section>
+					<p>Otra opción para mostrar listas de elementos son los <strong>ComboBox</strong>:</p>
+					<pre><code data-trim data-noescape>
+					ObservableList<String> meses = FXCollections.observableArrayList("Enero", "Febrero", "Marzo", 
+						"Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", 
+						"Noviembre", "Diciembre");
+						ComboBox<String> combo = new ComboBox<>(meses);
+					</code></pre>
+					<p>El modo de crear el <strong>ComboBox</strong> es el mismo que en el caso de <strong>ListView</strong>.</p>
+				</section>
+
+				<section>
+					<p>Pero el modo de detectar la selección es más sencillo que en el caso de la <strong>ListView</strong>:</p>
+					<pre><code data-trim data-noescape>
+					combo.setOnAction(e -> System.out.println(combo.getSelectionModel()
+						.getSelectedItem()));
+					</code></pre>
+					<p>Mostrará por consola el nombre del mes seleccionado.</p>
 				</section>
 			</section>
 

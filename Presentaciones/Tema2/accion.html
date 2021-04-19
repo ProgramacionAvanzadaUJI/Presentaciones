@@ -58,7 +58,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>Existen ocasiones donde nos interesa realizar acciones
-                sin tener conocimiento de quien las ejecuta finalmente.</p>
+                sin tener conocimiento de quien es el sujeto que las ejecuta finalmente.</p>
             <p>Piensa, por ejemplo, en un sistema de aire acondicionado. 
                 No necesito conocer donde está la máquina de aire 
                 acondicionado, lo único que necesito conocer es qué botón
@@ -67,7 +67,7 @@ URL: https://code.google.com/p/io-2012-slides
             <p>El patrón de diseño <b>Command</b> nos permite ocultar quien
                 llevará a cabo una determinada acción, de lo único de lo que 
                 nos preocupamos es de indicar la acción que queremos que se
-                realice.</p>
+                realice, sin saber quien la realizará.</p>
         </article>
         </slide>
         
@@ -132,7 +132,8 @@ URL: https://code.google.com/p/io-2012-slides
                 que con él pueda controlar cualquier dispositivo, sea
                 del tipo que sea.</p>
             <p>Y si compro nuevos dispositivos que tienen su propio mando
-                a distancia, también quiero poder controlarlos desde el telemando
+                a distancia, también quiero poder prescindir de sus mandos 
+                a distancia, y poder controlarlos desde el telemando
                 universal.</p>
             <p>Un amigo me ha dicho que en MarketMedia venden uno de estos
                 dispositivos, y que además tiene una máquina virtual de 
@@ -147,7 +148,7 @@ URL: https://code.google.com/p/io-2012-slides
         </hgroup>
         <article>
             <p>¿Qués es lo que quiero?</p>
-            <p>Obtener respuestas sin saber qué dispositivo la realiza.</p>
+            <p>Obtener respuestas sin saber qué dispositivo las realiza.</p>
             <p>Problemas con los que me encuentro:</p>
             <ul>
                 <li>El interfaz de los distintos dispositivos no es uniforme.</li>
@@ -165,7 +166,7 @@ URL: https://code.google.com/p/io-2012-slides
             <h2>El telemando universal</h2>
         </hgroup>
         <article>
-            <p>Este es el aspecto de la clase que implementa la TV:</p>
+            <p>Este es el aspecto de la clase que implementa el mando de la TV:</p>
 <pre class="prettyprint" data-lang="Java">
 public class TV {
     public TV() {
@@ -190,7 +191,7 @@ public class TV {
             <h2>El telemando universal</h2>
         </hgroup>
         <article>
-            <p>Y este es el aspecto de la clase que implementa el DVD:</p>
+            <p>Y este es el aspecto de la clase que implementa el mando del DVD:</p>
 <pre class="prettyprint" data-lang="Java">
 public class DVD {
     public DVD() {
@@ -214,12 +215,12 @@ public class DVD {
             <h2>El telemando universal</h2>
         </hgroup>
         <article>
-            <p>La interfaz pública de la clase TV es:</p>
+            <p>La interfaz pública del mando que controla la TV es:</p>
 <pre class="prettyprint" data-lang="Java">
 public void enciende() {...}
 public void apaga() {...}
 </pre>
-            <p>Y para la clase DVD es:</p>
+            <p>Y para el DVD la interfaz pública es:</p>
 <pre class="prettyprint" data-lang="Java">
 public void play() {...}
 public void stop() {...}
@@ -311,7 +312,7 @@ Reproduciendo la película
         </hgroup>
         <article>
             <p>La solución que acabamos de encontrar funciona, pero tiene
-                algunos problemas si necesitarmos hacer cambios:</p>
+                algunos problemas si necesitamos hacer cambios:</p>
             <ul class="build">
                 <li>Si queremos controlar un nuevo dispositivo, tenemos que
                     modificar la implementación del telemando.</li>
@@ -329,7 +330,7 @@ Reproduciendo la película
         </hgroup>
         <article>
             <p>Para resolver el primer problema, se nos puede ocurrir crear
-                un <b>interface</b> con las acciones que podemos llevar a cabo
+                una <b>interface</b> con las acciones que podemos llevar a cabo
                 sobre cada uno de los dispositivos, 
                 y una nueva clase que recubra cada uno
                 de los dispositivos, así podremos verlos a todos con una única
@@ -339,6 +340,7 @@ Reproduciendo la película
                 sobre los que se pueden hacer acciones que no se pueden llevar
                 a cabo sobre otros, por ejemplo, subir el volumen es perfecto 
                 para el equipo HiFi, pero no tiene sentido para el aire acondicionado.</p> 
+                <p>Analicemos con algo más de detalle la solución.</p>
         </article>
         </slide>
 
@@ -362,7 +364,7 @@ Reproduciendo la película
     }
 }
 </pre>
-            <p>Nos daremos cuenta de que lo que varia de un dispositivo a otro
+            <p>Nos daremos cuenta de que lo que varía de un dispositivo a otro
                 es que estamos usando en cada caso un método que dependen
                 del dispositivo.</p>
             <p>Lo que varía es la llamada a un método.</p>
@@ -385,7 +387,7 @@ Reproduciendo la película
                 <li>Cada llamada actua sobre un dispositivo distinto.</li>
                 <li>Puede ocurrir que un dispositivo ofrezca una interfaz
                     pública con más métodos que otro dispositivo, o símplemente
-                    distintos.</li>
+                    distintos métodos.</li>
             </ol>
         </article>
         </slide>
@@ -398,10 +400,10 @@ Reproduciendo la película
         <article>
             <p>Programemos las hipótesis:</p>
             <ol>
-                <li>Un <b>interface</b> (la herencia en general) me permite ver como
+                <li>Una <b>interface</b> (la herencia en general) me permite ver como
                     el mismo tipo de datos, tipos de datos concretos con implementaciones
                     distintas. Puedo, por ejemplo, unificar todas las acciones 
-                    bajo un mismo <b>interface</b>.</li>
+                    bajo una misma <b>interface</b>.</li>
                 <li>La llamada a un método la puedo encapsular en una clase
                     que tenga una referencia al dispositivo sobre el que 
                     actúa.</li>
@@ -417,7 +419,7 @@ Reproduciendo la película
             <h2>Encapsular llamadas a métodos</h2>
         </hgroup>
         <article>
-            <p>Vamos por pasos. Implementemos primero el <b>interface</b> que me permite ver 
+            <p>Vamos por pasos. Implementemos primero la <b>interface</b> que me permite ver 
                 cualquier acción sobre cualquier dispositivo como la misma 
                 cosa.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -425,7 +427,7 @@ public interface Accion {
     void ejecutaAccion();
 }
 </pre>
-            <p>Vaya, de momento es muy sencillo, demos el siguiente paso.</p>
+            <p>Vaya, de momento es muy sencilla, demos el siguiente paso.</p>
         </article>
         </slide>
 
@@ -438,7 +440,7 @@ public interface Accion {
             <p>Las acciones concretas se llevan a cabo sobre dispositivos
                 concretos, por ejemplo encender la televisión. Dicho de otro
                 modo, cada acción, implementada como una clase concreta,
-                conoce el dispositivo que realiza
+                conoce el dispositivo final que realiza
                 la acción.</p>
 <pre class="prettyprint" data-lang="Java">
 <b>public class AccionEnciendeTV implements Accion {
@@ -528,6 +530,7 @@ public enum TipoAccion {
             <p>¿Podría, en algún caso, tener sentido enviar al telemando
                 la acción concreta, en vez de un parámetro (enumeración)
                 que indica la acción?</p>
+                <p>Piénsalo, y lo contestamos al final de la presentación.</p>
         </article>
         </slide>
         
@@ -589,13 +592,13 @@ Deteniendo la reproducción de la película
             <p>Recapitulemos:</p>
             <ol>
                 <li>Tenemos varios dispositivos.</li>
-                <li>Sobre cada dispositivo podemos realizar varias acciones.</li>
-                <li>Queremos realizar las acciones de cualquier dispositivo
+                <li>Sobre cada dispositivo podemos realizar diferentes acciones.</li>
+                <li>Queremos realizar las acciones sobre cualquier dispositivo
                     desde el mismo telemando.</li>
             </ol>
             <p>Solución:</p>
             <ol>
-                <li>Hemos definido un <b>interface</b> para poder ver las
+                <li>Hemos definido una <b>interface</b> para poder ver las
                     distintas acciones como la misma cosa.</li>
                 <li>Cada acción concreta se realiza sobre un dispositivo 
                     concreto.</li>
@@ -653,7 +656,7 @@ Deteniendo la reproducción de la película
             <ol>
                 <li>La clase que lleva a cabo la acción está desacoplada
                     de la clase que solicita realizar la acción.</li>
-                <li>Las acciones se pueden extender, para redefinir las acciones.</li>
+                <li>Las acciones se pueden extender, para definir nuevas acciones.</li>
                 <li>Se pueden empaquetar varias acciones simples en una macro-acción.</li>
                 <li>Es fácil añadir nuevas acciones al sistema.</li>
             </ol>
@@ -666,6 +669,7 @@ Deteniendo la reproducción de la película
             <h2>Undo y Redo con el patrón Command</h2>
         </hgroup>
         <article>
+            <p>Vamos a ver una aplicación muy interesante del patrón <b>Command</b>.</p>
             <p>¿Alguna vez te has preguntado cómo recuerdan los programas las
                 acciones que han hecho para poder deshacerlas si lo necesitamos?</p>
             <p>Hay programas que incluso pueden volver a hacer lo que han
@@ -685,14 +689,14 @@ Deteniendo la reproducción de la película
         </hgroup>
         <article>
             <p>Empecemos, de nuevo, con la definición del <b>interface 
-                Accion</b>. Ahora cada acción se puede deshacer.</p>
+                Accion</b>. Vamos a añadir un nuevo método en la interfaz, para que cada acción se pueda deshacer.</p>
 <pre class="prettyprint" data-lang="Java">
 public interface Accion {
     void ejecutaAccion();
     void undo();
 }
 </pre>
-            <p>Ahora, además de realizar acciones, las podré deshacer.</p>
+            <p>Así, además de realizar acciones, las podré deshacer.</p>
         </article>
         </slide>
         
@@ -703,11 +707,10 @@ public interface Accion {
         </hgroup>
         <article>
             <p>Cada acción concreta sabe 
-                deshacer la última acción:</p>
+                deshacerse. Lo contrario de encender la TV es apagar la TV:</p>
 <pre class="prettyprint" data-lang="Java">
 <b>public class AccionEnciendeTV implements Accion {
     private TV tv;</b>
-    
     public AccionEnciendeTV(TV tv) {
         super();
         this.tv = tv;
@@ -720,9 +723,8 @@ public interface Accion {
     public void undo() {
         tv.apaga();
     }</b>
-}
+}</pre>
 
-</pre>
         </article>
         </slide>
         
@@ -732,11 +734,10 @@ public interface Accion {
             <h2>Undo y Redo con el patrón Command</h2>
         </hgroup>
         <article>
-            <p>Y para deshacer el encendido del DVD:</p>
+            <p>Y lo mismo para el DVD:</p>
 <pre class="prettyprint" data-lang="Java">
 <b>public class AccionEnciendeDVD implements Accion {
     private DVD dvd;</b>
-    
     public AccionEnciendeDVD(DVD dvd) {
         super();
         this.dvd = dvd;
@@ -760,7 +761,7 @@ public interface Accion {
             <h2>Undo y Redo con el patrón Command</h2>
         </hgroup>
         <article>
-            <p>Finalmente, debemos implementar el telemando con memoria:</p>
+            <p>Finalmente, debemos implementar el telemando con memoria. El telemando tiene dos pilas de acciones, una para añadir las que se pueden deshacer (undo), y otra para rehacer lo deshecho (redo).</p>
 <pre class="prettyprint" data-lang="Java">
 <b>public class TelemandoUndoRedo extends Telemando {</b>
     private Deque< TipoAccion > undo = new ArrayDeque< TipoAccion >();
@@ -900,6 +901,7 @@ Reproduciendo la película
                 llamada, ni el método concreto que se llamará.</p>
             <p>Este patrón desacopla las llamadas a métodos de los clientes 
                 de esos métodos.</p>
+                <p>Hemos visto un caso práctico, muy interesante, de cómo implementar undo/redo con el patrón <b>Command</b>.</p>
         </article>
         </slide>
 

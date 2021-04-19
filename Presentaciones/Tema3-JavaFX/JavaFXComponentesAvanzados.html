@@ -67,6 +67,9 @@
 				<section>
 					<ol>
 						<li><a href="#/fechas">Selector de fechas: DatePicker.</a></li>
+						<li><a href="#/paneles_solapas">Paneles con solapas: TabPane.</a></li>
+						<li><a href="#/selector_ficheros">Selector de ficheros: FileChooser</a></li>
+						<li><a href="#/tablas">Tablas.</a></li>
 						<li><a href="#/resumen">Resumen.</a></li>
 					</ol>
 				</section>
@@ -109,6 +112,64 @@
 				</section>
 
 
+			</section>
+
+			<section id="paneles_solapas">
+				<h2 class="center">Paneles con solapas: TabPane</h2>
+			</section>
+
+			<section>
+				<h3>Paneles con solapas: TabPane</h3>
+				<section>
+					<p>Los paneles con solapas <strong>TabPane</strong> son componentes muy flexibles que permiten mostrar contenido distinto según la solapa que tengamos seleccionada:</p>
+					<pre><code data-trim data-noescape>
+					HBox contenido1 = new HBox(new Label("Estás en la primera solapa."));
+					Tab solapa1 = new Tab("Primera", contenido1);
+			
+					HBox contenido2 = new HBox(new Label("Estás en la segunda solapa."));
+					Tab solapa2 = new Tab("Segunda", contenido2);
+			
+					HBox contenido3 = new HBox(new Label("Estás en la tercera solapa."));
+					Tab solapa3 = new Tab("Tercera", contenido3);
+			
+					TabPane tabPane = new TabPane();
+					tabPane.getTabs().add(solapa1);
+					tabPane.getTabs().add(solapa2);
+					tabPane.getTabs().add(solapa3);
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Este es el resultado final:</p>
+					<img class="centrado left" src="./NuevasImagenes/solapas1.png" alt="Paneles con solapas">
+					<img class="centrado right" src="./NuevasImagenes/solapas2.png" alt="Paneles con solapas">
+					<p>Cada vez que cambias de solapa, se muestra el contenido asociado a esa solapa.</p>
+				</section>
+			</section>
+
+
+			<section id="selector_ficheros">
+				<h2 class="center">Selector de ficheros: FileChooser</h2>
+			</section>
+
+			<section>
+				<h3>Selector de ficheros: FileChooser</h3>
+
+				<section>
+					<p></p>
+				</section>
+			</section>
+
+			<section id="tablas">
+				<h2 class="center">Tablas</h2>
+			</section>
+
+			<section>
+				<h3>Tablas</h3>
+
+				<section>
+					<p>Para mostras datos en tablas disponemos del componente <strong>TableView</strong>. Es un componente muy completo con mucha flexibilidad.</p>
+				</section>
 			</section>
 
 			<section>

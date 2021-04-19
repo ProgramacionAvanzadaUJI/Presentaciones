@@ -4,9 +4,9 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Título</title>
+	<title>Componentes JavaFX avanzados</title>
 
-	<meta name="description" content="Descripción">
+	<meta name="description" content="Componentes JavaFX avanzados">
 	<meta name="author" content="Óscar Belmonte Fernández">
 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,21 +47,72 @@
 			<section class="center">
                 <h2>Programación Avanzada</h2>
                 <h3>Interfaces Gráficas de Usuario</h3>
-				<h3>Título</h3>
+				<h3>Componentes JavaFX avanzados</h3>
                 <h5>Óscar Belmonte Fernández</h5>
             </section>
             
+			<section id="bibliografia">
+				<h3>Bibliografía</h3>
+				<section>
+					<ol>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991004409771806336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,javafx&offset=0">The Definitive Guide to Modern Java Clients with JavaFX : Cross-Platform Mobile and Cloud Development.</a></li>
+						<li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=cdi_safari_books_1_9781788293822&context=PC&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Primo%20Central&tab=Everything&query=any,contains,javafx&offset=0">Mastering JavaFX 10</a></li>
+					</ol>
+					<p>Al último, tienes acceso desde la web de la biblioteca.</p>
+				</section>
+			</section>
+
             <section id="contenidos">
                 <h3>Contenidos</h3>
 				<section>
 					<ol>
+						<li><a href="#/fechas">Selector de fechas: DatePicker.</a></li>
 						<li><a href="#/resumen">Resumen.</a></li>
 					</ol>
 				</section>
             </section>
 
+			<section id="fechas">
+				<h2 class="center">Selector de fechas: DatePicker</h2>
+			</section>
+
 			<section>
-				<h2>Resumen</h2>
+				<h3>Selector de fechas: DatePicker</h3>
+
+				<section>
+					<p>En JavaFX existe un componente gráfico que nos permite seleccionar fechas de un calendario con comodidad:</p>
+					<pre><code data-trim data-noescape>
+						DatePicker datePicker = new DatePicker();
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/fecha.png" alt="Selector de fecha">
+				</section>
+
+				<section>
+					<p>Cada vez que se selecciona una fecha, se genera un evento <strong>ActionEvent</strong> que podemos escuchar con <strong>setOnAction(ActionEvent e)</strong>:</p>
+					<pre><code data-trim data-noescape>
+					DatePicker datePicker = new DatePicker();
+					datePicker.setOnAction(e -> System.out.println(datePicker.getValue()));
+					</code></pre>
+					<p>Mostrará por consola la fecha seleccionada.</p>
+					<p>El tipo del objeto que devuelve <strong>datePicker.getValue()</strong> es <strong>LocalDate</strong> que ya estudiamos en el capítulo dedicado a <strong>Java 7 y 8</strong></p>
+				</section>
+
+				<section>
+					<p>Si quieres establecer la fecha que se muestre en el control:</p>
+					<pre><code data-trim data-noescape>
+						DatePicker datePicker = new DatePicker(LocalDate.now()
+							.withYear(2020)
+							.withMonth(1)
+							.withDayOfMonth(25));
+					</code></pre>
+					<p>Recuerda que tienes una interfaz <strong>fluída</strong> para establecer la fecha.</p>
+				</section>
+
+
+			</section>
+
+			<section>
+				<h2 class="center">Resumen</h2>
 			</section>
 
             <section id="resumen">

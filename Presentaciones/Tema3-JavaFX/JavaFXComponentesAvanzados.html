@@ -169,6 +169,63 @@
 
 				<section>
 					<p>Para mostras datos en tablas disponemos del componente <strong>TableView</strong>. Es un componente muy completo con mucha flexibilidad.</p>
+					<p>Supón quieres mostrar información de los objetos de la siguiente clase:</p>
+					<pre><code data-trim data-noescape>
+					public class Persona {
+						private String nombre;
+						private String primerApellido;
+						private String segundoApellido;
+						private String provincia;
+						private String poblacion;
+						private String nif;
+						// Todos los getters deben estar definidos.
+					}
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Para que se vea algo como esto:</p>
+					<img class="centrado" src="./NuevasImagenes/tabla.png" alt="Tabla">
+				</section>
+
+				<section>
+					<p>Lo primero es construir un objeto de tipo <strong>TableView</strong>, y después crear y añadir cada una de las columnas de la tabla:</p>
+					<pre><code data-trim data-noescape>
+					TableView table = new TableView();
+
+					TableColumn&lt;Persona, String&gt; nombre = new TableColumn&lt;&gt;("Nombre");
+					nombre.setCellValueFactory(new PropertyValueFactory&lt;&gt;("nombre"));
+			
+					TableColumn&lt;Persona, String&gt; primerApellido = new TableColumn&lt;&gt;("Primer apellido");
+					primerApellido.setCellValueFactory(new PropertyValueFactory&lt;&gt;("primerApellido"));
+					</code></pre>
+					<p>Y lo mismo con el resto de las columnas que quieras visualizar.</p>
+					<p>Lo importante es el método <strong>setCellValueFactorynew(PropertyValueFactory&lt;&gt;("nombre"))</strong></p>
+					<p>La cadena que se pasa como argumento es la propiedad de la clase <strong>Persona</strong> desde la que se va a extraer el dato.</p>
+					<pre><code data-trim data-noescape>
+						public class Persona {
+							private String nombre;
+							...
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Lo siguiente es añadir las columnas que acabamos de crear a la tabla:</p>
+					<pre><code data-trim data-noescape>
+					table.getColumns().add(nombre);
+					table.getColumns().add(primerApellido);
+					table.getColumns().add(segundoApellido);
+					table.getColumns().add(provincia);
+					table.getColumns().add(poblacion);
+					table.getColumns().add(nif);
+					</code></pre>
+				</section>
+
+				<section>
+					<p>Y finalmente añadimos los datos a la tabla:</p>
+					<pre><code data-trim data-noescape>
+					table.getItems().add(new Persona("Óscar", "Belmonte", ...));
+					</code></pre>
 				</section>
 			</section>
 

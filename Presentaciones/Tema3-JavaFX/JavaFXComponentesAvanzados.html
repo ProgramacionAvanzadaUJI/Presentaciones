@@ -236,8 +236,23 @@
 				<section>
 					<p>Si necesitamos conocer cuando la persona usuaria selecciona un elemento de la lista lo podemos hacer con:</p>
 					<pre><code data-trim data-noescape>
-						
+					ObservableList&lt;Persona&gt; selectedItems = tabla.getSelectionModel().getSelectedItems();
+					selectedItems.addListener((ListChangeListener&lt;Persona&gt;) change -> 
+						System.out.println("Selection changed: " + change.getList()));
 					</code></pre>
+					<p>Primero obtenemos la lista observable de elementos, y a ella le añadimos el observador.</p>
+					<pre><code data-trim data-noescape>
+					change.getList()
+					</code></pre>
+					<p>Lo que nos devuelve es la lista de <strong>Persona</strong> que están seleccionadas.</p>
+				</section>
+
+				<section>
+					<p>Podemos indicar que la lista admite selección múltiple de filas:</p>
+					<pre><code data-trim data-noescape>
+					tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/tabla_seleccion_multiple.png" alt="Tabla con selección múltiple">
 				</section>
 			</section>
 
@@ -248,7 +263,9 @@
             <section id="resumen">
 				<h3>Resumen</h3>
             	<section>
-					<p>El resumen va aquí.</p>
+					<p>En esta presentación, hemos visto algunos de los componentes avanzados que nos proporciona JavaFX.</p>
+					<p>El modelo de programación sigue siendo el <strong>Observer</strong>, si nos interesan los eventos que genera algún componente nos suscribimos a ellos con una clase escuchadora.</p>
+					<p>Todos los componentes que hemos visto son muy potentes, y al mismo tiempo relativamente sencillos de utilizar.</p>
 				</section>
             </section>
 

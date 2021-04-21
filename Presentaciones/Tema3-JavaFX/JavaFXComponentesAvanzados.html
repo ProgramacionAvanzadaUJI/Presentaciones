@@ -191,7 +191,7 @@
 				<section>
 					<p>Lo primero es construir un objeto de tipo <strong>TableView</strong>, y después crear y añadir cada una de las columnas de la tabla:</p>
 					<pre><code data-trim data-noescape>
-					TableView table = new TableView();
+					TableView&lt;Persona&gt; table = new TableView&lt;&gt;();
 
 					TableColumn&lt;Persona, String&gt; nombre = new TableColumn&lt;&gt;("Nombre");
 					nombre.setCellValueFactory(new PropertyValueFactory&lt;&gt;("nombre"));
@@ -199,13 +199,12 @@
 					TableColumn&lt;Persona, String&gt; primerApellido = new TableColumn&lt;&gt;("Primer apellido");
 					primerApellido.setCellValueFactory(new PropertyValueFactory&lt;&gt;("primerApellido"));
 					</code></pre>
-					<p>Y lo mismo con el resto de las columnas que quieras visualizar.</p>
+					<p>Fíjate que <strong>TableView</strong> es genérica e indicamos el tipo de datos que queremos visualizar.</p>
 					<p>Lo importante es el método <strong>setCellValueFactorynew(PropertyValueFactory&lt;&gt;("nombre"))</strong></p>
 					<p>La cadena que se pasa como argumento es la propiedad de la clase <strong>Persona</strong> desde la que se va a extraer el dato.</p>
 					<pre><code data-trim data-noescape>
 						public class Persona {
 							private String nombre;
-							...
 					</code></pre>
 				</section>
 
@@ -224,7 +223,20 @@
 				<section>
 					<p>Y finalmente añadimos los datos a la tabla:</p>
 					<pre><code data-trim data-noescape>
-					table.getItems().add(new Persona("Óscar", "Belmonte", ...));
+					table.getItems().add(new Persona("CONSUELO", "RAMOS", ...));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/tabla.png" alt="Tabla">
+				</section>
+
+				<section>
+					<p>La clase <strong>TableView</strong> ya tiene implementada funcionalidad muy interesante. Si pulsamos en el encabezado de una columna, los datos se ordenan automáticamente.</p>
+					<img class="centrado" src="./NuevasImagenes/tablaOrdenada.png" alt="Tabla ordenada">
+				</section>
+
+				<section>
+					<p>Si necesitamos conocer cuando la persona usuaria selecciona un elemento de la lista lo podemos hacer con:</p>
+					<pre><code data-trim data-noescape>
+						
 					</code></pre>
 				</section>
 			</section>

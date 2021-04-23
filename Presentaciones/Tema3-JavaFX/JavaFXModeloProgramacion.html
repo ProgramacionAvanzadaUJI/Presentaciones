@@ -149,10 +149,27 @@
 				<section>
 					<p>Ahora, creamos una instancia y la registramos como escuchadora:</p>
 					<pre><code data-trim data-noescape>
+					boton.addEventHandler(ActionEvent.ACTION, new Escuchadora());
+					</code></pre>
+					<p>Cada vez que se pulse el botón, aparecerá en consola el texto "Botón pulsado".</p>
+					<img class="centrado" src="./NuevasImagenes/boton_pulsado.png" alt="Botón pulsado">
+				</section>
+
+				<section>
+					<p>Tenemos una segunda opción, asignar la instancia de la clase escuchadora a la propiedad <strong>onAction</strong> de <strong>Button</strong> con el método <strong>setOnAction​(EventHandler&lt;ActionEvent&gt; escuchadora)</strong>:</p>
+					<pre><code data-trim data-noescape>
 					boton.setOnAction(new Escuchadora());
 					</code></pre>
 					<p>Cada vez que se pulse el botón, aparecerá en consola el texto "Botón pulsado".</p>
 					<img class="centrado" src="./NuevasImagenes/boton_pulsado.png" alt="Botón pulsado">
+					<p>Cada botón tiene la propiedad <strong>onAction</strong> a la que podemos asignar una única escuchadora con el método de comodidad <strong>setOnAction(EventHandler&lt;ActionEvent&gt; escuchadora)</strong>.</p>
+				</section>
+
+				<section>
+					<p>Fíjate que con <strong>addEventHandler​(EventType<T> eventType,
+						EventHandler&lt;? super T&gt; eventHandler)</strong> decidimos el evento y asignamos la escuchadora; con <strong>setOnAction​(EventHandler&lt;ActionEvent&gt; eventHandler)</strong> el evento ya está definido y sólo asignamos la escuchadora. Por eso es un método de comodidad.</p>
+						<p>Otra diferencia importante es que <strong>setOnAction(EventHandler&lt;ActionEvent&gt; value)</strong> asigna la escuchadora a una propiedad del botón, con <strong>addEventHandler​(EventType<T> eventType,
+						EventHandler&lt;? super T&gt; eventHandler)</strong> no usamos la propiedad del <strong>Button</strong>.</p>
 				</section>
 
 				<section>

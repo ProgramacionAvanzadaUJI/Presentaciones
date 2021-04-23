@@ -156,7 +156,23 @@
 				<h3>Selector de ficheros: FileChooser</h3>
 
 				<section>
-					<p></p>
+					<p>El componente <strong>FileChooser</strong> abre una ventana de diálogo para que podamos seleccionar un fichero:</p>
+					<pre><code data-trim data-noescape>
+					File file = fileChooser.showOpenDialog(stage);
+					</code></pre>
+					<img class="centrado" style="width: 500px;" src="./NuevasImagenes/fileChooser.png" alt="FileChooser">
+					<p>La referencia <strong>Stage</strong> que le debemos pasar al método es la ventana a la que se regresará después de que la ventana de diálogo se cierre:</p>
+				</section>
+
+				<section>
+					<p>Después de seleccionar el fichero, y pulsamos el botón abrir, el método nos devuelve una referencia de tipo <strong>File</strong>, con la que podemos acceder al contenido del fichero.</p>
+					<pre><code data-trim data-noescape>
+					StringBuffer sb = new StringBuffer();
+					BufferedReader br = new BufferedReader(new FileReader(file));
+					br.lines().forEach(s -> sb.append(s + "\n"));
+					textArea.setText(sb.toString());
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/fileChooser2.png" style="width: 500px;">
 				</section>
 			</section>
 

@@ -353,7 +353,7 @@
 				<section>
 					<p>Para mostrar elementos en una lista, puedes utilizar el componente <strong>ListView</strong>:</p>
 					<pre><code data-trim data-noescape>
-					ObservableList<String> meses = FXCollections.observableArrayList("Enero", "Febrero", "Marzo", 
+					ObservableList&lt;String&gt; meses = FXCollections.observableArrayList("Enero", "Febrero", "Marzo", 
 						"Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
 						"Noviembre", "Diciembre");
 						ListView<String> lista = new ListView<>(meses);
@@ -413,6 +413,30 @@
 					</div>
 				</section>
 
+				<section>
+					<p>Como los elementos que se visualizan en la <strong>ListView</strong> están en una <strong>ObservableList&lt;String&gt;</strong>, si nos interesa, podemos registrar un escuchador a la <strong>ObservableList&lt;String&gt;</strong> para detectar si la lista se modifica:</p>
+					<pre><code data-trim data-noescape>
+					meses.addListener((ListChangeListener&lt;String&gt;>) e -> {
+						e.next();
+						System.out.println("Hubo un cambio en la lista");
+						System.out.println(e.wasAdded());
+						System.out.println(e.wasRemoved());
+					});
+					</code></pre>
+					<p>Fíjate que lo primero que debes hacer es <strong>e.next()</strong>.</p>
+				</section>
+
+				<section>
+					<p>Si ahora hacemos:</p>
+					<pre><code data-trim data-noescape>
+					meses.add("Otro mes");
+					</code></pre>
+					<p>Lo que veremos por consola será:</p>
+					<p>Hubo un cambio en la lista</p>
+					<p>true</p>
+					<p>false</p>
+				</section>
+
 			</section>
 
 			<section id="combobox">
@@ -427,7 +451,7 @@
 					ObservableList<String> meses = FXCollections.observableArrayList("Enero", "Febrero", "Marzo", 
 						"Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", 
 						"Noviembre", "Diciembre");
-						ComboBox<String> combo = new ComboBox<>(meses);
+					ComboBox<String> combo = new ComboBox&lt;&gt;(meses);
 					</code></pre>
 					<p>El modo de crear el <strong>ComboBox</strong> es el mismo que en el caso de <strong>ListView</strong>.</p>
 				</section>
@@ -439,6 +463,10 @@
 						.getSelectedItem()));
 					</code></pre>
 					<p>Mostrará por consola el nombre del mes seleccionado.</p>
+				</section>
+
+				<section>
+					<p>Como los elementos del ComboBox también están en una <strong>ObservableList&lt;String&gt;</strong> se puede observar si hay cambios en los elementos de la lista, igual que en el caso de la <strong>ListView</strong>.</p>
 				</section>
 			</section>
 

@@ -155,6 +155,24 @@
 					</code></pre>
 					<img class="centrado" src="./NuevasImagenes/hbox_spacing.png" alt="Espaciado en HBox">
 				</section>
+
+				<section>
+					<p>También podemos fijar la zona libre alrededor de los componentes de un <strong>HBox</strong> con:</p>
+					<pre><code data-trim data-noescape>
+					hBox.setPadding(new Insets(10, 10, 10, 10));
+					</code></pre>
+					<p>Fíjate que el padding es el espacio que queda desde los bordes del contenedor a sus elementos, y no entre los elementos que hay dentro del contenedor.</p>
+				</section>
+
+				<section>
+					<p>Si combinamos el espaciado y el padding podemos obtener algo como lo siguiente:</p>
+					<pre><code data-trim data-noescape>
+					hBox.setSpacing(10);
+					hBox.setPadding(new Insets(10, 10, 10, 10));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/hbox_padding_spacing.png" alt="HBox con padding">
+					<p>El espacio entre los elementos de texto es debido a <strong>setSpacing(int)</strong>, y desde los elementos a los bordes de las ventanas es debido a <strong>setPadding(InSets)</strong>.</p>
+				</section>
 			</section>
 
 			<section class="center" id="vbox">
@@ -189,6 +207,15 @@
 				</section>
 
 				<section>
+					<p>Como en el caso de <strong>HBox</strong>, podemos definir la distancia entre el contenido y el borde de la ventana con <strong>setPadding(Insets)</strong>, y combinarla con <strong>setSpacing(int)</strong></p>
+					<pre><code data-trim data-noescape>
+						vBox.setSpacing(10);
+						vBox.setPadding(new Insets(10, 10, 10, 10));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/vbox_spacing_padding.png" alt="VBox con spacing y padding">
+				</section>
+
+				<section>
 					<p>Podemos <strong>componer</strong> la escena anidando gestores dentro de gestores:</p>
 					<pre><code data-trim data-noescape>
 						Label uno = new Label("Uno");
@@ -207,8 +234,9 @@
 						hBox.setSpacing(10);
 				
 						HBox composicion = new HBox(vBox, hBox);
+						composicion.setPadding(new Insets(10, 10, 10, 10));
 					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/composicion.png" alt="Composición vertical-horizontal">
+					<img class="centrado" src="./NuevasImagenes/composicion_padding.png" alt="Composición vertical-horizontal">
 				</section>
 			</section>
 
@@ -231,6 +259,17 @@
 					</code></pre>
 					<img class="centrado" src="./NuevasImagenes/flowpane.png" alt="FlowPane">
 					<p>Para dar espacio entre los componentes, utilizamos los métodos <strong>setHgap(double</strong> y <strong>setVgat(double)</strong>.</p>
+				</section>
+
+				<section>
+					<p>Y como en el caso de los gestores anteriores, también podemos definir la distancia entre el contenido de este gestor y la ventana (u otro contnedores) con <strong>setPadding(Insets)</strong>:</p>
+					<pre><code data-trim data-noescape>
+					FlowPane flowPane = new FlowPane(uno, dos, tres, cuatro, cinco, seis);
+					flowPane.setHgap(10);
+					flowPane.setVgap(10);
+					flowPane.setPadding(new Insets(10, 10, 10, 10));
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/flow_padding.png" alt="Gestor FlowPane con padding">
 				</section>
 
 				<section>

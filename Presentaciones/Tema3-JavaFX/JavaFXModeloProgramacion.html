@@ -133,9 +133,9 @@
 				<h3>Cómo responder a los eventos</h3>
 				<section>
 					<p>Veamos cómo escribir la respuesta en el caso de interacción con un botón y una clase escuchadora.</p>
-					<p>Definimos la clase escuchadora:</p>
+					<p>Definimos la clase escuchadora (fíjate que el modificador de acceso es de paquete):</p>
 					<pre><code data-trim data-noescape>
-					private class Escuchadora implements EventHandler&lt;ActionEvent&gt; {
+					class Escuchadora implements EventHandler&lt;ActionEvent&gt; {
 						@Override
 						public void handle(ActionEvent actionEvent) {
 							System.out.println("Botón pulsada.");
@@ -183,6 +183,30 @@
 					});
 					</code></pre>
 					<p>Fíjate que <strong>EventHandler&lt;T extends Event&gt;</strong> es una interface, y por lo tanto no se puede instanciar con <strong>new</strong>. Lo que está ocurriendo es que estamos definiendo una clase <strong>sin nombre</strong> (anónima) que implementa la interface <strong>EventHandler&lt;T extends Event&gt;</strong>, y que estamos instanciando en el momento de su definición.</p>
+					<p>A estas clases se les llama clases internas anónimas.</p>
+				</section>
+
+				<section>
+					<p>Una opción intermedia entre las dos anteriores es utilizar las clases internas. Una clase interna se define en el cuerpo de otra clases existente:</p>
+					<pre><code data-trim data-noescape>
+public class Main extends Application {
+	@Override
+	public void start(Stage stage) throws Exception {
+		...
+		boton.addEventHandler(ActionEvent.ACTION, new Escuchadora());
+		...
+	}
+
+	private class Escuchadora implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent actionEvent) {
+			System.out.println("Desde una clase interna");
+		}
+	}
+	...
+}
+					</code></pre>
+					<p>La ventaja es que la podemos calificar como <strong>private</strong> y no será visible desde ninguna otra clase. Hacemos uso de la técnica de encapsulamiento, fundamento de la Programación Orientada a Objetos.</p>
 				</section>
 
 				<section>
@@ -192,6 +216,25 @@
 					</code></pre>
 					<p>Comparado con los métodos anteriores, la definición es muy concisa.</p>
 					<p>Las expresiones lambda son el mecanismo recomendado al definir escuchadoras en JavaFX.</p>
+				</section>
+
+				<section>
+					<p>La expresión lambda también puede ser un método que pertenezca a alguna clase, incluida la clase donde se instancia el componente gráfico.</p>
+					<pre><code data-trim data-noescape>
+public class Main extends Application {
+	...
+	public void start(Stage stage) throws Exception {
+		...
+		Button boton = new Button("Pulsa");
+		boton.setOnAction(e-> accion(e)); //Una opción
+		boton.addEventHandler(ActionEvent.ACTION, this::accion); //Otra opción
+		...
+	}
+	
+	private void accion(ActionEvent e) {
+		System.out.println("Hola");
+	}
+}</code></pre>
 				</section>
 
 				<section>

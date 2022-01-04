@@ -55,7 +55,7 @@
 				<h3>Introducción</h3>
 				<section>
 					<p>Los componentes de la interfaz gráfica de JavaFX generan eventos cada vez que la persona usuaria interacciona con ellos.</p>
-					<p>Nuestra tarea es escribir la respuesta para aquellos eventos en los que estemos interesados.</p>
+					<p>Nuestra tarea, como programadores, es escribir la respuesta para aquellos eventos en los que estemos interesados.</p>
 					<p>Esta respuesta se basa en el patrón de diseño Observador/Observable.</p>
 					<p>Los componentes gráficos son Observables que lanzan eventos. Nuestra tarea es escribir el código de respuesta en los observadores registrados como escuchadores del evento producido.</p>
 				</section>
@@ -106,9 +106,9 @@
 					<ol>
 						<li>La persona usuaria interacciona sobre un componente de la GUI.</li>
 						<li>Se genera un evento que describe lo ocurrido.</li>
-						<li>El evento llega a todos las instancias/expresiones lambda registradas.</li>
+						<li>El evento llega a todas las instancias/expresiones lambda registradas.</li>
 						<li>Dentro de la clase, o expresión lambda, escribimos el código de respuesta.</li>
-						<li>Si utilizas una clase, esta debe implementar la interface <strong>EventHandler&lt;T extends Event&gt;</strong>.</li>
+						<li>Si utilizas una clase para implementar el escuchador, esta debe implementar la interface <strong>EventHandler&lt;T extends Event&gt;</strong>.</li>
 					</ol>
 				</section>
 
@@ -121,7 +121,7 @@
 					}
 					</code></pre>
 					<p>Fíjate en la anotación <strong>@FunctionalInterface</strong> que sirve para indicarla a Java que el método de la interface se puede utilizar como una expersión lambda.</p>
-					<p>Fíjate, que con esta interface vamos a poder gestionar cualquier tipo de evento, el tipo concreto de evento lo fijaremos cuando instanciemos la clase que implementa esta interface. JavaFX ya te proporciona un conjunto de eventos, no es necesario que los crees tú.</p>
+					<p>Con esta interface vamos a poder gestionar cualquier tipo de evento (<strong>EventHandler&lt;T extends Event&gt;</strong>), el tipo concreto del evento lo fijaremos cuando instanciemos la clase que implementa esta interface. JavaFX ya te proporciona un conjunto de eventos, no es necesario que los crees tú.</p>
 				</section>
 			</section>
 
@@ -142,8 +142,8 @@
 						}
 					}
 					</code></pre>
-					<p><strong>Importante</strong> la interface <strong>EventHandler&lt;T extends Event&gt;</strong> es genérica, debemos indicar el tipo de evento que queremos escuchar.</p>
-					<p>Además, esta interface sólo declara un método, es una interface funcional.</p>
+					<p><strong>Importante</strong> la interface <strong>EventHandler&lt;T extends Event&gt;</strong> es genérica, debemos indicar el tipo de evento que queremos escuchar. En este ejemplo indicamos que <strong>T</strong> es <strong>ActionEvent</strong> que es el evento que se lanza al hacer click sobre un botón.</p>
+					<p>Luego, implementamos el único método que define la interface.</p>
 				</section>
 
 				<section>
@@ -182,8 +182,7 @@
 						}
 					});
 					</code></pre>
-					<p>Fíjate que <strong>EventHandler&lt;T extends Event&gt;</strong> es una interface, y por lo tanto no se puede instanciar con <strong>new</strong>.</p>
-					<p>Lo que está ocurriendo es que estamos definiendo una clase <strong>sin nombre</strong> (anónima) que implementa la interface <strong>EventHandler&lt;T extends Event&gt;</strong>, y que estamos instanciando en el momento de su definición.</p>
+					<p>Fíjate que <strong>EventHandler&lt;T extends Event&gt;</strong> es una interface, y por lo tanto no se puede instanciar con <strong>new</strong>. Lo que está ocurriendo es que estamos definiendo una clase <strong>sin nombre</strong> (anónima) que implementa la interface <strong>EventHandler&lt;T extends Event&gt;</strong>, y que estamos instanciando en el momento de su definición.</p>
 				</section>
 
 				<section>
@@ -204,12 +203,12 @@
 					<p>¿Cómo hago para reutilizar una expresión lambda con varios componentes?</p>
 					<pre><code data-trim data-noescape>
 					Button boton = new Button("Hola");
-					EventHandler&lt;ActionEvent&gt; lambda; // Me guardo la referencia.
+					EventHandler&lt;ActionEvent&gt; lambda; // Para guardar la referencia.
 					boton.setOnAction(lambda = (e -> System.out.println("Botón pulsado.")));
 					Button adios = new Button("Adios");
 					adios.setOnAction(lambda);
 					</code></pre>
-					<p>Me guardo la referencia y la usan el resto de objetos que lo necesiten.</p>
+					<p>Me guardo la referencia y la usan el resto de objetos que la necesiten.</p>
 				</section>
 
 			</section>
@@ -221,9 +220,10 @@
             <section id="resumen">
 				<h3>Resumen</h3>
             	<section>
-					<p>El modelo de programación de JavaFX se basa en el patrón de diseño Observador.</p>
+					<p>El modelo de programación de JavaFX se basa en el patrón de diseño Observador/Observable.</p>
 					<p>Los componentes gráficos generan eventos cuando la persona usuaria interacciona con ellos.</p>
 					<p>Escribimos clases escuchadoras, o mejor, funciones lambda, que sean capaces de recibir notificaciones cuando se producen los eventos que nos interesan.</p>
+					<p>No debemos olvidar registrar una instancia de la clase escuchadora como escuchador de los eventos del componente.</p>
 				</section>
             </section>
 

@@ -94,7 +94,7 @@
 				<h3>Qué es JavaFX</h3>
             	<section>
 					<p>JavaFX es una biblioteca Java <strong>ligera</strong> para crear Interfaces Gráficas de Usuario (Graphical User Interface - GUI).</p>
-					<p>Ligera significa tanto el dibujo de los componentes, como la detección de los eventos, nos los proporciona JavaFX, sin llamadas al sistema operativo.</p>
+					<p>Ligera significa que tanto el dibujo de los componentes, como la detección de los eventos, nos los proporciona JavaFX, sin llamadas al sistema operativo.</p>
 				</section>
             </section>
 
@@ -105,12 +105,12 @@
 			<section>
 				<h3>El plugin para una aplicación JavaFX</h3>
 				<section>
-					<p>La manera recomendada de crear aplicaciones JavaFX, y ejecutarlas, es mediante la correspondiente dependencia, y el plugin para ejecutar la aplicación.</p>
+					<p>La manera recomendada para crear aplicaciones JavaFX, y ejecutarlas, es mediante la correspondiente dependencia, y el plugin para ejecutar la aplicación.</p>
 					<p>Tienes un ejemplo en el github de asignatura, proyecto <a href="https://github.com/ProgramacionAvanzadaUJI/HolaJavaFX">HolaJavaFX</a>.</p>
 				</section>
 
 				<section>
-					<p>Este es el ejemplo:</p>
+					<p>Este es el código del ejemplo:</p>
 					<pre><code data-trim data-noescape>
 						public class Main extends Application {
 							public static void main(String[] args) {
@@ -130,6 +130,15 @@
 				</section>
 
 				<section>
+					<p>Para ejecutar la aplicación utilizamos el plugin de javafx:</p>
+					<img class="centrado" src="./imagenes/javafx-mvn.png" alt="plugin de JavaFX" style="width: 50%;">
+					<p>O bien, desde una consola</p>
+					<pre><code data-trim data-noescape>
+						mvn clean javafx:run
+					</code></pre>
+				</section>
+
+				<section>
 					<p>Y este es el resultado:</p>
 					<img class="centrado" src="./NuevasImagenes/holaJavaFX.png" alt="Hola JavaFX">
 					<p>De momento no es muy emocionante.</p>
@@ -143,7 +152,7 @@
 			<section>
 				<h3>El grafo de escena</h3>
 				<section>
-					<p>Las GUIs se crean en JavaFX construyendo un grafo de escena</p>
+					<p>Las GUIs se crean en JavaFX construyendo un grafo de escena.</p>
 					<img class="centrado" style="height: 500px;" src="./NuevasImagenes/JavaFX grafo escena.png" alt="Grafo de escena">
 				</section>
 
@@ -165,7 +174,7 @@
 					<p>Los nodos que forman parte de una escena pueden ser de dos tipos:</p>
 					<ul>
 						<li><strong>Nodos de layout</strong>: gestionan la colocación de los controles.</li>
-						<li><strong>Nodos control</strong>: botones, listas, etc.</li>
+						<li><strong>Nodos control</strong>: componentes gráficos como botones, listas, etc.</li>
 					</ul>
 				</section>
 
@@ -206,7 +215,7 @@
 			<section>
 				<h3>Resumen</h3>
 				<section>
-					<p>JavaFX es una biblioteca ligera, hace pocas llamadas al sistema operativo, para crear interfaces gráficas de usuario (GUI).</p>
+					<p>JavaFX es una biblioteca ligera (hace pocas llamadas al sistema operativo) para crear interfaces gráficas de usuario (GUI).</p>
 					<p>JavaFX se basa en el concepto de grafo de escena. La GUI se construye como un grafo de escena donde cada nodo es un componente de la escena.</p>
 					<p>La biblioteca JavaFX se incluye en los proyectos como una dependencia. La ejecución se hace a través de un plugin.</p>
 				</section>

@@ -62,12 +62,12 @@ URL: https://code.google.com/p/io-2012-slides
             <p>Eres capaz de crear nuevos objetos a partir de clases, y
                 utilizar sus métodos para trabajar con ellos.</p>
             <p>En este capítulo vamos a ver una nueva construcción del lenguaje
-                de programación <i>Java</i>, los <b>interface</b>.</p>
-            <p>Con los <b>interface</b> creamos nuevos tipos de datos, pero
+                de programación <i>Java</i>, las <b>interface</b>.</p>
+            <p>Con las <b>interface</b> creamos nuevos tipos de datos, pero
                 esta vez los tipos son <i>abstractos</i>, no poseen ninguna
                 implementación.</p>
             <p>La potencia de este mecanismo es increíble, una referencia a
-                un objeto que implemente un <b>interface</b> lo podemos
+                un objeto que implemente una <b>interface</b> lo podemos
                 <i>ver</i> como de este tipo abstracto. Y podemos manejar
                 clases que no están relacionadas entre sí a través de este
                 tipo abstracto.</p>
@@ -110,8 +110,8 @@ URL: https://code.google.com/p/io-2012-slides
 				<li>Ejemplo introductorio.</li>
 				<li>La anotación <b>@Override</b>.</li>
 				<li>Principio DRY: Don't Repeat Yourself.</li>
-				<li>Los interfaces son tipos de datos.</li>
-				<li>Implementación de varios interfaces.</li>
+				<li>Las interfaces son tipos de datos.</li>
+				<li>Implementación de varias interfaces.</li>
 				<li>Polimorfismo utilizando <b>interface</b>.</li>
 				<li>Vinculación Dinámica.</li>
 				<li>Reescritura de interfaces.</li>
@@ -309,8 +309,8 @@ public class LubinaAlHorno {
 				de uso de referencias, y utilizar el tipo concreto cuando llamamos a
 				los métodos.
 			</p>
-			<p>Este es precisamente el cometido de los interfaces.</p>
-			<p>Los interfaces son tipos de datos abstractos donde se declaran
+			<p>Este es precisamente el cometido de las interfaces.</p>
+			<p>Las interfaces son tipos de datos abstractos donde se declaran
 			     métodos que las clases	deben implementar.</p>
 			<p>Veamoslo con el ejemplo de las recetas.</p>
 		        </article>
@@ -458,7 +458,7 @@ private void aCocinar() {
 			<p>
 				Si utilizamos la anotación <b>@Override</b> le estamos indicando al
 				compilador que queremos sobrescribir un método que debe estar
-				declarado en algún <b>interface</b> de los que implementa la clase.
+				declarado en alguna <b>interface</b> de los que implementa la clase.
 				Y de no ser así debemos obtener un error.
 			</p>
 		        </article>
@@ -478,7 +478,7 @@ private void aCocinar() {
 			<p>
 				En nuestro caso teníamos dos método que sólo se diferenciaban en el
 				tipo de dato de su único argumento. El modo de fusionar ambos
-				métodos ha sido definir un <b>interface</b> común a ambos tipos, y
+				métodos ha sido definir una <b>interface</b> común a ambos tipos, y
 				utilizarlo como argumento del método.
 			</p>
 			<p>Sencillo. Muy potente.</p>
@@ -515,15 +515,15 @@ private void aCocinar() {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>
-				Al igual que las clases definen tipos <i>concretos</i>, los <b>interfaces</b>
+				Al igual que las clases definen tipos <i>concretos</i>, las <b>interfaces</b>
 				definen tipos <i>abstractos</i> de datos.
 			</p>
 			<p>
-				Como ya hemos visto, en Java un <b>interface</b> se define del
+				Como ya hemos visto, en Java una <b>interface</b> se define del
 				siguiente modo:
 			</p>
 			<pre class="prettyprint" data-lang="Java">
@@ -531,7 +531,7 @@ private void aCocinar() {
     [public static final] [tipo] constante = valor;
     [public abstract] [tipo] nombreDelMetodo(argumentos);
 }</pre>
-			<p>Pueden formar parte de un interface:</p>
+			<p>Pueden formar parte de una interface:</p>
 			<ul>
 				<li><b>Definición</b> de constantes.</li>
 				<li><b>Declaración</b> de métodos.</li>
@@ -543,24 +543,24 @@ private void aCocinar() {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>
 				Las clases implementan (<b>implements</b>) <b>interface</b>.
 			</p>
 			<p>
-				La clase que implementa un <b>interface</b> debe <i>definir</i> todos los métodos <i>declarados</i> en el <b>interface</b>.
+				La clase que implementa una <b>interface</b> debe <i>definir</i> todos los métodos <i>declarados</i> en la <b>interface</b>.
 			</p>
 			<p>
-				Por defecto, los métodos declarados en un <b>interface</b> son <b>public
+				Por defecto, los métodos declarados en una <b>interface</b> son <b>public
 					abstract</b>.
 			<p>
-				Por defecto, todas las constantes definidas en un <b>interface</b>
+				Por defecto, todas las constantes definidas en una <b>interface</b>
 				son <b>public static final</b>.
 			<p>
 				Para asegurarnos que un método de la clase está definiendo un método
-				declarado en el <b>interface</b> utilizamos la anotación <b>@Override</b>
+				declarado en la <b>interface</b> utilizamos la anotación <b>@Override</b>
 				sobre el método.
 			</p>
 		        </article>
@@ -570,7 +570,7 @@ private void aCocinar() {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>Veamos un ejemplo:</p>
@@ -593,7 +593,7 @@ public interface Calificador {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>Una clase que lo implementa:</p>
@@ -620,7 +620,7 @@ public interface Calificador {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>Utilicemos un test unitario para probar la clase:</p>
@@ -646,7 +646,7 @@ public class CalificadorUniformeTest {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>Continuación del test</p>
@@ -672,11 +672,11 @@ public class CalificadorUniformeTest {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>
-				Definamos otra clase que implemente el mismo <b>interface</b>.
+				Definamos otra clase que implemente la misma <b>interface</b>.
 			</p>
 			<pre class="prettyprint" data-lang="Java">
 <b>public class CalificadorLineal implements Calificador</b> {
@@ -702,7 +702,7 @@ public class CalificadorUniformeTest {
 		<!-- Los interfaces son tipos de datos -->
 		        <slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<pre class="prettyprint" data-lang="Java">...
@@ -722,7 +722,7 @@ public class CalificadorUniformeTest {
 		<!-- Los interfaces son tipos de datos -->
 		<slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>Y los tests:</p>
@@ -748,7 +748,7 @@ public class CalificadorLinealTest {
 		<!-- Los interfaces son tipos de datos -->
 		<slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<pre class="prettyprint" data-lang="Java">...
@@ -773,11 +773,11 @@ public class CalificadorLinealTest {
 		<!-- Los interfaces son tipos de datos -->
 		<slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
 			<p>
-				Ahora ya podemos utilizar nuestro <b>interface</b>.
+				Ahora ya podemos utilizar nuestra <b>interface</b>.
 			<pre class="prettyprint" data-lang="Java">
 private void ponNotas(Calificador calificador) {
     calificador.addNota(5); // Primer ejercicio
@@ -801,16 +801,16 @@ private void califica() {
 		<!-- Los interfaces son tipos de datos -->
 		<slide>
         <hgroup>
-			<h2>Los interfaces son tipos de datos</h2>
+			<h2>Las interfaces son tipos de datos</h2>
         </hgroup>
 		<article>
-			<p>A una referencia cuyo tipo es un <b>interface</b> le podemos asignar cualquier objeto que <b>implements</b> ese <b>interface</b>. Se dice que los tipos son compatibles.</p>
+			<p>A una referencia cuyo tipo es una <b>interface</b> le podemos asignar cualquier objeto que <b>implements</b> esa <b>interface</b>. Se dice que los tipos son compatibles.</p>
 <pre class="prettyprint" data-lang="Java">
 Calificador calificadorUniforme = new CalificadorUniforme();
 Calificador calificadorLineal = new CalificadorLineal();
 Calificador calificador = calificadorUniforme = calificadorLineal;
 </pre>
-			<p>Cuidado, si dos clases implementan el mismo <b>interface</b> no existe compatibilidad entre ellas.</p>
+			<p>Cuidado, si dos clases implementan el misma <b>interface</b> no existe compatibilidad entre ellas.</p>
 <pre class="prettyprint" data-lang="Java">
 CalificadorUniforme calificadorUniforme = new CalificadorUniforme();
 CalificadorLineal calificadorLineal = new CalificadorLineal();
@@ -822,11 +822,11 @@ calificadorUniforme = calificadorLineal; // Error, los tipos no son compatibles.
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
-				Una clase puede implementar más de un <b>interface</b>.
+				Una clase puede implementar más de una <b>interface</b>.
 			</p>
 			<p>
 				Supongamos que tenemos la siguiente clase que describe una <b>Persona</b>.
@@ -845,7 +845,7 @@ public class Persona {
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
@@ -865,11 +865,11 @@ public class Persona {
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
-				Definamos un <b>interface</b> que nos permita acceder sólo a
+				Definamos una <b>interface</b> que nos permita acceder sólo a
 				los métodos que nos interesa de una <b>Persona</b> como <b>Ciudadano</b>.
 			</p>
 			<pre class="prettyprint" data-lang="Java">
@@ -878,7 +878,7 @@ public interface Ciudadano {
     String getNombre();
 }</pre>
 			<p>
-				Y definamos un <b>interface</b> que nos permita acceder
+				Y definamos una <b>interface</b> que nos permita acceder
 				sólo a los
 				métodos de una <b>Persona</b> como un <b>Estudiante.</b>
 			</p>
@@ -894,11 +894,11 @@ public interface Estudiante {
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
-				Ahora <b>Persona</b> implementa ambos <b>interface</b>.
+				Ahora <b>Persona</b> implementa ambas <b>interface</b>.
 			</p>
 			<pre class="prettyprint" data-lang="Java">
 public class Persona implements Ciudadano, Estudiante {
@@ -926,7 +926,7 @@ public class Persona implements Ciudadano, Estudiante {
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
@@ -955,7 +955,7 @@ private void juega() {
 		<!-- Implementación de varios interfaces -->
 		        <slide>
         <hgroup>
-			<h2>Implementación de varios interfaces</h2>
+			<h2>Implementación de varias interfaces</h2>
         </hgroup>
 		<article>
 			<p>
@@ -985,7 +985,7 @@ private void personaComoEstudiante(Estudiante estudiante) {
 		<!-- Clases distintas implementando el mismo interface -->
 		        <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
             <p>Aunque el ejemplo de introducción mostraba este mismo caso, veamos
@@ -1003,11 +1003,11 @@ private void personaComoEstudiante(Estudiante estudiante) {
         <!-- Clases distintas implementando el mismo interface -->
                 <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
             <p>
-                Aquí tenemos el <b>interface</b> común.
+                Aquí tenemos la <b>interface</b> común.
             </p>
             <pre class="prettyprint" data-lang="Java">
 public interface Pagador {
@@ -1015,7 +1015,7 @@ public interface Pagador {
     String getDireccion();
     String getNif();
 }</pre>
-            <p>Y las dos implementaciones de este <b>interface</b>.</p>
+            <p>Y las dos implementaciones de esta <b>interface</b>.</p>
                 </article>
         </slide>
 
@@ -1023,7 +1023,7 @@ public interface Pagador {
         <!-- Clases distintas implementando el mismo interface -->
                 <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
 			<pre class="prettyprint" data-lang="Java">
@@ -1052,7 +1052,7 @@ public class Persona implements Pagador {
 		<!-- Clases distintas implementando el mismo interface -->
 		        <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
 			<pre class="prettyprint" data-lang="Java">
@@ -1080,7 +1080,7 @@ public class Empresa implements Pagador {
 		<!-- Clases distintas implementando el mismo interface -->
 		        <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
 			<p>Probemos todo ello.</p>
@@ -1096,7 +1096,7 @@ for(Pagador pagador: pagadores){
 }
 </pre>
             <p>
-                El <b>interface Pagador</b> es un tipo de datos, y podemos crear un
+                La <b>interface Pagador</b> es un tipo de datos, y podemos crear un
                 array de referencias de este tipo.
             </p>
             <p>
@@ -1110,7 +1110,7 @@ for(Pagador pagador: pagadores){
         <!-- Clases distintas implementando el mismo interface -->
                 <slide>
         <hgroup>
-			<h2>Clases distintas implementando el mismo interface</h2>
+			<h2>Clases distintas implementando la misma interface</h2>
         </hgroup>
 		<article>
             <p>La salida es la siguiete:</p>
@@ -1136,11 +1136,11 @@ NIF: 321q<br />
             <p>Al utilizar <b>interfaces</b>
                 <a href="http://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html">
                 polimorfismo</a> significa que diferentes clases
-				que implementan el mismo <b>interface</b> son sustituibles,
+				que implementan la misma <b>interface</b> son sustituibles,
 				es decir, que allí donde utilizamos una también podremos utilizar
 				la otra.</p>
             <p>La diferencia entre ambas radicará en cómo cada una implementa
-                los métodos declarados en el <b>interface</b>.</p>
+                los métodos declarados en  <b>interface</b>.</p>
             <p>Dicho de otro modo, mismo método diferentes implementaciones.</p>
             <p class="centrado"> <img src='imagenes/interfaces2.png'
                 style='width: 500px'> </p>
@@ -1192,7 +1192,7 @@ System.out.println(pagador.getNombre());
 			<h2>Reescritura de interfaces</h2>
         </hgroup>
 		<article>
-			<p>Una vez que se ha definido un <b>interface</b>, no es conveniente
+			<p>Una vez que se ha definido una <b>interface</b>, no es conveniente
 				añadirle nuevo métodos. Al hacerlo,
 				se invalidarían todas las clases que la hubieran
 				implementado por no sobrecargar el nuevo método.
@@ -1237,7 +1237,7 @@ public interface HaceAlgoMas extends HaceAlgo {
 				<b>default</b>.
 			<p>Los métodos <b>default</b> de las interfaces van precedidos por la palabra
 				<b>default</b> e incluyen la implementación del método,
- 				que heredan las clases que implementen el <b>interface</b>.</p>
+ 				que heredan las clases que implementen la <b>interface</b>.</p>
 			<p>Estas clases que implementan la interfaz pueden, si es necesario,
 				sobreescribir el metodo.</p>
 		</article>
@@ -1320,7 +1320,7 @@ public class Principal {
 }
 </pre>
 <p>
-  <b>Advertencia</b>: evita los métodos static en tus propios <b>interface</b>. Hay que pensar mucho cuando utilizar métodos <b>static</b> en general.
+  <b>Advertencia</b>: evita los métodos static en tus propias <b>interface</b>. Hay que pensar mucho cuando utilizar métodos <b>static</b> en general.
 </p>
 		</article>
 		</slide>
@@ -1331,18 +1331,18 @@ public class Principal {
 			<h2>Resumen</h2>
         </hgroup>
 		<article>
-            <p>Los interfaces definen tipos de datos <i>abstractos</i>.</p>
-            <p>Una clase puede implementar todos los <b>interface</b> que
+            <p>Las interfaces definen tipos de datos <i>abstractos</i>.</p>
+            <p>Una clase puede implementar todos las <b>interface</b> que
 			    necesite.</p>
-			<p>Una clase que implementa un <b>interface</b> puede ser
-			    <i>vista</i> como ese <b>interface</b>.</p>
+			<p>Una clase que implementa una <b>interface</b> puede ser
+			    <i>vista</i> como esa <b>interface</b>.</p>
 			<p>Java 8 permite la usar métodos <b>default</b> y
-				<b>static</b> en los <b>interface</b> para poder modificarlos
+				<b>static</b> en las <b>interface</b> para poder modificarlos
 				sin romper la compatibilidad hacia atrás.</p>
 			<p><b class="green">Patrón de diseño:</b> Programa orientado al
 			     <i>interfaz</i>
 			     no a la <i>implementación</i>.</p>
-			<p><b class="red">Antipatrón:</b> Una clase no debe implementar un
+			<p><b class="red">Antipatrón:</b> Una clase no debe implementar una
 			     <b>interface</b> sólo porque necesita un método
 			     declarado en él.</p>
 		        </article>

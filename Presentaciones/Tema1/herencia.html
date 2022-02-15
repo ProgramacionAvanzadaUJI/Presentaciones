@@ -332,7 +332,7 @@ public Punto3D invierte() {
         </hgroup>
 		<article>
             <p>¿Y que pasa con los atributos? ¿Los podemos sobrescribir?</p>
-            <p>La respuesta es si podemos... pero mejor no lo hagas.</p>
+            <p>La respuesta es sí podemos... pero mejor no lo hagas.</p>
 <pre class="prettyprint" data-lang="Java">
 public class Punto3D extends Punto2D {
     private double x;
@@ -428,7 +428,7 @@ public String getDescripcion() {
             <p>Los constructores los utilizamos para definir los valores
                 iniciales de los atributos.</p>
             <p>¿Cómo los podemos utilizar desde las clases hijas? También
-                a través de <b>super</b><p>
+                a través de <b>super</b><p>.
 <pre class="prettyprint" data-lang="Java">
 // En la clase Punto2D
 public Punto2D(double x, double y) {
@@ -481,7 +481,7 @@ Punto3D p = new Punto3D();
 			<h2>El constructor sin argumentos</h2>
         </hgroup>
 		<article>
-            <p>Aunque no escribamos explícitamente, cuando se crea un objeto de la clase
+            <p>Aunque no lo escribamos explícitamente, cuando se crea un objeto de la clase
                 <b>Punto3D</b> se llama al constructor
                 sin argumentos de la clase madre <b>Punto2D</b>.</p>
             <p>Un detalle importante es que, si cuando definimos una clase
@@ -550,7 +550,7 @@ public class Hija extends Madre {
 public class Punto2D {
     // Aquí la definición de la clase
 }</pre>
-            <p>La clase <b>Punto2D</b> ¿a quien extiende? ¿tiene alguna madre?</p>
+            <p>La clase <b>Punto2D</b> ¿a quién extiende? ¿tiene alguna madre?</p>
             <p>Sí, ninguna clase en Java es <i>huérfana</i>. Si explícitamente
                 no se extiende a ninguna clase, implícitamente se extiende a
                 la clase <b>Object</b>, que es la raíz del árbol de jerarquía
@@ -572,7 +572,7 @@ boolean equals(Object o); // Compara si dos objetos son iguales.
 int hashCode(); // Devuelve un código hash del objeto
 String toString(); // Devuelve una representación del objeto
 </pre>
-            <p>El último método es el que llama la familia de métodos
+            <p>El último método es el que llama a la familia de métodos
                 <b>print[ln](...)</b> para obtener la cadena que se enviará
                 a consola.</p>
 <pre class="prettyprint" data-lang="Java">
@@ -663,7 +663,7 @@ public class HijaMetodoFinal extends MetodoFinal {
             <h2>Métodos estáticos</h2>
         </hgroup>
         <article>
-            <p>¿Funcionan igual los métodos estáticos?</p>
+            <p>¿Funcionan igual los métodos estáticos, que los que no lo son?</p>
             <p>La respuesta es no. Recuerda que un método estático pertenece
                 a la clase.</p>
             <p>Los métodos estáticos no se pueden sobreescribir, sólo ocultar.</p>
@@ -765,9 +765,9 @@ madre.estatico(); // Aquí tenemos otro warning.
             <p>Sí: <b class='green'>A una referencia de un tipo
                 le podemos asignar un objeto de cualquiera de sus clases
                 hijas</b>.</p>
-            <p>¿Y al revés, a una referencia de tipo hijo le puedo asignar un
+            <p>¿Y al revés, a una referencia de tipo hija le puedo asignar un
                 objeto de clase madre?</p>
-            <p>No: <b class='red'>A una referencia de tipo hijo nunca
+            <p>No: <b class='red'>A una referencia de tipo hija nunca
                 le podemos asignar un objeto de su clase madre</b>.</p>
         		        </article>
         </slide>

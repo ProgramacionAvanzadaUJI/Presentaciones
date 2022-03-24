@@ -1106,7 +1106,7 @@ public abstract class Animal implements HazSonido {
     }
 }</pre>
                 <p>
-                    Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido, pero no hace definirlo de nuevo.
+                    Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido en esta clase abstracta.
                 </p>
         </article>
         </slide>
@@ -1118,7 +1118,7 @@ public abstract class Animal implements HazSonido {
                 <h2>Clases <i>abstractas</i></h2>
             </hgroup>
             <article>
-                <p>La implementación de las clases concretas es la misma que antes, pero ahora, también podemos utilizar con ellas una referencia de tipo interfaz:</p>
+                <p>La implementación de las clases concretas es la misma que antes, pero ahora también podemos utilizar con ellas una referencia de tipo interfaz:</p>
                 <pre class="prettyprint" data-lang="Java">
 HazSonido animalRuidoso = new Perro("Bobby");
 System.out.println(animalRuidoso.hazSonido());
@@ -1135,7 +1135,7 @@ System.out.println(animalRuidoso.hazSonido());
 			<h2>Polimorfismo con herencia</h2>
         </hgroup>
 		<article>
-            <p>El polimorfismo con <i>Herencia</i> significa lo mismo que con <>interfaces</b>,
+            <p>El polimorfismo con <b>Herencia</b> significa lo mismo que con <b>interfaces</b>
                 un mismo método puede tener implementaciones distintas en su clase madre 
                 y alguna de sus clases hijas.</p>
             <p>Además, al utilizar <i>Herencia</i> el polimorfismo significa

@@ -156,8 +156,8 @@ System.out.println("Soy " + astronauta.getNombre() +
 			<h2>Echando un vistazo atrás</h2>
         </hgroup>
         <article>
-            <p>Recordemos que con el patrón <b>Strategy</b> teníamos un 
-                <b>interface</b>, y algunas implementaciones de él:</p>
+            <p>Recordemos que con el patrón <b>Strategy</b> teníamos una
+                <b>interface</b>, y algunas implementaciones de ella:</p>
 <pre class="prettyprint" data-lang="Java">
 public <b>interface Contador</b> {
     String cuenta();
@@ -214,7 +214,7 @@ System.out.println("Soy " + astronauta.getNombre() +
                 una instancia de <b>ContadorAscendenteIngles</b>.</p>
             <p>Intentemos encapsular, en una clase, la tarea de crear 
                 las instancias concretas. Recuerda que todas implementan 
-                el mismo <b>interface</b>.</p>
+                la misma <b>interface</b>.</p>
         </article>
         </slide>
 
@@ -225,7 +225,7 @@ System.out.println("Soy " + astronauta.getNombre() +
         </hgroup>
         <article>
             <p>Necesitamos una <i>fábrica</i> que cree las 
-                instancias concretas. Definamos un <b>interface</b> 
+                instancias concretas. Definamos una <b>interface</b> 
                 con este requerimiento.</p>
 <pre class="prettyprint" data-lang="Java">
 public interface Fabrica {
@@ -347,7 +347,7 @@ Ten, nine, eight, seven, six, five, four, three, two and one.
                 <li>Podemos tener más de una fábrica para los  
                     mismos productos.</li>
                 <li>Nuestros clientes eligen qué fábrica usar.</li>
-                <li>Todos los productos se ven bajo el <b>interface</b>
+                <li>Todos los productos se ven bajo la<b>interface</b>
                     común.</li>
             </ol>
             <p>¿Cuantos principios SOLID está siguiendo esta implementación?</p>

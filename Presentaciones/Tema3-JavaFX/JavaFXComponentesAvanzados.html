@@ -70,6 +70,7 @@
 						<li><a href="#/paneles_solapas">Paneles con solapas: TabPane.</a></li>
 						<li><a href="#/selector_ficheros">Selector de ficheros: FileChooser</a></li>
 						<li><a href="#/tablas">Tablas.</a></li>
+            <li><a href="#/representaciones_graficas">Representaciones gráficas.</a></li>
 						<li><a href="#/resumen">Resumen.</a></li>
 					</ol>
 				</section>
@@ -272,7 +273,116 @@
 				</section>
 			</section>
 
-			<section>
+	  <section id="representaciones_graficas">
+      <h2 class="center">Representaciones graficas</h2>
+    </section>
+
+    <section>
+      <h3>Representaciones gráficas</h3>
+      <section>
+        <p>JavaFX proporciona un potente conjunto de componentes para realizar presentaciones gráficas de datos.</p>
+        <p>En particular, vamos a ver dos componentes con los que vas a poder visualizar los datos en la aplicación
+        que estás desarrollando en prácticas.</p>
+      </section>
+
+      <section>
+        <p>El primero de los componentes para la creación de gráficas es la clase <strong>LineChart</strong>, con ella puedes
+        crear gráficos de líneas, como el que se muestra en esta imagen.</p>
+      </section>
+
+      <section>
+        <p>Para crear una gráfica de líneas debemos:</p>
+        <ol>
+          <li>Crear un objeto para cada uno de los dos ejes de la gráfica.</li>
+          <li>Crear un objeto para la gráfica con los ejes.</li>
+          <li>Crear un objeto con la serie de datos que se va a visualizar en la gráfica.</li>
+          <li>Añadir el objeto con la serie de datos al objeto de la gráfica.</li>
+        </ol>
+        <p>Veamos con un ejemplo cada uno de estos pasos.</p>
+      </section>
+
+      <section>
+        <p>1. Crear un objeto para cada uno de los dos ejes de la gráfica.</p>
+        <pre><code data-trim data-noescape>
+          NumberAxis xAxis = new NumberAxis();
+          xAxis.setLabel("No of employees");
+
+          NumberAxis yAxis = new NumberAxis();
+          yAxis.setLabel("Revenue per employee");
+        </code></pre>
+        <p>El método <strong>setLabel(String)</strong> te sirve para definir el texto sobre cada eje.</p>
+      </section>
+
+      <section>
+        <p>2. Crear un objeto para la gráfica con los ejes</p>
+        <pre><code data-trim data-noescape>
+          LineChart lineChart = new LineChart(xAxis, yAxis);
+        </code></pre>
+      </section>
+
+      <section>
+        <p>3. Crear un objeto con la serie de datos que se va a visualizar en la gráfica.</p>
+        <pre><code data-trim data-noescape>
+          XYChart.Series series = new XYChart.Series();
+          series.setName("2014");
+
+          series.getData().add(new XYChart.Data( 1, 567));
+          series.getData().add(new XYChart.Data( 5, 612));
+          series.getData().add(new XYChart.Data(10, 800));
+          series.getData().add(new XYChart.Data(20, 780));
+          series.getData().add(new XYChart.Data(40, 810));
+          series.getData().add(new XYChart.Data(80, 850));  
+        </pre></code>
+        <p>Como ves, esta es la parte más tediosa.</p>
+      </section>
+
+      <section>
+        <p>Añadir el objeto con la serie de datos al objeto de la gráfica.</p>
+        <pre><code data-trim data-noescape>
+          lineChart.getData().add(series);
+        </pre></code>
+      </section>
+
+      <section>
+        <p>Puedes dibujar más de una serie de datos en la misma gráfica, simplemente crea un nuevo objeto 
+        <strong>XYChart.Series</strong> anádele los nuevos datos, y finalmente, añade la nueva serie
+        a la gráfica.</p>
+        <p>El resultado será algo como lo siguiente:</p>
+      </section>
+
+      <section>
+        <p>En la misma gráfica puedes combinar un gráfico de líneas con otro de puntos. Esta combinación tiene
+        «truco», que es utilizar una hoja de estilo css.</p>
+
+      </section>
+
+      <section>
+        <p>Existe una clase específica para visualizar gráficos donde cada data es un punto de la gráfica,
+        esta clase es <strong>ScatterChart</strong>.
+        <p>Su uso es muy parecido al de los gráficos de línea, salvo que esta vez instanciamos la clase 
+        <strong>ScatterChart</strong> en vez de <strong>LineChart</strong>.
+        <pre><code data-trim data-noescape>
+          NumberAxis xAxis = new NumberAxis();
+          xAxis.setLabel("No of employees");
+
+          NumberAxis yAxis = new NumberAxis();
+          yAxis.setLabel("Revenue per employee");
+
+          ScatterChart scatterChart = new ScatterChart(xAxis, yAxis);
+       </pre></code>
+      </section>
+
+      <section>
+        <p>Después de añadir los datos, el resultado es el siguiente</p>
+
+      </section>
+
+      <section>
+        <p>Y también podemos visualizar más de una serie en la misma gráfica.</p>
+      </section>
+    </section>
+
+		<section>
 				<h2 class="center">Resumen</h2>
 			</section>
 
@@ -283,7 +393,7 @@
 					<p>El modelo de programación sigue siendo el <strong>Observer</strong>, si nos interesan los eventos que genera algún componente nos suscribimos a ellos con una clase escuchadora.</p>
 					<p>Todos los componentes que hemos visto son muy potentes, y al mismo tiempo relativamente sencillos de utilizar.</p>
 				</section>
-            </section>
+    </section>
 
 		</div>
 	</div>

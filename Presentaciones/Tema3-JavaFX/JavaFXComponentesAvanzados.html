@@ -66,53 +66,15 @@
                 <h3>Contenidos</h3>
 				<section>
 					<ol>
-						<li><a href="#/fechas">Selector de fechas: DatePicker.</a></li>
 						<li><a href="#/paneles_solapas">Paneles con solapas: TabPane.</a></li>
 						<li><a href="#/selector_ficheros">Selector de ficheros: FileChooser</a></li>
-						<li><a href="#/tablas">Tablas.</a></li>
             <li><a href="#/representaciones_graficas">Representaciones gráficas.</a></li>
+            <li><a href="#/tablas">Tablas.</a></li>
+            <li><a href="#/fechas">Selector de fechas: DatePicker.</a></li>
 						<li><a href="#/resumen">Resumen.</a></li>
 					</ol>
 				</section>
             </section>
-
-			<section id="fechas">
-				<h2 class="center">Selector de fechas: DatePicker</h2>
-			</section>
-
-			<section>
-				<h3>Selector de fechas: DatePicker</h3>
-
-				<section>
-					<p>En JavaFX existe un componente gráfico que nos permite seleccionar fechas de un calendario con comodidad:</p>
-					<pre><code data-trim data-noescape>
-						DatePicker datePicker = new DatePicker();
-					</code></pre>
-					<img class="centrado" src="./NuevasImagenes/fecha.png" alt="Selector de fecha">
-				</section>
-
-				<section>
-					<p>Cada vez que se selecciona una fecha, se genera un evento <strong>ActionEvent</strong> que podemos escuchar con <strong>setOnAction(ActionEvent e)</strong>:</p>
-					<pre><code data-trim data-noescape>
-					DatePicker datePicker = new DatePicker();
-					datePicker.setOnAction(e -> System.out.println(datePicker.getValue()));
-					</code></pre>
-					<p>Mostrará por consola la fecha seleccionada.</p>
-					<p>El tipo del objeto que devuelve <strong>datePicker.getValue()</strong> es <strong>LocalDate</strong> que ya estudiamos en el capítulo dedicado a <strong>Java 7 y 8</strong></p>
-				</section>
-
-				<section>
-					<p>Si quieres establecer la fecha que se muestre en el control:</p>
-					<pre><code data-trim data-noescape>
-						DatePicker datePicker = new DatePicker(LocalDate.now()
-							.withYear(2020)
-							.withMonth(1)
-							.withDayOfMonth(25));
-					</code></pre>
-					<p>Recuerda que tienes una interfaz <strong>fluída</strong> para establecer la fecha.</p>
-				</section>
-
-
 			</section>
 
 			<section id="paneles_solapas">
@@ -382,7 +344,45 @@
       </section>
     </section>
 
-		<section>
+			<section id="fechas">
+				<h2 class="center">Selector de fechas: DatePicker</h2>
+			</section>
+
+			<section>
+				<h3>Selector de fechas: DatePicker</h3>
+
+				<section>
+					<p>En JavaFX existe un componente gráfico que nos permite seleccionar fechas de un calendario con comodidad:</p>
+					<pre><code data-trim data-noescape>
+						DatePicker datePicker = new DatePicker();
+					</code></pre>
+					<img class="centrado" src="./NuevasImagenes/fecha.png" alt="Selector de fecha">
+				</section>
+
+				<section>
+					<p>Cada vez que se selecciona una fecha, se genera un evento <strong>ActionEvent</strong> que podemos escuchar con <strong>setOnAction(ActionEvent e)</strong>:</p>
+					<pre><code data-trim data-noescape>
+					DatePicker datePicker = new DatePicker();
+					datePicker.setOnAction(e -> System.out.println(datePicker.getValue()));
+					</code></pre>
+					<p>Mostrará por consola la fecha seleccionada.</p>
+					<p>El tipo del objeto que devuelve <strong>datePicker.getValue()</strong> es <strong>LocalDate</strong> que ya estudiamos en el capítulo dedicado a <strong>Java 7 y 8</strong></p>
+				</section>
+
+				<section>
+					<p>Si quieres establecer la fecha que se muestre en el control:</p>
+					<pre><code data-trim data-noescape>
+						DatePicker datePicker = new DatePicker(LocalDate.now()
+							.withYear(2020)
+							.withMonth(1)
+							.withDayOfMonth(25));
+					</code></pre>
+					<p>Recuerda que tienes una interfaz <strong>fluída</strong> para establecer la fecha.</p>
+				</section>
+
+
+			</section>
+	<section>
 				<h2 class="center">Resumen</h2>
 			</section>
 

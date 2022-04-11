@@ -136,6 +136,8 @@
 					textArea.setText(sb.toString());
 					</code></pre>
 					<img class="centrado" src="./NuevasImagenes/fileChooser2.png" style="width: 500px;">
+          <p>Si cancelamos la selección, la referencia que obtendremos será <strong>null</strong>, por lo tanto,
+          debemos comprobar que la referencia es válida antes de trabajar con ella.</p>
 				</section>
 			</section>
 
@@ -154,6 +156,7 @@
       <section>
         <p>El primero de los componentes para la creación de gráficas es la clase <strong>LineChart</strong>, con ella puedes
         crear gráficos de líneas, como el que se muestra en esta imagen.</p>
+        <img class="centrado" src="NuevasImagenes/linePlot.png" />
       </section>
 
       <section>
@@ -184,6 +187,8 @@
         <pre><code data-trim data-noescape>
           LineChart lineChart = new LineChart(xAxis, yAxis);
         </code></pre>
+        <p>Cuando creamos la gráfica, tenemos que pasarle como argumentos los dos ejes que la componen, la
+        primera es una referencia al eje de las equis, y la segunda una referencia al eje de las yes.</p>
       </section>
 
       <section>
@@ -199,11 +204,12 @@
           series.getData().add(new XYChart.Data(1849, 2332));
           ....
         </pre></code>
-        <p>Como ves, esta es la parte más tediosa.</p>
+        <p>Como ves, esta es la parte más tediosa, ya que los puntos se añaden como instancias de la clase
+        <strong>XYChart.Data</strong>.</p>
       </section>
 
       <section>
-        <p>Añadir el objeto con la serie de datos al objeto de la gráfica.</p>
+        <p>4. Añadir el objeto con la serie de datos al objeto de la gráfica.</p>
         <pre><code data-trim data-noescape>
           lineChart.getData().add(series);
         </pre></code>
@@ -290,7 +296,7 @@ series.getData().add(new XYChart.Data(4.6,3.1));
 
       <section>
         <p>Y también podemos visualizar más de una serie en la misma gráfica.
-        JavaFX asignará un color diferente a cada gráfica.</p>
+        JavaFX asignará un color, y una forma diferente a cada punto de la gráfica.</p>
         <img class="centrado" src="NuevasImagenes/scatter-varias-series.png" alt="Scatter plot varias series" />
       </section>
     </section>

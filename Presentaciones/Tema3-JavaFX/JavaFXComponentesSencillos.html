@@ -460,6 +460,7 @@
 					ComboBox<String> combo = new ComboBox&lt;&gt;(meses);
 					</code></pre>
 					<p>El modo de crear el <strong>ComboBox</strong> es el mismo que en el caso de <strong>ListView</strong>.</p>
+          <img class="centrado" src="NuevasImagenes/combo.png" />
 				</section>
 
 				<section>
@@ -469,6 +470,11 @@
 						.getSelectedItem()));
 					</code></pre>
 					<p>Mostrará por consola el nombre del mes seleccionado.</p>
+          <pre><code data-trim data-noescape>
+					combo.setOnAction(e -> System.out.println(combo.getSelectionModel()
+						.getSelectedIndex()));
+          </code></pre>
+          <p>Mostrará por consola el índice del elemento seleccionado. El primer elemento está en el índice 0.</p>
 				</section>
 
 				<section>

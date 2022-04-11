@@ -124,10 +124,13 @@
 					}
 					</code></pre>
 					<p>Fíjate que la interfaz <strong>EventHandler</strong> sólo tiene un método declarado.</p>
-					<p>Y una vez que lo tenemos, registramos una instancia de esta clase como escuchador del botón.</p>
+					<p>Y una vez que lo tenemos, asignamos una instancia de esta clase a la propiedad correspondiente
+          del botón.</p>
 					<pre><code data-trim data-noescape>
 					boton.setOnAction(new Escuchadora());
 					</code></pre>
+          <p>Recuerda que no estamos asignando una escuchadora, con <strong>setOnAction(EventHandler)</strong>
+          estmos seteando una propiedad del botón.</p>
 				</section>
 
 				<section>
@@ -210,7 +213,7 @@
 				</section>
 
 				<section>
-					<p>Otro tipo de botones excluyentes son los <strong>ToggleButton</strong>. Si nos los añades a un <strong>ToggleGroup</strong> funcionan como los <strong>CheckBox</strong>:</p>
+					<p>Otro tipo de botones excluyentes son los <strong>ToggleButton</strong>. Si no los añades a un <strong>ToggleGroup</strong> funcionan como los <strong>CheckBox</strong>:</p>
 					<pre><code data-trim data-noescape>
 					ToggleButton manyana = new ToggleButton("Mañana");
 					ToggleButton tarde = new ToggleButton("Tarde");

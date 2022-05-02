@@ -174,10 +174,10 @@
         <p>1. Crear un objeto para cada uno de los dos ejes de la gráfica.</p>
         <pre><code data-trim data-noescape>
           NumberAxis xAxis = new NumberAxis();
-          xAxis.setLabel("No of employees");
+          xAxis.setLabel("Miles");
 
           NumberAxis yAxis = new NumberAxis();
-          yAxis.setLabel("Revenue per employee");
+          yAxis.setLabel("Dollars");
         </code></pre>
         <p>El método <strong>setLabel(String)</strong> te sirve para definir el texto sobre cada eje.</p>
       </section>
@@ -195,7 +195,6 @@
         <p>3. Crear un objeto con la serie de datos que se va a visualizar en la gráfica.</p>
         <pre><code data-trim data-noescape>
           XYChart.Series series = new XYChart.Series();
-          series.setName("2014");
 
           series.getData().add(new XYChart.Data(1211, 1802));
           series.getData().add(new XYChart.Data(1345, 2405));
@@ -251,6 +250,7 @@
 .default-color1.chart-legend-item-symbol{
     -fx-background-color: red;
 }       </pre></code>
+         <p>Este fichero debe estar en la carpeta <strong>resources</strong> de tu proyecto.
      </section>
 
       <section>

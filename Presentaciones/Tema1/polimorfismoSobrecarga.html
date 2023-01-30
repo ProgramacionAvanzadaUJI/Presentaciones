@@ -9,523 +9,529 @@ URL: https://code.google.com/p/io-2012-slides
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Sobrecarga de métodos</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-  <!--This one seems to work all the time, but really small on ipad-->
-  <!--<meta name="viewport" content="initial-scale=0.4">-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
-  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
-  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
-  <script type="text/javascript">
+    <title>Sobrecarga de métodos</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+    <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+    <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+    <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28605511-1']);
-  _gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-28605511-1']);
+        _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
 
-</script>
+    </script>
 </head>
 
 <body style="opacity: 0">
-	<slides>
-      <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
-    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
-    <hgroup class="auto-fadein">
-      <h1 data-config-title>Programación Avanzada</h1>
-      <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h4 data-config-subtitle>Sobrecarga de métodos</h4>
-      <p data-config-presenter><!-- populated from slide_config.json --></p>
-    </hgroup>
-  </slide>
+    <slides>
+        <slide class="title-slide segue nobackground">
+            <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+            <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+            <hgroup class="auto-fadein">
+                <h1 data-config-title>Programación Avanzada</h1>
+                <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
+                <h4 data-config-subtitle>Sobrecarga de métodos</h4>
+                <p data-config-presenter><!-- populated from slide_config.json --></p>
+            </hgroup>
+        </slide>
 
-		<!-- Introducción -->
-		        <slide>
-        <hgroup>
-			<h2>Introducción</h2>
-        </hgroup>
-		<article>
-			 <p>En este primer tema del curso, vamos a ver los conceptos
-			     de <i>Polimorfismos</i> y <i>Sobrecarga</i>, fundamentales
-			     en <i>Programación Orientada a Objetos</i>.</p>
-			 <p>Veremos, también, cuáles son los mecanismos que proporciona
-			     el lenguaje de programación Java para trabajar con estos dos
-			     conceptos.</p>
-		</article>
+        <!-- Introducción -->
+        <slide>
+            <hgroup>
+                <h2>Introducción</h2>
+            </hgroup>
+            <article>
+                <p>En este primer tema del curso, vamos a ver los conceptos
+                    de <i>Polimorfismos</i> y <i>Sobrecarga</i>, fundamentales
+                    en <i>Programación Orientada a Objetos</i>.</p>
+                <p>Veremos, también, cuáles son los mecanismos que proporciona
+                    el lenguaje de programación Java para trabajar con estos dos
+                    conceptos.</p>
+            </article>
         </slide>
 
         <!-- Bibliografía -->
-                <slide>
-        <hgroup>
-			<h2>Bibliografía</h2>
-        </hgroup>
-		<article>
-            <ol>
-                <li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991003294449706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,big%20java&offset=0">
-                    Big Java</a> Sección 2.1.</li>
-                <li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991000668149706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,el%20lenguaje%20de%20programaci%C3%B3n%20java&offset=0">
-                    El lenguaje de programación Java</a> Secciones: 2.8, 6.9, 3.3.3</li>
-            </ol>
-        </article>
+        <slide>
+            <hgroup>
+                <h2>Bibliografía</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li><a
+                            href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991003294449706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,big%20java&offset=0">
+                            Big Java</a> Sección 2.1.</li>
+                    <li><a
+                            href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991000668149706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,el%20lenguaje%20de%20programaci%C3%B3n%20java&offset=0">
+                            El lenguaje de programación Java</a> Secciones: 2.8, 6.9, 3.3.3</li>
+                </ol>
+            </article>
         </slide>
 
-		<!-- Contenidos -->
-		        <slide>
-        <hgroup>
-			<h2>Contenidos</h2>
-        </hgroup>
-		<article>
-			<ol>
-				<li>Sobrecarga de métodos.</li>
-				<li>Sobrecarga de constructores.</li>
-				<li>Recomendación.</li>
-				<li>Resumen.</li>
-			</ol>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Ejemplo de método sobrecargado -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<p>¿Recuerdas el método <b>println(...)</b>?<p>
-			<pre class="prettyprint" data-lang="Java">
-System.out.println("Hola"); //El argumento es un String</pre>
-			<div class="build">
-				<div>
-				<p>¿Recuerdas que también lo podías utilizar con enteros?</p>
-				<pre class="prettyprint" data-lang="Java">
-System.out.println(3); //Aquí el argumento es un entero</pre>
-				</div>
-				<div>
-					<p>En POO decimos que el método <b>println(...)</b> está sobrecargado.</p>
-					<p>Para entender la definición de <i>método sobrecargado</i> necesitamos
-					primero recordar la definición de signatura de un método.</p>
-				</div>
-			</div>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Definición de signatura de un método  -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<p>¿Qué diferencia a estos dos métodos?</p>
-			<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	...
-	public void suma(int a, int b) {...}
-	public void multiplica(int a, int b) {...}
-	...
-}			</pre>
-			<div class="build">
-				<p>El nombre.</p>
-			</div>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Definición de signatura de un método  -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-				<p>¿Y a estos dos?</p>
-				<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	...
-	public void suma(int a, int b) {...}
-	public void suma(int a, int b, int c) {...}
-	...
-}				</pre>
-				<div class="build">
-					<p>El número de argumentos, ya que su nombre es el mismo.</p>
-				</div>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Definición de signatura de un método  -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-				<p>¿Y a estos otros dos?</p>
-				<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	...
-	public void suma(int a, int b) {...}
-	public void suma(float a, float b) {...}
-	...
-}				</pre>
-				<div class="build">
-					<p>El tipo de los argumentos, ya que su número es el mismo.</p>
-				</div>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Definición de signatura de un método  -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-				<p>Finalmente, ¿en qué se diferencian estos dos métodos?</p>
-				<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	...
-	public void suma(int a, int b) {...}
-	public int suma(int a, int b) {...}
-	...
-}				</pre>
-				<div class="build">
-					<p>No se diferencian en nada, el compilador de Java no los distingue.</p>
-					<p>Recuerda que el tipo de retorno no sirve para distinguir métodos.</p>
-				</div>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Definición de signatura de un método  -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<p>
-				<h3><i>Definición:</i></h3>
-			</p>
-			<p>La <b class="green">signatura de un método</b>  lo forma el nombre del método y su lista de
-			argumentos. En la lista de argumentos es importante tanto el tipo de cada
-			uno de los argumentos como su orden dentro de la lista.</p>
-		</article>
+        <!-- Contenidos -->
+        <slide>
+            <hgroup>
+                <h2>Contenidos</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li>Sobrecarga de métodos.</li>
+                    <li>Sobrecarga de constructores.</li>
+                    <li>Recomendación.</li>
+                    <li>Resumen.</li>
+                </ol>
+            </article>
         </slide>
 
 
-		<!-- Sobrecarga de métodos -->
-		<!-- Ejemplo de métodos sobrecargados -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<p>Como ejemplo, dentro de la definición de una clase podemos tener:</p>
-			<pre class="prettyprint" data-lang="Java">
-public void metodo() {...} //Lista de argumentos vacía
-public void metodo(int entero) {...} //Un atributo de tipo entero
-public void metodo(float real) {...} //Un atributo de tipo float
-public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
-			<p>El compilador distingue todos los métodos anteriores.</p>
-			<p>Veamos algunos ejemplos de uso de estos métodos.</p>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Uso no ambiguo de los métodos sobrecargados -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<p>Llamadas no ambiguas a los métodos sobrecargados</p>
-			<pre class="prettyprint" data-lang="Java">
-metodo(); //Se llama al método con lista de argumentos vacía
-metodo(1); //Se llama al método con un entero en la lista de argumentos
-metodo(1.0f); //Se llama al método con un float en la lista de argumentos
-metodo(1, 1.0f); //Se llama al método con un entero y un float
-metodo(1.0f, 1); //Se llama al método con un real y un float</pre>
-			<p>El compilador no tendrá ningún problema con el
-				fragmento de código anterior.</p>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Uso ambiguo de métodos sobrecargados -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<pre class="prettyprint" data-lang="Java">
-public void metodo() {...} //Lista de argumentos vacía
-public void metodo(int entero) {...} //Un atributo de tipo entero
-public void metodo(float real) {...} //Un atributo de tipo float
-public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
-			<p>¿A qué método se llamará en el siguiente caso?</p>
-			<pre class="prettyprint" data-lang="Java">
-metodo(1, 1);</pre>
-			<p>Tenemos una ambigüedad no podemos decidir a qué
-			método se llamará.</p>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Uso ambiguo de métodos sobrecargados -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<pre class="prettyprint" data-lang="Java">
-metodo(1, 1);</pre>
-			<p>Tenemos una ambigüedad no podemos decidir a cual de los siguientes
-			métodos se llamará.</p>
-			<pre class="prettyprint" data-lang="Java">
-
-public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
-public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
-			<p><b>Nota: </b>Recuerda las reglas de promoción de tipos.</p>
-		</article>
-        </slide>
-
-		<!-- Sobrecarga de métodos -->
-		<!-- Uso ambiguo de métodos sobrecargados -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de métodos</h2>
-        </hgroup>
-		<article>
-			<pre class="prettyprint" data-lang="Java">
-metodo(1,1);
-...
-public void metodo(float entero, int real) {...}</pre>
-			<p>Este caso es posible si se promociona el primer 1 a un <b>float</b>.
-			<div class="build">
-				<div>
-					<pre class="prettyprint" data-lang="Java">
-metodo(1,1);
-...
-public void metodo(int entero, float real) {...}</pre>
-					<p>Este caso es posible si se promociona el segundo 1 a un <b>float</b>.
-					<p>Tenemos una ambigüedad.</p>
-				</div>
-			</div>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de constructores -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de constructores</h2>
-        </hgroup>
-		<article>
-			<p>¿Cómo llamamos al siguiente método?</p>
-			<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	Ejemplo() {...}
-}			</pre>
-			<div class="build">
-				<div>Es un constructor de la clase.</div>
-				<div>¿Cómo lo sé?</div>
-        <div>Tiene el mismo nombre que la clase y sin tipo de retorno.</div>
-        <div>A este constructor se le llama construtor sin argumentos.</div>
-			</div>
-		</article>
-        </slide>
-
-
-		<!-- Sobrecarga de constructores -->
-		        <slide>
-        <hgroup>
-			<h2>Sobrecarga de constructores</h2>
-        </hgroup>
-		<article>
-			<p>Los constructores también pueden estar sobrecargados.</p>
-			<pre class="prettyprint" data-lang="Java">
-class Ejemplo {
-	Ejemplo() {...}
-	Ejemplo(int a) {...}
-	Ejemplo(float a) {...}
-}			</pre>
-			<p>Sobre ellos funcionan las mismas reglas que sobre el resto de métodos en cuanto
-				a la sobrecarga.</p>
-		</article>
-        </slide>
-
-		<!-- Recomendación -->
-                <slide>
-        <hgroup>
-			<h2>Recomendación</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">No abuses de la sobrecarga.</b></p>
-            <p>La sobrecarga es una herramienta, pero por disponer de ella
-                no la debes usar sin justificación.</p>
+        <!-- Sobrecarga de métodos -->
+        <!-- Ejemplo de método sobrecargado -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>¿Recuerdas el método <b>println(...)</b>?
                 <p>
-                  Sobrecarga los métodos sólo cuando lo necesites.
-                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    System.out.println("Hola"); //El argumento es un String</pre>
+                <div class="build">
+                    <div>
+                        <p>¿Recuerdas que también lo podías utilizar con enteros?</p>
+                        <pre class="prettyprint" data-lang="Java">
+                            System.out.println(3); //Aquí el argumento es un entero</pre>
+                    </div>
+                    <div>
+                        <p>En POO decimos que el método <b>println(...)</b> está sobrecargado.</p>
+                        <p>Para entender la definición de <i>método sobrecargado</i> necesitamos
+                            primero recordar la definición de signatura de un método.</p>
+                    </div>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Definición de signatura de un método  -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>¿Qué diferencia a estos dos métodos?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    ...
+                    public void suma(int a, int b) {...}
+                    public void multiplica(int a, int b) {...}
+                    ...
+                    } </pre>
+                <div class="build">
+                    <p>El nombre.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Definición de signatura de un método  -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>¿Y a estos dos?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    ...
+                    public void suma(int a, int b) {...}
+                    public void suma(int a, int b, int c) {...}
+                    ...
+                    } </pre>
+                <div class="build">
+                    <p>El número de argumentos, ya que su nombre es el mismo.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Definición de signatura de un método  -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>¿Y a estos otros dos?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    ...
+                    public void suma(int a, int b) {...}
+                    public void suma(float a, float b) {...}
+                    ...
+                    } </pre>
+                <div class="build">
+                    <p>El tipo de los argumentos, ya que su número es el mismo.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Definición de signatura de un método  -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Finalmente, ¿en qué se diferencian estos dos métodos?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    ...
+                    public void suma(int a, int b) {...}
+                    public int suma(int a, int b) {...}
+                    ...
+                    } </pre>
+                <div class="build">
+                    <p>No se diferencian en nada, el compilador de Java no los distingue.</p>
+                    <p>Recuerda que el tipo de retorno no sirve para distinguir métodos.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Definición de signatura de un método  -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
                 <p>
-                  Antes de sobrecargar un método pregúntate si hay otra manera de conseguir lo mismo.
+                <h3><i>Definición:</i></h3>
                 </p>
-        </article>
+                <p>La <b class="green">signatura de un método</b> lo forma el nombre del método y su lista de
+                    argumentos. En la lista de argumentos es importante tanto el tipo de cada
+                    uno de los argumentos como su orden dentro de la lista.</p>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Ejemplo de métodos sobrecargados -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Como ejemplo, dentro de la definición de una clase podemos tener:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public void metodo() {...} //Lista de argumentos vacía
+                    public void metodo(int entero) {...} //Un atributo de tipo entero
+                    public void metodo(float real) {...} //Un atributo de tipo float
+                    public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+                    public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
+                <p>El compilador distingue todos los métodos anteriores.</p>
+                <p>Veamos algunos ejemplos de uso de estos métodos.</p>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Uso no ambiguo de los métodos sobrecargados -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Llamadas no ambiguas a los métodos sobrecargados</p>
+                <pre class="prettyprint" data-lang="Java">
+                    metodo(); //Se llama al método con lista de argumentos vacía
+                    metodo(1); //Se llama al método con un entero en la lista de argumentos
+                    metodo(1.0f); //Se llama al método con un float en la lista de argumentos
+                    metodo(1, 1.0f); //Se llama al método con un entero y un float
+                    metodo(1.0f, 1); //Se llama al método con un real y un float</pre>
+                <p>El compilador no tendrá ningún problema con el
+                    fragmento de código anterior.</p>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Uso ambiguo de métodos sobrecargados -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    public void metodo() {...} //Lista de argumentos vacía
+                    public void metodo(int entero) {...} //Un atributo de tipo entero
+                    public void metodo(float real) {...} //Un atributo de tipo float
+                    public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+                    public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
+                <p>¿A qué método se llamará en el siguiente caso?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    metodo(1, 1);</pre>
+                <p>Tenemos una ambigüedad no podemos decidir a qué
+                    método se llamará.</p>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Uso ambiguo de métodos sobrecargados -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    metodo(1, 1);</pre>
+                <p>Tenemos una ambigüedad no podemos decidir a cual de los siguientes
+                    métodos se llamará.</p>
+                <pre class="prettyprint" data-lang="Java">
+
+                    public void metodo(int entero, float real) {...} //Dos atributos, el primero entero
+                    public void metodo(float real, int entero) {...} //Dos atributos, el primero float</pre>
+                <p><b>Nota: </b>Recuerda las reglas de promoción de tipos.</p>
+            </article>
+        </slide>
+
+        <!-- Sobrecarga de métodos -->
+        <!-- Uso ambiguo de métodos sobrecargados -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de métodos</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    metodo(1,1);
+                    ...
+                    public void metodo(float entero, int real) {...}</pre>
+                <p>Este caso es posible si se promociona el primer 1 a un <b>float</b>.
+                <div class="build">
+                    <div>
+                        <pre class="prettyprint" data-lang="Java">
+                            metodo(1,1);
+                            ...
+                            public void metodo(int entero, float real) {...}</pre>
+                        <p>Este caso es posible si se promociona el segundo 1 a un <b>float</b>.
+                        <p>Tenemos una ambigüedad.</p>
+                    </div>
+                </div>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de constructores -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de constructores</h2>
+            </hgroup>
+            <article>
+                <p>¿Cómo llamamos al siguiente método?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    Ejemplo() {...}
+                    } </pre>
+                <div class="build">
+                    <div>Es un constructor de la clase.</div>
+                    <div>¿Cómo lo sé?</div>
+                    <div>Tiene el mismo nombre que la clase y sin tipo de retorno.</div>
+                    <div>A este constructor se le llama construtor sin argumentos.</div>
+                </div>
+            </article>
+        </slide>
+
+
+        <!-- Sobrecarga de constructores -->
+        <slide>
+            <hgroup>
+                <h2>Sobrecarga de constructores</h2>
+            </hgroup>
+            <article>
+                <p>Los constructores también pueden estar sobrecargados.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    class Ejemplo {
+                    Ejemplo() {...}
+                    Ejemplo(int a) {...}
+                    Ejemplo(float a) {...}
+                    } </pre>
+                <p>Sobre ellos funcionan las mismas reglas que sobre el resto de métodos en cuanto
+                    a la sobrecarga.</p>
+            </article>
         </slide>
 
         <!-- Recomendación -->
         <slide>
-          <hgroup>
-            <h2>Recomendación</h2>
-          </hgroup>
-          <article>
-            <pre class="prettyprint" data-lang="Java">
-class Perona {
-  private String nombre;
-  private String apellidos;
-  private String nif;
-
-  public Persona() { // Constructor sin argumentos
-    super();
-  }
-
-  public Persona(String nombre) {
-    super();
-    this.nombre = nombre;
-  }
-
-  public Persona(String nombre, String apellidos) {
-    super();
-    this.nombre = nombre;
-    this.apellidos = apellidos;
-  }
-...
-            </pre>
-          </article>
-        </slide>
-
-        <!-- Recomendación -->
-        <slide>
-          <hgroup>
-            <h2>Recomendación</h2>
-          </hgroup>
-          <article>
-            <pre class="prettyprint" data-lang="Java">
-    public Persona(String nombre, String apellidos, String nif) {
-      super();
-      this.nombre = nombre;
-      this.apellidos = apellidos;
-      this.nif = nif;
-    }
-  }
-            </pre>
-          </article>
-        </slide>
-
-            <!-- Recomendación -->
-            <slide>
-              <hgroup>
+            <hgroup>
                 <h2>Recomendación</h2>
-              </hgroup>
-              <article>
-            <p>
-              ¿Y el constructor cuando sólo tenemos el nombre y el nif, pero no los apellidos?
-            </p>
-            <pre class="prettyprint" data-lang="Java" data-trim>
-    public Persona(String nombre, String nif) {
-      super();
-      this.nombre = nombre;
-      this.nif = nif;
-    }
-</pre>
-            <p>
-              Uff! entra en colisión con el constructor:
-            </p>
-            <pre class="prettyprint" data-lang="Java" data-trim>
-    public Persona(String nombre, String apellidos) {
-      super();
-      this.nombre = nombre;
-      this.apellidos = apellidos;
-    }
-</pre>
-          </article>
+            </hgroup>
+            <article>
+                <p><b class="green">No abuses de la sobrecarga.</b></p>
+                <p>La sobrecarga es una herramienta, pero por disponer de ella
+                    no la debes usar sin justificación.</p>
+                <p>
+                    Sobrecarga los métodos sólo cuando lo necesites.
+                </p>
+                <p>
+                    Antes de sobrecargar un método pregúntate si hay otra manera de conseguir lo mismo.
+                </p>
+            </article>
         </slide>
 
         <!-- Recomendación -->
         <slide>
-          <hgroup>
-            <h2>Recomendación</h2>
-          </hgroup>
-          <article>
-            <p>
-              Lo más aconsejado es definir únicamente el constructor sin argumentos y el que recibe todos los atributos de la clase:
-            </p>
-            <pre class="prettyprint" data-lang="Java" data-trim>
-public class Persona {
-  ....
-  public Persona() { // Constructor sin argumentos
-    super();
-  }
-  public Persona(String nombre, String apellidos, String nif) {
-    super();
-    this.nombre = nombre;
-    this.apellidos = apellidos;
-    this.nif = nif;
-  }
-}
-</pre>
-          </article>
+            <hgroup>
+                <h2>Recomendación</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    class Perona {
+                    private String nombre;
+                    private String apellidos;
+                    private String nif;
+
+                    public Persona() { // Constructor sin argumentos
+                    super();
+                    }
+
+                    public Persona(String nombre) {
+                    super();
+                    this.nombre = nombre;
+                    }
+
+                    public Persona(String nombre, String apellidos) {
+                    super();
+                    this.nombre = nombre;
+                    this.apellidos = apellidos;
+                    }
+                    ...
+                </pre>
+            </article>
+        </slide>
+
+        <!-- Recomendación -->
+        <slide>
+            <hgroup>
+                <h2>Recomendación</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    public Persona(String nombre, String apellidos, String nif) {
+                    super();
+                    this.nombre = nombre;
+                    this.apellidos = apellidos;
+                    this.nif = nif;
+                    }
+                    }
+                </pre>
+            </article>
+        </slide>
+
+        <!-- Recomendación -->
+        <slide>
+            <hgroup>
+                <h2>Recomendación</h2>
+            </hgroup>
+            <article>
+                <p>
+                    ¿Y el constructor cuando sólo tenemos el nombre y el nif, pero no los apellidos?
+                </p>
+                <pre class="prettyprint" data-lang="Java" data-trim>
+                    public Persona(String nombre, String nif) {
+                    super();
+                    this.nombre = nombre;
+                    this.nif = nif;
+                    }
+                </pre>
+                <p>
+                    Uff! entra en colisión con el constructor:
+                </p>
+                <pre class="prettyprint" data-lang="Java" data-trim>
+                    public Persona(String nombre, String apellidos) {
+                    super();
+                    this.nombre = nombre;
+                    this.apellidos = apellidos;
+                    }
+                </pre>
+            </article>
+        </slide>
+
+        <!-- Recomendación -->
+        <slide>
+            <hgroup>
+                <h2>Recomendación</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Lo más aconsejado es definir únicamente el constructor sin argumentos y el que recibe todos los
+                    atributos de la clase:
+                </p>
+                <pre class="prettyprint" data-lang="Java" data-trim>
+                    public class Persona {
+                    ....
+                    public Persona() { // Constructor sin argumentos
+                    super();
+                    }
+                    public Persona(String nombre, String apellidos, String nif) {
+                    super();
+                    this.nombre = nombre;
+                    this.apellidos = apellidos;
+                    this.nif = nif;
+                    }
+                    }
+                </pre>
+            </article>
         </slide>
 
 
         <!-- Resumen -->
-                <slide>
-        <hgroup>
-			<h2>Resumen</h2>
-        </hgroup>
-		<article>
-            <p>La <i>sobrecarga</i> me permite utilizar el mismo nombre para
-                un método, si cambio el número y tipo de sus argumentos.</p>
-            <p>La <i>sobrecarga</i> que métodos puede dar lugar a llamadas
-                ambiguas a métodos si Java hace promoción de tipos.</p>
-            <p>La <i>sobrecarga</i> es una herramienta de la que no debo
-                abusar en mi código.</p>
-        </article>
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>La <i>sobrecarga</i> me permite utilizar el mismo nombre para
+                    un método, si cambio el número y tipo de sus argumentos.</p>
+                <p>La <i>sobrecarga</i> que métodos puede dar lugar a llamadas
+                    ambiguas a métodos si Java hace promoción de tipos.</p>
+                <p>La <i>sobrecarga</i> es una herramienta de la que no debo
+                    abusar en mi código.</p>
+            </article>
         </slide>
 
-            <slide class="backdrop"></slide>
-	</slides>
+        <slide class="backdrop"></slide>
+    </slides>
 
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
-_gaq.push(['_trackPageview']);
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+        _gaq.push(['_trackPageview']);
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
-<!--[if IE]>
+    <!--[if IE]>
   <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
   <script>CFInstall.check({mode: 'overlay'});</script>
 <![endif]-->
 </body>
+
 </html>

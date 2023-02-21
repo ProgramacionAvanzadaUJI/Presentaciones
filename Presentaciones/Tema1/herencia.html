@@ -9,1106 +9,805 @@ URL: https://code.google.com/p/io-2012-slides
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Herencia</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-  <!--This one seems to work all the time, but really small on ipad-->
-  <!--<meta name="viewport" content="initial-scale=0.4">-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" media="all" href="../../theme/css/default.css">
-  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
-  <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
-<script type="text/javascript">
+    <title>Herencia</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="../../theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../../theme/css/phone.css">
+    <link rel="stylesheet" media="all" href="../../css/miEstilo.css">
+    <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="../../js/slides" src="../../js/require-1.0.8.min.js"></script>
+    <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28605511-1']);
-  _gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-28605511-1']);
+        _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
 
-</script>
+    </script>
 </head>
 
 <body style="opacity: 0">
     <slides>
-      <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
-    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
-    <hgroup class="auto-fadein">
-      <h1 data-config-title>Programación Avanzada</h1>
-      <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
-      <h4 data-config-subtitle>Herencia</h4>
-      <p data-config-presenter><!-- populated from slide_config.json --></p>
-    </hgroup>
-  </slide>
+        <slide class="title-slide segue nobackground">
+            <aside class="gdbar"><img src="../../images/logo-uji.png"></aside>
+            <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+            <hgroup class="auto-fadein">
+                <h1 data-config-title>Programación Avanzada</h1>
+                <h2 data-config-subtitle>Programación Orientada a Objetos</h2>
+                <h4 data-config-subtitle>Herencia</h4>
+                <p data-config-presenter><!-- populated from slide_config.json --></p>
+            </hgroup>
+        </slide>
 
         <!--  Introducción -->
-            <slide>
-        <hgroup>
-			<h2>Introducción</h2>
-        </hgroup>
-		<article>
-            <p>Muchas veces nos encontramos conque, para resolver un problema,
-                disponemos de clases que nos ofrecen una funcionalidad muy
-                cercana a la que necesitamos, pero carecen de cierta otra funcionalidad
-                que nos interesa.</p>
-            <p>Una posible solución es escribir una nueva clase desde cero con
-                toda la funcionalidad de la primera más la nueva funcionalidad
-                que necesitamos.</p>
-            <p>Otra posibilidad es añadir a la clase existente sólo la nueva
-                funcionalidad, tomando provecho de todo el trabajo ya existente.</p>
-            <p>Esta sencilla, pero potente idea, es la base de la <i>Herencia</i>,
-                una de las piedras angulares de la POO.</p>
-    </article>
-  </slide>
+        <slide>
+            <hgroup>
+                <h2>Introducción</h2>
+            </hgroup>
+            <article>
+                <p>Muchas veces nos encontramos conque, para resolver un problema,
+                    disponemos de clases que nos ofrecen una funcionalidad muy
+                    cercana a la que necesitamos, pero carecen de cierta otra funcionalidad
+                    que nos interesa.</p>
+                <p>Una posible solución es escribir una nueva clase desde cero con
+                    toda la funcionalidad de la primera más la nueva funcionalidad
+                    que necesitamos.</p>
+                <p>Otra posibilidad es añadir a la clase existente sólo la nueva
+                    funcionalidad, tomando provecho de todo el trabajo ya existente.</p>
+                <p>Esta sencilla, pero potente idea, es la base de la <i>Herencia</i>,
+                    una de las piedras angulares de la POO.</p>
+            </article>
+        </slide>
 
 
         <!-- Bibliografía -->
-  <slide>
-    <hgroup>
-			<h2>Bibliografía</h2>
-        </hgroup>
-		      <article>
-            <ol>
-                <li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991003294449706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,big%20java&offset=0">
-                    Big Java</a> Capítulo 9.</li>
-                <li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991001602809706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,head%20first%20java&offset=0">
-                    Head first Java</a> Capítulo 7.</li>
-                <li><a href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991000668149706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,el%20lenguaje%20de%20programaci%C3%B3n%20java&offset=0">
-                    El lenguaje de programación Java</a> Capítulo 3.</li>
-                <li><a href="https://www3.uji.es/~belfern/libroJava.pdf">
-                    Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 3.</li>
-            </ol>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Bibliografía</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li><a
+                            href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991003294449706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInst_and_CI&adaptor=Local%20Search%20Engine&tab=Everything&query=any,contains,big%20java&offset=0">
+                            Big Java</a> Capítulo 9.</li>
+                    <li><a
+                            href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991001602809706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,head%20first%20java&offset=0">
+                            Head first Java</a> Capítulo 7.</li>
+                    <li><a
+                            href="https://cataleg.uji.es/discovery/fulldisplay?docid=alma991000668149706336&context=L&vid=34CVA_UJI:VU1&lang=es&search_scope=MyInstitution&adaptor=Local%20Search%20Engine&tab=LibraryCatalog&query=any,contains,el%20lenguaje%20de%20programaci%C3%B3n%20java&offset=0">
+                            El lenguaje de programación Java</a> Capítulo 3.</li>
+                    <li><a href="https://www3.uji.es/~belfern/libroJava.pdf">
+                            Desarrollo de proyectos informáticos con tecnología Java</a> Capítulo 3.</li>
+                </ol>
+            </article>
         </slide>
 
 
         <!--  Contenidos -->
-            <slide>
-        <hgroup>
-			<h2>Contenidos</h2>
-        </hgroup>
-		<article>
-            <ol>
-                <li>Ejemplo introductorio.</li><!-- Las class Punto2D y Puno3D -->
-                <li>Extensión de una clase.</li>
-                <li>Compatibilidad de referencias.</li>
-                <li>Clases <i>abstractas</i>.</li>
-                <li>Polimorfismo con herencia.</li>
-                <li>De nuevo la vinculación dinámica.</li>
-                <li>El principio de substitución de Liskov.</li>
-                <li>Clases que no se pueden extender.</li>
-                <li>Extensión de <b>interface</b>.</li>
-                <li>Paquetes y modificadores de acceso.</li>
-                <li>Principios SOLID en el diseño de clases.</li>
-                <li>Resumen.</li>
-            </ol>
+        <slide>
+            <hgroup>
+                <h2>Contenidos</h2>
+            </hgroup>
+            <article>
+                <ol>
+                    <li>Ejemplo introductorio.</li><!-- Las class Punto2D y Puno3D -->
+                    <li>Extensión de una clase.</li>
+                    <li>Compatibilidad de referencias.</li>
+                    <li>Clases <i>abstractas</i>.</li>
+                    <li>Polimorfismo con herencia.</li>
+                    <li>De nuevo la vinculación dinámica.</li>
+                    <li>El principio de substitución de Liskov.</li>
+                    <li>Clases que no se pueden extender.</li>
+                    <li>Extensión de <b>interface</b>.</li>
+                    <li>Paquetes y modificadores de acceso.</li>
+                    <li>Principios SOLID en el diseño de clases.</li>
+                    <li>Resumen.</li>
+                </ol>
             </article>
         </slide>
 
 
         <!-- Ejemplo introductorio -->
-            <slide>
-        <hgroup>
-			<h2>Ejemplo introductorio</h2>
-        </hgroup>
-		<article>
-            <p>Supongamos que tenemos la siguiente definición de un punto en
-                dos dimensiones.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Punto2D {
-    private double x;
-    private double y;
-    public Punto2D() {
-        x = y = 0;
-    }
-    public Punto2D(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-    public double getX() {
-        return x;
-    }
-    public double getY() {
-        return y;
-    }
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Ejemplo introductorio</h2>
+            </hgroup>
+            <article>
+                <p>Supongamos que tenemos la siguiente definición de un punto en
+                    dos dimensiones.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto2D {
+                    private double x;
+                    private double y;
+                    public Punto2D() {
+                    x = y = 0;
+                    }
+                    public Punto2D(float x, float y) {
+                    this.x = x;
+                    this.y = y;
+                    }
+                    public double getX() {
+                    return x;
+                    }
+                    public double getY() {
+                    return y;
+                    }
+                    }</pre>
+            </article>
         </slide>
 
 
         <!-- Ejemplo introductorio -->
-            <slide>
-        <hgroup>
-			<h2>Ejemplo introductorio</h2>
-        </hgroup>
-		<article>
-            <p>Ahora necesitamos un punto en tres dimensiones.</p>
-            <p>Nos podemos plantear reescribir la clase desde cero:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Punto3D {
-    private double x;
-    private double y;
-    private double z;
-    ...
-}</pre>
-            <p>O bien podemos intentar aprovechar la clase <b>Punto2D</b> y
-                añadir sobre ella la nueva funcionalidad.</p>
-            <p>En este segundo caso estamos haciendo uso de la herencia.</p>
+        <slide>
+            <hgroup>
+                <h2>Ejemplo introductorio</h2>
+            </hgroup>
+            <article>
+                <p>Ahora necesitamos un punto en tres dimensiones.</p>
+                <p>Nos podemos plantear reescribir la clase desde cero:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto3D {
+                    private double x;
+                    private double y;
+                    private double z;
+                    ...
+                    }</pre>
+                <p>O bien podemos intentar aprovechar la clase <b>Punto2D</b> y
+                    añadir sobre ella la nueva funcionalidad.</p>
+                <p>En este segundo caso estamos haciendo uso de la herencia.</p>
 
-        		        </article>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-        </hgroup>
-		<article>
-            <p>En Java decimos que una clase <i>extiende</i> a otra cuando
-                añade funcionalidad sobre una clase ya definida:</p>
-<pre class="prettyprint" data-lang="Java">public class Punto3D extends Punto2D {
-    private double z;
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+            </hgroup>
+            <article>
+                <p>En Java decimos que una clase <i>extiende</i> a otra cuando
+                    añade funcionalidad sobre una clase ya definida:</p>
+                <pre class="prettyprint" data-lang="Java">public class Punto3D extends Punto2D {
+                    private double z;
 
-    public double getZ() {
-        return z;
-    }
-    ...
-}</pre>
-            <p>En este caso concreto, decimos que <b>Punto2D</b> es la clase
-                <span class="green"><b>madre o clase base</b></span> y que
-                <b>Punto3D</b> es la
-                <span class="green"><b>clase hija</b></span>.</p>
-            <p>Fíjate que Java nos proporciona la palabra reservada
-                <b>extends</b> para usar el mecanismo de herencia.</p>
-        		        </article>
+                    public double getZ() {
+                    return z;
+                    }
+                    ...
+                    }</pre>
+                <p>En este caso concreto, decimos que <b>Punto2D</b> es la clase
+                    <span class="green"><b>madre o clase base</b></span> y que
+                    <b>Punto3D</b> es la
+                    <span class="green"><b>clase hija</b></span>.
+                </p>
+                <p>Fíjate que Java nos proporciona la palabra reservada
+                    <b>extends</b> para usar el mecanismo de herencia.
+                </p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-        </hgroup>
-		<article>
-            <p>Podemos expresar la relación entre las clases <b>Punto2D</b> y
-                <b>Punto3D</b> utilizando el siguiente diagrama UML:</p>
-            <p class="centrado"><img src='imagenes/extensionPunto2D.png'
-                style='height: 200px'> </p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+            </hgroup>
+            <article>
+                <p>Podemos expresar la relación entre las clases <b>Punto2D</b> y
+                    <b>Punto3D</b> utilizando el siguiente diagrama UML:
+                </p>
+                <p class="centrado"><img src='imagenes/extensionPunto2D.png' style='height: 200px'> </p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase -->
-  <slide>
-    <hgroup>
-			<h2>Extensión de una clase</h2>
-    </hgroup>
-		<article>
-      <p>Lo primero que debes saber es que en Java sólo existe la
-          <i>Herencia simple</i>, una clase no puede extender a
-          más de una clase madre.</p>
-      <p>¿Cuantos métodos tiene la clase hija?<p>
-      <p>Los que en ella se definen más <b>los que son accesibles en
-          la clase madre</b>.</p>
-      <p>¿Qué métodos de la clase madre son accesibles desde la clase hija?</p>
-      <p>Los <b>public</b> y <b>protected</b> de la madre, y si madre e hija están
-          definidas en el mismo paquete también los del paquete.</p>
-      <p class='green'>Los miembros <b>private</b> sólo son accesibles
-          en la clase que los define.</p>
-          <p>
-            Ya veremos más sobre los modificadores de acceso.
-          </p>
-    </article>
-  </slide>
-
-
-        <!-- Extensión de una clase. Sobrescritura de métodos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Sobrescritura de métodos</h2>
-        </hgroup>
-		<article>
-            <p>Supon que en la clase <b>Punto2D</b> tienes definido el siguiente
-                método.</p>
-<pre class="prettyprint" data-lang="Java">
-public String getDescripcion() {
-    return x + ", " + y;
-}</pre>
-            <p>Que devuelve una cadena con información sobre el <b>Punto2D</b>.
-            <p>Cuando tenemos puntos en 3D, este método no nos sirve, ya que
-                debemos tener en cuenta también la coordenada z.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+            </hgroup>
+            <article>
+                <p>Lo primero que debes saber es que en Java sólo existe la
+                    <i>Herencia simple</i>, una clase no puede extender a
+                    más de una clase madre.
+                </p>
+                <p>¿Cuantos métodos tiene la clase hija?
+                <p>
+                <p>Los que en ella se definen más <b>los que son accesibles en
+                        la clase madre</b>.</p>
+                <p>¿Qué métodos de la clase madre son accesibles desde la clase hija?</p>
+                <p>Los <b>public</b> y <b>protected</b> de la madre, y si madre e hija están
+                    definidas en el mismo paquete también los del paquete.</p>
+                <p class='green'>Los miembros <b>private</b> sólo son accesibles
+                    en la clase que los define.</p>
+                <p>
+                    Ya veremos más sobre los modificadores de acceso.
+                </p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. Sobrescritura de métodos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Sobrescritura de métodos</h2>
-        </hgroup>
-		<article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Sobrescritura de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Supon que en la clase <b>Punto2D</b> tienes definido el siguiente
+                    método.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public String getDescripcion() {
+                    return x + ", " + y;
+                    }</pre>
+                <p>Que devuelve una cadena con información sobre el <b>Punto2D</b>.
+                <p>Cuando tenemos puntos en 3D, este método no nos sirve, ya que
+                    debemos tener en cuenta también la coordenada z.</p>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Sobrescritura de métodos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Sobrescritura de métodos</h2>
+            </hgroup>
+            <article>
                 <p>En la clase
-                <b>Punto3D</b> debemos definir el método del siguiente modo:</p>
-<pre class="prettyprint" data-lang="Java">
-@Override
-public String getDescripcion() {
-    return getX() + ", " + getY() + ", " + z;
-}</pre>
-            <p>Detalles:</p>
-            <ul>
-	            <li>Fíjate que como los atributos <b>x</b> e <b>y</b> son
-	                <b>private</b> en la clase madre, no podemos acceder a ellos
-	                directamente, tenemos que utilizar los <i>getters</i>.</li>
-	            <li>Utilizamos la anotación <b>@Override</b> para asegurarnos
-	                que estamos sobrescribiendo correctamente el método.</li>
-            </ul>
+                    <b>Punto3D</b> debemos definir el método del siguiente modo:
+                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    @Override
+                    public String getDescripcion() {
+                    return getX() + ", " + getY() + ", " + z;
+                    }</pre>
+                <p>Detalles:</p>
+                <ul>
+                    <li>Fíjate que como los atributos <b>x</b> e <b>y</b> son
+                        <b>private</b> en la clase madre, no podemos acceder a ellos
+                        directamente, tenemos que utilizar los <i>getters</i>.
+                    </li>
+                    <li>Utilizamos la anotación <b>@Override</b> para asegurarnos
+                        que estamos sobrescribiendo correctamente el método.</li>
+                </ul>
             </article>
         </slide>
 
 
         <!-- Extensión de una clase. Sobrescritura de métodos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Sobrescritura de métodos</h2>
-        </hgroup>
-		<article>
-            <p>Juguemos un poco con estas clases:</p>
-<pre class="prettyprint" data-lang="Java">
-Punto2D p2d = new Punto2D(1, 2);
-System.out.println(p2d.getDescripcion());
-// Muestra 1.0, 2.0
-Punto3D p3d = new Punto3D(1, 2, 3);
-System.out.println(p3d.getDescripcion());
-// Muestra 1.0, 2.0, 3.0</pre>
-            <p>El mismo método, definido con distinta implementación en
-                una clase madre y su hija.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Sobrescritura de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Juguemos un poco con estas clases:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Punto2D p2d = new Punto2D(1, 2);
+                    System.out.println(p2d.getDescripcion());
+                    // Muestra 1.0, 2.0
+                    Punto3D p3d = new Punto3D(1, 2, 3);
+                    System.out.println(p3d.getDescripcion());
+                    // Muestra 1.0, 2.0, 3.0</pre>
+                <p>El mismo método, definido con distinta implementación en
+                    una clase madre y su hija.</p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. Sobrescritura de métodos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Sobrescritura de métodos</h2>
-        </hgroup>
-		<article>
-            <p>Añadamos a la clase <b>Punto2D</b> un nuevo método:</p>
-<pre class="prettyprint" data-lang="Java">
-public Punto2D invierte() {
-    return new Punto2D(-x, -y);
-}</pre>
-            <p>Y ahora sobrescribamos este método en la clase <b>Punto3D</b>
-<pre class="prettyprint" data-lang="Java">
-@Override
-public Punto3D invierte() {
-    return new Punto3D(-getX(), -getY(), -z);
-}</pre>
-            <p>Fíjate que hemos podido cambiar el tipo de retorno al sobrescribir
-                el método. Esto es posible siempre que <i>ampliemos</i> el tipo
-                de retorno.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Sobrescritura de métodos</h2>
+            </hgroup>
+            <article>
+                <p>Añadamos a la clase <b>Punto2D</b> un nuevo método:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public Punto2D invierte() {
+                    return new Punto2D(-x, -y);
+                    }</pre>
+                <p>Y ahora sobrescribamos este método en la clase <b>Punto3D</b>
+                <pre class="prettyprint" data-lang="Java">
+                    @Override
+                    public Punto3D invierte() {
+                    return new Punto3D(-getX(), -getY(), -z);
+                    }</pre>
+                <p>Fíjate que hemos podido cambiar el tipo de retorno al sobrescribir
+                    el método. Esto es posible siempre que <i>ampliemos</i> el tipo
+                    de retorno.</p>
+            </article>
         </slide>
 
         <!-- Extensión de una clase. Sobrescritura de atributos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Sobrescritura de métodos</h2>
-        </hgroup>
-		<article>
-            <p>¿Y que pasa con los atributos? ¿Los podemos sobrescribir?</p>
-            <p>La respuesta es sí podemos... pero mejor no lo hagas.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Punto3D extends Punto2D {
-    private double x;
-    private double y;
-    private double z;
-    ...
-}</pre>
-            <p>El código anterior no contiene ningún error. Pero, repito
-                no lo hagas.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Sobrescritura de métodos</h2>
+            </hgroup>
+            <article>
+                <p>¿Y que pasa con los atributos? ¿Los podemos sobrescribir?</p>
+                <p>La respuesta es sí podemos... pero mejor no lo hagas.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto3D extends Punto2D {
+                    private double x;
+                    private double y;
+                    private double z;
+                    ...
+                    }</pre>
+                <p>El código anterior no contiene ningún error. Pero, repito
+                    no lo hagas.</p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. La palabra reservada super -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>La palabra reservada super</h2>
-        </hgroup>
-		<article>
-            <p>Revisemos de nuevo el método <b>getDescripcion()</b> en las
-                clases <b>Punto2D</b> y <b>Punto3D</b>:</p>
-<pre class="prettyprint" data-lang="Java">
-// En la clase Punto2D
-public String getDescripcion() {
-    return x + ", " + y;
-}
-// En la clase Punto3D
-@Override
-public String getDescripcion() {
-    return getX() + ", " + getY() + ", " + z;
-}</pre>
-            <p>La herencia me promete que puedo aprovechar al máximo los
-                métodos ya definidos en la clase madre. Debe haber un mejor
-                modo de escribir este código.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>La palabra reservada super</h2>
+            </hgroup>
+            <article>
+                <p>Revisemos de nuevo el método <b>getDescripcion()</b> en las
+                    clases <b>Punto2D</b> y <b>Punto3D</b>:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    // En la clase Punto2D
+                    public String getDescripcion() {
+                    return x + ", " + y;
+                    }
+                    // En la clase Punto3D
+                    @Override
+                    public String getDescripcion() {
+                    return getX() + ", " + getY() + ", " + z;
+                    }</pre>
+                <p>La herencia me promete que puedo aprovechar al máximo los
+                    métodos ya definidos en la clase madre. Debe haber un mejor
+                    modo de escribir este código.</p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. La palabra reservada super -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>La palabra reservada super</h2>
-        </hgroup>
-		<article>
-            <p>Que una clase hija sobrescriba un método de la clase madre
-                no quiere decir que <i>borre</i> el método de la clase madre,
-                simplemente lo <span class='green'><b>oculta</b></span>.</p>
-            <p>Desde una clase hija podemos acceder a los métodos
-                de la clase madre a través de la palabra reservada
-                <b>super</b>.</p>
-<pre class="prettyprint" data-lang="Java">
-// En la clase Punto2D
-public String getDescripcion() {
-    return x + ", " + y;
-}
-// En la clase Punto3D
-@Override
-public String getDescripcion() {
-    return super.getDescripcion() + ", " + z;
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>La palabra reservada super</h2>
+            </hgroup>
+            <article>
+                <p>Que una clase hija sobrescriba un método de la clase madre
+                    no quiere decir que <i>borre</i> el método de la clase madre,
+                    simplemente lo <span class='green'><b>oculta</b></span>.</p>
+                <p>Desde una clase hija podemos acceder a los métodos
+                    de la clase madre a través de la palabra reservada
+                    <b>super</b>.
+                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    // En la clase Punto2D
+                    public String getDescripcion() {
+                    return x + ", " + y;
+                    }
+                    // En la clase Punto3D
+                    @Override
+                    public String getDescripcion() {
+                    return super.getDescripcion() + ", " + z;
+                    }</pre>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. La palabra reservada super -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>La palabra reservada super</h2>
-        </hgroup>
-		<article>
-            <p>La palabra reservada <b>super</b> es una referencia a la clase
-                madre de igual modo que <b>this</b> es una referencia a la
-                propia clase.</p>
-            <p>Hay veces en las que me interesa reescribir un método por
-                completo en la clase hija.</p>
-            <p>Pero hay otras veces que lo que nos interesa es
-                <i>aprovechar</i> la implementación que ya nos da la clase
-                madre.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>La palabra reservada super</h2>
+            </hgroup>
+            <article>
+                <p>La palabra reservada <b>super</b> es una referencia a la clase
+                    madre de igual modo que <b>this</b> es una referencia a la
+                    propia clase.</p>
+                <p>Hay veces en las que me interesa reescribir un método por
+                    completo en la clase hija.</p>
+                <p>Pero hay otras veces que lo que nos interesa es
+                    <i>aprovechar</i> la implementación que ya nos da la clase
+                    madre.
+                </p>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. Uso de super en los constructores -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Uso de super en los constructores</h2>
-        </hgroup>
-		<article>
-            <p>Los constructores los utilizamos para definir los valores
-                iniciales de los atributos.</p>
-            <p>¿Cómo los podemos utilizar desde las clases hijas? También
-                a través de <b>super</b><p>.
-<pre class="prettyprint" data-lang="Java">
-// En la clase Punto2D
-public Punto2D(double x, double y) {
-    this.x = x;
-    this.y = y;
-}
-// En la clase Punto3D
-public Punto3D(double x, double y, double z) {
-    super(x, y);
-    this.z = z;
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Uso de super en los constructores</h2>
+            </hgroup>
+            <article>
+                <p>Los constructores los utilizamos para definir los valores
+                    iniciales de los atributos.</p>
+                <p>¿Cómo los podemos utilizar desde las clases hijas? También
+                    a través de <b>super</b>
+                <p>.
+                <pre class="prettyprint" data-lang="Java">
+                    // En la clase Punto2D
+                    public Punto2D(double x, double y) {
+                    this.x = x;
+                    this.y = y;
+                    }
+                    // En la clase Punto3D
+                    public Punto3D(double x, double y, double z) {
+                    super(x, y);
+                    this.z = z;
+                    }</pre>
+            </article>
         </slide>
 
 
         <!-- Extensión de una clase. El constructor sin argumentos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>El constructor sin argumentos</h2>
-        </hgroup>
-		<article>
-            <p>Cuando se crea un objeto de una clase hija, se debe incluir
-                la funcionalidad de la clase madre.</p>
-            <!-- <p>Hagamos esta modificación en las clases <b>Punto2D</b> y
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>El constructor sin argumentos</h2>
+            </hgroup>
+            <article>
+                <p>Cuando se crea un objeto de una clase hija, se debe incluir
+                    la funcionalidad de la clase madre.</p>
+                <!-- <p>Hagamos esta modificación en las clases <b>Punto2D</b> y
                 <b>Punto3D</b> para ver como se construye un objeto de una
                 clase hija.</p> -->
-<pre class="prettyprint" data-lang="Java">
-public Punto2D() {
-    System.out.println("Constructor sin argumentos Punto2D");
-}
-...
-public Punto3D() {
-    //debe iniciar la funcionalidad de la clase madre, ¿cómo?
-    System.out.println("Constructor sin argumentos clase Punto3D");
-}
-...
-// En algún lugar de nuestro código
-Punto3D p = new Punto3D();
-// Muestra: Constructor sin argumentos Punto2D
-//          Constructor sin argumentos clase Punto3D</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Extensión de una clase. El constructor sin argumentos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>El constructor sin argumentos</h2>
-        </hgroup>
-		<article>
-            <p>Aunque no lo escribamos explícitamente, cuando se crea un objeto de la clase
-                <b>Punto3D</b> se llama al constructor
-                sin argumentos de la clase madre <b>Punto2D</b>.</p>
-            <p>Un detalle importante es que, si cuando definimos una clase
-                no definimos ningún construtor, Java definirá por nosotros un 
-                constructor sin argumentos por defecto (al que se llama constructor por defecto). 
-                Pero, si definimos un constructor
-                con argumentos, Java no definirá el constructor por defecto.</p>
-            <p>Este mecanismo es un modo de asegurar que podemos crear
-                instancias de una clase aunque no definamos ningún constructor
-                en la clase.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Extensión de una clase. El constructor sin argumentos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>El constructor sin argumentos</h2>
-        </hgroup>
-		<article>
-            <p>Peligros de olvidar qué significa el
-                <span class='green'><b>construtor sin argumentos</b></span>.</p>
-            <p>Observa este sencillo ejemplo:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Madre {
-    private int valor;
-
-    public Madre(int valor) {
-        this.valor = valor;
-    }
-}
-
-public class Hija extends Madre {
-}</pre>
-            <p>Tan poco código y esconde un error.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Extensión de una clase. El constructor sin argumentos -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>El constructor sin argumentos</h2>
-        </hgroup>
-		<article>
-            <p>Buena práctica: <span class='green'><b>Define siempre el
-                constructor sin argumentos en tus clases</b></span>.</p>
-            <p>Buena práctica: <span class='green'><b>Si desde un constructor de
-                una clase hija no tienes otro
-                constructor mejor al que llamar, llama al menos al
-                constructor sin argumentos de la clase madre</b></span>.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Yo no extiendo a nadie</h2>
-        </hgroup>
-		<article>
-<pre class="prettyprint" data-lang="Java">
-public class Punto2D {
-    // Aquí la definición de la clase
-}</pre>
-            <p>La clase <b>Punto2D</b> ¿a quién extiende? ¿tiene alguna madre?</p>
-            <p>Sí, ninguna clase en Java es <i>huérfana</i>. Si explícitamente
-                no se extiende a ninguna clase, implícitamente se extiende a
-                la clase <b>Object</b>, que es la raíz del árbol de jerarquía
-                en Java.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Yo no extiendo a nadie</h2>
-        </hgroup>
-		<article>
-            <p>La clase <b>Object</b> tiene métodos ya definidos:</p>
-<pre class="prettyprint" data-lang="Java">
-boolean equals(Object o); // Compara si dos objetos son iguales.
-int hashCode(); // Devuelve un código hash del objeto
-String toString(); // Devuelve una representación del objeto
-</pre>
-            <p>El último método es el que llama a la familia de métodos
-                <b>print[ln](...)</b> para obtener la cadena que se enviará
-                a consola.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Punto2D {...
-    @Override
-    public String toString() {
-        return x + ", " + y;
-    }...
-}</pre>
-        		        </article>
-        </slide>
-
-
-       <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Yo no extiendo a nadie</h2>
-        </hgroup>
-		<article>
-            <p>Podemos mejorar la clase <b>Punto3D</b></p>
-<pre class="prettyprint" data-lang="Java">
-public class Punto3D extends Punto2D {...
-    @Override
-    public String toString() {
-        return super.toString() + ", " + z;
-    }...
-}</pre>
-            <p>Finalmente podemos hacer:</p>
-<pre class="prettyprint" data-lang="Java">
-Punto2D p2d = new Punto2D(1, 2);
-System.out.println(p2d);
-// Mostrará 1.0, 2.0
-Punto3D p3d = new Punto3D(1, 2, 3);
-System.out.println(p3d);
-// Mostrará 1.0, 2.0, 3.0</pre>
-        		        </article>
-        </slide>
-
-
-       <!-- Extensión de una clase. Métodos que no se pueden extender -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Métodos que no se pueden extender</h2>
-        </hgroup>
-		<article>
-            <p>Existen ocasiones donde no queremos que una clase hija sobrescriba
-                un método de su clase madre.</p>
-            <p>Piensa por ejemplo en un método que recibe un valor real entre cero y diez
-                y devuelve una nota como: APROBADO(5-7), NOTABLE(7-9), etcétera.</p>
-            <p>Queremos prohibir que una hija  cambien los rangos y haga APROBADO(4-6).
-                La manera de hacerlo es utilizar la palabra reservada <b>final</b>
-                en definición del método:</p>
-<pre class="prettyprint" data-lang="Java">
-public class MetodoFinal {
-    public final void metodoFinal() {
-        // Definición del método
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-       <!-- Extensión de una clase. Métodos que no se pueden extender -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de una clase</h2>
-			<h2>Métodos que no se pueden extender</h2>
-        </hgroup>
-		<article>
-            <p>Si intentamos crear un clase hija que sobrescriba el método <b>final</b>:</p>
-<pre class="prettyprint" data-lang="Java">
-public class HijaMetodoFinal extends MetodoFinal {
-    @Override
-    public void metodoFinal() {
-        // Nueva definición del método
-    }
-}</pre>
-            <p>Obtendremos el error: Cannot override the final method from MetodoFinal.</p>
-        		        </article>
-        </slide>
-
-       <!-- Extensión de una clase. Métodos estáticos -->
-        <slide>
-        <hgroup>
-            <h2>Extensión de una clase</h2>
-            <h2>Métodos estáticos</h2>
-        </hgroup>
-        <article>
-            <p>¿Funcionan igual los métodos estáticos, que los que no lo son?</p>
-            <p>La respuesta es no. Recuerda que un método estático pertenece
-                a la clase.</p>
-            <p>Los métodos estáticos no se pueden sobreescribir, sólo ocultar.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Madre {
-    public static void estatico() {
-        System.out.println("Estático en el madre.");
-    }
-}
-</pre>
-        </article>
-        </slide>
-
-       <!-- Extensión de una clase. Métodos estáticos -->
-        <slide>
-        <hgroup>
-            <h2>Extensión de una clase</h2>
-            <h2>Métodos estáticos</h2>
-        </hgroup>
-        <article>
-            <p>Esta clase <b>Hija</b> intenta sobreescribir el
-                método usando la anotación <b>Override</b>.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Hija extends Madre {
-    //@Override // Esto genera un error
-    public static void estatico() {
-        System.out.println("Estático en la Hija.");
-    }
-}
-</pre>
-          <p>El resultado es un error en tiempo de compilacion.</p>
-          <p>Description	Resource	Path	Location	Type
-The method estatico() of type Hija must override or implement a supertype method	Hija.java	/Herencia/src/herencia	line 7	Java Problem
-</p>
-        </article>
-        </slide>
-
-       <!-- Extensión de una clase. Métodos estáticos -->
-        <slide>
-        <hgroup>
-            <h2>Extensión de una clase</h2>
-            <h2>Métodos estáticos</h2>
-        </hgroup>
-        <article>
-            <p>¿Cuál será el resultado de la ejecución de este fragmento de
-                código?</p>
-<pre class="prettyprint" data-lang="Java">
-Hija.estatico();
-Madre.estatico();
-</pre>
-            <div class="build">
-                <p>Estático en la Hija.</p>
-                <p>Estático en el madre.</p>
-            </div>
-        </article>
-        </slide>
-
-       <!-- Extensión de una clase. Métodos estáticos -->
-        <slide>
-        <hgroup>
-            <h2>Extensión de una clase</h2>
-            <h2>Métodos estáticos</h2>
-        </hgroup>
-        <article>
-            <p>¿Y el resultado de este otro ejemplo?</p>
-<pre class="prettyprint" data-lang="Java">
-Hija hija = new Hija();
-hija.estatico(); // Aquí tenemos un warning.
-Madre madre = hija;
-madre.estatico(); // Aquí tenemos otro warning.
-</pre>
-            <div class="build">
-                <p>Estático en la Hija.</p>
-                <p>Estático en el madre.</p>
-            <p>¿Pero el objeto no es de tipo <b>Hija</b>? Sí,
-                pero en el caso de los métodos <b>static</b>
-                lo que manda es el tipo de la referencia.</p>
-            <p>De hecho el warning significa que no debes
-                acceder a los métodos <b>static</b> de una clase
-                utilizando un referencia, sino el nombre de una
-                clase.</p>
-            </div>
-        </article>
-        </slide>
-
-       <!-- Compatibilidad de referencias -->
-            <slide>
-        <hgroup>
-			<h2>Compatibilidad de referencias</h2>
-        </hgroup>
-		<article>
-            <p>Hasta ahora hemos sido muy conservadores con el tipo de las
-                referencias. Si creábamos un objeto de tipo <b>Punto3D</b> se lo
-                asignábamos a una referencia de este mismo tipo. Si creábamos un
-                objeto de tipo <b>Punto2D</b> se lo asignábamos a una
-                referencia de este tipo.</p>
-            <p>¿Podemos asignar a una referencia de tipo <b>Punto2D</b> un
-                objeto de tipo <b>Punto3D</b>?
-            <p>Sí: <b class='green'>A una referencia de un tipo
-                le podemos asignar un objeto de cualquiera de sus clases
-                hijas</b>.</p>
-            <p>¿Y al revés, a una referencia de tipo hija le puedo asignar un
-                objeto de clase madre?</p>
-            <p>No: <b class='red'>A una referencia de tipo hija nunca
-                le podemos asignar un objeto de su clase madre</b>.</p>
-        		        </article>
-        </slide>
-
-
-       <!-- Compatibilidad de referencias -->
-            <slide>
-        <hgroup>
-			<h2>Compatibilidad de referencias</h2>
-        </hgroup>
-		<article>
-            <p>Recuerda que las referencias son la puerta de entrada a los
-                objetos, y no podemos tener puertas de entrada más amplias
-                que la funcionalidad que nos brindan los objetos.</p>
-            <p>Si pudiese hacer los siguiente:</p>
-<pre class="prettyprint" data-lang="Java">
-Punto3D punto = new Punto2D(1, 2); // Sin coordenada Z</pre>
-            <p>Después también podríamos hacer:</p>
-<pre class="prettyprint" data-lang="Java">
-punto.getZ();</pre>
-            <p>Cosa que no tiene sentido porque el <b>Punto2D</b> que hemos
-                creado no tiene un atributo <b>Z</b>.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Hasta ahora, al definir una clase hemos dado la implementación
-                de todos sus métodos.</p>
-            <p>Por otro lado, hemos visto las <b>interface</b> que nos
-                permiten declarar métodos sin definirlos, justo al contrario
-                que las clases.</p>
-            <p>¿Existe algún camino intermedio? ¿Puedo definir una clase
-                implementando sólo unos métodos y otros no?</p>
-            <p>La respuesta es Sí, veámoslo con un ejemplo.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Supón que desarrollas una aplicación para un
-                veterinario, el veterinario atiende a perros, gatos, pájaros,
-                etcétera.</p>
-            <p>A todos estos animales sus amos les han puesto un nombre,
-                y cada uno de ellos hace un sonido diferente,
-                así que podíamos empezar a codificarlos como:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Perro {
-    private String nombre;
-    public Perro(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public String hazSonido() {
-        return "Soy un perro y hago: Guau";
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Esta es la implementación para el Gato:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Gato {
-    private String nombre;
-    public Gato(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public String hazSonido() {
-        return "Soy un gato y hago: Miau";
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Y finalmente esta es la implementación para el Pájaro:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Pajaro {
-    private String nombre;
-    public Pajaro(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public String hazSonido() {
-        return "Soy un pájaro y hago: Pío-pío";
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Jueguemos a ser veterinarios:</p>
-<pre class="prettyprint" data-lang="Java">
-Perro perro = new Perro("Bobby");
-System.out.println(perro.hazSonido());
-Gato gato = new Gato("Gargamel");
-System.out.println(gato.hazSonido());
-Pajaro pajaro = new Pajaro("Twitee");
-System.out.println(pajaro.hazSonido());</pre>
-            <p>La salida que obtenemos es:</p>
-<samp>Soy un perro y hago: Guau<br />
-Soy un gato y hago: Miau<br />
-Soy un pájaro y hago: Pío-pío</samp>
-
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Buff!!!, cuanto código repetido!!!</p>
-            <p>Todos los animales tienen un <b>nombre</b> como un atributo y un
-                método que devuelve el valor de ese atributo.</p>
-            <p>Vaya, pero cada uno de ellos tiene una implementación
-                distinta par el sonido que hacen.</p>
-            <p>Recuerda la técnica: <span class='green'><b>Extrae hacia arriba
-                el comportamiento común, deja en las clases sólo el
-                comportamiento específico.</b></span></p>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Todos los animales tienen el mismo atributo y el mismo método
-                para devolver su valor, podemos llevar los dos a una clase
-                madre <b>Animal</b>.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Animal {
-    private String nombre;
-    public Animal(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Por ejemplo la clase <b>Perro</b> quedaría como:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Perro extends Animal {
-    public Perro(String nombre) {
-        super(nombre);
-    }
-    public String hazSonido() {
-        return "Soy un perro y hago: Guau";
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Vale, pero esto es lo que ya sabíamos, hemos utilizado la
-                herencia de nuevo, ¿cómo podemos indicar que todos los animales
-                <b>deben</b> tener un método que devuelva el sonido que
-                hacen, y que cada animal lo implemente como quiera?</p>
-<pre class="prettyprint" data-lang="Java">
-public abstract class Animal {
-    private String nombre;
-
-    public Animal(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public abstract String hazSonido();
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Ahora cada una de las clases hija está <i>obligada</i> a
-                implementar el método <b>abstract</b>, de lo contrario
-                obtendríamos un error.</p>
-<pre class="prettyprint" data-lang="Java">
-public class Perro extends Animal {
-    public Perro(String nombre) {
-        super(nombre);
-    }
-
-    @Override
-    public String hazSonido() {
-        return "Soy un perro y hago: Guau";
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <!-- <p>Juguemos de nuevo a ser veterinarios:</p> -->
-<pre class="prettyprint" data-lang="Java">
-Animal animal = new Perro("Bobby");
-System.out.println(animal.hazSonido());
-animal = new Gato("Gargamel");
-System.out.println(animal.hazSonido());
-animal = new Pajaro("Twitee");
-System.out.println(animal.hazSonido());</pre>
-<samp>Soy un perro y hago: Guau<br />
-Soy un gato y hago: Miau<br />
-Soy un pájaro y hago: Pio-pio</samp>
-            <p>Fantástico!!!, la referencia <b>Animal animal</b> es
-                compatible con cualquier clase hija.</p>
-            <p>Extraordinario!!!, la vinculación dinámica sabe a qué metodo
-                llamar aunque siempre escribamos lo mismo
-                <b>System.out.println(animal.hazSonido())</b>.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-            <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Me alegro que te guste porque hay que pagar un precio.</p>
-            <p class='green'><b>Las clases abstractas no se pueden
-                instanciar.</b></p>
-            <p class= 'green'><b>No podemos crear un objeto de una clase
-                abstracta</b>.</p>
-            <p>Bueno, no es mucho precio, al fin y al cabo ¿quien metería un
-                <b>Animal</b> en casa sin saber de que animal se trata?</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Clases abstractas -->
-        <slide>
-        <hgroup>
-			<h2>Clases <i>abstractas</i></h2>
-        </hgroup>
-		<article>
-            <p>Tratemos de combinar clases abstractas con interfaces. Definamos primero la interfaz:</p>
-            <pre class="prettyprint" data-lang="Java">
-public interface HazSonido {
-    public String hazSonido();
-}
-            </pre>
-            <p>Hemos definido en ella el método que era abstracto en la clase. Recuerda que todos los métodos de una interfaz son <b>public abstract</b></p>
-        </article>
-        </slide>
-
-
-
-            <!-- Clases abstractas -->
-            <slide>
-                <hgroup>
-                    <h2>Clases <i>abstractas</i></h2>
-                </hgroup>
-                <article>
-                <p>Ahora hagamos que la clase implemente la interfaz, pero sin llegar a definir el método <b>hazSonido()</b>.</p>
                 <pre class="prettyprint" data-lang="Java">
-public abstract class Animal implements HazSonido {
-    private String nombre;
+                    public Punto2D() {
+                    System.out.println("Constructor sin argumentos Punto2D");
+                    }
+                    ...
+                    public Punto3D() {
+                    //debe iniciar la funcionalidad de la clase madre, ¿cómo?
+                    System.out.println("Constructor sin argumentos clase Punto3D");
+                    }
+                    ...
+                    // En algún lugar de nuestro código
+                    Punto3D p = new Punto3D();
+                    // Muestra: Constructor sin argumentos Punto2D
+                    // Constructor sin argumentos clase Punto3D</pre>
+            </article>
+        </slide>
 
-    public Animal(String nombre) {
-        super();
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-}</pre>
-                <p>
-                    Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido en esta clase abstracta.
+
+        <!-- Extensión de una clase. El constructor sin argumentos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>El constructor sin argumentos</h2>
+            </hgroup>
+            <article>
+                <p>Aunque no lo escribamos explícitamente, cuando se crea un objeto de la clase
+                    <b>Punto3D</b> se llama al constructor
+                    sin argumentos de la clase madre <b>Punto2D</b>.
                 </p>
-        </article>
+                <p>Un detalle importante es que, si cuando definimos una clase
+                    no definimos ningún construtor, Java definirá por nosotros un
+                    constructor sin argumentos por defecto (al que se llama constructor por defecto).
+                    Pero, si definimos un constructor
+                    con argumentos, Java no definirá el constructor por defecto.</p>
+                <p>Este mecanismo es un modo de asegurar que podemos crear
+                    instancias de una clase aunque no definamos ningún constructor
+                    en la clase.</p>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. El constructor sin argumentos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>El constructor sin argumentos</h2>
+            </hgroup>
+            <article>
+                <p>Peligros de olvidar qué significa el
+                    <span class='green'><b>construtor sin argumentos</b></span>.
+                </p>
+                <p>Observa este sencillo ejemplo:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Madre {
+                    private int valor;
+
+                    public Madre(int valor) {
+                    this.valor = valor;
+                    }
+                    }
+
+                    public class Hija extends Madre {
+                    }</pre>
+                <p>Tan poco código y esconde un error.</p>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. El constructor sin argumentos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>El constructor sin argumentos</h2>
+            </hgroup>
+            <article>
+                <p>Buena práctica: <span class='green'><b>Define siempre el
+                            constructor sin argumentos en tus clases</b></span>.</p>
+                <p>Buena práctica: <span class='green'><b>Si desde un constructor de
+                            una clase hija no tienes otro
+                            constructor mejor al que llamar, llama al menos al
+                            constructor sin argumentos de la clase madre</b></span>.</p>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Yo no extiendo a nadie</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto2D {
+                    // Aquí la definición de la clase
+                    }</pre>
+                <p>La clase <b>Punto2D</b> ¿a quién extiende? ¿tiene alguna madre?</p>
+                <p>Sí, ninguna clase en Java es <i>huérfana</i>. Si explícitamente
+                    no se extiende a ninguna clase, implícitamente se extiende a
+                    la clase <b>Object</b>, que es la raíz del árbol de jerarquía
+                    en Java.</p>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Yo no extiendo a nadie</h2>
+            </hgroup>
+            <article>
+                <p>La clase <b>Object</b> tiene métodos ya definidos:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    boolean equals(Object o); // Compara si dos objetos son iguales.
+                    int hashCode(); // Devuelve un código hash del objeto
+                    String toString(); // Devuelve una representación del objeto
+                </pre>
+                <p>El último método es el que llama a la familia de métodos
+                    <b>print[ln](...)</b> para obtener la cadena que se enviará
+                    a consola.
+                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto2D {...
+                    @Override
+                    public String toString() {
+                    return x + ", " + y;
+                    }...
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Yo no extiendo a nadie ¿quien es mi madre? -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Yo no extiendo a nadie</h2>
+            </hgroup>
+            <article>
+                <p>Podemos mejorar la clase <b>Punto3D</b></p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Punto3D extends Punto2D {...
+                    @Override
+                    public String toString() {
+                    return super.toString() + ", " + z;
+                    }...
+                    }</pre>
+                <p>Finalmente podemos hacer:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Punto2D p2d = new Punto2D(1, 2);
+                    System.out.println(p2d);
+                    // Mostrará 1.0, 2.0
+                    Punto3D p3d = new Punto3D(1, 2, 3);
+                    System.out.println(p3d);
+                    // Mostrará 1.0, 2.0, 3.0</pre>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Métodos que no se pueden extender -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos que no se pueden extender</h2>
+            </hgroup>
+            <article>
+                <p>Existen ocasiones donde no queremos que una clase hija sobrescriba
+                    un método de su clase madre.</p>
+                <p>Piensa por ejemplo en un método que recibe un valor real entre cero y diez
+                    y devuelve una nota como: APROBADO(5-7), NOTABLE(7-9), etcétera.</p>
+                <p>Queremos prohibir que una hija cambien los rangos y haga APROBADO(4-6).
+                    La manera de hacerlo es utilizar la palabra reservada <b>final</b>
+                    en definición del método:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class MetodoFinal {
+                    public final void metodoFinal() {
+                    // Definición del método
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Extensión de una clase. Métodos que no se pueden extender -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos que no se pueden extender</h2>
+            </hgroup>
+            <article>
+                <p>Si intentamos crear un clase hija que sobrescriba el método <b>final</b>:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class HijaMetodoFinal extends MetodoFinal {
+                    @Override
+                    public void metodoFinal() {
+                    // Nueva definición del método
+                    }
+                    }</pre>
+                <p>Obtendremos el error: Cannot override the final method from MetodoFinal.</p>
+            </article>
+        </slide>
+
+        <!-- Extensión de una clase. Métodos estáticos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos estáticos</h2>
+            </hgroup>
+            <article>
+                <p>¿Funcionan igual los métodos estáticos, que los que no lo son?</p>
+                <p>La respuesta es no. Recuerda que un método estático pertenece
+                    a la clase.</p>
+                <p>Los métodos estáticos no se pueden sobreescribir, sólo ocultar.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Madre {
+                    public static void estatico() {
+                    System.out.println("Estático en el madre.");
+                    }
+                    }
+                </pre>
+            </article>
+        </slide>
+
+        <!-- Extensión de una clase. Métodos estáticos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos estáticos</h2>
+            </hgroup>
+            <article>
+                <p>Esta clase <b>Hija</b> intenta sobreescribir el
+                    método usando la anotación <b>Override</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Hija extends Madre {
+                    //@Override // Esto genera un error
+                    public static void estatico() {
+                    System.out.println("Estático en la Hija.");
+                    }
+                    }
+                </pre>
+                <p>El resultado es un error en tiempo de compilacion.</p>
+                <p>Description Resource Path Location Type
+                    The method estatico() of type Hija must override or implement a supertype method Hija.java
+                    /Herencia/src/herencia line 7 Java Problem
+                </p>
+            </article>
+        </slide>
+
+        <!-- Extensión de una clase. Métodos estáticos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos estáticos</h2>
+            </hgroup>
+            <article>
+                <p>¿Cuál será el resultado de la ejecución de este fragmento de
+                    código?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Hija.estatico();
+                    Madre.estatico();
+                </pre>
+                <div class="build">
+                    <p>Estático en la Hija.</p>
+                    <p>Estático en el madre.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Extensión de una clase. Métodos estáticos -->
+        <slide>
+            <hgroup>
+                <h2>Extensión de una clase</h2>
+                <h2>Métodos estáticos</h2>
+            </hgroup>
+            <article>
+                <p>¿Y el resultado de este otro ejemplo?</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Hija hija = new Hija();
+                    hija.estatico(); // Aquí tenemos un warning.
+                    Madre madre = hija;
+                    madre.estatico(); // Aquí tenemos otro warning.
+                </pre>
+                <div class="build">
+                    <p>Estático en la Hija.</p>
+                    <p>Estático en el madre.</p>
+                    <p>¿Pero el objeto no es de tipo <b>Hija</b>? Sí,
+                        pero en el caso de los métodos <b>static</b>
+                        lo que manda es el tipo de la referencia.</p>
+                    <p>De hecho el warning significa que no debes
+                        acceder a los métodos <b>static</b> de una clase
+                        utilizando un referencia, sino el nombre de una
+                        clase.</p>
+                </div>
+            </article>
+        </slide>
+
+        <!-- Compatibilidad de referencias -->
+        <slide>
+            <hgroup>
+                <h2>Compatibilidad de referencias</h2>
+            </hgroup>
+            <article>
+                <p>Hasta ahora hemos sido muy conservadores con el tipo de las
+                    referencias. Si creábamos un objeto de tipo <b>Punto3D</b> se lo
+                    asignábamos a una referencia de este mismo tipo. Si creábamos un
+                    objeto de tipo <b>Punto2D</b> se lo asignábamos a una
+                    referencia de este tipo.</p>
+                <p>¿Podemos asignar a una referencia de tipo <b>Punto2D</b> un
+                    objeto de tipo <b>Punto3D</b>?
+                <p>Sí: <b class='green'>A una referencia de un tipo
+                        le podemos asignar un objeto de cualquiera de sus clases
+                        hijas</b>.</p>
+                <p>¿Y al revés, a una referencia de tipo hija le puedo asignar un
+                    objeto de clase madre?</p>
+                <p>No: <b class='red'>A una referencia de tipo hija nunca
+                        le podemos asignar un objeto de su clase madre</b>.</p>
+            </article>
+        </slide>
+
+
+        <!-- Compatibilidad de referencias -->
+        <slide>
+            <hgroup>
+                <h2>Compatibilidad de referencias</h2>
+            </hgroup>
+            <article>
+                <p>Recuerda que las referencias son la puerta de entrada a los
+                    objetos, y no podemos tener puertas de entrada más amplias
+                    que la funcionalidad que nos brindan los objetos.</p>
+                <p>Si pudiese hacer los siguiente:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Punto3D punto = new Punto2D(1, 2); // Sin coordenada Z</pre>
+                <p>Después también podríamos hacer:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    punto.getZ();</pre>
+                <p>Cosa que no tiene sentido porque el <b>Punto2D</b> que hemos
+                    creado no tiene un atributo <b>Z</b>.</p>
+            </article>
         </slide>
 
 
@@ -1118,10 +817,335 @@ public abstract class Animal implements HazSonido {
                 <h2>Clases <i>abstractas</i></h2>
             </hgroup>
             <article>
-                <p>La implementación de las clases concretas es la misma que antes, pero ahora también podemos utilizar con ellas una referencia de tipo interfaz:</p>
+                <p>Hasta ahora, al definir una clase hemos dado la implementación
+                    de todos sus métodos.</p>
+                <p>Por otro lado, hemos visto las <b>interface</b> que nos
+                    permiten declarar métodos sin definirlos, justo al contrario
+                    que las clases.</p>
+                <p>¿Existe algún camino intermedio? ¿Puedo definir una clase
+                    implementando sólo unos métodos y otros no?</p>
+                <p>La respuesta es Sí, veámoslo con un ejemplo.</p>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Supón que desarrollas una aplicación para un
+                    veterinario, el veterinario atiende a perros, gatos, pájaros,
+                    etcétera.</p>
+                <p>A todos estos animales sus amos les han puesto un nombre,
+                    y cada uno de ellos hace un sonido diferente,
+                    así que podíamos empezar a codificarlos como:</p>
                 <pre class="prettyprint" data-lang="Java">
-HazSonido animalRuidoso = new Perro("Bobby");
-System.out.println(animalRuidoso.hazSonido());
+                    public class Perro {
+                    private String nombre;
+                    public Perro(String nombre) {
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    public String hazSonido() {
+                    return "Soy un perro y hago: Guau";
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Esta es la implementación para el Gato:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Gato {
+                    private String nombre;
+                    public Gato(String nombre) {
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    public String hazSonido() {
+                    return "Soy un gato y hago: Miau";
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Y finalmente esta es la implementación para el Pájaro:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Pajaro {
+                    private String nombre;
+                    public Pajaro(String nombre) {
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    public String hazSonido() {
+                    return "Soy un pájaro y hago: Pío-pío";
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Jueguemos a ser veterinarios:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Perro perro = new Perro("Bobby");
+                    System.out.println(perro.hazSonido());
+                    Gato gato = new Gato("Gargamel");
+                    System.out.println(gato.hazSonido());
+                    Pajaro pajaro = new Pajaro("Twitee");
+                    System.out.println(pajaro.hazSonido());</pre>
+                <p>La salida que obtenemos es:</p>
+                <samp>Soy un perro y hago: Guau<br />
+                    Soy un gato y hago: Miau<br />
+                    Soy un pájaro y hago: Pío-pío</samp>
+
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Buff!!!, cuanto código repetido!!!</p>
+                <p>Todos los animales tienen un <b>nombre</b> como un atributo y un
+                    método que devuelve el valor de ese atributo.</p>
+                <p>Vaya, pero cada uno de ellos tiene una implementación
+                    distinta par el sonido que hacen.</p>
+                <p>Recuerda la técnica: <span class='green'><b>Extrae hacia arriba
+                            el comportamiento común, deja en las clases sólo el
+                            comportamiento específico.</b></span></p>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Todos los animales tienen el mismo atributo y el mismo método
+                    para devolver su valor, podemos llevar los dos a una clase
+                    madre <b>Animal</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Animal {
+                    private String nombre;
+                    public Animal(String nombre) {
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Por ejemplo la clase <b>Perro</b> quedaría como:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Perro extends Animal {
+                    public Perro(String nombre) {
+                    super(nombre);
+                    }
+                    public String hazSonido() {
+                    return "Soy un perro y hago: Guau";
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Vale, pero esto es lo que ya sabíamos, hemos utilizado la
+                    herencia de nuevo, ¿cómo podemos indicar que todos los animales
+                    <b>deben</b> tener un método que devuelva el sonido que
+                    hacen, y que cada animal lo implemente como quiera?
+                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    public abstract class Animal {
+                    private String nombre;
+
+                    public Animal(String nombre) {
+                    this.nombre = nombre;
+                    }
+
+                    public String getNombre() {
+                    return nombre;
+                    }
+
+                    public abstract String hazSonido();
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Ahora cada una de las clases hija está <i>obligada</i> a
+                    implementar el método <b>abstract</b>, de lo contrario
+                    obtendríamos un error.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Perro extends Animal {
+                    public Perro(String nombre) {
+                    super(nombre);
+                    }
+
+                    @Override
+                    public String hazSonido() {
+                    return "Soy un perro y hago: Guau";
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <!-- <p>Juguemos de nuevo a ser veterinarios:</p> -->
+                <pre class="prettyprint" data-lang="Java">
+                    Animal animal = new Perro("Bobby");
+                    System.out.println(animal.hazSonido());
+                    animal = new Gato("Gargamel");
+                    System.out.println(animal.hazSonido());
+                    animal = new Pajaro("Twitee");
+                    System.out.println(animal.hazSonido());</pre>
+                <samp>Soy un perro y hago: Guau<br />
+                    Soy un gato y hago: Miau<br />
+                    Soy un pájaro y hago: Pio-pio</samp>
+                <p>Fantástico!!!, la referencia <b>Animal animal</b> es
+                    compatible con cualquier clase hija.</p>
+                <p>Extraordinario!!!, la vinculación dinámica sabe a qué metodo
+                    llamar aunque siempre escribamos lo mismo
+                    <b>System.out.println(animal.hazSonido())</b>.
+                </p>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Me alegro que te guste porque hay que pagar un precio.</p>
+                <p class='green'><b>Las clases abstractas no se pueden
+                        instanciar.</b></p>
+                <p class='green'><b>No podemos crear un objeto de una clase
+                        abstracta</b>.</p>
+                <p>Bueno, no es mucho precio, al fin y al cabo ¿quien metería un
+                    <b>Animal</b> en casa sin saber de que animal se trata?
+                </p>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Tratemos de combinar clases abstractas con interfaces. Definamos primero la interfaz:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public interface HazSonido {
+                    public String hazSonido();
+                    }
+                </pre>
+                <p>Hemos definido en ella el método que era abstracto en la clase. Recuerda que todos los métodos de una
+                    interfaz son <b>public abstract</b></p>
+            </article>
+        </slide>
+
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>Ahora hagamos que la clase implemente la interfaz, pero sin llegar a definir el método
+                    <b>hazSonido()</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public abstract class Animal implements HazSonido {
+                    private String nombre;
+
+                    public Animal(String nombre) {
+                    super();
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    }</pre>
+                <p>
+                    Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido en esta
+                    clase abstracta.
+                </p>
+            </article>
+        </slide>
+
+
+        <!-- Clases abstractas -->
+        <slide>
+            <hgroup>
+                <h2>Clases <i>abstractas</i></h2>
+            </hgroup>
+            <article>
+                <p>La implementación de las clases concretas es la misma que antes, pero ahora también podemos utilizar
+                    con ellas una referencia de tipo interfaz:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    HazSonido animalRuidoso = new Perro("Bobby");
+                    System.out.println(animalRuidoso.hazSonido());
                 </pre>
                 <p class="centrado"><img src='imagenes/interfaceClaseAbstract.png' style='height: 300px'> </p>
 
@@ -1129,259 +1153,261 @@ System.out.println(animalRuidoso.hazSonido());
         </slide>
 
 
-            <!-- Polimorfismo con herencia -->
-            <slide>
-        <hgroup>
-			<h2>Polimorfismo con herencia</h2>
-        </hgroup>
-		<article>
-            <p>El polimorfismo con <b>Herencia</b> significa lo mismo que con <b>interfaces</b>
-                un mismo método puede tener implementaciones distintas en su clase madre 
-                y alguna de sus clases hijas.</p>
-            <p>Además, al utilizar <i>Herencia</i> el polimorfismo significa
-                que donde se puede utilizar una clases madre también
-                se puede utilizar una clase hija.</p>
-            <p>Si un método tiene un argumento de tipo una determinada
-                clase, ese método también lo podemos invocar con
-                instancias de una de sus clases hijas.</p>
-        		        </article>
+        <!-- Polimorfismo con herencia -->
+        <slide>
+            <hgroup>
+                <h2>Polimorfismo con herencia</h2>
+            </hgroup>
+            <article>
+                <p>El polimorfismo con <b>Herencia</b> significa lo mismo que con <b>interfaces</b>
+                    un mismo método puede tener implementaciones distintas en su clase madre
+                    y alguna de sus clases hijas.</p>
+                <p>Además, al utilizar <i>Herencia</i> el polimorfismo significa
+                    que donde se puede utilizar una clases madre también
+                    se puede utilizar una clase hija.</p>
+                <p>Si un método tiene un argumento de tipo una determinada
+                    clase, ese método también lo podemos invocar con
+                    instancias de una de sus clases hijas.</p>
+            </article>
         </slide>
 
 
         <!-- De nuevo la vinculación dinámica -->
-            <slide>
-        <hgroup>
-			<h2>De nuevo la vinculación dinámica</h2>
-        </hgroup>
-		<article>
-            <p>Como ya hemos visto, el tipo de la referencia
-                no es suficiente para que la máquina virtual de Java
-                encuentre el método que se debe invocar.</p>
-            <p>En tiempo de ejecución, y basándose en el tipo del objeto
-                al que se accede a través de una referencia, la máquina
-                virtual de Java encuentra el método correcto al que debe
-                llamar.</p>
-<pre class="prettyprint" data-lang="Java">
-Punto2D p2d = new Punto2D(1, 2);
-System.out.println(p2d);
-// Muestra 1.0, 2.0
-p2d = new Punto3D(1, 2, 3);
-System.out.println(p2d);
-// Muestra 1.0, 2.0, 3.0
-</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>De nuevo la vinculación dinámica</h2>
+            </hgroup>
+            <article>
+                <p>Como ya hemos visto, el tipo de la referencia
+                    no es suficiente para que la máquina virtual de Java
+                    encuentre el método que se debe invocar.</p>
+                <p>En tiempo de ejecución, y basándose en el tipo del objeto
+                    al que se accede a través de una referencia, la máquina
+                    virtual de Java encuentra el método correcto al que debe
+                    llamar.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    Punto2D p2d = new Punto2D(1, 2);
+                    System.out.println(p2d);
+                    // Muestra 1.0, 2.0
+                    p2d = new Punto3D(1, 2, 3);
+                    System.out.println(p2d);
+                    // Muestra 1.0, 2.0, 3.0
+                </pre>
+            </article>
         </slide>
 
 
         <!-- El principio de substitución de Liskov -->
-            <slide>
-        <hgroup>
-			<h2>El principio de substitución de Liskov</h2>
-        </hgroup>
-		<article>
-            <p>El <a href="http://es.wikipedia.org/wiki/Principio_de_sustituci%C3%B3n_de_Liskov">
-                principio de substitución de Liskov</a> nos «obliga» a
-                diseñar nuestras clases de modo que el comportamiento
-                de nuestro software no se modifique, si invocamos un método
-                que admite referencias de una clase madre, o si lo invocamos
-                con referencias de alguna de sus clases hijas. </p>
+        <slide>
+            <hgroup>
+                <h2>El principio de substitución de Liskov</h2>
+            </hgroup>
+            <article>
+                <p>El <a href="http://es.wikipedia.org/wiki/Principio_de_sustituci%C3%B3n_de_Liskov">
+                        principio de substitución de Liskov</a> nos «obliga» a
+                    diseñar nuestras clases de modo que el comportamiento
+                    de nuestro software no se modifique, si invocamos un método
+                    que admite referencias de una clase madre, o si lo invocamos
+                    con referencias de alguna de sus clases hijas. </p>
                 <!--objetos de cualquier clase hija allá donde podamos utilizar objetos de
                 la clase madre.</p>-->
-        		        </article>
+            </article>
         </slide>
 
 
         <!-- Clases que no se pueden extender -->
-            <slide>
-        <hgroup>
-			<h2>Clases que no se pueden extender</h2>
-        </hgroup>
-		<article>
-            <p>Existen ocasiones en que no nos interesa que nuestras clases se puedan
-                extender.</p>
-            <p>Piensa, por ejemplo, en una clase cuyo cometido sea recibir el usuario y
-                clave de una persona para validarlo contra una base de datos.</p>
-            <p>Si pudiésemos extender esta clase, y gracias al principio de substitución de
-                Liskov, podríamos inyectar una hija de esta clase en el sistema y leer
-                los datos de acceso.</p>
-            <p>En el paquete estándar de Java tienes muchas clases que no se pueden extender
-                como <b>String</b>, <b>System</b>, <b>Math</b> y todas las clases
-                recubridoras como <b>Integer</b>, <b>Float</b>, etc.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Clases que no se pueden extender</h2>
+            </hgroup>
+            <article>
+                <p>Existen ocasiones en que no nos interesa que nuestras clases se puedan
+                    extender.</p>
+                <p>Piensa, por ejemplo, en una clase cuyo cometido sea recibir el usuario y
+                    clave de una persona para validarlo contra una base de datos.</p>
+                <p>Si pudiésemos extender esta clase, y gracias al principio de substitución de
+                    Liskov, podríamos inyectar una hija de esta clase en el sistema y leer
+                    los datos de acceso.</p>
+                <p>En el paquete estándar de Java tienes muchas clases que no se pueden extender
+                    como <b>String</b>, <b>System</b>, <b>Math</b> y todas las clases
+                    recubridoras como <b>Integer</b>, <b>Float</b>, etc.</p>
+            </article>
         </slide>
 
 
         <!-- Clases que no se pueden extender -->
-            <slide>
-        <hgroup>
-			<h2>Clases que no se pueden extender</h2>
-        </hgroup>
-		<article>
-            <p>Para prohibir que una clase se pueda extender, simplemente añadimos a su
-                definición la palabra reservada <b>final</b>, como en el siguiente ejemplo:</p>
-<pre class="prettyprint" data-lang="Java">
-public final class SinHijos {
-    // Aquí la definición de la clase
-}</pre>
-            <p>Si intentamos extender esta clase:</p>
-<pre class="prettyprint" data-lang="Java">
-public class Hija extends SinHijos {
+        <slide>
+            <hgroup>
+                <h2>Clases que no se pueden extender</h2>
+            </hgroup>
+            <article>
+                <p>Para prohibir que una clase se pueda extender, simplemente añadimos a su
+                    definición la palabra reservada <b>final</b>, como en el siguiente ejemplo:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public final class SinHijos {
+                    // Aquí la definición de la clase
+                    }</pre>
+                <p>Si intentamos extender esta clase:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Hija extends SinHijos {
 
-}</pre>
-            <p>obtendremos el error:
-            <samp>The type Hija cannot subclass the final class SinHijos</samp></p>
-        		        </article>
+                    }</pre>
+                <p>obtendremos el error:
+                    <samp>The type Hija cannot subclass the final class SinHijos</samp>
+                </p>
+            </article>
         </slide>
 
 
         <!-- Extensión de interfaces -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de interfaces</h2>
-        </hgroup>
-		<article>
-            <p>Los <b>interface</b> son tipos de datos y como tales se pueden
-                extender. Recordemos el <b>interface Pagador</b> del capítulo
-                anterior:</p>
-<pre class="prettyprint" data-lang="Java">
-public interface Pagador {
-    String getNombre();
-    String getDireccion();
-    String getNif();
-}</pre>
-            <p>Podemos extenderlo para incluir un método que me devuelva
-                los ingresos brutos del <b>Pagador</b>.</p>
-<pre class="prettyprint" data-lang="Java">
-public interface PagadorIngresosBrutos extends Pagador {
-    float getIngresosBrutos();
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de interfaces</h2>
+            </hgroup>
+            <article>
+                <p>Los <b>interface</b> son tipos de datos y como tales se pueden
+                    extender. Recordemos el <b>interface Pagador</b> del capítulo
+                    anterior:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public interface Pagador {
+                    String getNombre();
+                    String getDireccion();
+                    String getNif();
+                    }</pre>
+                <p>Podemos extenderlo para incluir un método que me devuelva
+                    los ingresos brutos del <b>Pagador</b>.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public interface PagadorIngresosBrutos extends Pagador {
+                    float getIngresosBrutos();
+                    }</pre>
+            </article>
         </slide>
 
 
         <!-- Extensión de interfaces -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de interfaces</h2>
-        </hgroup>
-		<article>
-            <p>Cualquier clase que implemente el <b>interface PagadorIngresosBrutos</b>
-                debe implementar los cuatro métodos anteriores.</p>
-<pre class="prettyprint" data-lang="Java">
-public class PersonaIngresosBrutos implements PagadorIngresosBrutos {
-    @Override
-    public String getNombre() {....
-    }
-    @Override
-    public String getDireccion() {....
-    }
-    @Override
-    public String getNif() {....
-    }
-    @Override
-    public float getIngresosBrutos() {....
-    }
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de interfaces</h2>
+            </hgroup>
+            <article>
+                <p>Cualquier clase que implemente el <b>interface PagadorIngresosBrutos</b>
+                    debe implementar los cuatro métodos anteriores.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class PersonaIngresosBrutos implements PagadorIngresosBrutos {
+                    @Override
+                    public String getNombre() {....
+                    }
+                    @Override
+                    public String getDireccion() {....
+                    }
+                    @Override
+                    public String getNif() {....
+                    }
+                    @Override
+                    public float getIngresosBrutos() {....
+                    }
+                    }</pre>
+            </article>
         </slide>
 
 
         <!-- Extensión de interfaces -->
-            <slide>
-        <hgroup>
-			<h2>Extensión de interfaces</h2>
-        </hgroup>
-		<article>
-            <p>Esto te va a sorprender: <span class="green">los <b>interface</b> pueden extender
-                a más de un <b>interface</b> madre.</span></p>
-            <p>Fíjate que no hay problema, puesto que los <b>interface</b> sólo
-                declaran métodos pero no los definen.</p>
-<pre class="prettyprint" data-lang="Java">
-public interface EstudianteYPagador extends Pagador, Estudiante {
-    // Aquí la definición de sus propios métodos
-}</pre>
-            <p>¿Qué ocurre si tenemos métodos con la misma signatura en los
-                <b>interface</b> madre?</p>
-            <p>Nada, porque están declarados simplemente. Es como si finalmente
-                se fusionasen en uno solo.</p>
-            <p>Recomendación: si te llegase a ocurrir, revisa el nombre de tus
-                métodos, y donde están declarados.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Extensión de interfaces</h2>
+            </hgroup>
+            <article>
+                <p>Esto te va a sorprender: <span class="green">los <b>interface</b> pueden extender
+                        a más de un <b>interface</b> madre.</span></p>
+                <p>Fíjate que no hay problema, puesto que los <b>interface</b> sólo
+                    declaran métodos pero no los definen.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public interface EstudianteYPagador extends Pagador, Estudiante {
+                    // Aquí la definición de sus propios métodos
+                    }</pre>
+                <p>¿Qué ocurre si tenemos métodos con la misma signatura en los
+                    <b>interface</b> madre?
+                </p>
+                <p>Nada, porque están declarados simplemente. Es como si finalmente
+                    se fusionasen en uno solo.</p>
+                <p>Recomendación: si te llegase a ocurrir, revisa el nombre de tus
+                    métodos, y donde están declarados.</p>
+            </article>
         </slide>
 
 
         <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
-            <p>Hasta este momento, siempre hemos definido nuestras clases
-                dentro de algún paquete. Está desaconsejado que las clases
-                no estén definidas en algún paquete.</p>
-            <p>Los paquetes son <i>espacios de nombres</i> para la
-                máquina virtual de Java, igual que el espacio de
-                nombres en <b>Internet</b></p>
-            <p>Además, los paquetes crean una jerarquía de subdirectorios
-                que puedes comprobar en la vista <b>Navigator</b> de
-                Eclipse.</p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <p>Hasta este momento, siempre hemos definido nuestras clases
+                    dentro de algún paquete. Está desaconsejado que las clases
+                    no estén definidas en algún paquete.</p>
+                <p>Los paquetes son <i>espacios de nombres</i> para la
+                    máquina virtual de Java, igual que el espacio de
+                    nombres en <b>Internet</b></p>
+                <p>Además, los paquetes crean una jerarquía de subdirectorios
+                    que puedes comprobar en directorio <b>target</b> de
+                    tu proyecto maven.</p>
+            </article>
         </slide>
 
 
         <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
-            <p>En Java contamos con cuatro modificadores de
-                acceso: <b>private, «no escribir modificador», protected y public</b>.</p>
-            <p>Los modificadores de acceso restringen la visibilidad
-                o el ámbito de los miembros: atributos y métodos, de una clase.</p>
-            <p>Cuidado!!, no escribir modificador de acceso
-                tiene un significado bien definido en Java:
-                modificador de acceso de ámbito el <b>package</b>.</p>
-            <p>El <b>package</b> debería ser el lugar, por defecto, donde creemos
-              nuestras clases.</b>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <p>En Java contamos con cuatro modificadores de
+                    acceso: <b>private, «no escribir modificador», protected y public</b>.</p>
+                <p>Los modificadores de acceso restringen la visibilidad
+                    o el ámbito de los miembros: atributos y métodos, de una clase.</p>
+                <p>Cuidado!!, no escribir modificador de acceso
+                    tiene un significado bien definido en Java:
+                    modificador de acceso de ámbito el <b>package</b>.</p>
+                <p>El <b>package</b> debería ser el lugar, por defecto, donde creemos
+                    nuestras clases.</b>
+            </article>
         </slide>
 
 
         <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
-            <p>Dos clases dentro del mismo paquete:</p>
-            <p class="centrado"><img src="imagenes/modificadoresAcceso.png"></p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <p>Dos clases dentro del mismo paquete:</p>
+                <p class="centrado"><img src="imagenes/modificadoresAcceso.png"></p>
+            </article>
         </slide>
 
 
         <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
-            <p>Dos clases en diferentes paquetes pero con
-                relación madre/hija:</p>
-            <p class="centrado"><img src="imagenes/modificadoresAcceso2.png"></p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <p>Dos clases en diferentes paquetes pero con
+                    relación madre/hija:</p>
+                <p class="centrado"><img src="imagenes/modificadoresAcceso2.png"></p>
+            </article>
         </slide>
 
 
         <!-- Paquetes y modificadores de acceso -->
-            <slide>
-        <hgroup>
-			<h2>Paquetes y modificadores de acceso</h2>
-        </hgroup>
-		<article>
-            <p>Dos clases en paquetes distintos:</p>
-            <p class="centrado"><img src="imagenes/modificadoresAcceso3.png"></p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Paquetes y modificadores de acceso</h2>
+            </hgroup>
+            <article>
+                <p>Dos clases en paquetes distintos:</p>
+                <p class="centrado"><img src="imagenes/modificadoresAcceso3.png"></p>
+            </article>
         </slide>
 
 
@@ -1395,13 +1421,43 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
                     de acceso y su significado.</p>
                 <table>
                     <thead>
-                    <tr><td></td><td><b>private</b></td><td></td><td><b>protected</b></td><td><b>public</b></td></tr>
+                        <tr>
+                            <td></td>
+                            <td><b>private</b></td>
+                            <td></td>
+                            <td><b>protected</b></td>
+                            <td><b>public</b></td>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr><td>La clase</td><td>SI</td><td>SI</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>El paquete</td><td>NO</td><td>SI</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>Hijas (otro paquete)</td><td>NO</td><td>NO</td><td>SI</td><td>SI</td></tr>
-                    <tr><td>Otras clases</td><td>NO</td><td>NO</td><td>NO</td><td>SI</td></tr>
+                        <tr>
+                            <td>La clase</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                        </tr>
+                        <tr>
+                            <td>El paquete</td>
+                            <td>NO</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                        </tr>
+                        <tr>
+                            <td>Hijas (otro paquete)</td>
+                            <td>NO</td>
+                            <td>NO</td>
+                            <td>SI</td>
+                            <td>SI</td>
+                        </tr>
+                        <tr>
+                            <td>Otras clases</td>
+                            <td>NO</td>
+                            <td>NO</td>
+                            <td>NO</td>
+                            <td>SI</td>
+                        </tr>
                     </tbody>
                 </table>
                 <p>El ámbito natural de los miembros de una clase, atributos y métodos,
@@ -1411,104 +1467,23 @@ public interface EstudianteYPagador extends Pagador, Estudiante {
 
 
         <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-        </hgroup>
-		<article>
-            <p>Los principios
-                <a href="http://www.butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">
-                SOLID</a> fueron introducidos por
-                <a href="http://cleancoder.com/products">Robert C. Martin</a>
-                y guían el diseño de software orientado a objetos.</p>
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+            </hgroup>
+            <article>
+                <p>Los principios
+                    <a href="http://www.butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">
+                        SOLID</a> fueron introducidos por
+                    <a href="http://cleancoder.com/products">Robert C. Martin</a>
+                    y guían el diseño de software orientado a objetos.
+                </p>
                 <p><b>S</b>ingle Responsability.</p>
                 <p><b>O</b>pen Close.</p>
                 <p><b>L</b>iskov Substitution.</p>
                 <p><b>I</b>nterface Segregation.</p>
                 <p><b>D</b>ependency Inversion.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Single Responsability Principle</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">Una clase debe tener
-                un solo motivo para cambiar.</b></p>
-<pre class="prettyprint" data-lang="Java">
-public class Estudiante {
-    private String nombre;
-    private String calle;
-    private int numero;
-    private String puerta;
-    private float notas[];
-
-    public String getDirecion() {
-        return calle + "," + numero + "," + puerta;
-    }
-
-    public float califica() {
-        // Algoritmo para calcular la nota final
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Single Responsability Principle</h2>
-        </hgroup>
-		<article>
-            <p>La clase <b>Estudiante</b> puede cambiar por varios motivos:</p>
-            <ul>
-                <li>Si añadimos más información a la dirección, por ejemplo,
-                    el código postal.</li>
-                <li>Si cambiamos el modo de calcular la nota final a partir de
-                    las notas individuales.</li>
-            </ul>
-            <p>Una solución posible es introducir nuevas clases con una
-                responsabilidad bien delimitada:
-                <ul>
-                    <li>Una clase que abstraiga la idea de dirección postal.</li>
-                    <li>Una clase que almacene las notas y sepa dar una
-                        calificación final.</li>
-                </ul>
-                </p>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Single Responsability Principle</h2>
-        </hgroup>
-		<article>
-<pre class="prettyprint" data-lang="Java">
-public class EstudianteSolid {
-    private String nombre;
-    private Direccion direccion;
-    private Calificador calificador;
-
-    public float calificacion() {
-        return calificador.califica();
-    }
-    public String getDireccion() {
-        return direccion.getDireccion();
-    }
-}</pre>
-          <p>Los métodos <b>calificacion()</b> y <b>getDireccion()</b> se llaman
-            métodos delegados, ya que «delegan» su trabajo en otros métodos,
-            los de las clases <b>Direccion</b> y <b>Calificador</b>.</p>
-        		        </article>
+            </article>
         </slide>
 
 
@@ -1519,25 +1494,94 @@ public class EstudianteSolid {
                 <h2>Single Responsability Principle</h2>
             </hgroup>
             <article>
-                <p>Imprescindible la lectura del tío Bob sobre el <a href="https://docs.google.com/open?id=0ByOwmqah_nuGNHEtcU5OekdDMkk">Single Responsibility Principel</a>.</p>
-                <p><a href="http://devexperto.com/principio-responsabilidad-unica">Principio de responsabilidad única</a> en español</p>
-                </article>
-            </slide>
+                <p><b class="green">Una clase debe tener
+                        un solo motivo para cambiar.</b></p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class Estudiante {
+                    private String nombre;
+                    private String calle;
+                    private int numero;
+                    private String puerta;
+                    private float notas[];
+
+                    public String getDirecion() {
+                    return calle + "," + numero + "," + puerta;
+                    }
+
+                    public float califica() {
+                    // Algoritmo para calcular la nota final
+                    }
+                    }</pre>
+            </article>
+        </slide>
 
 
         <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Open Close Principle</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">Una clase debe estar cerrada para
-                la modificación pero abierta para la extensión.</b></p>
-            <p>Este principio quizás sea el más difícil de explicar, así
-                que te dejo un vídeo donde se intenta aclarar la idea.</p>
-            <p><a href="http://vimeo.com/34321494">Vídeo con ejemplo.</a></p>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Single Responsability Principle</h2>
+            </hgroup>
+            <article>
+                <p>La clase <b>Estudiante</b> puede cambiar por varios motivos:</p>
+                <ul>
+                    <li>Si añadimos más información a la dirección, por ejemplo,
+                        el código postal.</li>
+                    <li>Si cambiamos el modo de calcular la nota final a partir de
+                        las notas individuales.</li>
+                </ul>
+                <p>Una solución posible es introducir nuevas clases con una
+                    responsabilidad bien delimitada:
+                <ul>
+                    <li>Una clase que abstraiga la idea de dirección postal.</li>
+                    <li>Una clase que almacene las notas y sepa dar una
+                        calificación final.</li>
+                </ul>
+                </p>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Single Responsability Principle</h2>
+            </hgroup>
+            <article>
+                <pre class="prettyprint" data-lang="Java">
+                    public class EstudianteSolid {
+                    private String nombre;
+                    private Direccion direccion;
+                    private Calificador calificador;
+
+                    public float calificacion() {
+                    return calificador.califica();
+                    }
+                    public String getDireccion() {
+                    return direccion.getDireccion();
+                    }
+                    }</pre>
+                <p>Los métodos <b>calificacion()</b> y <b>getDireccion()</b> se llaman
+                    métodos delegados, ya que «delegan» su trabajo en otros métodos,
+                    los de las clases <b>Direccion</b> y <b>Calificador</b>.</p>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Single Responsability Principle</h2>
+            </hgroup>
+            <article>
+                <p>Imprescindible la lectura del tío Bob sobre el <a
+                        href="https://docs.google.com/open?id=0ByOwmqah_nuGNHEtcU5OekdDMkk">Single Responsibility
+                        Principel</a>.</p>
+                <p><a href="http://devexperto.com/principio-responsabilidad-unica">Principio de responsabilidad
+                        única</a> en español</p>
+            </article>
         </slide>
 
 
@@ -1548,86 +1592,28 @@ public class EstudianteSolid {
                 <h2>Open Close Principle</h2>
             </hgroup>
             <article>
-                <p><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgN2M5MTkwM2EtNWFkZC00ZTI3LWFjZTUtNTFhZGZiYmUzODc1&hl=en">Open Close Principle</a> por el tío Bob.</p>
-                <p>El <a href="http://devexperto.com/principio-open-closed">principio abierto/cerrado</a> en español.</p>
+                <p><b class="green">Una clase debe estar cerrada para
+                        la modificación pero abierta para la extensión.</b></p>
+                <p>Este principio quizás sea el más difícil de explicar, así
+                    que te dejo un vídeo donde se intenta aclarar la idea.</p>
+                <p><a href="http://vimeo.com/34321494">Vídeo con ejemplo.</a></p>
             </article>
         </slide>
 
 
         <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Liskov Substitution Principle</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">Las clases hijas pueden
-                ocupar el lugar de las clases madre sin que el comportamiento
-                del software se vea modificado.</b></p>
-            <p>Este principio lo que nos dice es que cuando una clase extiende
-                a otra debe ampliar el comportamiento de la clase que extiende,
-                pero no modificarlo.</p>
-<pre class="prettyprint" data-lang="Java">
-public class ClaseConNombre {
-    private String nombre;
-    public ClaseConNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Liskov Substitution Principle</h2>
-        </hgroup>
-		<article>
-            <p>Esta sería una clase hija que no cumple el principio:</p>
-<pre class="prettyprint" data-lang="Java">
-public class ClaseConNombreYApellidos extends ClaseConNombre {
-    private String apellidos;
-
-    public ClaseConNombreYApellidos(String nombre, String apellidos) {
-        super(nombre);
-        this.apellidos = apellidos;
-    }
-    public String getNombre() {
-        return "";
-    }
-}</pre>
-            <p><b>getNombre()</b> no devuelve nada, por lo tanto
-                no podríamos comparar este nombre con otro.</p>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Liskov Substitution Principle</h2>
-        </hgroup>
-		<article>
-            <p>Y esta clase sí que cumple el principio:</p>
-<pre class="prettyprint" data-lang="Java">
-public class ClaseConNombreYApellidos extends ClaseConNombre {
-    private String apellidos;
-
-    public ClaseConNombreYApellidos(String nombre, String apellidos) {
-        super(nombre);
-        this.apellidos = apellidos;
-    }
-    public String getNombre() {
-        return super.getNombre() + " " + apellidos;
-    }
-}</pre>
-        		        </article>
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Open Close Principle</h2>
+            </hgroup>
+            <article>
+                <p><a
+                        href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgN2M5MTkwM2EtNWFkZC00ZTI3LWFjZTUtNTFhZGZiYmUzODc1&hl=en">Open
+                        Close Principle</a> por el tío Bob.</p>
+                <p>El <a href="http://devexperto.com/principio-open-closed">principio abierto/cerrado</a> en español.
+                </p>
+            </article>
         </slide>
 
 
@@ -1638,99 +1624,89 @@ public class ClaseConNombreYApellidos extends ClaseConNombre {
                 <h2>Liskov Substitution Principle</h2>
             </hgroup>
             <article>
-                <p><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgNzAzZjA5ZmItNjU3NS00MzQ5LTkwYjMtMDJhNDU5ZTM0MTlh&hl=en">Liskov Substitution Principle</a> por el tío Bob.</p>
-                <p>El <a href="http://devexperto.com/principio-de-sustitucion-de-liskov">Principio de substitución del Liskov</a> en español.</p>
+                <p><b class="green">Las clases hijas pueden
+                        ocupar el lugar de las clases madre sin que el comportamiento
+                        del software se vea modificado.</b></p>
+                <p>Este principio lo que nos dice es que cuando una clase extiende
+                    a otra debe ampliar el comportamiento de la clase que extiende,
+                    pero no modificarlo.</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class ClaseConNombre {
+                    private String nombre;
+                    public ClaseConNombre(String nombre) {
+                    this.nombre = nombre;
+                    }
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    }</pre>
             </article>
         </slide>
 
 
         <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Interface Segregation Principle</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">El interfaz de una clase
-                debe estar orientado a un único cliente.</b></p>
-            <p>Dicho de otro modo quizás se entienda mejor. Si una clase
-                necesita definir un método que está declarado en un
-                <b>interface</b> y este <b>interface</b> declara a su vez otros
-                métodos que la clase no necesita... la clase no debería
-                implementar el <b>interface</b>.</p>
-        		        </article>
-        </slide>
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Liskov Substitution Principle</h2>
+            </hgroup>
+            <article>
+                <p>Esta sería una clase hija que no cumple el principio:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class ClaseConNombreYApellidos extends ClaseConNombre {
+                    private String apellidos;
 
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Interface Segregation Principle</h2>
-        </hgroup>
-		<article>
-            <p>Recuerda el <b>interface Pagador</b></p>
-<pre class="prettyprint" data-lang="Java">public interface Pagador {
-    String getNombre();
-    String getDireccion();
-    String getNif();
-}</pre>
-            <p>Y una de las últimas clases que hemos visto:</p>
-<pre class="prettyprint" data-lang="Java">
-public class ClaseConNombre {
-    private String nombre;
-    ....
-    public String getNombre() {
-        return nombre;
-    }
-}</pre>
-        		        </article>
-        </slide>
-
-
-        <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Interface Segregation Principle</h2>
-        </hgroup>
-		<article>
-            <p>Pues bien, sólo porque <b>ClaseConNombre</b> tiene el método
-                <b>getNombre()</b> a nadie se le ocurriría hacer:</p>
-<pre class="prettyprint" data-lang="Java">
-public class ClaseConNombre implements Pagador{
-    private String nombre;
-    ....
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
-    @Override
-    public String getDireccion() {
-        return "";
-    }
-    ...
-}</pre>
-        		        </article>
+                    public ClaseConNombreYApellidos(String nombre, String apellidos) {
+                    super(nombre);
+                    this.apellidos = apellidos;
+                    }
+                    public String getNombre() {
+                    return "";
+                    }
+                    }</pre>
+                <p><b>getNombre()</b> no devuelve nada, por lo tanto
+                    no podríamos comparar este nombre con otro.</p>
+            </article>
         </slide>
 
 
         <!-- Principios SOLID en el diseño de clases -->
         <slide>
-          <hgroup>
-            <h2>Principios SOLID en el diseño de clases</h2>
-            <h2>Interface Segregation Principle</h2>
-          </hgroup>
-          <article>
-            <p>A veces, se intenta soslayar este problema con el uso de
-              clases adaptadoras, clases que implementan los métodos de un
-              <b>interface</b> dejándolos todos vacíos.</p>
-            <p>La ventaja es que una clase que sólo necesita algunos de los
-              métodos del <b>interface</b>, en vez de implementar el
-              <b>interface</b> extiende a la clase adaptadora.</p>
-            <p>Lo veremos muy claro en el capítulo de creación de interfaces
-              gráficas de usuario.</p>
-          </article>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Liskov Substitution Principle</h2>
+            </hgroup>
+            <article>
+                <p>Y esta clase sí que cumple el principio:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class ClaseConNombreYApellidos extends ClaseConNombre {
+                    private String apellidos;
+
+                    public ClaseConNombreYApellidos(String nombre, String apellidos) {
+                    super(nombre);
+                    this.apellidos = apellidos;
+                    }
+                    public String getNombre() {
+                    return super.getNombre() + " " + apellidos;
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Liskov Substitution Principle</h2>
+            </hgroup>
+            <article>
+                <p><a
+                        href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgNzAzZjA5ZmItNjU3NS00MzQ5LTkwYjMtMDJhNDU5ZTM0MTlh&hl=en">Liskov
+                        Substitution Principle</a> por el tío Bob.</p>
+                <p>El <a href="http://devexperto.com/principio-de-sustitucion-de-liskov">Principio de substitución del
+                        Liskov</a> en español.</p>
+            </article>
         </slide>
 
 
@@ -1741,31 +1717,106 @@ public class ClaseConNombre implements Pagador{
                 <h2>Interface Segregation Principle</h2>
             </hgroup>
             <article>
-                <p>El <a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi&hl=en">Interface Segregation Principle por el tío Bob.</a></p>
-                <p>El <a href="http://devexperto.com/principio-de-segregacion-de-interfaces">Principio de segregación de interfaz</a> en español.</p>
+                <p><b class="green">El interfaz de una clase
+                        debe estar orientado a un único cliente.</b></p>
+                <p>Dicho de otro modo quizás se entienda mejor. Si una clase
+                    necesita definir un método que está declarado en un
+                    <b>interface</b> y este <b>interface</b> declara a su vez otros
+                    métodos que la clase no necesita... la clase no debería
+                    implementar el <b>interface</b>.
+                </p>
             </article>
         </slide>
 
 
-            <!-- Principios SOLID en el diseño de clases -->
-            <slide>
-        <hgroup>
-			<h2>Principios SOLID en el diseño de clases</h2>
-			<h2>Dependency Inversion Principle</h2>
-        </hgroup>
-		<article>
-            <p><b class="green">No hagas tu código
-                dependiente de la implementación,
-                únicamente del interfaz.</b></p>
-            <p>Una clase no se debe basar en la definición de los métodos de
-                otra para definir los propios.</p>
-            <p>Una clase debe ser completamente ignorante del código que
-              implementa los métodos de otra clase que ella usa.</p>
-            <p>La clase <b>Estudiante</b> hace uso de la clase <b>Calificador</b>
-              quien implementa un método para calcular la nota media; la
-              implementación de ese cálculo no debe ser algo en lo que se base
-              la implementación de la clase <b>Estudiante</b>.</p>
-        		        </article>
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Interface Segregation Principle</h2>
+            </hgroup>
+            <article>
+                <p>Recuerda el <b>interface Pagador</b></p>
+                <pre class="prettyprint" data-lang="Java">public interface Pagador {
+                    String getNombre();
+                    String getDireccion();
+                    String getNif();
+                    }</pre>
+                <p>Y una de las últimas clases que hemos visto:</p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class ClaseConNombre {
+                    private String nombre;
+                    ....
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Interface Segregation Principle</h2>
+            </hgroup>
+            <article>
+                <p>Pues bien, sólo porque <b>ClaseConNombre</b> tiene el método
+                    <b>getNombre()</b> a nadie se le ocurriría hacer:
+                </p>
+                <pre class="prettyprint" data-lang="Java">
+                    public class ClaseConNombre implements Pagador{
+                    private String nombre;
+                    ....
+                    @Override
+                    public String getNombre() {
+                    return nombre;
+                    }
+                    @Override
+                    public String getDireccion() {
+                    return "";
+                    }
+                    ...
+                    }</pre>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Interface Segregation Principle</h2>
+            </hgroup>
+            <article>
+                <p>A veces, se intenta soslayar este problema con el uso de
+                    clases adaptadoras, clases que implementan los métodos de un
+                    <b>interface</b> dejándolos todos vacíos.
+                </p>
+                <p>La ventaja es que una clase que sólo necesita algunos de los
+                    métodos del <b>interface</b>, en vez de implementar el
+                    <b>interface</b> extiende a la clase adaptadora.
+                </p>
+                <p>Lo veremos muy claro en el capítulo de creación de interfaces
+                    gráficas de usuario.</p>
+            </article>
+        </slide>
+
+
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Interface Segregation Principle</h2>
+            </hgroup>
+            <article>
+                <p>El <a
+                        href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi&hl=en">Interface
+                        Segregation Principle por el tío Bob.</a></p>
+                <p>El <a href="http://devexperto.com/principio-de-segregacion-de-interfaces">Principio de segregación de
+                        interfaz</a> en español.</p>
+            </article>
         </slide>
 
 
@@ -1776,67 +1827,94 @@ public class ClaseConNombre implements Pagador{
                 <h2>Dependency Inversion Principle</h2>
             </hgroup>
             <article>
-                <p>El <a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgMjdlMWIzNGUtZTQ0NC00ZjQ5LTkwYzQtZjRhMDRlNTQ3ZGMz&hl=en">Dependecy inversion principle</a> por el tío Bob.</p>
-                <p>El <a href="http://devexperto.com/principio-de-inversion-de-dependencias">Principio de inversión de dependencias</a> en español.</p>
+                <p><b class="green">No hagas tu código
+                        dependiente de la implementación,
+                        únicamente del interfaz.</b></p>
+                <p>Una clase no se debe basar en la definición de los métodos de
+                    otra para definir los propios.</p>
+                <p>Una clase debe ser completamente ignorante del código que
+                    implementa los métodos de otra clase que ella usa.</p>
+                <p>La clase <b>Estudiante</b> hace uso de la clase <b>Calificador</b>
+                    quien implementa un método para calcular la nota media; la
+                    implementación de ese cálculo no debe ser algo en lo que se base
+                    la implementación de la clase <b>Estudiante</b>.</p>
             </article>
         </slide>
 
 
-            <!-- Resumen -->
-            <slide>
-        <hgroup>
-			<h2>Resumen</h2>
-        </hgroup>
-		<article>
-            <p>En este capítulo hemos visto extensamente los mecanismo que
-                nos proporciona Java para utilizar la herencia.</p>
-                <ul>
-                  <li>Extensión de clases.</li>
-                  <li>Sobreescritura de métodos.</li>
-                  <li>Clases abstractas.</li>
-                </ul>
-                <p>Has conocido nuevos modificadores:</p>
-                <ul>
-                  <li><b>final</b> Impide que un método sea sobreescrito o una clase extendida.</li>
-                  <li><b>static</b> El miembro así modificado pertenece a la clase, no a sus instancias.</li>
-                </ul>
-              </article>
-            </slide>
-
-                <!-- Resumen -->
-                    <slide>
-                <hgroup>
-              <h2>Resumen</h2>
-                </hgroup>
+        <!-- Principios SOLID en el diseño de clases -->
+        <slide>
+            <hgroup>
+                <h2>Principios SOLID en el diseño de clases</h2>
+                <h2>Dependency Inversion Principle</h2>
+            </hgroup>
             <article>
-                <p>También has conocido los modificadores de acceso y cómo restringen la visibilidad de los miembros de una clase.</p>
-            <p>Además hemos visto los principios SOLID que guían la escritura
-                de <i>buen</i> código orientado a objetos.</p>
-            <p>Dominar estas técnicas es una tarea laboriosa donde nunca se
-                acaba de aprender. No desesperes, el objetivo es
-                recorrer el camino.</p>
-        		        </article>
+                <p>El <a
+                        href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgMjdlMWIzNGUtZTQ0NC00ZjQ5LTkwYzQtZjRhMDRlNTQ3ZGMz&hl=en">Dependecy
+                        inversion principle</a> por el tío Bob.</p>
+                <p>El <a href="http://devexperto.com/principio-de-inversion-de-dependencias">Principio de inversión de
+                        dependencias</a> en español.</p>
+            </article>
         </slide>
 
 
-		<slide class="backdrop"></slide>
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>En este capítulo hemos visto extensamente los mecanismo que
+                    nos proporciona Java para utilizar la herencia.</p>
+                <ul>
+                    <li>Extensión de clases.</li>
+                    <li>Sobreescritura de métodos.</li>
+                    <li>Clases abstractas.</li>
+                </ul>
+                <p>Has conocido nuevos modificadores:</p>
+                <ul>
+                    <li><b>final</b> Impide que un método sea sobreescrito o una clase extendida.</li>
+                    <li><b>static</b> El miembro así modificado pertenece a la clase, no a sus instancias.</li>
+                </ul>
+            </article>
+        </slide>
 
-     </slides>
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
-_gaq.push(['_trackPageview']);
+        <!-- Resumen -->
+        <slide>
+            <hgroup>
+                <h2>Resumen</h2>
+            </hgroup>
+            <article>
+                <p>También has conocido los modificadores de acceso y cómo restringen la visibilidad de los miembros de
+                    una clase.</p>
+                <p>Además hemos visto los principios SOLID que guían la escritura
+                    de <i>buen</i> código orientado a objetos.</p>
+                <p>Dominar estas técnicas es una tarea laboriosa donde nunca se
+                    acaba de aprender. No desesperes, el objetivo es
+                    recorrer el camino.</p>
+            </article>
+        </slide>
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
 
-<!--[if IE]>
+        <slide class="backdrop"></slide>
+
+    </slides>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    <!--[if IE]>
   <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
   <script>CFInstall.check({mode: 'overlay'});</script>
 <![endif]-->
 </body>
+
 </html>

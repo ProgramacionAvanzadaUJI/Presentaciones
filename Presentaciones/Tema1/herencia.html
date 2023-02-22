@@ -129,23 +129,23 @@ URL: https://code.google.com/p/io-2012-slides
                 <p>Supongamos que tenemos la siguiente definición de un punto en
                     dos dimensiones.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto2D {
-                    private double x;
-                    private double y;
-                    public Punto2D() {
-                    x = y = 0;
-                    }
-                    public Punto2D(float x, float y) {
-                    this.x = x;
-                    this.y = y;
-                    }
-                    public double getX() {
-                    return x;
-                    }
-                    public double getY() {
-                    return y;
-                    }
-                    }</pre>
+public class Punto2D {
+  private double x;
+  private double y;
+  public Punto2D() {
+    x = y = 0;
+  }
+  public Punto2D(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+  public double getX() {
+    return x;
+  }
+  public double getY() {
+    return y;
+  }
+}</pre>
             </article>
         </slide>
 
@@ -159,12 +159,12 @@ URL: https://code.google.com/p/io-2012-slides
                 <p>Ahora necesitamos un punto en tres dimensiones.</p>
                 <p>Nos podemos plantear reescribir la clase desde cero:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto3D {
-                    private double x;
-                    private double y;
-                    private double z;
-                    ...
-                    }</pre>
+public class Punto3D {
+  private double x;
+  private double y;
+  private double z;
+  ...
+}</pre>
                 <p>O bien podemos intentar aprovechar la clase <b>Punto2D</b> y
                     añadir sobre ella la nueva funcionalidad.</p>
                 <p>En este segundo caso estamos haciendo uso de la herencia.</p>
@@ -181,13 +181,13 @@ URL: https://code.google.com/p/io-2012-slides
             <article>
                 <p>En Java decimos que una clase <i>extiende</i> a otra cuando
                     añade funcionalidad sobre una clase ya definida:</p>
-                <pre class="prettyprint" data-lang="Java">public class Punto3D extends Punto2D {
-                    private double z;
+<pre class="prettyprint" data-lang="Java">public class Punto3D extends Punto2D {
+  private double z;
 
-                    public double getZ() {
-                    return z;
-                    }
-                    ...
+  public double getZ() {
+    return z;
+  }
+  ...
                     }</pre>
                 <p>En este caso concreto, decimos que <b>Punto2D</b> es la clase
                     <span class="green"><b>madre o clase base</b></span> y que
@@ -1497,21 +1497,21 @@ URL: https://code.google.com/p/io-2012-slides
                 <p><b class="green">Una clase debe tener
                         un solo motivo para cambiar.</b></p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Estudiante {
-                    private String nombre;
-                    private String calle;
-                    private int numero;
-                    private String puerta;
-                    private float notas[];
+public class Estudiante {
+  private String nombre;
+  private String calle;
+  private int numero;
+  private String puerta;
+  private float notas[];
 
-                    public String getDirecion() {
-                    return calle + "," + numero + "," + puerta;
-                    }
+  public String getDirecion() {
+    return calle + "," + numero + "," + puerta;
+  }
 
-                    public float califica() {
-                    // Algoritmo para calcular la nota final
-                    }
-                    }</pre>
+  public float califica() {
+    // Algoritmo para calcular la nota final
+  }
+}</pre>
             </article>
         </slide>
 
@@ -1550,18 +1550,18 @@ URL: https://code.google.com/p/io-2012-slides
             </hgroup>
             <article>
                 <pre class="prettyprint" data-lang="Java">
-                    public class EstudianteSolid {
-                    private String nombre;
-                    private Direccion direccion;
-                    private Calificador calificador;
+public class EstudianteSolid {
+  private String nombre;
+  private Direccion direccion;
+  private Calificador calificador;
 
-                    public float calificacion() {
-                    return calificador.califica();
-                    }
-                    public String getDireccion() {
-                    return direccion.getDireccion();
-                    }
-                    }</pre>
+  public float calificacion() {
+    return calificador.califica();
+  }
+  public String getDireccion() {
+    return direccion.getDireccion();
+  }
+}</pre>
                 <p>Los métodos <b>calificacion()</b> y <b>getDireccion()</b> se llaman
                     métodos delegados, ya que «delegan» su trabajo en otros métodos,
                     los de las clases <b>Direccion</b> y <b>Calificador</b>.</p>
@@ -1631,15 +1631,15 @@ URL: https://code.google.com/p/io-2012-slides
                     a otra debe ampliar el comportamiento de la clase que extiende,
                     pero no modificarlo.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class ClaseConNombre {
-                    private String nombre;
-                    public ClaseConNombre(String nombre) {
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    }</pre>
+public class ClaseConNombre {
+  private String nombre;
+  public ClaseConNombre(String nombre) {
+    this.nombre = nombre;
+  }
+  public String getNombre() {
+    return nombre;
+  }
+}</pre>
             </article>
         </slide>
 
@@ -1653,17 +1653,17 @@ URL: https://code.google.com/p/io-2012-slides
             <article>
                 <p>Esta sería una clase hija que no cumple el principio:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class ClaseConNombreYApellidos extends ClaseConNombre {
-                    private String apellidos;
+public class ClaseConNombreYApellidos extends ClaseConNombre {
+  private String apellidos;
 
-                    public ClaseConNombreYApellidos(String nombre, String apellidos) {
-                    super(nombre);
-                    this.apellidos = apellidos;
-                    }
-                    public String getNombre() {
-                    return "";
-                    }
-                    }</pre>
+  public ClaseConNombreYApellidos(String nombre, String apellidos) {
+    super(nombre);
+    this.apellidos = apellidos;
+  }
+  public String getNombre() {
+    return "";
+  }
+}</pre>
                 <p><b>getNombre()</b> no devuelve nada, por lo tanto
                     no podríamos comparar este nombre con otro.</p>
             </article>
@@ -1679,17 +1679,17 @@ URL: https://code.google.com/p/io-2012-slides
             <article>
                 <p>Y esta clase sí que cumple el principio:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class ClaseConNombreYApellidos extends ClaseConNombre {
-                    private String apellidos;
+public class ClaseConNombreYApellidos extends ClaseConNombre {
+  private String apellidos;
 
-                    public ClaseConNombreYApellidos(String nombre, String apellidos) {
-                    super(nombre);
-                    this.apellidos = apellidos;
-                    }
-                    public String getNombre() {
-                    return super.getNombre() + " " + apellidos;
-                    }
-                    }</pre>
+  public ClaseConNombreYApellidos(String nombre, String apellidos) {
+    super(nombre);
+    this.apellidos = apellidos;
+  }
+  public String getNombre() {
+    return super.getNombre() + " " + apellidos;
+  }
+}</pre>
             </article>
         </slide>
 
@@ -1737,20 +1737,20 @@ URL: https://code.google.com/p/io-2012-slides
             </hgroup>
             <article>
                 <p>Recuerda el <b>interface Pagador</b></p>
-                <pre class="prettyprint" data-lang="Java">public interface Pagador {
-                    String getNombre();
-                    String getDireccion();
-                    String getNif();
-                    }</pre>
+<pre class="prettyprint" data-lang="Java">public interface Pagador {
+  String getNombre();
+  String getDireccion();
+  String getNif();
+}</pre>
                 <p>Y una de las últimas clases que hemos visto:</p>
-                <pre class="prettyprint" data-lang="Java">
-                    public class ClaseConNombre {
-                    private String nombre;
-                    ....
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    }</pre>
+<pre class="prettyprint" data-lang="Java">
+public class ClaseConNombre {
+  private String nombre;
+  ....
+  public String getNombre() {
+    return nombre;
+  }
+}</pre>
             </article>
         </slide>
 
@@ -1766,19 +1766,19 @@ URL: https://code.google.com/p/io-2012-slides
                     <b>getNombre()</b> a nadie se le ocurriría hacer:
                 </p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class ClaseConNombre implements Pagador{
-                    private String nombre;
-                    ....
-                    @Override
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    @Override
-                    public String getDireccion() {
-                    return "";
-                    }
-                    ...
-                    }</pre>
+public class ClaseConNombre implements Pagador{
+  private String nombre;
+  ....
+  @Override
+  public String getNombre() {
+    return nombre;
+  }
+  @Override
+  public String getDireccion() {
+    return "";
+  }
+  ...
+}</pre>
             </article>
         </slide>
 

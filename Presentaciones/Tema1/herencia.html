@@ -188,7 +188,7 @@ public class Punto3D {
     return z;
   }
   ...
-                    }</pre>
+}</pre>
                 <p>En este caso concreto, decimos que <b>Punto2D</b> es la clase
                     <span class="green"><b>madre o clase base</b></span> y que
                     <b>Punto3D</b> es la
@@ -251,9 +251,9 @@ public class Punto3D {
                 <p>Supon que en la clase <b>Punto2D</b> tienes definido el siguiente
                     método.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public String getDescripcion() {
-                    return x + ", " + y;
-                    }</pre>
+public String getDescripcion() {
+  return x + ", " + y;
+}</pre>
                 <p>Que devuelve una cadena con información sobre el <b>Punto2D</b>.
                 <p>Cuando tenemos puntos en 3D, este método no nos sirve, ya que
                     debemos tener en cuenta también la coordenada z.</p>
@@ -272,10 +272,10 @@ public class Punto3D {
                     <b>Punto3D</b> debemos definir el método del siguiente modo:
                 </p>
                 <pre class="prettyprint" data-lang="Java">
-                    @Override
-                    public String getDescripcion() {
-                    return getX() + ", " + getY() + ", " + z;
-                    }</pre>
+@Override
+public String getDescripcion() {
+  return getX() + ", " + getY() + ", " + z;
+}</pre>
                 <p>Detalles:</p>
                 <ul>
                     <li>Fíjate que como los atributos <b>x</b> e <b>y</b> son
@@ -298,12 +298,12 @@ public class Punto3D {
             <article>
                 <p>Juguemos un poco con estas clases:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Punto2D p2d = new Punto2D(1, 2);
-                    System.out.println(p2d.getDescripcion());
-                    // Muestra 1.0, 2.0
-                    Punto3D p3d = new Punto3D(1, 2, 3);
-                    System.out.println(p3d.getDescripcion());
-                    // Muestra 1.0, 2.0, 3.0</pre>
+Punto2D p2d = new Punto2D(1, 2);
+System.out.println(p2d.getDescripcion());
+// Muestra 1.0, 2.0
+Punto3D p3d = new Punto3D(1, 2, 3);
+System.out.println(p3d.getDescripcion());
+// Muestra 1.0, 2.0, 3.0</pre>
                 <p>El mismo método, definido con distinta implementación en
                     una clase madre y su hija.</p>
             </article>
@@ -319,15 +319,15 @@ public class Punto3D {
             <article>
                 <p>Añadamos a la clase <b>Punto2D</b> un nuevo método:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public Punto2D invierte() {
-                    return new Punto2D(-x, -y);
-                    }</pre>
+public Punto2D invierte() {
+  return new Punto2D(-x, -y);
+}</pre>
                 <p>Y ahora sobrescribamos este método en la clase <b>Punto3D</b>
                 <pre class="prettyprint" data-lang="Java">
-                    @Override
-                    public Punto3D invierte() {
-                    return new Punto3D(-getX(), -getY(), -z);
-                    }</pre>
+@Override
+public Punto3D invierte() {
+  return new Punto3D(-getX(), -getY(), -z);
+}</pre>
                 <p>Fíjate que hemos podido cambiar el tipo de retorno al sobrescribir
                     el método. Esto es posible siempre que <i>ampliemos</i> el tipo
                     de retorno.</p>
@@ -344,12 +344,12 @@ public class Punto3D {
                 <p>¿Y que pasa con los atributos? ¿Los podemos sobrescribir?</p>
                 <p>La respuesta es sí podemos... pero mejor no lo hagas.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto3D extends Punto2D {
-                    private double x;
-                    private double y;
-                    private double z;
-                    ...
-                    }</pre>
+public class Punto3D extends Punto2D {
+  private double x;
+  private double y;
+  private double z;
+  ...
+}</pre>
                 <p>El código anterior no contiene ningún error. Pero, repito
                     no lo hagas.</p>
             </article>
@@ -366,15 +366,15 @@ public class Punto3D {
                 <p>Revisemos de nuevo el método <b>getDescripcion()</b> en las
                     clases <b>Punto2D</b> y <b>Punto3D</b>:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    // En la clase Punto2D
-                    public String getDescripcion() {
-                    return x + ", " + y;
-                    }
-                    // En la clase Punto3D
-                    @Override
-                    public String getDescripcion() {
-                    return getX() + ", " + getY() + ", " + z;
-                    }</pre>
+// En la clase Punto2D
+public String getDescripcion() {
+  return x + ", " + y;
+}
+// En la clase Punto3D
+@Override
+public String getDescripcion() {
+  return getX() + ", " + getY() + ", " + z;
+}</pre>
                 <p>La herencia me promete que puedo aprovechar al máximo los
                     métodos ya definidos en la clase madre. Debe haber un mejor
                     modo de escribir este código.</p>
@@ -397,15 +397,15 @@ public class Punto3D {
                     <b>super</b>.
                 </p>
                 <pre class="prettyprint" data-lang="Java">
-                    // En la clase Punto2D
-                    public String getDescripcion() {
-                    return x + ", " + y;
-                    }
-                    // En la clase Punto3D
-                    @Override
-                    public String getDescripcion() {
-                    return super.getDescripcion() + ", " + z;
-                    }</pre>
+// En la clase Punto2D
+public String getDescripcion() {
+  return x + ", " + y;
+}
+// En la clase Punto3D
+@Override
+public String getDescripcion() {
+  return super.getDescripcion() + ", " + z;
+}</pre>
             </article>
         </slide>
 
@@ -440,19 +440,19 @@ public class Punto3D {
                 <p>Los constructores los utilizamos para definir los valores
                     iniciales de los atributos.</p>
                 <p>¿Cómo los podemos utilizar desde las clases hijas? También
-                    a través de <b>super</b>
-                <p>.
+                    a través de <b>super</b>.
+                <p>
                 <pre class="prettyprint" data-lang="Java">
-                    // En la clase Punto2D
-                    public Punto2D(double x, double y) {
-                    this.x = x;
-                    this.y = y;
-                    }
-                    // En la clase Punto3D
-                    public Punto3D(double x, double y, double z) {
-                    super(x, y);
-                    this.z = z;
-                    }</pre>
+// En la clase Punto2D
+public Punto2D(double x, double y) {
+  this.x = x;
+  this.y = y;
+}
+// En la clase Punto3D
+public Punto3D(double x, double y, double z) {
+  super(x, y);
+  this.z = z;
+}</pre>
             </article>
         </slide>
 
@@ -470,19 +470,19 @@ public class Punto3D {
                 <b>Punto3D</b> para ver como se construye un objeto de una
                 clase hija.</p> -->
                 <pre class="prettyprint" data-lang="Java">
-                    public Punto2D() {
-                    System.out.println("Constructor sin argumentos Punto2D");
-                    }
-                    ...
-                    public Punto3D() {
-                    //debe iniciar la funcionalidad de la clase madre, ¿cómo?
-                    System.out.println("Constructor sin argumentos clase Punto3D");
-                    }
-                    ...
-                    // En algún lugar de nuestro código
-                    Punto3D p = new Punto3D();
-                    // Muestra: Constructor sin argumentos Punto2D
-                    // Constructor sin argumentos clase Punto3D</pre>
+public Punto2D() {
+  System.out.println("Constructor sin argumentos Punto2D");
+}
+...
+public Punto3D() {
+  //debe iniciar la funcionalidad de la clase madre, ¿cómo?
+  System.out.println("Constructor sin argumentos clase Punto3D");
+}
+...
+// En algún lugar de nuestro código
+Punto3D p = new Punto3D();
+// Muestra: Constructor sin argumentos Punto2D
+// Constructor sin argumentos clase Punto3D</pre>
             </article>
         </slide>
 
@@ -522,16 +522,16 @@ public class Punto3D {
                 </p>
                 <p>Observa este sencillo ejemplo:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Madre {
-                    private int valor;
+public class Madre {
+  private int valor;
 
-                    public Madre(int valor) {
-                    this.valor = valor;
-                    }
-                    }
+  public Madre(int valor) {
+    this.valor = valor;
+  }
+}
 
-                    public class Hija extends Madre {
-                    }</pre>
+public class Hija extends Madre {
+}</pre>
                 <p>Tan poco código y esconde un error.</p>
             </article>
         </slide>
@@ -562,9 +562,9 @@ public class Punto3D {
             </hgroup>
             <article>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto2D {
-                    // Aquí la definición de la clase
-                    }</pre>
+public class Punto2D {
+  // Aquí la definición de la clase
+}</pre>
                 <p>La clase <b>Punto2D</b> ¿a quién extiende? ¿tiene alguna madre?</p>
                 <p>Sí, ninguna clase en Java es <i>huérfana</i>. Si explícitamente
                     no se extiende a ninguna clase, implícitamente se extiende a
@@ -583,21 +583,21 @@ public class Punto3D {
             <article>
                 <p>La clase <b>Object</b> tiene métodos ya definidos:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    boolean equals(Object o); // Compara si dos objetos son iguales.
-                    int hashCode(); // Devuelve un código hash del objeto
-                    String toString(); // Devuelve una representación del objeto
+boolean equals(Object o); // Compara si dos objetos son iguales.
+int hashCode(); // Devuelve un código hash del objeto
+String toString(); // Devuelve una representación del objeto
                 </pre>
                 <p>El último método es el que llama a la familia de métodos
                     <b>print[ln](...)</b> para obtener la cadena que se enviará
                     a consola.
                 </p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto2D {...
-                    @Override
-                    public String toString() {
-                    return x + ", " + y;
-                    }...
-                    }</pre>
+public class Punto2D {...
+  @Override
+  public String toString() {
+    return x + ", " + y;
+  }...
+}</pre>
             </article>
         </slide>
 
@@ -611,20 +611,20 @@ public class Punto3D {
             <article>
                 <p>Podemos mejorar la clase <b>Punto3D</b></p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Punto3D extends Punto2D {...
-                    @Override
-                    public String toString() {
-                    return super.toString() + ", " + z;
-                    }...
-                    }</pre>
+public class Punto3D extends Punto2D {...
+  @Override
+  public String toString() {
+    return super.toString() + ", " + z;
+  }...
+}</pre>
                 <p>Finalmente podemos hacer:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Punto2D p2d = new Punto2D(1, 2);
-                    System.out.println(p2d);
-                    // Mostrará 1.0, 2.0
-                    Punto3D p3d = new Punto3D(1, 2, 3);
-                    System.out.println(p3d);
-                    // Mostrará 1.0, 2.0, 3.0</pre>
+Punto2D p2d = new Punto2D(1, 2);
+System.out.println(p2d);
+// Mostrará 1.0, 2.0
+Punto3D p3d = new Punto3D(1, 2, 3);
+System.out.println(p3d);
+// Mostrará 1.0, 2.0, 3.0</pre>
             </article>
         </slide>
 
@@ -644,10 +644,10 @@ public class Punto3D {
                     La manera de hacerlo es utilizar la palabra reservada <b>final</b>
                     en definición del método:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class MetodoFinal {
-                    public final void metodoFinal() {
-                    // Definición del método
-                    }
+public class MetodoFinal {
+  public final void metodoFinal() {
+  // Definición del método
+  }
                     }</pre>
             </article>
         </slide>

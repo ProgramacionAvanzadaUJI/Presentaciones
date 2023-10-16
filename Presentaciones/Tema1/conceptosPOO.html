@@ -103,6 +103,254 @@ URL: https://code.google.com/p/io-2012-slides
                 <h2>Introducción</h2>
             </hgroup>
             <article>
+                <p>
+                    La Programación Orientada a Objetos es un paradigma de
+                    programación en el que cada entidad, relevante en el
+                    contexto del problema que se pretende resolver, se codifica
+                    como un objeto en un programa.
+                </p>
+                <p>
+                    Un objeto puede contener tanto datos (atributos),
+                    como código definido en funciones (métodos).
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Abstracción</h2>
+            </hgroup>
+            <article>
+                <p>
+                    La abstracción consiste en representar una entidad del
+                    dominio del problema como un conjunto de atributos y
+                    operaciones.
+                </p>
+                <p>
+                    Utilicemos un ejemplo para verlo más claro. Supongamos
+                    que tenemos que nos piden que desarrollemos una aplicación
+                    para realizar la gestión de las notas de los estudiantes
+                    matriculados en una alguna asignatura de cualquier grado.
+                </p>
+                <p>
+                    Una de las entidades que debemos codificar es la que
+                    representará a un <b>Estudiante</b>, y esa
+                    entidad la codificaremos como una <b>clase</b>
+                    en POO.
+                </p>
+            </article>
+        </slide>
+        <slide>
+            <hgroup>
+                <h2>Abstracción</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Cuáles son los atributos de interés que debe contener
+                    esta entidad en el contexto del problema.
+                </p>
+                <p>
+                    Parece claro que datos tales como el nombre, los apellidos,
+                    y el nif del estudiante son relevantes.
+                </p>
+                <p>
+                    Estos ítems de
+                    información los codificaremos como atributos de la clase
+                    <b>Estudiante</b>.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Abstracción</h2>
+            </hgroup>
+            <article>
+                <p>
+                    ¿Cuales son las operaciones que una entidad de la clase
+                    <b>Estudiante</b> nos va a proporcionar?
+                </p>
+                <p>
+                    Por un lado, parece bastante obvio que a una entidad de
+                    la clase <b>Estudiante</b> le podamos preguntar por su
+                    nombre, o sus apellidos, o su nif, en este caso, por todos
+                    los ítems que contiene.
+                </p>
+                <p>
+                    Por otro lado, también nos gustaría conocer, por ejemplo,
+                    cuál es la nota media del <b>Estudiante</b>, o cuál es
+                    el último curso en el que está matriculado, o el listado
+                    de todas las asignaturas que ya tiene aprobadas, etcétera.
+                </p>
+                <p>
+                    El código de respuesta a cada una de las anteriores
+                    preguntas lo vamos a codificar como un <b>método</b> de
+                    la clase <b>Estudiante</b>.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Abstracción</h2>
+            </hgroup>
+            <article>
+                <p>
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Abstracción</h2>
+            </hgroup>
+            <article>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Encapsulación</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Es importante notar que tanto los atributos como los
+                    métodos de una clase tienen sentido sólo cuando forman
+                    parte de la clase que los contiene.
+                </p>
+                <p>
+                    Además, el código que implementa cada uno de los métodos
+                    no tiene porqué ser visible desde fuera de la clase
+                    en el que está definido.
+                </p>
+                <p>
+                    Este es el significado de encapsulación, la clase que
+                    define una entidad encapsula los atributos y métodos de
+                    esa clase, y oculta el código con el que están implementados
+                    sus métodos a otras clases.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Encapsulación</h2>
+            </hgroup>
+            <article>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Herencia</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Durante la evolución del software, es frecuente que para
+                    agregar nueva funcionalidad necesitemos añadir nuevos
+                    atributos o métodos a clases que ya están definidas.
+                </p>
+                <p>
+                    Supón que pasado un tiempo, se quiere ampliar la clase
+                    que abstrae la entidad <b>Estudiate</b> para añadirle
+                    nuevos atributos (por ejemplo, la dirección de residencia),
+                    o nuevos métodos (por ejemplo, conocer cuál es la
+                    asignatura con la nota más alta).
+                </p>
+                <p>
+                    En este caso, tener que definir una nueva clase no es
+                    lo más práctico. Es más práctico si podemos aprovechar
+                    el código que ya tenemos escrito.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Herencia</h2>
+            </hgroup>
+            <article>
+                <p>
+                    La <b>Herencia</b> nos permite exactamente lo que acabamos
+                    de describir, aprovechar el código de clases que ya
+                    están definidas, para definir nuevas clases.
+                </p>
+                <p>
+                    Los lenguajes de programación orientados a objetos
+                    hacen posible el uso de la herencia para construir nuevas
+                    clases a partir de otras clases ya existentes.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Polimorfismo</h2>
+            </hgroup>
+            <article>
+                <p>
+                    El <b>Polimorfismo</b> es el último concepto base de la POO.
+                </p>
+                <p>
+                    Hemos visto que la encapsulación nos permite <i>esconder</i>
+                    el código de los métodos dentro de las clases. Pues bien
+                    el polimorfismo tiene que ver con las distintas
+                    <i>versiones</i> de un método que están implementadas en
+                    clases distintas.
+                </p>
+                <p>
+                    De nuevo, con un ejemplo se verá más claro.
+                </p>
+                <p>
+                    Supón que has implementado una clase que ordena los
+                    elementos de un array por el método de la burbuja, y que
+                    has llamado a ese método <b>ordena</b>.
+                </p>
+            </article>
+        </slide>
+        <slide>
+            <hgroup>
+                <h2>Polimorfismo</h2>
+            </hgroup>
+            <article>
+                <p>
+                    Ahora supón, que defines una nueva clase que implementa la
+                    ordenación de los elementos de un array por el método de la
+                    burbuja. Parece obvio que este método, definido en una
+                    nueva clase también se puede llamar <b>ordena</b>.
+                </p>
+                <p>
+                    Pues bien, esto es precisamente lo que se conoce como
+                    polimorfismo, métodos distintos, en clases distintas, cuyo
+                    objetivo es el mismo, están implementados de modo distinto.
+                </p>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Polimorfismo</h2>
+            </hgroup>
+            <article>
+            </article>
+        </slide>
+
+        <!-- -->
+        <slide>
+            <hgroup>
+                <h2>Polimorfismo</h2>
+            </hgroup>
+            <article>
             </article>
         </slide>
 
@@ -112,6 +360,14 @@ URL: https://code.google.com/p/io-2012-slides
                 <h2>Resumen</h2>
             </hgroup>
             <article>
+                <p>
+                    En este primer capítulo hemos visto los conceptos básicos
+                    sobre los que descansa la POO.
+                </p>
+                <p>
+                    A lo largo del curso nos los encontraremos una vez tras
+                    otra. Es importante que los conozcas, y que los reconozcas.
+                </p>
             </article>
         </slide>
 

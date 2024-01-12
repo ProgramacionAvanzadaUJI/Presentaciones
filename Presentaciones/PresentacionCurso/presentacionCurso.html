@@ -320,11 +320,11 @@ URL: https://code.google.com/p/io-2012-slides
                 <table>
                     <tr>
                         <td>Primera convocatoria</td>
-                        <td>26/5/2023</td>
+                        <td>24/5/2024</td>
                     </tr>
                     <tr>
                         <td>Segunda convocatoria</td>
-                        <td>26/6/2023</td>
+                        <td>25/6/2024</td>
                     </tr>
                 </table>
             </article>
@@ -340,7 +340,7 @@ URL: https://code.google.com/p/io-2012-slides
                 <!-- <p>El cuestionario es totalmente anónimo, pero añádele algún identificador, te lo devolveré.</p> -->
                 <!-- <div class="build"> -->
                 <div>
-                    <p>Échale un vistazo a este
+                    <p>Échale un vistazo a este vídeo
                         <a href="https://www.ted.com/talks/sir_ken_robinson_bring_on_the_learning_revolution">
                             Bring on the learning revolution</a>.
                     </p>
@@ -378,17 +378,16 @@ URL: https://code.google.com/p/io-2012-slides
             <article>
                 <p>Lee ahora este método:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    ContadorSexos cuentaPersonaPorSexo() {
-                    ContadorSexos contador = new ContadorSexos();
-                    for(Persona persona: personas) {
-                    if(persona.isHombre())
-                    contador.incrementaHombres();
-                    else if(persona.isMujer())
-                    contador.incrementaMujeres();
-                    }
-
-                    return contador;
-                    }
+ContadorSexos cuentaPersonaPorSexo() {
+    ContadorSexos contador = new ContadorSexos();
+    for(Persona persona: personas) {
+        if(persona.isHombre())
+            contador.incrementaHombres();
+        else if(persona.isMujer())
+        contador.incrementaMujeres();
+    }
+    return contador;
+}
                 </pre>
                 <p>¿Qué hace?</p>
                 <div class="build">

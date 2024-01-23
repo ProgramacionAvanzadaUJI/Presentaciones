@@ -213,12 +213,12 @@ URL: https://code.google.com/p/io-2012-slides
                     <tbody>
                         <tr>
                             <td>Evaluación continua</td>
-                            <td>Revión de tres entregas de prácticas.</td>
+                            <td>Revisión de cada entrega de prácticas.</td>
                             <td>40%</td>
                         </tr>
                         <tr>
                             <td>Evaluación de prácticas</td>
-                            <td>Entrega final del proyecto revisado.</td>
+                            <td>Revisión de las cuatro entregas de prácticas.</td>
                             <td>20%</td>
                         </tr>
                         <tr>
@@ -299,7 +299,7 @@ URL: https://code.google.com/p/io-2012-slides
                         <td colspan="3">Evaluación continua de prácticas (20%)</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Entrega final (Revisión de P1+P2+P3+P4)</td>
+                        <td colspan="2">Revisión de P1+P2+P3+P4 (No hay entrega)</td>
                         <td><b>Hasta 2 punto.</b></td>
                     </tr>
                     <tr>
@@ -378,16 +378,16 @@ URL: https://code.google.com/p/io-2012-slides
             <article>
                 <p>Lee ahora este método:</p>
                 <pre class="prettyprint" data-lang="Java">
-ContadorSexos cuentaPersonaPorSexo() {
-    ContadorSexos contador = new ContadorSexos();
-    for(Persona persona: personas) {
-        if(persona.isHombre())
-            contador.incrementaHombres();
-        else if(persona.isMujer())
-        contador.incrementaMujeres();
-    }
-    return contador;
-}
+                    ContadorSexos cuentaPersonaPorSexo() {
+                    ContadorSexos contador = new ContadorSexos();
+                    for(Persona persona: personas) {
+                    if(persona.isHombre())
+                    contador.incrementaHombres();
+                    else if(persona.isMujer())
+                    contador.incrementaMujeres();
+                    }
+                    return contador;
+                    }
                 </pre>
                 <p>¿Qué hace?</p>
                 <div class="build">

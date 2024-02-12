@@ -162,7 +162,10 @@ public class Punto2D {
     public String getDescripcion() {
         return x + ", " + y;
     }
-}</pre>
+    public Punto2D invierte() {
+        return new Punto2D(-x, -y);
+      }
+    }</pre>
             </article>
         </slide>
         
@@ -321,7 +324,7 @@ Punto3D p3d = new Punto3D(1, 2, 3);
 System.out.println(p3d.getDescripcion());
 // Muestra 1.0, 2.0, 3.0</pre>
                 <p>El mismo método, definido con distinta implementación en
-                    una clase madre y su hija.</p>
+                    una clase madre y su hija. De nuevo el <b>polimorfismo</b>.</p>
             </article>
         </slide>
 
@@ -333,12 +336,12 @@ System.out.println(p3d.getDescripcion());
                 <h2>Sobrescritura de métodos</h2>
             </hgroup>
             <article>
-                <p>Añadamos a la clase <b>Punto2D</b> un nuevo método:</p>
+                <p>Veamos ahora el método <b>invierte()</b>:</p>
                 <pre class="prettyprint" data-lang="Java">
 public Punto2D invierte() {
   return new Punto2D(-x, -y);
 }</pre>
-                <p>Y ahora sobrescribamos este método en la clase <b>Punto3D</b>
+                <p>Que sobrescribimos en la clase <b>Punto3D</b> como:
                 <pre class="prettyprint" data-lang="Java">
 @Override
 public Punto3D invierte() {
@@ -346,7 +349,7 @@ public Punto3D invierte() {
 }</pre>
                 <p>Fíjate que hemos podido cambiar el tipo de retorno al sobrescribir
                     el método. Esto es posible siempre que <i>ampliemos</i> el tipo
-                    de retorno.</p>
+                    de retorno en la sobrescritura.</p>
             </article>
         </slide>
 
@@ -466,6 +469,7 @@ public Punto2D(double x, double y) {
 }
 // En la clase Punto3D
 public Punto3D(double x, double y, double z) {
+  // Los atributos x e y de la madre son private, pero no el constructor.
   super(x, y);
   this.z = z;
 }</pre>
@@ -678,12 +682,12 @@ public class MetodoFinal {
             <article>
                 <p>Si intentamos crear un clase hija que sobrescriba el método <b>final</b>:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class HijaMetodoFinal extends MetodoFinal {
-                    @Override
-                    public void metodoFinal() {
-                    // Nueva definición del método
-                    }
-                    }</pre>
+public class HijaMetodoFinal extends MetodoFinal {
+    @Override
+    public void metodoFinal() {
+        // Nueva definición del método
+    }
+}</pre>
                 <p>Obtendremos el error: Cannot override the final method from MetodoFinal.</p>
             </article>
         </slide>
@@ -700,11 +704,11 @@ public class MetodoFinal {
                     a la clase.</p>
                 <p>Los métodos estáticos no se pueden sobreescribir, sólo ocultar.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Madre {
-                    public static void estatico() {
-                    System.out.println("Estático en el madre.");
-                    }
-                    }
+public class Madre {
+    public static void estatico() {
+        System.out.println("Estático en el madre.");
+    }
+}
                 </pre>
             </article>
         </slide>
@@ -719,12 +723,12 @@ public class MetodoFinal {
                 <p>Esta clase <b>Hija</b> intenta sobreescribir el
                     método usando la anotación <b>Override</b>.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Hija extends Madre {
-                    //@Override // Esto genera un error
-                    public static void estatico() {
-                    System.out.println("Estático en la Hija.");
-                    }
-                    }
+public class Hija extends Madre {
+    //@Override // Esto genera un error
+    public static void estatico() {
+        System.out.println("Estático en la Hija.");
+    }
+}
                 </pre>
                 <p>El resultado es un error en tiempo de compilacion.</p>
                 <p>Description Resource Path Location Type
@@ -744,9 +748,8 @@ public class MetodoFinal {
                 <p>¿Cuál será el resultado de la ejecución de este fragmento de
                     código?</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Hija.estatico();
-                    Madre.estatico();
-                </pre>
+Hija.estatico();
+Madre.estatico();</pre>
                 <div class="build">
                     <p>Estático en la Hija.</p>
                     <p>Estático en el madre.</p>
@@ -763,11 +766,10 @@ public class MetodoFinal {
             <article>
                 <p>¿Y el resultado de este otro ejemplo?</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Hija hija = new Hija();
-                    hija.estatico(); // Aquí tenemos un warning.
-                    Madre madre = hija;
-                    madre.estatico(); // Aquí tenemos otro warning.
-                </pre>
+Hija hija = new Hija();
+hija.estatico(); // Aquí tenemos un warning.
+Madre madre = hija;
+madre.estatico(); // Aquí tenemos otro warning.</pre>
                 <div class="build">
                     <p>Estático en la Hija.</p>
                     <p>Estático en el madre.</p>
@@ -817,10 +819,10 @@ public class MetodoFinal {
                     que la funcionalidad que nos brindan los objetos.</p>
                 <p>Si pudiese hacer los siguiente:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Punto3D punto = new Punto2D(1, 2); // Sin coordenada Z</pre>
+Punto3D punto = new Punto2D(1, 2); // Sin coordenada Z</pre>
                 <p>Después también podríamos hacer:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    punto.getZ();</pre>
+punto.getZ();</pre>
                 <p>Cosa que no tiene sentido porque el <b>Punto2D</b> que hemos
                     creado no tiene un atributo <b>Z</b>.</p>
             </article>
@@ -858,18 +860,18 @@ public class MetodoFinal {
                     y cada uno de ellos hace un sonido diferente,
                     así que podíamos empezar a codificarlos como:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Perro {
-                    private String nombre;
-                    public Perro(String nombre) {
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    public String hazSonido() {
-                    return "Soy un perro y hago: Guau";
-                    }
-                    }</pre>
+public class Perro {
+    private String nombre;
+    public Perro(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String hazSonido() {
+        return "Soy un perro y hago: Guau";
+    }
+}</pre>
             </article>
         </slide>
 
@@ -882,18 +884,18 @@ public class MetodoFinal {
             <article>
                 <p>Esta es la implementación para el Gato:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Gato {
-                    private String nombre;
-                    public Gato(String nombre) {
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    public String hazSonido() {
-                    return "Soy un gato y hago: Miau";
-                    }
-                    }</pre>
+public class Gato {
+    private String nombre;
+    public Gato(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String hazSonido() {
+        return "Soy un gato y hago: Miau";
+    }
+}</pre>
             </article>
         </slide>
 
@@ -906,18 +908,18 @@ public class MetodoFinal {
             <article>
                 <p>Y finalmente esta es la implementación para el Pájaro:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Pajaro {
-                    private String nombre;
-                    public Pajaro(String nombre) {
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    public String hazSonido() {
-                    return "Soy un pájaro y hago: Pío-pío";
-                    }
-                    }</pre>
+public class Pajaro {
+    private String nombre;
+    public Pajaro(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String hazSonido() {
+        return "Soy un pájaro y hago: Pío-pío";
+    }
+}</pre>
             </article>
         </slide>
 
@@ -930,12 +932,12 @@ public class MetodoFinal {
             <article>
                 <p>Jueguemos a ser veterinarios:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Perro perro = new Perro("Bobby");
-                    System.out.println(perro.hazSonido());
-                    Gato gato = new Gato("Gargamel");
-                    System.out.println(gato.hazSonido());
-                    Pajaro pajaro = new Pajaro("Twitee");
-                    System.out.println(pajaro.hazSonido());</pre>
+Perro perro = new Perro("Bobby");
+System.out.println(perro.hazSonido());
+Gato gato = new Gato("Gargamel");
+System.out.println(gato.hazSonido());
+Pajaro pajaro = new Pajaro("Twitee");
+System.out.println(pajaro.hazSonido());</pre>
                 <p>La salida que obtenemos es:</p>
                 <samp>Soy un perro y hago: Guau<br />
                     Soy un gato y hago: Miau<br />
@@ -973,15 +975,15 @@ public class MetodoFinal {
                     para devolver su valor, podemos llevar los dos a una clase
                     madre <b>Animal</b>.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Animal {
-                    private String nombre;
-                    public Animal(String nombre) {
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    }</pre>
+public class Animal {
+    private String nombre;
+    public Animal(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+}</pre>
             </article>
         </slide>
 
@@ -994,14 +996,14 @@ public class MetodoFinal {
             <article>
                 <p>Por ejemplo la clase <b>Perro</b> quedaría como:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Perro extends Animal {
-                    public Perro(String nombre) {
-                    super(nombre);
-                    }
-                    public String hazSonido() {
-                    return "Soy un perro y hago: Guau";
-                    }
-                    }</pre>
+public class Perro extends Animal {
+    public Perro(String nombre) {
+        super(nombre);
+    }
+    public String hazSonido() {
+        return "Soy un perro y hago: Guau";
+    }
+}</pre>
             </article>
         </slide>
 
@@ -1018,19 +1020,19 @@ public class MetodoFinal {
                     hacen, y que cada animal lo implemente como quiera?
                 </p>
                 <pre class="prettyprint" data-lang="Java">
-                    public abstract class Animal {
-                    private String nombre;
+public abstract class Animal {
+    private String nombre;
 
-                    public Animal(String nombre) {
-                    this.nombre = nombre;
-                    }
+    public Animal(String nombre) {
+        this.nombre = nombre;
+    }
 
-                    public String getNombre() {
-                    return nombre;
-                    }
+    public String getNombre() {
+        return nombre;
+    }
 
-                    public abstract String hazSonido();
-                    }</pre>
+    public abstract String hazSonido();
+}</pre>
             </article>
         </slide>
 
@@ -1045,16 +1047,16 @@ public class MetodoFinal {
                     implementar el método <b>abstract</b>, de lo contrario
                     obtendríamos un error.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Perro extends Animal {
-                    public Perro(String nombre) {
-                    super(nombre);
-                    }
+public class Perro extends Animal {
+    public Perro(String nombre) {
+        super(nombre);
+    }
 
-                    @Override
-                    public String hazSonido() {
-                    return "Soy un perro y hago: Guau";
-                    }
-                    }</pre>
+    @Override
+    public String hazSonido() {
+        return "Soy un perro y hago: Guau";
+    }
+}</pre>
             </article>
         </slide>
 
@@ -1067,12 +1069,12 @@ public class MetodoFinal {
             <article>
                 <!-- <p>Juguemos de nuevo a ser veterinarios:</p> -->
                 <pre class="prettyprint" data-lang="Java">
-                    Animal animal = new Perro("Bobby");
-                    System.out.println(animal.hazSonido());
-                    animal = new Gato("Gargamel");
-                    System.out.println(animal.hazSonido());
-                    animal = new Pajaro("Twitee");
-                    System.out.println(animal.hazSonido());</pre>
+Animal animal = new Perro("Bobby");
+System.out.println(animal.hazSonido());
+animal = new Gato("Gargamel");
+System.out.println(animal.hazSonido());
+animal = new Pajaro("Twitee");
+System.out.println(animal.hazSonido());</pre>
                 <samp>Soy un perro y hago: Guau<br />
                     Soy un gato y hago: Miau<br />
                     Soy un pájaro y hago: Pio-pio</samp>
@@ -1112,10 +1114,9 @@ public class MetodoFinal {
             <article>
                 <p>Tratemos de combinar clases abstractas con interfaces. Definamos primero la interfaz:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public interface HazSonido {
-                    public String hazSonido();
-                    }
-                </pre>
+public interface HazSonido {
+    public String hazSonido();
+}</pre>
                 <p>Hemos definido en ella el método que era abstracto en la clase. Recuerda que todos los métodos de una
                     interfaz son <b>public abstract</b></p>
             </article>
@@ -1132,18 +1133,18 @@ public class MetodoFinal {
                 <p>Ahora hagamos que la clase implemente la interfaz, pero sin llegar a definir el método
                     <b>hazSonido()</b>.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public abstract class Animal implements HazSonido {
-                    private String nombre;
+public abstract class Animal implements HazSonido {
+    private String nombre;
 
-                    public Animal(String nombre) {
-                    super();
-                    this.nombre = nombre;
-                    }
-                    public String getNombre() {
-                    return nombre;
-                    }
-                    }</pre>
-                <p>
+    public Animal(String nombre) {
+        super();
+    this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+}</pre>
+<p>
                     Fíjate que la clase debe seguir siendo <b>abstract</b> porque el método no está definido en esta
                     clase abstracta.
                 </p>
@@ -1160,9 +1161,8 @@ public class MetodoFinal {
                 <p>La implementación de las clases concretas es la misma que antes, pero ahora también podemos utilizar
                     con ellas una referencia de tipo interfaz:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    HazSonido animalRuidoso = new Perro("Bobby");
-                    System.out.println(animalRuidoso.hazSonido());
-                </pre>
+HazSonido animalRuidoso = new Perro("Bobby");
+System.out.println(animalRuidoso.hazSonido());</pre>
                 <p class="centrado"><img src='imagenes/interfaceClaseAbstract.png' style='height: 300px'> </p>
 
             </article>
@@ -1202,13 +1202,12 @@ public class MetodoFinal {
                     virtual de Java encuentra el método correcto al que debe
                     llamar.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    Punto2D p2d = new Punto2D(1, 2);
-                    System.out.println(p2d);
-                    // Muestra 1.0, 2.0
-                    p2d = new Punto3D(1, 2, 3);
-                    System.out.println(p2d);
-                    // Muestra 1.0, 2.0, 3.0
-                </pre>
+Punto2D p2d = new Punto2D(1, 2);
+System.out.println(p2d);
+// Muestra 1.0, 2.0
+p2d = new Punto3D(1, 2, 3);
+System.out.println(p2d);
+// Muestra 1.0, 2.0, 3.0</pre>
             </article>
         </slide>
 
@@ -1260,14 +1259,14 @@ public class MetodoFinal {
                 <p>Para prohibir que una clase se pueda extender, simplemente añadimos a su
                     definición la palabra reservada <b>final</b>, como en el siguiente ejemplo:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public final class SinHijos {
-                    // Aquí la definición de la clase
-                    }</pre>
+public final class SinHijos {
+// Aquí la definición de la clase
+}</pre>
                 <p>Si intentamos extender esta clase:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class Hija extends SinHijos {
+public class Hija extends SinHijos {
 
-                    }</pre>
+}</pre>
                 <p>obtendremos el error:
                     <samp>The type Hija cannot subclass the final class SinHijos</samp>
                 </p>
@@ -1285,17 +1284,17 @@ public class MetodoFinal {
                     extender. Recordemos el <b>interface Pagador</b> del capítulo
                     anterior:</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public interface Pagador {
-                    String getNombre();
-                    String getDireccion();
-                    String getNif();
-                    }</pre>
+public interface Pagador {
+    String getNombre();
+    String getDireccion();
+    String getNif();
+}</pre>
                 <p>Podemos extenderlo para incluir un método que me devuelva
                     los ingresos brutos del <b>Pagador</b>.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public interface PagadorIngresosBrutos extends Pagador {
-                    float getIngresosBrutos();
-                    }</pre>
+public interface PagadorIngresosBrutos extends Pagador {
+    float getIngresosBrutos();
+}</pre>
             </article>
         </slide>
 
@@ -1309,20 +1308,20 @@ public class MetodoFinal {
                 <p>Cualquier clase que implemente el <b>interface PagadorIngresosBrutos</b>
                     debe implementar los cuatro métodos anteriores.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public class PersonaIngresosBrutos implements PagadorIngresosBrutos {
-                    @Override
-                    public String getNombre() {....
-                    }
-                    @Override
-                    public String getDireccion() {....
-                    }
-                    @Override
-                    public String getNif() {....
-                    }
-                    @Override
-                    public float getIngresosBrutos() {....
-                    }
-                    }</pre>
+public class PersonaIngresosBrutos implements PagadorIngresosBrutos {
+    @Override
+    public String getNombre() {....
+    }
+    @Override
+    public String getDireccion() {....
+    }
+    @Override
+    public String getNif() {....
+    }
+    @Override
+    public float getIngresosBrutos() {....
+    }
+}</pre>
             </article>
         </slide>
 
@@ -1338,9 +1337,9 @@ public class MetodoFinal {
                 <p>Fíjate que no hay problema, puesto que los <b>interface</b> sólo
                     declaran métodos pero no los definen.</p>
                 <pre class="prettyprint" data-lang="Java">
-                    public interface EstudianteYPagador extends Pagador, Estudiante {
-                    // Aquí la definición de sus propios métodos
-                    }</pre>
+public interface EstudianteYPagador extends Pagador, Estudiante {
+    // Aquí la definición de sus propios métodos
+}</pre>
                 <p>¿Qué ocurre si tenemos métodos con la misma signatura en los
                     <b>interface</b> madre?
                 </p>
